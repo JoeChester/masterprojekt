@@ -1,0 +1,12 @@
+{
+  "name": "groupwebsite",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lite": "lite-server -c lite_server_config.json",
+    "start": "npm run lite"
+  },
+  "author": "",
+  "license": "MIT"
+}
