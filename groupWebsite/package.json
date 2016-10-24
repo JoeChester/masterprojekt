@@ -8,5 +8,8 @@
     "start": "npm run lite"
   },
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "lite-server": "^2.2.2"
+  }
 }
