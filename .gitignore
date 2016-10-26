@@ -38,3 +38,4 @@ jspm_packages
 
 # Node Modules in Sub Folder
 groupWebsite/node_modules
+fullStackExample/node_modules
