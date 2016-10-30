@@ -1,0 +1,19 @@
+{
+  "name": "fuldaflats-express-server",
+  "version": "1.0.0",
+  "description": "Fulda Flats Express Server",
+  "author": "",
+  "license": "MIT",
+  "scripts": {
+    "build:dev": "gulp build",
+    "build:prod": "gulp build"
+  },
+  "dependencies": {
+    "express": "^4.14.0"
+  },
+  "devDependencies": {
+    "copy-node-modules": "^0.4.1",
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2"
+  }
+}

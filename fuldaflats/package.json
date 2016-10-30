@@ -1,0 +1,24 @@
+{
+  "name": "fuldaflats",
+  "version": "1.0.0",
+  "description": "Fulda Flats",
+  "author": "",
+  "license": "MIT",
+  "scripts": {
+    "install:client": "cd angularClient && npm install",
+    "install:server": "cd expressServer && npm install",
+    "buildClient:dev": "cd angularClient && npm run build:dev",
+    "buildClient:prod": "cd angularClient && npm run build:prod",
+    "buildServer:dev": "cd expressServer && npm run build:dev",
+    "buildServer:prod": "cd expressServer && npm run build:prod",
+    "build:dev": "npm run buildClient:dev && npm run buildServer:dev && gulp build",
+    "build:prod": "npm run buildClient:prod && npm run buildServer:prod && gulp build",
+    "start": "cd dist && node static.js"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2"
+  }
+}
