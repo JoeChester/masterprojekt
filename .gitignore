@@ -41,3 +41,5 @@ groupWebsite/node_modules
 fullStackExample/node_modules
 
 dist
+
+bower_components

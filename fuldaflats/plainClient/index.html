@@ -1,0 +1,18 @@
+<html>
+
+<head>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/rivets/dist/rivets.bundled.min.js"></script>
+</head>
+
+<body>
+    <ul id="todoList">
+        <li rv-each-todo="todos">
+            <input type="checkbox" rv-checked="todo.completed" /> { todo.title }
+            <button rv-on-click="todo.remove">Remove</button>
+        </li>
+    </ul>
+    <script src="main.js"></script>
+</body>
+
+</html>
