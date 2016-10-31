@@ -25,3 +25,8 @@ function setModel(data) {
         todos: data
     });
 }
+
+var link = document.querySelector('link[rel="import"]');
+var template = link.import.querySelector('template');
+var clone = document.importNode(template.content, true);
+document.querySelector('#header').appendChild(clone);

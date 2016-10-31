@@ -3,9 +3,12 @@
 <head>
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/rivets/dist/rivets.bundled.min.js"></script>
+    <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
 </head>
 
 <body>
+    <div id="header"></div>
+    <link rel="import" href="header.html">
     <ul id="todoList">
         <li rv-each-todo="todos">
             <input type="checkbox" rv-checked="todo.completed" /> { todo.title }
