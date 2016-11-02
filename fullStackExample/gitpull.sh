@@ -1,2 +1,1 @@
-git pull https://FuldaFlatsDeployBot:Fulda#Flats#2016#@github.com/JoeChester/autodeploy.git
-pm2 reload static
+sudo git pull https://FuldaFlatsDeployBot:Fulda#Flats#2016#@github.com/JoeChester/autodeploy.git
