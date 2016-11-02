@@ -1,1 +1,1 @@
-sudo git pull https://FuldaFlatsDeployBot:Fulda#Flats#2016#@github.com/JoeChester/autodeploy.git
+sudo git pull
