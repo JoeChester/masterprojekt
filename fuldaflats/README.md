@@ -1,21 +1,13 @@
 #Install Packages
-npm install -g rimraf
+npm install -g bower
+
+bower is a html dependency manager, it will come in handy 
+for the frontend-team later
+
 npm install
-npm run install:client
-npm run install:server
 
-#Build Server and client
-Output folder: dist
-Development: npm run build:dev
-Production: npm run build:prod
+#Start Static Website
+sudo pm2 start test_website.js --name="test_website"
 
-#Run expess server local
-Install Packages
-Build Server and client
-npm start
-
-#Deploy to server
-Install Packages
-npm run build:prod
-Copy dist folder to server
-Run "node static.js" in dist folder
+#Start GitHub AutoDeployer
+sudo pm2 start gh_autodeploy.js --name="gh_autodeploy"

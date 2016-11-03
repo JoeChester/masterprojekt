@@ -21,7 +21,7 @@ handler.on('push', function (event) {
     event.payload.ref)
 
   //execute pull
-  exec('sh gitpull.sh',
+  exec('sh gh_autodeploy.sh',
   function (error, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);

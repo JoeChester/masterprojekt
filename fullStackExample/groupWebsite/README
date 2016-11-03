@@ -1,9 +1,0 @@
-# Used software
-- node.js
-- visual studio code
-
-
-# Use lite web server
-Run following commands in groupWebsite directory with any shell
-- npm install
-- npm start

@@ -1,4 +1,6 @@
+// -- Deprecated, just some tests with caminte and express
 //Setting Up Requires
+/*
 var caminte = require('caminte');
 var express = require('express');
 
@@ -55,3 +57,4 @@ console.log("Starting Express Server");
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!');
 });
+*/
