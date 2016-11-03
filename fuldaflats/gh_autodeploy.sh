@@ -1,2 +1,3 @@
 sudo git pull
-sudo pm2 reload static
+sudo npm install
+sudo pm2 reload test_website
