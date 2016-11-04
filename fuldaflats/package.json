@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/JoeChester/masterprojekt",
   "dependencies": {
+    "body-parser": "^1.15.2",
     "caminte": "^0.2.17",
+    "chalk": "^1.1.3",
     "express": "^4.14.0",
     "github-webhook-handler": "^0.6.0",
     "mysql": "^2.12.0"

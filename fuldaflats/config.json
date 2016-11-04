@@ -1,19 +1,23 @@
 {
-    "development":{
-        "db":{
+    "development": {
+        "db": {
             "driver": "mysql",
             "host": "localhost",
             "port": "3306",
             "username": "root",
             "password": "",
             "database": "fuldaflats"
+        },
+        "express": {
+            "port": 3001
         }
     },
 
-    "production":{
-        "db":{
+    "production": {
+        "db": {
 
-        }
+        },
+        "express": {}
 
     }
 }
