@@ -1,18 +1,35 @@
 <html>
 
 <head>
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
     <div id="header"></div>
-    <link rel="import" href="header.html">
-    <ul id="todoList">
-        <li rv-each-todo="todos">
-            <input type="checkbox" rv-checked="todo.completed" /> { todo.title }
-            <button rv-on-click="todo.remove">Remove</button>
-        </li>
-    </ul>
+    <section>
+        <form class=" form-inline">
+            <div class="form-group">
+                <input class="form-control" type="text" placeholder="To do">
+                <botton class="btn btn-primary disabled" disabled>Add</botton>
+            </div>
+        </form>
+    </section>
+    <section>
+        <h2>To do list</h2>
+        <ul>
+            <li>
+                <span>To-do<span>
+                <button class="btn btn-xs btn-success">Remove</button>
+            </li>
+        </ul>
+    </section>
+    
+    <script src="bower_components/requirejs/require.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/knockout/dist/knockout.js"></script>
 </body>
 
 </html>
