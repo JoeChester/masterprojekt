@@ -1,0 +1,15 @@
+@import url("/bower_components/bootstrap/dist/css/bootstrap.min.css");
+@import url("/bower_components/bootstrap/dist/css/bootstrap-theme.min.css");
+
+body{
+    padding-top: 20px;
+    padding-left: 20px;
+}
+
+.todo-item{
+    padding: 5px 0px 5px 0px;
+}
+
+.todo-item > button{
+    margin-left: 5px;
+}
