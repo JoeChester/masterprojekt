@@ -1,0 +1,17 @@
+<section>
+    <form class="form-inline" data-bind="submit: addTodo">
+        <div class="form-group">
+            <input data-bind="textInput: todoTitleToAdd" class="form-control" type="text" placeholder="To do">
+            <button data-bind="disable: todoTitleToAdd().length <= 0" type="submit" class="btn btn-primary" disabled>Add</button>
+        </div>
+    </form>
+</section>
+<section>
+    <h2>To do list</h2>
+    <ul data-bind="foreach: { data: todoList, as: 'todo' }">
+        <li class="todo-item">
+            <span data-bind="text: todo.title"></span>
+            <button data-bind="click: $parent.removeTodo" class="btn btn-xs btn-success">Remove</button>
+        </li>
+    </ul>
+</section>
