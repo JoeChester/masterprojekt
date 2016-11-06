@@ -2,7 +2,7 @@
     <form class="form-inline" data-bind="submit: addTodo">
         <div class="form-group">
             <input data-bind="textInput: todoTitleToAdd" class="form-control" type="text" placeholder="To do">
-            <button data-bind="disable: todoTitleToAdd().length <= 0" type="submit" class="btn btn-primary" disabled>Add</button>
+            <button data-bind="disable: todoTitleToAdd() && todoTitleToAdd().length <= 0" type="submit" class="btn btn-primary" disabled>Add</button>
         </div>
     </form>
 </section>
