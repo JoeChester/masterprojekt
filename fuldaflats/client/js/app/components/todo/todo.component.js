@@ -1,4 +1,4 @@
-define(['knockout', 'text!./todo.component.html', 'css!./todo.component.css'], function (ko, componentTemplate) {
+define(['knockout', 'text!./todo.component.html', 'css!./todo.component.css'], function(ko, componentTemplate) {
     function ToDoModel() {
         var self = this;
         self.id = ko.observable();
@@ -12,11 +12,8 @@ define(['knockout', 'text!./todo.component.html', 'css!./todo.component.css'], f
         self.todoList = ko.observableArray();
 
         var todoItem = new ToDoModel();
-        todoItem.title("Test");
-        todoItem.id(1);
-        self.todoList.push(todoItem);
 
-        self.addTodo = function () {
+        self.addTodo = function() {
             if (self.todoTitleToAdd()) {
                 var todoItem = new ToDoModel();
                 todoItem.title(self.todoTitleToAdd());
@@ -26,46 +23,51 @@ define(['knockout', 'text!./todo.component.html', 'css!./todo.component.css'], f
                 $.ajax({
                     url: "/api/todos",
                     method: "POST",
+                    contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     data: ko.toJSON(todoItem)
                 })
-                    .done(function (initizedTodoItem) {
-                        todoItem.id(initizedTodoItem.id);
-                        self.todoList.push(todoItem);
-                        self.todoTitleToAdd("");
-                        console.log("Added " + todoItem.title());
+                    .done(function(initizedTodoItem) {
+                        if (initizedTodoItem && initizedTodoItem.title == todoItem.title() && !isNaN(initizedTodoItem.id)) {
+                            todoItem.id(initizedTodoItem.id);
+                            self.todoList.push(todoItem);
+                            self.todoTitleToAdd("");
+                            console.log("Added " + todoItem.title());
+                        } else {
+                            console.error("Failed to add " + todoItem.title() + "\n Unexpected server response.");
+                        }
                     })
-                    .fail(function (jqXHR, textStatus) {
+                    .fail(function(jqXHR, textStatus) {
                         console.error("Failed to add " + todoItem.title() + "\n" + textStatus);
                     });
             }
         }
 
-        self.removeTodo = function (todoItem) {
+        self.removeTodo = function(todoItem) {
             console.log("Removing " + todoItem.title());
             $.ajax({
                 url: "/api/todos/" + todoItem.id(),
                 method: "DELETE",
             })
-                .done(function () {
+                .done(function() {
                     console.log("Removed " + todoItem.title());
                     self.todoList.remove(todoItem)
                 })
-                .fail(function (jqXHR, textStatus) {
+                .fail(function(jqXHR, textStatus) {
                     console.error("Failed to remove " + todoItem.title() + "\n" + textStatus);
                 });
         }
 
-        self.loadTodoList = function () {
+        self.loadTodoList = function() {
             console.log("Loading to do list.")
             $.ajax({
                 url: "/api/todos",
                 method: "GET",
-                dataType: "json",
+                dataType: "json"
             })
-                .done(function (todoList) {
+                .done(function(todoList) {
                     if (todoList && todoList.length && todoList.length > 0) {
-                        $.each(todoList, function (index, todoInfo) {
+                        $.each(todoList, function(index, todoInfo) {
                             if (todoInfo.id && todoInfo.title) {
                                 var todoItem = new ToDoModel();
                                 todoItem.title(todoInfo.title);
@@ -78,7 +80,7 @@ define(['knockout', 'text!./todo.component.html', 'css!./todo.component.css'], f
                         console.log("Loaded to do list was empty or requested list was invalid.")
                     }
                 })
-                .fail(function (jqXHR, textStatus) {
+                .fail(function(jqXHR, textStatus) {
                     console.error("Failed to load to do list.\n" + textStatus);
                 });
         }
@@ -86,7 +88,7 @@ define(['knockout', 'text!./todo.component.html', 'css!./todo.component.css'], f
 
     return {
         viewModel: {
-            createViewModel: function (params, componentInfo) {
+            createViewModel: function(params, componentInfo) {
                 var viewModel = new ToDoViewModel();
                 viewModel.loadTodoList();
                 return viewModel;

@@ -54,8 +54,8 @@ app.post('/api/todos', function (req, res) {
 
 app.put('/api/todos/:todoId', function (req, res) {
     schema.models.Todo.updateOrCreate({
-            id: req.params.todoId
-        },
+        id: req.params.todoId
+    },
         req.body,
         function (err, todo) {
             if (err != null) {
@@ -78,14 +78,16 @@ app.delete('/api/todos/:todoId', function (req, res) {
 
 
 app.get('/api/views', function (req, res) {
-    if(req.session.views >= 0)
-        req.session.views ++;
+    if (req.session.views >= 0)
+        req.session.views++;
     else
         req.session.views = 0;
     res.json(req.session.views);
 });
 
 //Static test_website
-app.use(express.static('test_website'));
+//app.use(express.static('test_website'));
+
+app.use(express.static('client'));
 
 module.exports = app;
