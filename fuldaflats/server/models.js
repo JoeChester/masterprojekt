@@ -6,9 +6,7 @@ var caminte = require('caminte');
 var schema = new caminte.Schema(config.db.driver,  config.db);
 
 //Model Definitions
-var Todo = schema.define('Todo', {
-    title:  {type: schema.String, limit: 255}
-});
+var Todo = require('./models/Todo')(schema);
 
 //Relationship Definitions
 // -- empty for now --

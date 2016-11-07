@@ -2,10 +2,14 @@
 var chalk = require('chalk');
 var config = require('./config.json')[process.env.NODE_ENV || 'development'];
 var app = require('./server/endpoints');
+var express = require('express');
 var startup_msg = require('./server/startup_msg');
 
 //Startup Message
 startup_msg();
+
+//Hook Client
+app.use(express.static('client'));
 
 //Startup Express Application
 console.log("Starting Express App...");
