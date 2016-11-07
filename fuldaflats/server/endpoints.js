@@ -23,6 +23,9 @@ app.use(session({
 var Todos = require('./endpoints/todos');
 app.use('/api/todos', Todos);
 
+var Files = require('./endpoints/files');
+app.use('/api/files', Files);
+
 app.get('/api/views', function (req, res) {
     if(req.session.views >= 0)
         req.session.views ++;
