@@ -8,8 +8,9 @@ var startup_msg = require('./server/startup_msg');
 //Startup Message
 startup_msg();
 
-//Hook Client
+//Hook Client + Image Static Files
 app.use(express.static('client'));
+app.use('/files', express.static('uploads'));
 
 //Startup Express Application
 console.log("Starting Express App...");
