@@ -1,0 +1,32 @@
+{
+  "name": "fuldaflats",
+  "description": "HS Fulda AI Masterprojekt Fall2016 Grp1",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "AUTHORS",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JoeChester/masterprojekt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/JoeChester/masterprojekt/issues"
+  },
+  "homepage": "https://github.com/JoeChester/masterprojekt",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "caminte": "^0.2.17",
+    "chalk": "^1.1.3",
+    "express": "^4.14.0",
+    "express-mysql-session": "^1.2.0",
+    "express-session": "^1.14.2",
+    "github-webhook-handler": "^0.6.0",
+    "multer": "^1.2.0",
+    "mysql": "^2.12.0"
+  },
+  "devDependencies": {}
+}

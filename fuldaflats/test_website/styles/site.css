@@ -1,0 +1,47 @@
+body {
+    padding-left: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+header > h1 {
+    margin-top: 0px;
+    font-size: 70px;
+}
+
+nav {
+    margin-bottom: 50px;
+}
+nav > ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+nav > ul > li
+{
+    display: inline;
+    background-color: black;
+    padding: 10px;
+}
+
+nav > ul > li > a,
+nav > ul > li > a:visited,
+nav > ul > li > a:hover{
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+main {
+    display: block;
+    border: 1px solid black;
+    padding: 30px
+}
+
+.user-container img {
+    max-width: 700px;
+}
