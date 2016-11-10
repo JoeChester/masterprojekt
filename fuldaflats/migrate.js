@@ -19,5 +19,7 @@ startup_msg();
 
 //Migrate Database
 console.log("Migrating Database Models...");
-schema.automigrate();
-console.log(chalk.blue("Done! :)"));
+schema.autoupdate(function(){
+    console.log(chalk.blue("Done! :)"));
+    process.exit(0);
+});
