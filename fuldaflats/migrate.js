@@ -16,7 +16,7 @@ var schema = require('./server/models');
 startup_msg();
 
 //Migrate Database
-console.log(schema.settings);
+console.log("Migrating Database Models...");
 schema.autoupdate(function(){
     console.log(chalk.blue("Done! :)"));
     process.exit(0);
