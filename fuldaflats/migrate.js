@@ -21,6 +21,3 @@ startup_msg();
 console.log("Migrating Database Models...");
 schema.automigrate();
 console.log(chalk.blue("Done! :)"));
-
-//Force Exit
-process.abort();
