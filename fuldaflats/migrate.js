@@ -5,8 +5,6 @@ Usage:
 
 node migrate.js
 
-!!! CAREFUL: Migrating will currently remove all Data
-in the Database. !!! 
 */
 
 //Require Setup
