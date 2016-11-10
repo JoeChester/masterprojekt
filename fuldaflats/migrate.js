@@ -17,6 +17,7 @@ startup_msg();
 
 //Migrate Database
 console.log("Migrating Database Models...");
+console.log(schema.settings);
 schema.autoupdate(function(){
     console.log(chalk.blue("Done! :)"));
     process.exit(0);
