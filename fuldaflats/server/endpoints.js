@@ -23,6 +23,9 @@ app.use(session({
 var Todos = require('./endpoints/todos');
 app.use('/api/todos', Todos);
 
+var Offers = require('./endpoints/offers');
+app.use('/api/offers', Offers);
+
 var Files = require('./endpoints/files');
 app.use('/api/files', Files);
 

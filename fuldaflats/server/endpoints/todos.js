@@ -3,6 +3,7 @@ var express = require('express');
 var schema = require('../models');
 var router = express.Router({mergeParams: true});
 
+//Core Endpoint: /api/todos
 //Endpoint Definitions
 router.get('/', function (req, res) {
     schema.models.Todo.find(function (err, todos) {
