@@ -29,6 +29,13 @@ app.use('/api/offers', Offers);
 var Files = require('./endpoints/files');
 app.use('/api/files', Files);
 
+var Tags = require('./endpoints/tags');
+app.use('/api/tags', Tags);
+
+var Users = require('./endpoints/users');
+app.use('/api/users', Users);
+
+//Session Test
 app.get('/api/views', function (req, res) {
     if(req.session.views >= 0)
         req.session.views ++;
