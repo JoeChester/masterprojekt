@@ -1,0 +1,77 @@
+{
+    "users":[
+        {
+            "user_id": 1,
+            "email": "tony.stark@fuldaflats.de",
+            "type": 2,
+            "first_name": "Tony",
+            "last_name": "Stark",
+            "birthday": "02.05.1972",
+            "upgrade_date": "17.11.2016",
+            "creation_date": "16.11.2016",
+            "phone_number": "(+1) 647 152 512",
+            "zip_code": "12356",
+            "city": "New York",
+            "street": "Avengers Avenue",
+            "house_number": "1",
+            "gender": "male",
+            "office_address" : null,
+            "average_rating": 4.5,
+            "offers": null,
+            "profile_picture": null,
+            "favorites": null
+        },
+        {
+            "user_id": 2,
+            "email": "steve.rodgers@fuldaflats.de",
+            "type": 1,
+            "first_name": "Steve",
+            "last_name": "Rodgers",
+            "birthday": "30.06.1915",
+            "upgrade_date": null,
+            "creation_date": "16.11.2016",
+            "phone_number": null,
+            "zip_code": null,
+            "city": null,
+            "street": null,
+            "house_number": null,
+            "gender": null,
+            "office_address" : null,
+            "average_rating": null,
+            "offers": null,
+            "profile_picture": null,
+            "favorites": null
+        }
+    ],
+    "offers":[
+        {
+            "offer_id": 1,
+            "title": "Cozy Flat in Fulda",
+            "offer_type": 1,
+            "description": "Just a demo flat in Fulda",
+            "rent": 340.00,
+            "rent_type": 1
+
+        }
+    ],
+    "tags":[
+        {
+            "tag_id": 1,
+            "title": "Angewandte Informatik",
+            "category": "faculty",
+            "offers": null
+        },
+        {
+            "tag_id": 2,
+            "title": "Wirtschaftswissenschaften",
+            "category": "faculty",
+            "offers": null
+        },
+        {
+            "tag_id": 3,
+            "title": "Deutsch",
+            "category": "language",
+            "offers": null
+        }
+    ]
+}
