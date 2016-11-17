@@ -1,5 +1,10 @@
 @import url("/bower_components/bootstrap/dist/css/bootstrap.min.css");
 @import url("/bower_components/bootstrap/dist/css/bootstrap-theme.min.css");
 
-body{
+/* your styles go here */
+.navbar-brand>img{
+  width: 300px;
+}
+.brand-display{
+  width: 300px;
 }
