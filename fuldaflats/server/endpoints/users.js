@@ -75,12 +75,26 @@ router.post('/auth', function (req, res) {
 
 //logout
 router.delete('/auth', function (req, res) {
-    res.sendStatus(501);
+    req.session.auth = false;
+    req.session.user = undefined;
+    res.sendStatus(204);
 });
 
 //own userdata
 router.get('/me', function (req, res) {
-    res.json(sanitize.currentUser(req.session.user));
+    if(!req.session.auth){
+        res.sendStatus(403);
+    } else {
+        //Fetch user from db to make sure latest data is available
+        schema.models.User.findById(req.session.user.id, (err, user) => {
+            if (err) {
+                res.status(404);
+                res.json(err);
+            } else {
+                res.json(sanitize.currentUser(user));
+            }
+        });
+    }
 });
 
 //modify own userdata

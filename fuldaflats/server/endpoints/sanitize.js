@@ -7,6 +7,7 @@
  ************************************************************/
 
 module.exports.currentUser = (user) => {
+    //hiden password from responses
     user.password = undefined;
     return user;
 }
