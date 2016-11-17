@@ -1,3 +1,10 @@
+/************************************************************
+ * File:            offers.js
+ * Author:          Jonas Kleinkauf
+ * LastMod:         17.11.2016
+ * Description:     REST endpoints for offers
+************************************************************/
+
 //Require Setup
 var express = require('express');
 var schema = require('../models');

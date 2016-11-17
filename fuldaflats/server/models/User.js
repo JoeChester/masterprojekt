@@ -1,18 +1,17 @@
 /************************************************************
- * File:            Offer.js
+ * File:            User.js
  * Author:          Jonas Kleinkauf
  * LastMod:         17.11.2016
- * Description:     Database module for offers
+ * Description:     Database module for users
 ************************************************************/
 
 //Define Model and Relationships
 module.exports = function(schema){
-    var Offer = schema.define('Offer', {
-        title:  {type: schema.String, limit: 255},
-        offer_type:  {type: schema.Integer},
-        description:  {type: schema.String, limit: 4000}
+    var User = schema.define('User', {
+        email:  {type: schema.String, limit: 255},
+        password: {type: schema.String, limit: 255}
     },{
         //Define model functions and validators here!
     });
-    return Offer;
+    return User;
 };

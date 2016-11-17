@@ -1,3 +1,11 @@
+/************************************************************
+ * File:            users.js
+ * Author:          Jonas Kleinkauf
+ * LastMod:         17.11.2016
+ * Description:     REST endpoints for users and
+ *                  authentication
+************************************************************/
+
 //Require Setup
 var express = require('express');
 var schema = require('../models');

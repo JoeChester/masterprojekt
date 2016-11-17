@@ -21,6 +21,7 @@
     "body-parser": "^1.15.2",
     "caminte": "^0.2.17",
     "chalk": "^1.1.3",
+    "crypto-toolkit": "^1.0.0",
     "express": "^4.14.0",
     "express-mysql-session": "^1.2.0",
     "express-session": "^1.14.2",
