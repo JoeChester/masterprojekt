@@ -1,0 +1,21 @@
+{
+    "user_id": 1,
+    "email": "tony.stark@fuldaflats.de",
+    "type": 2,
+    "first_name": "Tony",
+    "last_name": "Stark",
+    "birthday": "02.05.1972",
+    "upgrade_date": "17.11.2016",
+    "creation_date": "16.11.2016",
+    "phone_number": "(+1) 647 152 512",
+    "zip_code": "12356",
+    "city": "New York",
+    "street": "Avengers Avenue",
+    "house_number": "1",
+    "gender": "male",
+    "office_address" : null,
+    "average_rating": 4.5,
+    "offers": null,
+    "profile_picture": null,
+    "favorites": null
+}

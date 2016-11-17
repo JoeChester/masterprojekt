@@ -1,0 +1,20 @@
+[
+    {
+        "tag_id": 1,
+        "title": "Angewandte Informatik",
+        "category": "faculty",
+        "offers": null
+    },
+    {
+        "tag_id": 2,
+        "title": "Wirtschaftswissenschaften",
+        "category": "faculty",
+        "offers": null
+    },
+    {
+        "tag_id": 3,
+        "title": "Deutsch",
+        "category": "language",
+        "offers": null
+    }
+]

@@ -12,6 +12,11 @@ startup_msg();
 app.use(express.static('client'));
 app.use('/files', express.static('uploads'));
 
+express.static.mime.define({'application/json': ['json']});
+
+//Test Data
+app.use('/test_api', express.static('server/test_api'));
+
 //Startup Express Application
 console.log("Starting Express App...");
 app.listen(config.express.port, function () {
