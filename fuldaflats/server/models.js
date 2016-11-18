@@ -17,6 +17,7 @@ var schema = new caminte.Schema(config.db.driver,  config.db);
 var Todo = require('./models/Todo')(schema);
 var Offer = require('./models/Offer')(schema);
 var User = require('./models/User')(schema);
+var Review = require('./models/Review')(schema);
 
 //Relationship Definitions
 // -- empty for now --

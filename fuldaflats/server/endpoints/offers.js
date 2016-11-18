@@ -9,6 +9,12 @@
 var express = require('express');
 var schema = require('../models');
 var router = express.Router({mergeParams: true});
+var async = require('async');
+
+var sanitize = require('./sanitize');
+
+//Functions
+//function getReviews
 
 //Core Endpoint: /api/offers
 
@@ -21,7 +27,43 @@ router.post('/search', function (req, res) {
 
 //recent offers
 router.get('/recent', function (req, res) {
-    res.sendStatus(501);
+    schema.models.Offer.find((err, offers)=>{
+
+        //Join Reviews to Offer
+        //Setup Pipeline
+        let offer_joins = [];
+        offers.forEach(offer =>{
+            offer_joins.push(cb => {
+                //Copy Caminte Model to Plain JSON Object
+                //otherwise additional properties will get lost
+                let _offer = offer.toJSON();
+                //Execute Query
+                offer.reviews((err, reviews) =>{
+                    if(err)
+                        return cb(err);
+                    //Set additional Property    
+                    _offer.reviews = reviews;
+                    offer.setReviews(reviews);
+                    //Callback to Async Parent
+                    cb(null, _offer);
+                });
+                
+            });
+        });
+
+        //Execute Joins in Parallel
+        async.parallel(offer_joins, (err, _offers)=>{
+            if(err){
+                res.status(400);
+                res.json(err);
+            }
+            res.status(200);
+            //_offers contains a list of all Async Callback
+            //results of offer_joins
+            res.json(_offers);
+        });
+
+    });
 });
 
 //offer details

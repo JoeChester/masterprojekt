@@ -11,3 +11,8 @@ module.exports.currentUser = (user) => {
     user.password = undefined;
     return user;
 }
+
+module.exports.offerBlank = (offer) =>{
+    let _offer = {};
+    return _offer;
+}
