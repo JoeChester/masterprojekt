@@ -1,3 +1,13 @@
+/************************************************************
+ * File:            index.js
+ * Author:          Jonas Kleinkauf
+ * LastMod:         17.11.2016
+ * Description:     Main (index) file for fuldaflats.de. Contains
+ *                  all dependencies, defines static routes and
+ *                  starts the server
+ * Use:             (sudo) pm2 index.js --name="fuldaflats"
+************************************************************/
+
 //Require Setup
 var chalk = require('chalk');
 var config = require('./config.json')[process.env.NODE_ENV || 'development'];
@@ -16,6 +26,13 @@ express.static.mime.define({'application/json': ['json']});
 
 //Test Data
 app.use('/test_api', express.static('server/test_api'));
+
+//TODO: Remove in Production!
+function errorHandler(err, req, res, next) {
+  res.status(500);
+  res.render('error', { error: err });
+}
+app.use(errorHandler);
 
 //Startup Express Application
 console.log("Starting Express App...");

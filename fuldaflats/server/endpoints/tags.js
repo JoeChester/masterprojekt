@@ -1,3 +1,10 @@
+/************************************************************
+ * File:            tags.js
+ * Author:          Jonas Kleinkauf
+ * LastMod:         17.11.2016
+ * Description:     REST endpoints for tags
+************************************************************/
+
 //Require Setup
 var express = require('express');
 var schema = require('../models');

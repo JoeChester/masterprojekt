@@ -1,3 +1,11 @@
+/************************************************************
+ * File:            files.js
+ * Author:          Jonas Kleinkauf
+ * LastMod:         17.11.2016
+ * Description:     REST endpoints for fileupload
+************************************************************/
+
+
 var express = require('express')
 var multer  = require('multer')
 

@@ -1,3 +1,10 @@
+/************************************************************
+ * File:            endpoints.js
+ * Author:          Jonas Kleinkauf
+ * LastMod:         17.11.2016
+ * Description:     Aggregator module for REST endpoints
+************************************************************/
+
 //Require Setup
 var config = require('../config.json')[process.env.NODE_ENV || 'development'];
 var express = require('express');

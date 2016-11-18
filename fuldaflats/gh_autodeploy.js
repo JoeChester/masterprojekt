@@ -1,3 +1,13 @@
+/************************************************************
+ * File:            gh_autodeploy.js
+ * Author:          Jonas Kleinkauf
+ * LastMod:         17.11.2016
+ * Description:     Automatic deployment server, connected
+ *                  to GitHub Respository, used for
+ *                  continueous deployment
+ * Use:             (sudo) pm2 gh_autodeploy.js --name="gh_autodeploy"
+************************************************************/
+
 var http = require('http')
 var createHandler = require('github-webhook-handler')
 var exec = require('child_process').exec;

@@ -1,11 +1,11 @@
-/*
-Fuldaflats.de Database Migration Script
-
-Usage:
-
-node migrate.js
-
-*/
+/************************************************************
+ * File:            migrate.js
+ * Author:          Jonas Kleinkauf
+ * LastMod:         17.11.2016
+ * Description:     Little script to migrate the database from
+ *                  model definitions
+ * Use:             (NODE_ENV=production) node migrate.js 
+************************************************************/
 
 //Require Setup
 var chalk = require('chalk');
