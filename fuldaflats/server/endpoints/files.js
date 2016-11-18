@@ -5,26 +5,14 @@
  * Description:     REST endpoints for fileupload
 ************************************************************/
 
-
 var express = require('express')
-var multer  = require('multer')
-
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './uploads');
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.fieldname + Date.now() + '_' + file.originalname);
-  }
-});
-
-var upload = multer({ storage: storage });
-
-var router = express.Router({mergeParams: true});
+var multer  = require('multer');
+var upload = multer({ dest: './uploads' });
+var router = express.Router();
 
 router.post('/', upload.single('file'), function (req, res, next) {
-    console.log(req.file.mimetype);
-    res.sendStatus(201);
+  console.log(req.file);
+  res.sendStatus(201);
 });
 
 module.exports = router;

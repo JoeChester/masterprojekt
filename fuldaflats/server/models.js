@@ -18,6 +18,8 @@ var Todo = require('./models/Todo')(schema);
 var Offer = require('./models/Offer')(schema);
 var User = require('./models/User')(schema);
 var Review = require('./models/Review')(schema);
+var Favorite = require('./models/Favorite')(schema);
+var MediaObject = require('./models/MediaObject')(schema);
 
 //Relationship Definitions
 // -- empty for now --

@@ -42,13 +42,4 @@ app.use('/api/tags', Tags);
 var Users = require('./endpoints/users');
 app.use('/api/users', Users);
 
-//Session Test
-app.get('/api/views', function (req, res) {
-    if(req.session.views >= 0)
-        req.session.views ++;
-    else
-        req.session.views = 0;
-    res.json(req.session.views);
-});
-
 module.exports = app;

@@ -24,7 +24,16 @@ module.exports = function(schema){
 
     User.validate('email', emailValidator, {message: 'Bad email'});
 
+    //Relationships
+    var Favorite = require('./Favorite')(schema);
+    User.hasMany(Favorite, {as: 'favorites', foreignKey: 'userId'});
+
     //Custom Functions
+
+    /* The toJSON function maps a CaminteJS model Object
+     * to a plain JSON Object for data exchange (for example
+     * to remove passwords and other unwanted attributes from
+     * the data exchange    */
     User.prototype.toJSON = function(){
         let _user = {};
         _user.id = this.id;

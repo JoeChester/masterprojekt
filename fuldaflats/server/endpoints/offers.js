@@ -3,18 +3,17 @@
  * Author:          Jonas Kleinkauf
  * LastMod:         17.11.2016
  * Description:     REST endpoints for offers
-************************************************************/
+ ************************************************************/
 
 //Require Setup
 var express = require('express');
 var schema = require('../models');
-var router = express.Router({mergeParams: true});
+var router = express.Router({
+    mergeParams: true
+});
 var async = require('async');
 
-var sanitize = require('./sanitize');
-
 //Functions
-//function getReviews
 
 //Core Endpoint: /api/offers
 
@@ -27,19 +26,24 @@ router.post('/search', function (req, res) {
 
 //recent offers
 router.get('/recent', function (req, res) {
-    schema.models.Offer.find((err, offers)=>{
-
+    schema.models.Offer.find({order: 'creationDate DESC', limit: 10}, (err, offers) => {
+        if(err){
+            res.status(404);
+            return res.json(err);
+        }
+        res.json(offers);
+        /*
         //Join Reviews to Offer
         //Setup Pipeline
         let offer_joins = [];
-        offers.forEach(offer =>{
+        offers.forEach(offer => {
             offer_joins.push(cb => {
                 //Copy Caminte Model to Plain JSON Object
                 //otherwise additional properties will get lost
                 let _offer = offer.toJSON();
                 //Execute Query
-                offer.reviews((err, reviews) =>{
-                    if(err)
+                offer.reviews((err, reviews) => {
+                    if (err)
                         return cb(err);
                     //Set additional Property    
                     _offer.reviews = reviews;
@@ -47,13 +51,13 @@ router.get('/recent', function (req, res) {
                     //Callback to Async Parent
                     cb(null, _offer);
                 });
-                
+
             });
         });
 
         //Execute Joins in Parallel
-        async.parallel(offer_joins, (err, _offers)=>{
-            if(err){
+        async.parallel(offer_joins, (err, _offers) => {
+            if (err) {
                 res.status(400);
                 res.json(err);
             }
@@ -62,13 +66,24 @@ router.get('/recent', function (req, res) {
             //results of offer_joins
             res.json(_offers);
         });
+        */
 
     });
 });
 
 //offer details
 router.get('/:offerId', function (req, res) {
-    res.sendStatus(501);
+    schema.models.Offer.findById(req.params.offerId, (err, offers) => {
+        if(err){
+            return res.sendStatus(404);
+        }
+        let _offer = offer.toJSON(req.session.auth);
+        offer.mediaObjects((err, mediaObjects) =>{
+            if(!err){
+                _offer.mediaObjects = mediaObjects;
+            }
+        });
+    });
 });
 
 //create offer
@@ -92,7 +107,7 @@ router.post('/:offerId/review', function (req, res) {
 });
 
 //delete review
-router.delete('/:offerId/review', function (req, res) {
+router.delete('/:offerId/review/:reviewId', function (req, res) {
     res.sendStatus(501);
 });
 
