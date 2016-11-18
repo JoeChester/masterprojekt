@@ -24,5 +24,13 @@ module.exports = function(schema){
 
     User.validate('email', emailValidator, {message: 'Bad email'});
 
+    //Custom Functions
+    User.prototype.toJSON = function(){
+        let _user = {};
+        _user.id = this.id;
+        _user.email = this.email;
+        return _user;
+    }
+
     return User;
 };
