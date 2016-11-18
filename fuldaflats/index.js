@@ -15,22 +15,15 @@ var express = require('express');
 var app = require('./server/endpoints');
 var startup_msg = require('./server/startup_msg');
 
+//Express Static Setup
+express.static.mime.define({'application/json': ['json']});
+
 //Startup Message
 startup_msg();
 
-/*
-app.post('/upload', upload.single('file'), function (req, res, next) {
-  console.log(req.file);
-  res.sendStatus(201);
-});
-*/
-
-//Hook Client + Image Static Files
+//Hook Static Folders
 app.use(express.static('client'));
 app.use('/uploads', express.static('uploads'));
-
-express.static.mime.define({'application/json': ['json']});
-
 //Test Data
 app.use('/test_api', express.static('server/test_api'));
 

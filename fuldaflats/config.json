@@ -10,7 +10,9 @@
             "database": "fuldaflats"
         },
         "express": {
-            "port": 3001
+            "port": 3001,
+            "fileUpload": "./uploads",
+            "fileDownload": "uploads/"
         }
     },
 
@@ -25,8 +27,9 @@
             "database": "jonas"
         },
         "express": {
-            "port": 3002
+            "port": 3002,
+            "fileUpload": "./uploads",
+            "fileDownload": "uploads/"
         }
-
     }
 }
