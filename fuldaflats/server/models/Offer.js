@@ -19,7 +19,7 @@ module.exports = function(schema){
         rooms: schema.Number,
         sideCosts: schema.Number,
         //priveTypes => 0:monthly, 1: daily, 2: per semester
-        priceType: {type: schema.Boolean, limit: 2},
+        priceType: {type: schema.Number, limit: 2},
         street: schema.String,
         zipCode: {type: schema.Number, limit:5},
         houseNumber: schema.Number,
@@ -56,6 +56,8 @@ module.exports = function(schema){
         washingMachine: schema.Boolean,
         //telephone access available => false: no, true: yes
         telephone: schema.Boolean,
+        //0:hidden, 1:public, 2:closed
+        status: {type: schema.Number, limit:2},
         creationDate: {type: schema.Date, default: Date.now},
         lastModified: {type: schema.Date, default: Date.now},
         longitude: schema.Float,
