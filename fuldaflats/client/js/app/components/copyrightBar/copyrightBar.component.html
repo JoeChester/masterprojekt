@@ -1,0 +1,56 @@
+<div id="copyright">
+    <div class="container">
+        <div class="row hidden-xs">
+            <div class="col-md-12 text-center">
+                <!-- ko if: impressumUrl -->
+                <span><a data-bind="attr: { href: impressumUrl}">Impressum</a></span>
+                <!-- /ko -->
+                <!-- ko if: impressumUrl && contactUrl  -->
+                <span>|</span>
+                <!-- /ko -->
+                <!-- ko if: contactUrl -->
+                <span><a data-bind="attr: { href: contactUrl}">Contact</a></span>
+                <!-- /ko -->
+                <!-- ko if: contactUrl && termsOfUseUrl  -->
+                <span>|</span>
+                <!-- /ko -->
+                <!-- ko if: termsOfUseUrl -->
+                <span><a data-bind="attr: { href: termsOfUseUrl}">Terms Of Use</a></span>
+                <!-- /ko -->
+            </div>
+        </div>
+        <div class="row hidden-xs">
+            <div class="col-md-12 text-center">
+                <!-- ko if: copyrightDate && copyrightName -->
+                <span>&copy;</span>
+                <span data-bind="text: copyrightDate"></span>
+                <span>. </span>
+                <span data-bind="text: copyrightName"></span>
+                <!-- /ko -->
+                <!-- ko if: copyrightDate && copyrightName && templateAuthorName && templateUrl-->
+                <span>|</span>
+                <!-- /ko -->
+                <!-- ko if: templateAuthorName && templateUrl -->
+                <span>Template by 
+                    <a data-bind="text: templateAuthorName, attr: { href: templateUrl}"></a>
+                </span>
+                <!-- /ko -->
+            </div>
+        </div>
+        <div class="row visible-xs">
+            <!-- ko if: copyrightDate && copyrightName -->
+            <div class="col-md-4 text-center">
+                <span>&copy;</span>
+                <span data-bind="text: copyrightDate"></span>
+                <span>. </span>
+                <span data-bind="text: copyrightName"></span>
+            </div>
+            <!-- /ko -->
+            <!-- ko if: templateAuthorName && templateUrl -->
+            <div class="col-md-4 text-center">
+                <a data-bind="text: templateAuthorName, attr: { href: templateUrl}"></a>
+            </div>
+            <!-- /ko -->
+        </div>
+    </div>
+</div>

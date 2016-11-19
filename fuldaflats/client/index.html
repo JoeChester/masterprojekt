@@ -1,24 +1,22 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
     <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 
 <body>
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                </button>
-                <a class="navbar-brand" href="#">Fuldaflats.de Vertical Prototype DT1</a>
-            </div>
-        </div>
-    </nav>
-    <div class="container">
-    <todo></todo>
+
+    <div id="all">
+        <header>
+            <demo-warning></demo-warning>
+            <navigation></navigation>
+        </header>
+        <div data-bind='component: { name: "copyright", params:copyrightBar }'></div>
     </div>
+
     <script src="bower_components/requirejs/require.js" data-main="/js/app"></script>
+
 </body>
 
 </html>
