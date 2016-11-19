@@ -22,6 +22,9 @@ module.exports = function(schema){
     var MediaObject = require('./MediaObject')(schema);
     Offer.hasMany(MediaObject, {as: 'mediaObjects', foreignKey: 'offerId'});
 
+    var Tag = require('./Tag')(schema);
+    Offer.hasMany(Tag, {as: 'tags', foreignKey: 'offerId'});
+
     //Validators
 
     //Custom Functions

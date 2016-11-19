@@ -24,6 +24,55 @@ router.post('/search', function (req, res) {
     res.sendStatus(204);
 });
 
+router.get('/search', function (req, res) {
+    schema.models.Offer.find({order: 'creationDate DESC', limit: 10}, (err, offers) => {
+        if(err){
+            res.status(404);
+            return res.json(err);
+        }
+
+        //Join MediaObjects to Offer
+        //Setup Pipeline
+        let offer_joins = [];
+        offers.forEach(offer => {
+            offer_joins.push(cb => {
+                //Copy Caminte Model to Plain JSON Object
+                //otherwise additional properties will get lost
+                let _offer = offer.toJSON();
+                //Execute Query
+                offer.mediaObjects((err, mediaObjects) => {
+                    if (err)
+                        return cb(err);
+                    //Set additional Property    
+                    _offer.mediaObjects = mediaObjects;
+                    offer.tags((err, tags) => {
+                        if (err)
+                            return cb(err);
+                        //Set additional Property    
+                        _offer.tags = tags;
+                        //Callback to Async Parent
+                        cb(null, _offer);
+                    });
+                });
+
+            });
+        });
+
+        //Execute Joins in Parallel
+        async.parallel(offer_joins, (err, _offers) => {
+            if (err) {
+                res.status(400);
+                res.json(err);
+            }
+            res.status(200);
+            //_offers contains a list of all Async Callback
+            //results of offer_joins
+            res.json(_offers);
+        });
+
+    });
+});
+
 //recent offers
 router.get('/recent', function (req, res) {
     schema.models.Offer.find({order: 'creationDate DESC', limit: 10}, (err, offers) => {
