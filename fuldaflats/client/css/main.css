@@ -1,31 +1,14 @@
+/************************************************************
+ * File:            main.css
+ * Author:          Patrick
+ * LastMod:         17.11.2016
+ * Description:     Start Page Styling
+************************************************************/
+
 @import url("/bower_components/bootstrap/dist/css/bootstrap.min.css");
 @import url("/bower_components/bootstrap/dist/css/bootstrap-theme.min.css");
 
 /* your styles go here */
-.navbar-brand>img{
-  width: 300px;
-}
-.brand-display{
-  width: 300px;
-}
-
-#top{
-  background: red;
-}
-
-#navigation .profile-image > img {
-  height: 120px
-}
-
-#navigation .profile-image {
-  margin: 10px 0px;
-}
-
-#navigation .nav-group1 .nav li::first-child {
-  padding: 20px;
-  }
-
-
 .background-gray {
   background: #eeeeee;
 }
@@ -36,10 +19,56 @@
   background: #fff;
 }
 
+/*  Demo Info */
+
+#top{
+  background: red;
+}
+
+/*  End - Demo Info */
+
+/*  Navbar */
+
+.navbar-brand > img{
+  width: 300px;
+}
+
+#navigation-lg {
+  padding-right: 0px;
+}
+
+#navigation-lg .nav-profile-image-container > img {
+  height: 120px
+}
+
+#navigation-lg .nav-profile-image-container {
+  margin: 10px 0px;
+}
+
+#navigation-xs {
+  position: relative;
+}
+
+#navigation-xs .nav-profile-image-container{
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  z-index: 100;
+}
+
+#navigation-xs .nav-profile-image-container > img{
+  height: 270px;
+  margin-top: 10px
+}
+
+/* End - Navbar */
+
 /* Search Panel */
 
 @media (min-width: 992px) {
-
+  #search-panel-section{
+    padding: 70px;
+  }
   #search-panel {
     padding: 20px;
   }
