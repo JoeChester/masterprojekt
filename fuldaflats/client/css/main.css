@@ -8,3 +8,15 @@
 .brand-display{
   width: 300px;
 }
+
+.btn-marginleft{
+  margin-left: 0.5rem;
+}
+
+.marginbottom{
+  margin-bottom: 2rem;
+}
+
+.siteheader-nomargin{
+  margin-top: 0px;
+}
