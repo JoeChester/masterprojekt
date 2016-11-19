@@ -20,6 +20,7 @@ var User = require('./models/User')(schema);
 var Review = require('./models/Review')(schema);
 var Favorite = require('./models/Favorite')(schema);
 var MediaObject = require('./models/MediaObject')(schema);
+var Tag = require('./models/Tag')(schema);
 
 //Relationship Definitions
 // -- empty for now --
