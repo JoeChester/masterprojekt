@@ -1,0 +1,21 @@
+{
+    "user_id": 8,
+    "email": "Anna92@fakemail.com",
+    "type": 1,
+    "first_name": "Horst",
+    "last_name": "Mueller",
+    "birthday": "21.08.1992",
+    "upgrade_date": null,
+    "creation_date": "17.11.2016",
+    "phone_number": "05550/456789",
+    "zip_code": "36043",
+    "city": "Fulda",
+    "street": "Von-Schildeck-Str.",
+    "house_number": 15,
+    "gender": "female",
+    "office_address" : null,
+    "average_rating": null,
+    "offers": null,
+    "profile_picture": null,
+    "favorites": null
+}

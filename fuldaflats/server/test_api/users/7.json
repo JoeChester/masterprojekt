@@ -1,0 +1,21 @@
+{
+    "user_id": 7,
+    "email": "HorstMueller@cityimmobilien.com",
+    "type": 0,
+    "first_name": "Horst",
+    "last_name": "Mueller",
+    "birthday": "05.09.1956",
+    "upgrade_date": "17.11.2016",
+    "creation_date": "17.11.2016",
+    "phone_number": "05550/123789",
+    "zip_code": "36037",
+    "city": "Fulda",
+    "street": "Bahnhofsstr.",
+    "house_number": 37,
+    "gender": "male",
+    "office_address" : "Bahnhofsstr. 37",
+    "average_rating": null,
+    "offers": 1,
+    "profile_picture": null,
+    "favorites": null
+}
