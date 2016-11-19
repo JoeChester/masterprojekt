@@ -1,0 +1,21 @@
+{
+    "user_id": 3,
+    "email": "mariane.mueller@web.de",
+    "type": 1,
+    "first_name": "Mariane",
+    "last_name": "Mueller",
+    "birthday": "10.10.1975",
+    "upgrade_date": null,
+    "creation_date": "30.11.2016",
+    "phone_number": "(+49) 661 052 912",
+    "zip_code": "36039",
+    "city": "Fulda",
+    "street": "Frankfurter Str.",
+    "house_number": "89",
+    "gender": "female",
+    "office_address" : null,
+    "average_rating": 4.8,
+    "offers": null,
+    "profile_picture": null,
+    "favorites": null
+}
