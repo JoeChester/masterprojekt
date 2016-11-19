@@ -1,30 +1,41 @@
 /************************************************************
  * File:            files.js
  * Author:          Jonas Kleinkauf
- * LastMod:         17.11.2016
+ * LastMod:         18.11.2016
  * Description:     REST endpoints for fileupload
-************************************************************/
+ ************************************************************/
 
-
+var config = require('../../config.json')[process.env.NODE_ENV || 'development'];
 var express = require('express')
-var multer  = require('multer')
+var multer = require('multer');
 
 var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './uploads');
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.fieldname + Date.now() + '_' + file.originalname);
-  }
-});
+    destination: function (req, file, cb) {
+        cb(null, config.express.fileUpload)
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.fieldname + '_' + Date.now() + '_' + file.originalname)
+    }
+})
 
-var upload = multer({ storage: storage });
 
-var router = express.Router({mergeParams: true});
+var upload = multer({
+    storage: storage
+}).single('file');
+var router = express.Router();
 
-router.post('/', upload.single('file'), function (req, res, next) {
-    console.log(req.file.mimetype);
-    res.sendStatus(201);
+router.post('/', function (req, res) {
+    upload(req, res, function (err) {
+        if(err){
+            res.status(400);
+            res.json(err);
+            return;
+        }
+        let _filepath = {};
+        _filepath.path = config.express.fileDownload + req.file.filename;
+        res.status(201);
+        res.json(_filepath);
+    });
 });
 
 module.exports = router;

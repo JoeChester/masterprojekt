@@ -1,0 +1,21 @@
+{
+    "user_id": 5,
+    "email": "rainer.todtenhoefer@web.de",
+    "type": 1,
+    "first_name": "Rainer",
+    "last_name": "Todtenhoefer",
+    "birthday": "25.12.1965",
+    "upgrade_date": "25.11.2016",
+    "creation_date": "17.11.2016",
+    "phone_number": "(+49) 661 9640 340",
+    "zip_code": "36037",
+    "city": "Fulda",
+    "street": "Leipziger Str.",
+    "house_number": "123",
+    "gender": "male",
+    "office_address" : "Leipziger Str.",
+    "average_rating": 5.0,
+    "offers": 3,
+    "profile_picture": null,
+    "favorites": null
+}

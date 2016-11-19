@@ -11,28 +11,29 @@
 //Require Setup
 var chalk = require('chalk');
 var config = require('./config.json')[process.env.NODE_ENV || 'development'];
-var app = require('./server/endpoints');
 var express = require('express');
+var app = require('./server/endpoints');
 var startup_msg = require('./server/startup_msg');
+
+//Express Static Setup
+express.static.mime.define({'application/json': ['json']});
 
 //Startup Message
 startup_msg();
 
-//Hook Client + Image Static Files
-app.use(express.static('client'));
-app.use('/files', express.static('uploads'));
+//Hook Static Folders
+var clientOptions = {
+  dotfiles: 'ignore',
+  etag: false,
+  extensions: ['htm', 'html'],
+  redirect: true
+}
 
-express.static.mime.define({'application/json': ['json']});
-
+app.use('/', express.static('client', clientOptions));
+app.use('/uploads', express.static('uploads'));
 //Test Data
 app.use('/test_api', express.static('server/test_api'));
 
-//TODO: Remove in Production!
-function errorHandler(err, req, res, next) {
-  res.status(500);
-  res.render('error', { error: err });
-}
-app.use(errorHandler);
 
 //Startup Express Application
 console.log("Starting Express App...");

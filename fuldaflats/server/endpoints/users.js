@@ -13,12 +13,16 @@ var router = express.Router({
     mergeParams: true
 });
 var _hash = require('crypto-toolkit').Hash('hex');
-var sanitize = require('./sanitize');
 
 //SALT for Hashfunction
 const SALT = "fuldaflats#2016#";
 
 //Multi-Use Functions
+
+//Send back after resolving all relationships
+function finalize(req, res, user, _user){
+    res.json(_user);
+}
 
 //Authentication of a request session
 function authenticate(req, res, successStatus) {
@@ -33,7 +37,7 @@ function authenticate(req, res, successStatus) {
                 req.session.user = user;
 
                 res.status(successStatus);
-                res.json(sanitize.currentUser(user));
+                res.json(user.toJSON());
             } else {
                 res.sendStatus(403);
             }
@@ -41,6 +45,21 @@ function authenticate(req, res, successStatus) {
     });
 }
 
+//get favorites of a user asynchronously
+function getFavorites(req, res, user, _user){
+    if(!_user) _user = user.toJSON();
+    user.favorites((err, favorites) =>{
+        if(!err && favorites && favorites.length > 0){
+            _user.favorites = favorites;
+        }
+        finalize(req, res, user, _user);
+    });
+}
+
+function getRelationships(req, res, user){
+    let _user = user.toJSON();
+    getFavorites(req, res, user, _user);
+}
 
 //Endpoint Definitions
 //Core Endpoint: /api/users
@@ -91,7 +110,8 @@ router.get('/me', function (req, res) {
                 res.status(404);
                 res.json(err);
             } else {
-                res.json(sanitize.currentUser(user));
+                //Begin Relationship Pipe
+                getRelationships(req, res, user);
             }
         });
     }

@@ -149,3 +149,16 @@
 }
 /* End - Brief Offer Detail for start page */
 
+
+.btn-marginleft{
+  margin-left: 0.5rem;
+}
+
+.marginbottom{
+  margin-bottom: 2rem;
+}
+
+.siteheader-nomargin{
+  margin-top: 0px;
+}
+
