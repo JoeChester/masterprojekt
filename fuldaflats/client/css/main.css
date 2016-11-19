@@ -8,3 +8,75 @@
 .brand-display{
   width: 300px;
 }
+
+#top{
+  background: red;
+}
+
+#navigation .profile-image > img {
+  height: 120px
+}
+
+#navigation .profile-image {
+  margin: 10px 0px;
+}
+
+#navigation .nav-group1 .nav li::first-child {
+  padding: 20px;
+  }
+
+
+.background-gray {
+  background: #eeeeee;
+}
+.background-gray-dark {
+  background: #555555;
+}
+.background-white {
+  background: #fff;
+}
+
+.price-wrapper .price {
+  display: inline-block;
+}
+.price-wrapper .rate {
+  display: inline-block;
+  vertical-align: top;
+  line-height: 11px;
+  font-size: 11px;
+}
+
+.offer-brief-detail-1 .offer-brief-detail-1-details {
+  padding: 0px 10px;
+}
+
+.offer-brief-detail-1 .offer-brief-detail-1-details > div {
+  padding: 10px 0px;
+}
+
+@media (min-width: 1200px) {
+  .offer-brief-detail-1 .offer-brief-detail-1-details > div:first-of-type {
+    border-right: solid 1px #e6e6e6;
+  }
+  .offer-brief-detail-1 .offer-brief-detail-1-details > div:last-of-type {
+    border-left: solid 1px #e6e6e6;
+  }
+}
+
+@media (max-width: 1200px) {
+  .offer-brief-detail-1 .offer-brief-detail-1-details > div:first-of-type {
+    border-bottom: solid 1px #e6e6e6;
+  }
+  .offer-brief-detail-1 .offer-brief-detail-1-details > div:last-of-type {
+    border-top: solid 1px #e6e6e6;
+  }
+}
+
+.offer-brief-detail-1 .offer-brief-detail-1-details .offer-brief-detail-1-details-value{
+  font-size: 18px;
+}
+
+.offer-brief-detail-1 .offer-brief-detail-1-details .offer-brief-detail-1-details-key{
+  color: #999999;
+}
+
