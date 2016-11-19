@@ -22,7 +22,14 @@ express.static.mime.define({'application/json': ['json']});
 startup_msg();
 
 //Hook Static Folders
-app.use(express.static('client'));
+var clientOptions = {
+  dotfiles: 'ignore',
+  etag: false,
+  extensions: ['htm', 'html'],
+  redirect: true
+}
+
+app.use('/', express.static('client', clientOptions));
 app.use('/uploads', express.static('uploads'));
 //Test Data
 app.use('/test_api', express.static('server/test_api'));
