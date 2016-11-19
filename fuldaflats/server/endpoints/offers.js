@@ -31,9 +31,8 @@ router.get('/recent', function (req, res) {
             res.status(404);
             return res.json(err);
         }
-        res.json(offers);
-        /*
-        //Join Reviews to Offer
+
+        //Join MediaObjects to Offer
         //Setup Pipeline
         let offer_joins = [];
         offers.forEach(offer => {
@@ -42,12 +41,11 @@ router.get('/recent', function (req, res) {
                 //otherwise additional properties will get lost
                 let _offer = offer.toJSON();
                 //Execute Query
-                offer.reviews((err, reviews) => {
+                offer.mediaObjects((err, mediaObjects) => {
                     if (err)
                         return cb(err);
                     //Set additional Property    
-                    _offer.reviews = reviews;
-                    offer.setReviews(reviews);
+                    _offer.mediaObjects = mediaObjects;
                     //Callback to Async Parent
                     cb(null, _offer);
                 });
@@ -66,7 +64,6 @@ router.get('/recent', function (req, res) {
             //results of offer_joins
             res.json(_offers);
         });
-        */
 
     });
 });

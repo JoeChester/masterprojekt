@@ -13,7 +13,8 @@ module.exports = function(schema){
         thumbnailUrl: {type: schema.String}, 
         creationDate: {type: schema.Date, default: Date.now },
         userId: {type: schema.Number},
-        offerId: {type: schema.Number}
+        offerId: {type: schema.Number},
+        createdByUserId: {type: schema.Number}
     },{});
 
     //Validators
