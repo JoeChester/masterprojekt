@@ -21,15 +21,15 @@ module.exports = function(schema){
         //priveTypes => 0:monthly, 1: daily, 2: per semester
         priceType: {type: schema.Boolean, limit: 2},
         street: schema.String,
-        zipCode: {type: schema.Number, limit:99999},
+        zipCode: {type: schema.Number, limit:5},
         houseNumber: schema.Number,
         city: schema.String,
-        floor: {type: schema.Number, limit: 500},
+        floor: {type: schema.Number, limit: 2},
         size: schema.Real,
         //furnished => false: no, true: yes
         furnished: schema.Boolean,
         //pets allowed => false: no, true: yes
-        pets: shema.Boolean,
+        pets: schema.Boolean,
         bathroomNumber: schema.Number,
         bathroomDescription: {type: schema.Text, limit: 4000},
         kitchenDescription: {type: schema.Text, limit: 4000},

@@ -21,11 +21,23 @@ var async = require('async');
 
 //search for offers
 router.post('/search', function (req, res) {
+    //Store search queries in session to fetch them later 
+    //in different context
+    req.session.search = req.body;
     res.sendStatus(204);
 });
 
 router.get('/search', function (req, res) {
-    schema.models.Offer.find({order: 'creationDate DESC', limit: 10}, (err, offers) => {
+    //use the stored search queries
+    if(req.session.search == null || req.session.search == undefined){
+        res.sendStatus(404);
+        return;
+    }
+
+    let searchQuery = {};
+    searchQuery.where = req.session.search;
+
+    schema.models.Offer.find(searchQuery, (err, offers) => {
         if(err){
             res.status(404);
             return res.json(err);
@@ -119,7 +131,7 @@ router.get('/recent', function (req, res) {
 
 //offer details
 router.get('/:offerId', function (req, res) {
-    schema.models.Offer.findById(req.params.offerId, (err, offers) => {
+    schema.models.Offer.findById(req.params.offerId, (err, offer) => {
         if(err){
             return res.sendStatus(404);
         }
@@ -128,6 +140,17 @@ router.get('/:offerId', function (req, res) {
             if(!err){
                 _offer.mediaObjects = mediaObjects;
             }
+            offer.reviews((err, reviews) =>{
+                if(!err){
+                    _offer.reviews = reviews;
+                }
+                offer.tags((err, tags) =>{
+                    if(!err){
+                        _offer.tags = tags;
+                        res.json(_offer);
+                    }
+                });
+            });
         });
     });
 });
