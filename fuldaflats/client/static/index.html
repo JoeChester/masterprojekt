@@ -149,9 +149,41 @@ _________________________________________________________ -->
 _________________________________________________________ -->
         <section class="bar no-mb">
             <div class="container">
-                <div class="col-md-12">
-                    <div class="heading text-center">
-                        <h2>Search</h2>
+                <div id="search-panel" class="col-md-12 background-white">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <select class="form-control" name="Type">
+                                    <option value="" disabled selected>Type</option>
+                                    <option>Appartment</option>
+                                    <option>WG</option>
+                                    <option>Couch</option>
+                                </select>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control" name="Max. Distance">
+                                    <option value="" disabled selected>Max. Distance</option>
+                                    <option>+5km</option>
+                                    <option>+10km</option>
+                                    <option>+15km</option>
+                                </select>
+                        </div>
+                        <div class="col-md-2">
+                            <input class="form-control" type "number" placeholder="Max. Price"></input>
+                        </div>
+                        <div class="col-md-2">
+                            <input class="form-control" type "number" placeholder="Min. Area Size"></input>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control" name="Tag">
+                                    <option value="" disabled selected>Tag</option>
+                                    <option>AI</option>
+                                    <option>OE</option>
+                                    <option>ET</option>
+                                </select>
+                        </div>
+                        <div class="search-panel-search-button-container col-md-2 text-center">
+                            <button class="btn btn-lg btn-template-primary">Search</button>
+                        </div>
                     </div>
                 </div>
             </div>
