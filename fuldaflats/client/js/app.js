@@ -1,5 +1,5 @@
 requirejs.config({
-    baseUrl: 'js',
+    baseUrl: location.pathname.startsWith("/pages/") === true ? '/../js' : "/js",
     map: {
     },
     shim: {

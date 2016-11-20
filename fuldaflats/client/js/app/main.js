@@ -1,162 +1,71 @@
-requirejs(
-    [
-        'jquery', 'bootstrap', 'knockout', 'jqueryCookie', 'waypoints', 'jqueryConterup',
-        'jqueryParallax', 'front', 'owlCarousel', 'knockoutOwlCarousel', 'fuldaflatsApiClient'
-    ],
-    function($) {
-        console.log("Loaded all Scripts");
-    });
+//Load default libraries and plugins
+requirejs([
+    'jquery', 'bootstrap', 'knockout', 'jqueryCookie', 'waypoints', 'jqueryConterup',
+    'jqueryParallax', 'front', 'owlCarousel', 'knockoutOwlCarousel', 'fuldaflatsApiClient'
+], function($) {
+    console.log("Loaded default libraries and plugins.");
+});
 
-
-function appModel(ko) {
-    var self = this;
-    self.domain = "FuldaFlats.de"
-    self.demoWarning = {
-        warningMessage: "SFSU/FAU/Fulda Software Engineering Project, Fall 2016. For Demonstration Only"
-    };
-
-    self.searchPanelBar = {
-        offerTypes: ko.observableArray(["Appartment", "WG", "Couch"])
-    }
-
-    self.recentBriefOrderBar = {
-        barTitle: "Recent Offers",
-        offers: ko.observableArray([
-            {
-                thumbnailUrl: ko.observable('../img/portfolio-4.jpg'),
-                detailsPageUrl: ko.observable(''),
-                offerType: ko.observable('WG'),
-                title: ko.observable('Title etwas länger und noch was länger'),
-                areaSize: ko.observable('50'),
-                totalRental: ko.observable('500'),
-                rentType: ko.observable('warm'),
-            },
-            {
-                thumbnailUrl: ko.observable('../img/portfolio-4.jpg'),
-                detailsPageUrl: ko.observable(''),
-                offerType: ko.observable('WG'),
-                title: ko.observable('Title etwas länger und noch was länger'),
-                areaSize: ko.observable('50'),
-                totalRental: ko.observable('500'),
-                rentType: ko.observable('warm'),
-            },
-            {
-                thumbnailUrl: ko.observable('../img/portfolio-4.jpg'),
-                detailsPageUrl: ko.observable(''),
-                offerType: ko.observable('WG'),
-                title: ko.observable('Title etwas länger und noch was länger'),
-                areaSize: ko.observable('50'),
-                totalRental: ko.observable('500'),
-                rentType: ko.observable('warm'),
-            }, {
-                thumbnailUrl: ko.observable('../img/portfolio-4.jpg'),
-                detailsPageUrl: ko.observable(''),
-                offerType: ko.observable('WG'),
-                title: ko.observable('Title etwas länger und noch was länger'),
-                areaSize: ko.observable('50'),
-                totalRental: ko.observable('500'),
-                rentType: ko.observable('warm'),
-            }
-            , {
-                thumbnailUrl: ko.observable('../img/portfolio-4.jpg'),
-                detailsPageUrl: ko.observable(''),
-                offerType: ko.observable('WG'),
-                title: ko.observable('Title etwas länger und noch was länger'),
-                areaSize: ko.observable('50'),
-                totalRental: ko.observable('500'),
-                rentType: ko.observable('warm'),
-            }
-        ]),
-        owlCarouselOptions: {
-            items: 4,
-            itemsDesktopSmall: [990, 3],
-            itemsTablet: [768, 2],
-            itemsMobile: [480, 1]
-        }
-    };
-
-    self.livingInternationalBriefOrderBar = {
-        barTitle: "Living International",
-        offers: ko.observableArray([
-            {
-                thumbnailUrl: ko.observable('../img/portfolio-4.jpg'),
-                detailsPageUrl: ko.observable(''),
-                offerType: ko.observable('WG'),
-                title: ko.observable('Title etwas länger und noch was länger'),
-                areaSize: ko.observable('50'),
-                totalRental: ko.observable('500'),
-                rentType: ko.observable('warm'),
-            },
-            {
-                thumbnailUrl: ko.observable('../img/portfolio-4.jpg'),
-                detailsPageUrl: ko.observable(''),
-                offerType: ko.observable('WG'),
-                title: ko.observable('Title etwas länger und noch was länger'),
-                areaSize: ko.observable('50'),
-                totalRental: ko.observable('500'),
-                rentType: ko.observable('warm'),
-            },
-            {
-                thumbnailUrl: ko.observable('../img/portfolio-4.jpg'),
-                detailsPageUrl: ko.observable(''),
-                offerType: ko.observable('WG'),
-                title: ko.observable('Title etwas länger und noch was länger'),
-                areaSize: ko.observable('50'),
-                totalRental: ko.observable('500'),
-                rentType: ko.observable('warm'),
-            }, {
-                thumbnailUrl: ko.observable('../img/portfolio-4.jpg'),
-                detailsPageUrl: ko.observable(''),
-                offerType: ko.observable('WG'),
-                title: ko.observable('Title etwas länger und noch was länger'),
-                areaSize: ko.observable('50'),
-                totalRental: ko.observable('500'),
-                rentType: ko.observable('warm'),
-            }
-            , {
-                thumbnailUrl: ko.observable('../img/portfolio-4.jpg'),
-                detailsPageUrl: ko.observable(''),
-                offerType: ko.observable('WG'),
-                title: ko.observable('Title etwas länger und noch was länger'),
-                areaSize: ko.observable('50'),
-                totalRental: ko.observable('500'),
-                rentType: ko.observable('warm'),
-            }
-        ]),
-        owlCarouselOptions: {
-            items: 4,
-            itemsDesktopSmall: [990, 3],
-            itemsTablet: [768, 2],
-            itemsMobile: [480, 1]
-        }
-    };
-
-    self.copyrightBar = {
-        impressumUrl: "/Impressum.html",
-        contactUrl: "mailto:contact@fuldaflats.de",
-        termsOfUseUrl: "/TermsOfUse.html",
-        copyrightDate: "2016",
-        copyrightName: self.domain,
-        templateAuthorName: "Bootstrapious",
-        templateUrl: "https://bootstrapious.com/free-templates"
-    };
-}
-
-requirejs(['jquery', 'knockout',
+//Load components / modules for the current pages
+requirejs([
+    'jquery', 'knockout',
     'app/components/demoWarningBar/demoWarningBar.component',
     'app/components/navigationBar/navigationBar.component',
-    'app/components/searchBar/searchBar.component',
     'app/components/copyrightBar/copyrightBar.component',
-    'app/components/offerBarSlider/offerBarSlider.component',
-    'app/components/tagCloudBar/tagCloudBar.component'],
-    function($, ko, demoWarningBarComponent, navigationBarComponent, searchBarComponent, copyrightBarComponent, offerBarSliderComponent, tagCloudBarComponent) {
-        ko.components.register("demo-warning", demoWarningBarComponent);
-        ko.components.register("navigation", navigationBarComponent);
-        ko.components.register("search", searchBarComponent);
-        ko.components.register("copyright", copyrightBarComponent);
-        ko.components.register("offer-slider", offerBarSliderComponent);
-        ko.components.register("tag-cloud", tagCloudBarComponent);
+], function($, ko, demoWarningBarComponent, navigationBarComponent, copyrightBarComponent) {
 
-        ko.applyBindings(new appModel(ko));
-        console.log("Loaded app");
+    function AppModel() {
+        var self = this;
+        self.domain = "FuldaFlats.de"
+        self.CreationDate = 2016;
+
+        self.contactEmailAddress = "contact@fuldaflats.de";
+        self.contactUrl = "mailto:" + self.contactEmailAddress;
+
+        self.pages = {
+            start: "/index.html",
+            searchResult: "/pages/searchResult.html",
+            impressum: "/pages/impressum.html",
+            termsOfUse: "/pages/termsOfUse.html",
+        }
+
+        self.demoWarning = {
+            warningMessage: "SFSU/FAU/Fulda Software Engineering Project, Fall 2016. For Demonstration Only"
+        };
+
+        self.copyrightBar = {
+            impressumUrl: self.pages.impressum,
+            contactUrl: self.contactUrl,
+            termsOfUseUrl: self.pages.termsOfUse,
+            copyrightDate: self.CreationDate,
+            copyrightName: self.domain,
+            templateAuthorName: "Bootstrapious",
+            templateUrl: "https://bootstrapious.com/free-templates"
+        };
+    }
+
+    ko.components.register("demo-warning", demoWarningBarComponent);
+    ko.components.register("navigation", navigationBarComponent);
+    ko.components.register("copyright", copyrightBarComponent);
+
+    // Dictionary <location.pathname><page mode path>
+    var pages = {
+        '/': "app/pageModules/indexModule",
+        '/index.html': "app/pageModules/indexModule",
+        '/pages/searchResult.html': "app/pageModules/indexModule"
+    }
+
+    // Load Page Module
+    var pageModulePath = pages[location.pathname];
+    requirejs([pageModulePath], function(pageModule) {
+        var appModel = new AppModel(ko);
+
+        if (pageModule && pageModule.initialize) {
+            pageModule.initialize(appModel);
+        }
+
+        ko.applyBindings(appModel);
     });
+});
+
+

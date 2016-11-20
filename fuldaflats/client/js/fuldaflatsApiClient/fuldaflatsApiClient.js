@@ -1,4 +1,4 @@
-define(["jquery", 'knockout', "./js/fuldaflatsApiClient/endpoints/offer.js"], function ($, ko, offerEndPoint) {
+define(["jquery", 'knockout', "/js/fuldaflatsApiClient/endpoints/offer.js"], function ($, ko, offerEndPoint) {
     function FuldaflatsApiClient() {
         var self = this;
 

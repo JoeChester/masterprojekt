@@ -21,7 +21,7 @@ define(["jquery", 'knockout'], function ($, ko) {
                     defer.resolve(cachedTags);
 
                 }).fail(function (jqXHR, textStatus) {
-                    var errorMsg = "Failed to load tags \n" + textStatus;
+                    var errorMsg = "Failed to load tags \n" + jqXHR.statusCode().status + ": " + jqXHR.statusCode().statusText;
                     console.error(errorMsg);
                     //defer.reject(errorMsg) // Demo Test
                     cachedTags(["AI", "ET", "OE"]);
