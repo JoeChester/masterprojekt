@@ -13,7 +13,7 @@ define([
 
                 appModel.breadcrumbBar = {
                     homePageInfo: appModel.pages.home,
-                    currentPageInfo: appModel.currentPage.title
+                    currentPageInfo: appModel.currentPage
                 }
             }
         };
