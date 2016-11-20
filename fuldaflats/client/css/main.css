@@ -11,9 +11,16 @@
 @import url("/css/animate.css");
 @import url("/css/style.blue.css");
 @import url("/css/owl.carousel.css");
-@import url("/css//owl.theme.css");
+@import url("/css/owl.theme.css");
 
 /* your styles go here */
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 .background-gray {
   background: #eeeeee;
 }
@@ -24,7 +31,7 @@
   background: #fff;
 }
 
-/*  Demo Info */
+/*  Demo Info #Deprecated*/
 
 #top{
   background: red;
@@ -68,7 +75,7 @@
 
 /* End - Navbar */
 
-/* Search Panel */
+/* Search Panel #Deprecated*/
 
 @media (min-width: 992px) {
   #search-panel-section{
@@ -107,7 +114,7 @@
 
 /* End - Search Panel */
 
-/* Brief Offer Detail for start page */
+/* Brief Offer Detail for start page #Deprecated*/
 
 .offer-brief-detail-1 .offer-brief-detail-1-details {
   padding: 0px 10px;

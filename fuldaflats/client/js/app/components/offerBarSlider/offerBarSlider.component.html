@@ -1,0 +1,63 @@
+<!-- ko if: offers().length > 0 -->
+<section class="bar background-white no-mb">
+    <div class="container">
+        <div class="col-md-12">
+            <div class="heading text-center">
+                <h2 data-bind="text: barTitle"></h2>
+            </div>
+            <div data-bind="owlCarousel: { data: offers, as: 'offer', owlOptions: owlCarouselOptions }" class="owl-carousel-offers owl-carousel">
+                <div class="col-xs-12">
+                    <div class="offer-brief-details box-image-text table-bordered">
+                        <div class="top">
+                            <div class="image">
+                                <img data-bind="attr: { src: offer.thumbnailUrl }" alt="" class="img-responsive">
+                            </div>
+                            <div class="bg"></div>
+                            <div class="text">
+                                <p class="buttons">
+                                    <a data-bind="attr: { href: offer.detailsPageUrl }" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i>View Details</a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <h4>
+                                <span data-bind="text: offer.offerType"></span></br>
+                                <small><a data-bind="attr: { href: offer.detailsPageUrl }, text: offer.title"></a></small>
+                            </h4>
+                            <div class="offer-brief-details-detail row background-gray">
+                                <div class="col-lg-4">
+                                    <div class="offer-brief-details-detail-value"><strong>50 km</strong></div>
+                                    <div class="offer-brief-details-detail-key"><small>to University Fulda</small></div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="offer-brief-details-detail-value">
+                                        <strong data-bind="text: offer.areaSize"></strong>
+                                        </strong><strong>m²</strong>
+                                    </div>
+                                    <div class="offer-brief-details-detail-key"><small>Size</small></div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="offer-brief-details-detail-value price-wrapper">
+                                        <div class="price">
+                                            <strong data-bind="text: offer.totalRental"></strong>
+                                            <strong>€</strong>
+                                        </div>
+                                        <div class="rate">
+                                            <strong>/ </strong>
+                                            <strong data-bind="text: offer.rentType"></strong>
+                                        </div>
+                                    </div>
+                                    <div class="offer-brief-details-detail-key">
+                                        <small>Rental</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+<!-- /ko -->

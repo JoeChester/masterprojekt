@@ -9,10 +9,14 @@
 
     <div id="all">
         <header>
-            <demo-warning></demo-warning>
+            <div data-bind='component: { name: "demo-warning", params: demoWarning }'></div>
             <navigation></navigation>
         </header>
-        <div data-bind='component: { name: "copyright", params:copyrightBar }'></div>
+        <div data-bind='component: { name: "search", params: searchPanelBar }'></div>
+        <div data-bind='component: { name: "offer-slider", params: recentBriefOrderBar }'></div>
+        <div data-bind='component: { name: "offer-slider", params: livingInternationalBriefOrderBar }'></div>
+        <tag-cloud></tag-cloud>
+        <div data-bind='component: { name: "copyright", params: copyrightBar }'></div>
     </div>
 
     <script src="bower_components/requirejs/require.js" data-main="/js/app"></script>

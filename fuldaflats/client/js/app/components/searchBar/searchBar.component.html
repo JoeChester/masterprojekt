@@ -3,37 +3,39 @@
         <div id="search-panel" class="col-md-12 background-white">
             <div class="row">
                 <div class="col-md-2">
-                    <select class="form-control" name="Type">
-                                    <option value="" disabled selected>Type</option>
-                                    <option>Appartment</option>
-                                    <option>WG</option>
-                                    <option>Couch</option>
-                                </select>
+                    <!-- <select data-bind="options: offerTypes,
+                       value: queryParameter.offerType, optionsCaption: 'Choose Type', optionsAfterRender: optionsAfterRender"
+                        class="form-control"></select> -->
+                    <select data-bind="options: offerTypes,
+                       value: queryParameter.offerType, optionsCaption: 'Choose Type'" class="form-control"></select>
                 </div>
                 <div class="col-md-2">
-                    <select class="form-control" name="Max. Distance">
-                                    <option value="" disabled selected>Max. Distance</option>
-                                    <option>+5km</option>
-                                    <option>+10km</option>
-                                    <option>+15km</option>
-                                </select>
+                    <div class="input-group">
+                        <input data-bind="value: queryParameter.maxDistance" class="form-control" type="number" min="0" placeholder="Max. Distance"></input>
+                        <div class="input-group-addon">km</div>
+                    </div>
                 </div>
                 <div class="col-md-2">
-                    <input class="form-control" type "number" placeholder="Max. Price"></input>
+                    <div class="input-group">
+                        <input data-bind="value: queryParameter.maxPrice" class="form-control" type="number" min="0" placeholder="Max. Price"></input>
+                        <div class="input-group-addon">€</div>
+                    </div>
                 </div>
                 <div class="col-md-2">
-                    <input class="form-control" type "number" placeholder="Min. Area Size"></input>
+                    <div class="input-group">
+                        <input data-bind="value: queryParameter.minAreaSize" class="form-control" type="number" min="0" placeholder="Min. Area Size"></input>
+                        <div class="input-group-addon">m²</div>
+                    </div>
                 </div>
                 <div class="col-md-2">
-                    <select class="form-control" name="Tag">
-                                    <option value="" disabled selected>Tag</option>
-                                    <option>AI</option>
-                                    <option>OE</option>
-                                    <option>ET</option>
-                                </select>
+                    <select data-bind="options: tags,
+                       value: queryParameter.tag, optionsCaption: 'Choose Tag'" class="form-control"></select>
                 </div>
+<!--                <div class="search-panel-search-button-container col-md-2 text-center">
+                    <button data-bind="enable: queryParameter.offerType, click: search" class="btn btn-lg btn-template-primary">Search</button>
+                </div>-->
                 <div class="search-panel-search-button-container col-md-2 text-center">
-                    <button class="btn btn-lg btn-template-primary">Search</button>
+                    <button data-bind="click: search" class="btn btn-lg btn-template-primary">Search</button>
                 </div>
             </div>
         </div>
