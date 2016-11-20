@@ -2,20 +2,20 @@
     <div class="container">
         <div class="row hidden-xs">
             <div class="col-md-12 text-center">
-                <!-- ko if: impressumUrl -->
-                <span><a data-bind="attr: { href: impressumUrl}">Impressum</a></span>
+                <!-- ko if: impressumPageInfo -->
+                <span><a data-bind="attr: { href: impressumPageInfo().url }, text: impressumPageInfo().title"></a></span>
                 <!-- /ko -->
-                <!-- ko if: impressumUrl && contactUrl  -->
+                <!-- ko if: impressumPageInfo && contactPageInfo  -->
                 <span>|</span>
                 <!-- /ko -->
-                <!-- ko if: contactUrl -->
-                <span><a data-bind="attr: { href: contactUrl}">Contact</a></span>
+                <!-- ko if: contactPageInfo -->
+                <span><a data-bind="attr: { href: contactPageInfo().url }, text: contactPageInfo().title"></a></span>
                 <!-- /ko -->
-                <!-- ko if: contactUrl && termsOfUseUrl  -->
+                <!-- ko if: contactPageInfo && termsOfUsePageInfo  -->
                 <span>|</span>
                 <!-- /ko -->
-                <!-- ko if: termsOfUseUrl -->
-                <span><a data-bind="attr: { href: termsOfUseUrl}">Terms Of Use</a></span>
+                <!-- ko if: termsOfUsePageInfo -->
+                <span><a data-bind="attr: { href: termsOfUsePageInfo().url }, text: termsOfUsePageInfo().title"></a></span>
                 <!-- /ko -->
             </div>
         </div>

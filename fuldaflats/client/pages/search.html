@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+</head>
+
+<body>
+
+    <div id="all">
+        <header>
+            <div data-bind='component: { name: "demo-warning", params: demoWarning }'></div>
+            <navigation></navigation>
+        </header>
+
+        <div data-bind='component: { name: "search", params: searchPanelBar }'></div>
+
+        <div data-bind='component: { name: "copyright", params: copyrightBar }'></div>
+    </div>
+
+    <script src="/bower_components/requirejs/require.js" data-main="/../js/app"></script>
+
+</body>
+
+</html>

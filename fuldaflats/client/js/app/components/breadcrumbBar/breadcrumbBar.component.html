@@ -1,0 +1,23 @@
+<div id="heading-breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <!-- ko if: currentPageInfo -->
+                <h1 data-bind="text: currentPageInfo().title"></h1>
+                <!-- /ko -->
+            </div>
+            <div class="col-md-6">
+                <!-- ko if: homePageInfo && currentPageInfo -->
+                <ul class="breadcrumb">
+                    <li>
+                        <a data-bind="attr: { href: homePageInfo().url }, text: homePageInfo().title"></a>
+                    </li>
+                    <li>
+                        <span data-bind="text: currentPageInfo().title"></span>
+                    </li>
+                </ul>
+                <!-- /ko -->
+            </div>
+        </div>
+    </div>
+</div>

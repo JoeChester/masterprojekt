@@ -3,18 +3,18 @@ define(['text!./copyrightBar.component.html', 'knockout'], function(componentTem
         viewModel: function(params) {
             var self = this;
 
-            self.impressumUrl = ko.observable();
-            self.contactUrl = ko.observable();
-            self.termsOfUseUrl = ko.observable();
+            self.impressumPageInfo = ko.observable();
+            self.contactPageInfo = ko.observable();
+            self.termsOfUsePageInfo = ko.observable();
             self.copyrightDate = ko.observable();
             self.copyrightName = ko.observable();
             self.templateAuthorName = ko.observable();
             self.templateUrl = ko.observable();
 
             if (params) {
-                self.impressumUrl(ko.unwrap(params.impressumUrl) || '');
-                self.contactUrl(ko.unwrap(params.contactUrl) || '');
-                self.termsOfUseUrl(ko.unwrap(params.termsOfUseUrl) || '');
+                self.impressumPageInfo(ko.unwrap(params.impressumPageInfo) || '');
+                self.contactPageInfo(ko.unwrap(params.contactPageInfo) || '');
+                self.termsOfUsePageInfo(ko.unwrap(params.termsOfUsePageInfo) || '');
                 self.copyrightDate(ko.unwrap(params.copyrightDate) || '');
                 self.copyrightName(ko.unwrap(params.copyrightName) || '');
                 self.templateAuthorName(ko.unwrap(params.templateAuthorName) || '');

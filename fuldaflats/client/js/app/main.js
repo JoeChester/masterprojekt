@@ -20,23 +20,25 @@ requirejs([
         self.CreationDate = 2016;
 
         self.contactEmailAddress = "contact@fuldaflats.de";
-        self.contactUrl = "mailto:" + self.contactEmailAddress;
 
         self.pages = {
-            start: "/index.html",
-            searchResult: "/pages/searchResult.html",
-            impressum: "/pages/impressum.html",
-            termsOfUse: "/pages/termsOfUse.html",
-        }
+            home: { url: "/", title: "Home" },
+            search: { url: "/pages/search.html", title: "Search" },
+            impressum: { url: "/pages/impressum.html", title: "Impressum" },
+            termsOfUse: { url: "/pages/termsOfUse.html", title: "Terms Of Use" },
+            contact: { url: "mailto:" + self.contactEmailAddress, title: "Contact" }
+        };
+
+        self.offerTypes = ["Appartment", "WG", "Couch"];
 
         self.demoWarning = {
             warningMessage: "SFSU/FAU/Fulda Software Engineering Project, Fall 2016. For Demonstration Only"
         };
 
         self.copyrightBar = {
-            impressumUrl: self.pages.impressum,
-            contactUrl: self.contactUrl,
-            termsOfUseUrl: self.pages.termsOfUse,
+            impressumPageInfo: self.pages.impressum,
+            contactPageInfo: self.pages.contact,
+            termsOfUsePageInfo: self.pages.termsOfUse,
             copyrightDate: self.CreationDate,
             copyrightName: self.domain,
             templateAuthorName: "Bootstrapious",
@@ -49,14 +51,16 @@ requirejs([
     ko.components.register("copyright", copyrightBarComponent);
 
     // Dictionary <location.pathname><page mode path>
-    var pages = {
-        '/': "app/pageModules/indexModule",
-        '/index.html': "app/pageModules/indexModule",
-        '/pages/searchResult.html': "app/pageModules/indexModule"
+    var pagesModules = {
+        '/': "app/pageModules/homeModule",
+        '/index.html': "app/pageModules/homeModule",
+        '/pages/search.html': "app/pageModules/searchModule",
+        '/pages/impressum.html': "app/pageModules/impressumModule",
+        '/pages/termsOfUse.html': "app/pageModules/termsOfUseModule"
     }
 
     // Load Page Module
-    var pageModulePath = pages[location.pathname];
+    var pageModulePath = pagesModules[location.pathname];
     requirejs([pageModulePath], function(pageModule) {
         var appModel = new AppModel(ko);
 

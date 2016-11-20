@@ -13,26 +13,7 @@
             <navigation></navigation>
         </header>
 
-        <div id="heading-breadcrumbs">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h1>Terms Of Use</h1>
-                    </div>
-                    <div class="col-md-6">
-
-                        <ul class="breadcrumb">
-                            <li>
-                                <a href="/">Home</a>
-                            </li>
-                            <li>
-                                <span>Terms Of Use</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div data-bind='component: { name: "breadcrumb", params: breadcrumbBar }'></div>
 
         <section id="content">
             <div class="container">

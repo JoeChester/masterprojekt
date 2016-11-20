@@ -6,7 +6,7 @@ define(['text!./demoWarningBar.component.html', 'text!./demoWarningBar.component
             self.warningMessage = ko.observable();
 
             if (params) {
-                this.warningMessage(ko.unwrap(params.warningMessage) || '');
+                self.warningMessage(ko.unwrap(params.warningMessage) || '');
             }
         },
         template: componentTemplate

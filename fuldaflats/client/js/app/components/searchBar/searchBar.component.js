@@ -4,10 +4,14 @@ define(['text!./searchBar.component.html', 'text!./searchBar.component.css', 'kn
         var self = this;
 
         self.offerTypes = ko.observableArray();
+        self.searchPageInfo = ko.observable();
+
         if (params) {
+            self.searchPageInfo(ko.unwrap(params.searchPageInfo) || '');
+
             var paramsOfferTypes = ko.unwrap(params.offerTypes)
             if (paramsOfferTypes && paramsOfferTypes.length > 0) {
-                self.offerTypes = ko.observable(paramsOfferTypes);
+                self.offerTypes(paramsOfferTypes);
             }
         }
 
@@ -27,6 +31,9 @@ define(['text!./searchBar.component.html', 'text!./searchBar.component.css', 'kn
 
         self.search = function() {
             $.cookie('lastSearchQuery', ko.toJSON(self.queryParameter), { expires: 1, path: '/' });
+            if (self.searchPageInfo() && self.searchPageInfo().url) {
+                window.document.location.href = self.searchPageInfo().url
+            }
         }
 
         self.optionsAfterRender = function(option, item) {
