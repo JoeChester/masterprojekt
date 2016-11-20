@@ -22,15 +22,29 @@ requirejs([
         self.contactEmailAddress = "contact@fuldaflats.de";
 
         self.pages = {
-            home: { url: "/", title: "Home" },
-            search: { url: "/pages/search.html", title: "Search" },
-            impressum: { url: "/pages/impressum.html", title: "Impressum" },
-            termsOfUse: { url: "/pages/termsOfUse.html", title: "Terms Of Use" },
-            contact: { url: "mailto:" + self.contactEmailAddress, title: "Contact" }
+            home: ko.observable({ url: "/", title: "Home" }),
+            search: ko.observable({ url: "/pages/search.html", title: "Search" }),
+            impressum: ko.observable({ url: "/pages/impressum.html", title: "Impressum" }),
+            termsOfUse: ko.observable({ url: "/pages/termsOfUse.html", title: "Terms Of Use" }),
+            contact: ko.observable({ url: "mailto:" + self.contactEmailAddress, title: "Contact" })
         };
 
         self.offerTypes = ["Appartment", "WG", "Couch"];
 
+        self.getPageTitle = function() {
+            var title = "";
+            if (self.domain) {
+                title = self.domain;
+            }
+
+            if (self.currentPage() && self.currentPage().title) {
+                title += ": " + self.currentPage().title;
+            }
+            
+            return title;
+        }
+
+        // DemoData / Bar Content
         self.demoWarning = {
             warningMessage: "SFSU/FAU/Fulda Software Engineering Project, Fall 2016. For Demonstration Only"
         };
@@ -68,7 +82,7 @@ requirejs([
             pageModule.initialize(appModel);
         }
 
-        ko.applyBindings(appModel);
+        ko.applyBindings(appModel, document.getElementsByTagName("html")[0]);
     });
 });
 

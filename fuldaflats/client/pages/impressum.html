@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <title data-bind="text: getPageTitle()">FuldaFlats.de</title>
     <link rel="stylesheet" type="text/css" href="/css/main.css">
 </head>
 
@@ -12,7 +13,7 @@
             <div data-bind='component: { name: "demo-warning", params: demoWarning }'></div>
             <navigation></navigation>
         </header>
-        
+
         <div data-bind='component: { name: "breadcrumb", params: breadcrumbBar }'></div>
 
         <section id="content">
