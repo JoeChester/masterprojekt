@@ -12,6 +12,7 @@ requirejs.config({
         'owlCarousel': { 'deps': ['jquery'] },
         'knockoutOwlCarousel': { 'deps': ['knockout', 'jquery', 'owlCarousel'] },
         'fuldaflatsApiClient': { 'deps': ['knockout', 'jquery'] },
+        'jqcloud': { 'deps': ['jquery'] },
     },
     paths: {
         css: '../bower_components/require-css/css',
@@ -26,7 +27,8 @@ requirejs.config({
         front: './lib/front',
         owlCarousel: './lib/owl.carousel.min',
         knockoutOwlCarousel: './lib/knockout-owlCarousel',
-        fuldaflatsApiClient: './fuldaflatsApiClient/fuldaflatsApiClient'
+        fuldaflatsApiClient: './fuldaflatsApiClient/fuldaflatsApiClient',
+        jqcloud: '/bower_components/jqcloud2/dist/jqcloud.min'
     }
 });
 
