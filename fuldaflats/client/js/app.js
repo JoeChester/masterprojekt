@@ -11,7 +11,7 @@ requirejs.config({
         'front': { 'deps': ['jquery'] },
         'owlCarousel': { 'deps': ['jquery'] },
         'knockoutOwlCarousel': { 'deps': ['knockout', 'jquery', 'owlCarousel'] },
-        'fuldaflatsApiClient':  { 'deps': ['knockout', 'jquery'] },
+        'fuldaflatsApiClient': { 'deps': ['knockout', 'jquery'] },
     },
     paths: {
         css: '../bower_components/require-css/css',

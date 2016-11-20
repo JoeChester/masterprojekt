@@ -40,7 +40,7 @@ requirejs([
             if (self.currentPage() && self.currentPage().title) {
                 title += ": " + self.currentPage().title;
             }
-            
+
             return title;
         }
 
