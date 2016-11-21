@@ -1,15 +1,15 @@
 define([
     'knockout',
     'app/components/breadcrumbBar/breadcrumbBar.component',
-], function(ko, breadcrumbBarComponent) {
-    function ImpressumPageModule() {
+], function (ko, breadcrumbBarComponent) {
+    function MyProfilePageModule() {
         var self = this;
 
         ko.components.register("breadcrumb", breadcrumbBarComponent);
 
-        self.initialize = function(appModel) {
+        self.initialize = function (appModel) {
             if (appModel) {
-                appModel.currentPage = appModel.pages.impressum;
+                appModel.currentPage = appModel.pages.myProfile;
 
                 appModel.breadcrumbBar = {
                     homePageInfo: appModel.pages.home,
@@ -19,7 +19,7 @@ define([
         };
     };
 
-    return new ImpressumPageModule();
+    return new MyProfilePageModule();
 });
 
 

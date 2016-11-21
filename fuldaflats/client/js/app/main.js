@@ -26,7 +26,16 @@ requirejs([
             search: ko.observable({ url: "/pages/search.html", title: "Search" }),
             impressum: ko.observable({ url: "/pages/impressum.html", title: "Impressum" }),
             termsOfUse: ko.observable({ url: "/pages/termsOfUse.html", title: "Terms Of Use" }),
-            contact: ko.observable({ url: "mailto:" + self.contactEmailAddress, title: "Contact" })
+            contact: ko.observable({ url: "mailto:" + self.contactEmailAddress, title: "Contact" }),
+            myProfile: ko.observable({ url: "/pages/myProfile.html", title: "My Profile" }),
+            editProfileData: ko.observable({ url: "/pages/editProfileData.html", title: "Edit Profile Data" }),
+            editProfilePicture: ko.observable({ url: "/pages/editProfilePicture.html", title: "Edit Profile Picture" }),
+            changePassword: ko.observable({ url: "/pages/changePassword.html", title: "Change Password" }),
+            becomeLandlord: ko.observable({ url: "/pages/becomeLandlord.html", title: "Become Landlord" }),
+            newOffer: ko.observable({ url: "/pages/newOffer.html", title: "New Offer" }),
+            signIn: ko.observable({ url: "/pages/signIn.html", title: "Sign In" }),
+            signUp: ko.observable({ url: "/pages/signUp.html", title: "Sign Up" }),
+            signOut: ko.observable({ url: "/pages/signOut.html", title: "Sign Out" }),
         };
 
         self.offerTypes = ["Appartment", "WG", "Couch"];
@@ -70,7 +79,16 @@ requirejs([
         '/index.html': "app/pageModules/homeModule",
         '/pages/search.html': "app/pageModules/searchModule",
         '/pages/impressum.html': "app/pageModules/impressumModule",
-        '/pages/termsOfUse.html': "app/pageModules/termsOfUseModule"
+        '/pages/termsOfUse.html': "app/pageModules/termsOfUseModule",
+        "/pages/myProfile.html": "app/pageModules/myProfileModule",
+        "/pages/editProfileData.html": "app/pageModules/editProfileDataModule",
+        "/pages/editProfilePicture.html": "app/pageModules/editProfilePictureModule",
+        "/pages/changePassword.html": "app/pageModules/changePasswordModule",
+        "/pages/becomeLandlord.html": "app/pageModules/becomeLandlordModule",
+        "/pages/newOffer.html": "app/pageModules/newOfferModule",
+        "/pages/signIn.html": "app/pageModules/signInModule",
+        "/pages/signUp.html": "app/pageModules/signUpModule",
+        "/pages/signOut.html": "app/pageModules/signOutModule",
     }
 
     // Load Page Module
