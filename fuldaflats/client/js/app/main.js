@@ -3,6 +3,8 @@ requirejs([
     'jquery', 'bootstrap', 'knockout', 'jqueryCookie', 'waypoints', 'jqueryConterup',
     'jqueryParallax', 'front', 'owlCarousel', 'knockoutOwlCarousel', 'fuldaflatsApiClient'
 ], function($) {
+    var event = new CustomEvent('scripts-loaded');
+    document.dispatchEvent(event);
     console.log("Loaded default libraries and plugins.");
 });
 

@@ -190,11 +190,13 @@
 
     <script src="../bower_components/requirejs/require.js" data-main="../js/app"></script>
 
-       <script>
+    <script>
+       document.addEventListener("scripts-loaded", function(){
         $('#userprofile-tabs a').click(function (e) {
             e.preventDefault()
             $(this).tab('show')
-        })
+        });
+       });  
     </script>
 
 </body>
