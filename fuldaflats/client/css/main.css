@@ -35,7 +35,8 @@ input::-webkit-inner-spin-button {
 /*  Demo Info #Deprecated*/
 
 #top{
-  background: red;
+  background: #6060ff;
+  font-weight: bold;
 }
 
 /*  End - Demo Info */
@@ -79,9 +80,16 @@ input::-webkit-inner-spin-button {
 
 /* Search Panel #Deprecated*/
 
+.bar .dark-mask{
+  background-color: #467fbf;
+  opacity: 0.5;
+}
+
 @media (min-width: 992px) {
   #search-panel-section{
     padding: 70px;
+    padding-top: 15rem;
+    padding-bottom:15rem;
   }
   #search-panel {
     padding: 20px;
