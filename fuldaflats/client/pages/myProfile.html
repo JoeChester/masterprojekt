@@ -4,6 +4,7 @@
 <head>
     <title data-bind="text: getPageTitle()">FuldaFlats.de</title>
     <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
@@ -187,7 +188,7 @@
         <div data-bind='component: { name: "copyright", params: copyrightBar }'></div>
     </div>
 
-    <script src="/bower_components/requirejs/require.js" data-main="/../js/app"></script>
+    <script src="../bower_components/requirejs/require.js" data-main="../js/app"></script>
 
        <script>
         $('#userprofile-tabs a').click(function (e) {

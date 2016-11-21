@@ -43,7 +43,8 @@ input::-webkit-inner-spin-button {
 /*  Navbar */
 
 .navbar-brand > img{
-  width: 300px;
+  width: 250px;
+  margin-top: 10px;
 }
 
 #navigation-lg {
@@ -51,7 +52,7 @@ input::-webkit-inner-spin-button {
 }
 
 #navigation-lg .nav-profile-image-container > img {
-  height: 120px
+  height: 50px
 }
 
 #navigation-lg .nav-profile-image-container {
@@ -70,7 +71,7 @@ input::-webkit-inner-spin-button {
 }
 
 #navigation-xs .nav-profile-image-container > img{
-  height: 270px;
+  height: 100px;
   margin-top: 10px
 }
 
