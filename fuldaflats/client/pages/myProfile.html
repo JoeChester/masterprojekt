@@ -16,6 +16,166 @@
 
         <div data-bind='component: { name: "breadcrumb", params: breadcrumbBar }'></div>
 
+        <!-- USER DATA 
+        _________________________________________________________ -->
+        <section style="min-height:700px; margin-top: 2rem">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h1 class="siteheader-nomargin">My Profile</h1>
+                    </div>
+                    <div class="col-sm-offset-2 col-sm-4">
+                        <button type="submit" class="btn btn-template-main">Edit Profile Data</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="row">
+                            <img src="../img/person-2.jpg" class="img-responsive img-circle" alt="Profilepicture">
+                        </div>
+                        <form class="form-horizontal">
+                            <div class="row">
+                                <label class="control-label col-sm-6">Account:</label>
+                                <div class="col-sm-6">
+                                    <p id="accountStatus" class="form-control-static">Landlord</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="control-label col-sm-6">Rating:</label>
+                                <div class="col-sm-6">
+                                    <p id="rating" class="form-control-static">4,7</p>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="row">
+                            <button type="submit" class="col-sm-offset-4 btn btn-template-main ">Change Password</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <form class="form-horizontal">
+                            <div class="row">
+                                <label class="control-label col-sm-2">First Name:</label>
+                                <div class="col-sm-10">
+                                    <p id="firstName" class="form-control-static">Max</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="control-label col-sm-2">Last Name:</label>
+                                <div class="col-sm-10">
+                                    <p id="lastName" class="form-control-static">Mustermann</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="control-label col-sm-2">Gender:</label>
+                                <div class="col-sm-10">
+                                    <p id="gender" class="form-control-static">Male</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="control-label col-sm-2">Birthday:</label>
+                                <div class="col-sm-10">
+                                    <p id="birthday" class="form-control-static">01.02.1993</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="control-label col-sm-2">E-Mail:</label>
+                                <div class="col-sm-10">
+                                    <p id="eMail" class="form-control-static">max.mustermann@web.de</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="control-label col-sm-2">Phone Number:</label>
+                                <div class="col-sm-10">
+                                    <p id="phoneNumber" class="form-control-static">0123456789</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="control-label col-sm-2">ZIP Code:</label>
+                                <div class="col-sm-10">
+                                    <p id="zipCode" class="form-control-static">12345</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="control-label col-sm-2">City:</label>
+                                <div class="col-sm-10">
+                                    <p id="city" class="form-control-static">Musterstadt</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="control-label col-sm-2">Street:</label>
+                                <div class="col-sm-10">
+                                    <p id="street" class="form-control-static">Musterstraße</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="control-label col-sm-2">Housenumber:</label>
+                                <div class="col-sm-10">
+                                    <p id="housenumber" class="form-control-static">123</p>
+                                </div>
+                            </div>
+                        </form>
+                        <button type="submit" class="col-sm-offset-11 btn btn-template-main">Edit</button>
+                        <ul class="nav nav-tabs" id="userprofile-tabs">
+                            <li class="active"><a href="#Favorites">Favorites</a></li>
+                            <li><a href="#Offers">Offers</a></li>
+                        </ul>
+                        <div class="tab-content clearfix">
+                            <div class="tab-pane active" id="Favorites">
+                                <div class="well well-sm clearfix ">
+                                    <div class="col-sm-5">
+                                        <img src="../img/portfolio-4.jpg" class="img-responsive" alt="Appartment">
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <h3>Title</h3>
+                                        <h4>Description Preview</h4>
+                                    </div>
+                                </div>
+                                <div class="well well-sm clearfix ">
+                                    <div class="col-sm-5">
+                                        <img src="../img/portfolio-4.jpg" class="img-responsive" alt="Appartment">
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <h3>Title2</h3>
+                                        <h4>Description Preview</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="Offers">
+                                <div class="well well-sm clearfix ">
+                                    <div class="col-sm-5">
+                                        <img src="../img/portfolio-4.jpg" class="img-responsive" alt="Appartment">
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <h3>Title3</h3>
+                                        <h4>Description Preview</h4>
+                                    </div>
+                                </div>
+                                <div class="well well-sm clearfix ">
+                                    <div class="col-sm-5">
+                                        <img src="../img/portfolio-4.jpg" class="img-responsive" alt="Appartment">
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <h3>Title4</h3>
+                                        <h4>Description Preview</h4>
+                                    </div>
+                                </div>
+                                <div class="well well-sm clearfix ">
+                                    <div class="col-sm-5">
+                                        <img src="../img/portfolio-4.jpg" class="img-responsive" alt="Appartment">
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <h3>Title5</h3>
+                                        <h4>Description Preview</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- END USER DATA -->
+
 
         <section class="bar background-white no-mb">
             <div class="container">

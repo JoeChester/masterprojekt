@@ -16,7 +16,51 @@
 
         <div data-bind='component: { name: "breadcrumb", params: breadcrumbBar }'></div>
 
-
+        <!-- EDIT PICTURE
+        _________________________________________________________ -->
+        <section style="min-height:700px; margin-top: 2rem">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h1 class="siteheader-nomargin">Edit Profile Picture</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="row">
+                            <img src="../img/person-2.jpg" class="img-responsive img-circle" alt="Profilepicture">
+                        </div>
+                    </div>
+                    <div class="col-sm-offset-1 col-sm-7">
+                        <form class="form-horizontal">
+                            <div class="row">
+                                <h3>Choose from given Pictures</h3>
+                                <img src="../img/cat.png" class="img-responsive img-circle col-sm-2" alt="Cat">
+                                <img src="../img/dog.png" class="img-responsive img-circle col-sm-2" alt="Dog">
+                                <img src="../img/cupcake.png" class="img-responsive img-circle col-sm-2" alt="Cupcake">
+                                <img src="../img/meat.png" class="img-responsive img-circle col-sm-2" alt="Meat">
+                                <!--<select title="Select your Picture" class="selectpicker">
+                                    <option>Select...</option>
+                                    <option data-thumbnail="../img/cat.png">Cat</option>
+                                    <option data-thumbnail="../img/dog.png">Dog</option>
+                                    <option data-thumbnail="../img/cupcake.png">Cupcake</option>
+                                    <option data-thumbnail="../img/meat.png">Meat</option>
+                                </select> -->
+                            </div>
+                            <div class="row">
+                                <h3>Upload Picture</h3>
+                                <button type="submit" class="btn btn-template-main marginbottom">Choose Picture from Computer</button>
+                            </div>
+                            <div class="row">
+                                <button type="submit" class="btn btn-template-main">Save Changes</button>
+                                <button type="submit" class="btn btn-template-main btn-marginleft">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- END EDIT PICTURE -->
 
         <section class="bar background-white no-mb">
             <div class="container">
