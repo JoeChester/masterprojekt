@@ -1,7 +1,6 @@
 var schema = require('../models');
 
 // Create Demo Users
-/*
 var _hash = require('crypto-toolkit').Hash('hex');
 //SALT for Hashfunction
 const SALT = "fuldaflats#2016#";
@@ -53,7 +52,6 @@ createUser(user9);
 var user10 = require('../test_api/users/10.json');
 user10.password = _hash.sha512(SALT + PASSWORD, 'base64');
 createUser(user10);
-*/
 
 // Create Demo Offers
 function createOffer(offer){
