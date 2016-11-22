@@ -24,6 +24,7 @@ router.post('/search', function (req, res) {
     //Store search queries in session to fetch them later 
     //in different context
     req.session.search = req.body;
+    console.log(req.session);
     res.sendStatus(204);
 });
 
@@ -35,9 +36,7 @@ router.get('/search', function (req, res) {
     }
 
     let searchQuery = {};
-    let tags = req.session.search.tags;
     searchQuery.where = req.session.search;
-    searchQuery.where.tags = undefined;
 
     schema.models.Offer.find(searchQuery, (err, offers) => {
         if(err){
