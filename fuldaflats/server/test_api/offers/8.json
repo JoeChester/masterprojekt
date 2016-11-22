@@ -1,7 +1,7 @@
 {
     "id": 8,
     "title": "Nice room for sublet renting near the university of Fulda",
-    "offerType": "SHARE",
+    "offerType": "SUBLET",
     "description": "1 room apartment close to the university of Fulda. Available for sublet renting from 12/01/2016 to 03/04/2017.",
     "rent": 200.00,
     "rentType": "WARM",
@@ -36,5 +36,6 @@
     "lastModified": "17.11.2016",
     "longitude": 50.1124,
     "latitude": 6.123,
+    "uniDistance": 2.3,
     "landlord": 2
 }

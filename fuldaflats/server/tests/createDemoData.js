@@ -13,6 +13,8 @@ function createUser(user){
     });
 }
 
+console.log("Creating Demo Data for fuldaflats.de (a lot of errors in this script dont matter)...");
+
 var user1 = require('../test_api/users/1.json');
 user1.password = _hash.sha512(SALT + PASSWORD, 'base64');
 createUser(user1);
@@ -96,3 +98,16 @@ createOffer(offer11);
 
 var offer12 = require('../test_api/offers/12.json');
 createOffer(offer12);
+
+// Create Demo Tags
+function createTag(tag){
+    schema.models.Tag.create(tag, (err, _tag) =>{
+        if(err) console.log(err);
+        else console.log("Created Tag " + _tag.id + "!");
+    });
+}
+
+var tags = require('../test_api/tags.json');
+for(i in tags){
+    createTag(tags[i]);
+}

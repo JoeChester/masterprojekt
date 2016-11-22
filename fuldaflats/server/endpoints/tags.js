@@ -16,7 +16,8 @@ var router = express.Router({mergeParams: true});
 
 //all tags
 router.get('/', function (req, res) {
-    res.sendStatus(501);
+    var taglist = new schema.models.Tag().taglist();
+    res.json(taglist);
 });
 
 module.exports = router;

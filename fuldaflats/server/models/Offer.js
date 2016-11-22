@@ -60,7 +60,13 @@ module.exports = function(schema){
         creationDate: {type: schema.Date, default: Date.now},
         lastModified: {type: schema.Date, default: Date.now},
         longitude: schema.Float,
-        latitude: schema.Float
+        latitude: schema.Float,
+        //distance from university in, (calculated upon creation??)
+        uniDistance: {type: schema.Float},
+
+        //userId of Landlord
+        landlord: {type: schema.Number}
+
     },{});
 
 

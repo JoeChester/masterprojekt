@@ -1,20 +1,94 @@
 [
     {
-        "tag_id": 1,
-        "title": "Angewandte Informatik",
-        "category": "faculty",
-        "offers": null
+        "title": "english",
+        "offerId": 11
     },
     {
-        "tag_id": 2,
-        "title": "Wirtschaftswissenschaften",
-        "category": "faculty",
-        "offers": null
+        "title": "german",
+        "offerId": 11
     },
     {
-        "tag_id": 3,
-        "title": "Deutsch",
-        "category": "language",
-        "offers": null
+        "title": "beerpong",
+        "offerId": 11
+    },
+    {
+        "title": "party",
+        "offerId": 11
+    },
+    {
+        "title": "business economics",
+        "offerId": 11
+    },
+
+    {
+        "title": "beerpong",
+        "offerId": 12
+    },
+    {
+        "title": "party",
+        "offerId": 12
+    },
+    {
+        "title": "computer science",
+        "offerId": 12
+    },
+    {
+        "title": "german",
+        "offerId": 12
+    },
+    {
+        "title": "english",
+        "offerId": 12
+    },
+
+    {
+        "title": "party",
+        "offerId": 6
+    },
+    {
+        "title": "french",
+        "offerId": 6
+    },
+    {
+        "title": "food technology",
+        "offerId": 6
+    },
+
+    {
+        "title": "electrical engineering",
+        "offerId": 8
+    },
+    {
+        "title": "english",
+        "offerId": 8
+    },
+    {
+        "title": "german",
+        "offerId": 8
+    },
+
+    {
+        "title": "party",
+        "offerId": 9
+    },
+    {
+        "title": "beerpong",
+        "offerId": 9
+    },
+    {
+        "title": "social and cultural sciences",
+        "offerId": 9
+    },
+    {
+        "title": "english",
+        "offerId": 9
+    },
+    {
+        "title": "music",
+        "offerId": 9
+    },
+    {
+        "title": "table tennis",
+        "offerId": 9
     }
 ]

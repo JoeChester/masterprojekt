@@ -23,7 +23,7 @@ module.exports = function(schema){
         houseNumber:    {type: schema.String, limit: 5},
         gender:         {type: schema.String, limit: 5},
         officeAddress:  {type: schema.String, limit: 4000},
-        averageRating:  {type: schema.Float, default: 0.0},
+        averageRating:  {type: schema.Float, default: 0.0}
     },{});
 
     //Validators
@@ -41,6 +41,10 @@ module.exports = function(schema){
     //Relationships
     var Favorite = require('./Favorite')(schema);
     User.hasMany(Favorite, {as: 'favorites', foreignKey: 'userId'});
+
+    //Own Offers
+    var Offer = require('./Offer')(schema);
+    User.hasMany(Offer, {as: 'offers', foreignKey: 'landlord'});
 
     //Custom Functions
 
