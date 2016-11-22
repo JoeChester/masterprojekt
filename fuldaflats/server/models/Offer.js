@@ -9,17 +9,16 @@
 module.exports = function(schema){
     var Offer = schema.define('Offer', {
         title:  {type: schema.String, limit: 255},
-        //offerTypes => 0:apartement, 1: sublet, 2:intermediate-rent,
-        //3: couch-surfing, 4: party-sleepover
-        offerType: {type: schema.Number, limit: 4},
+        //offerTypes = FLAT, SHARE, COUCH, PARTY, INTERMEDIATE
+        offerType: {type: schema.String, limit: 12},
         description: {type: schema.Text, limit: 4000},
         rent: schema.Number,
         //rentTypes => false: cold, true: warm
         rentType: schema.Boolean,
         rooms: schema.Number,
         sideCosts: schema.Number,
-        //priveTypes => 0:monthly, 1: daily, 2: per semester
-        priceType: {type: schema.Number, limit: 2},
+        //priveTypes = DAY, MONTH, SEMSETER
+        priceType: {type: schema.String, limit: 8},
         street: schema.String,
         zipCode: {type: schema.String, limit:5},
         houseNumber: schema.Number,

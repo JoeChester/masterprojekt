@@ -1,7 +1,7 @@
 {
     "id": 9,
     "title": "Party sleepover madness",
-    "offerType": "PARTYSLEEPOVER",
+    "offerType": "PARTY",
     "description": "Huge Apartment. Almost empty. Sleep wherever you want.",
     "rent": 5.00,
     "rentType": "WARM",

@@ -1,7 +1,7 @@
 {
     "id": 6,
     "title": "The one and only couch",
-    "offerType": "COUCHSURFING",
+    "offerType": "COUCH",
     "description": "Best couch in the world",
     "rent": 10.00,
     "rentType": "WARM",
