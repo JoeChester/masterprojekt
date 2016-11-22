@@ -35,7 +35,9 @@ router.get('/search', function (req, res) {
     }
 
     let searchQuery = {};
+    let tags = req.session.search.tags;
     searchQuery.where = req.session.search;
+    searchQuery.where.tags = undefined;
 
     schema.models.Offer.find(searchQuery, (err, offers) => {
         if(err){

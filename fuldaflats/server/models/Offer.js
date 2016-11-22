@@ -21,7 +21,7 @@ module.exports = function(schema){
         //priveTypes => 0:monthly, 1: daily, 2: per semester
         priceType: {type: schema.Number, limit: 2},
         street: schema.String,
-        zipCode: {type: schema.Number, limit:5},
+        zipCode: {type: schema.String, limit:5},
         houseNumber: schema.Number,
         city: schema.String,
         floor: {type: schema.Number, limit: 2},
