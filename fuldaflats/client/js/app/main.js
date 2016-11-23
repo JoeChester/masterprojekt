@@ -1,7 +1,7 @@
 //Load default libraries and plugins
 requirejs([
     'jquery', 'bootstrap', 'knockout', 'jqueryCookie', 'waypoints', 'jqueryConterup',
-    'jqueryParallax', 'front', 'owlCarousel', 'knockoutOwlCarousel', 'fuldaflatsApiClient'
+    'jqueryParallax', 'front', 'owlCarousel', 'knockoutOwlCarousel', 'fuldaflatsApiClient', 'bootstrapSwitch'
 ], function($) {
     var event = new CustomEvent('scripts-loaded');
     document.dispatchEvent(event);
@@ -43,7 +43,7 @@ requirejs([
             editOffer: ko.observable({ url: "/pages/editOffer.html", title: "Edit Offer" }),
             offerDetails: ko.observable({ url: "/pages/offerDetails.html", title: "Offer Details" }),
             offerDetails: ko.observable({ url: "/pages/offerDetailsNotSignInUser.html", title: "Offer Details" }),
-        };
+        };        
 
         self.offerTypes = ["Appartment", "WG", "Couch"];
 
@@ -101,6 +101,8 @@ requirejs([
         "/pages/editOffer.html": "app/pageModules/editOfferModule",
         "/pages/offerDetails.html": "app/pageModules/offerDetailsModule",
         "/pages/offerDetailsNotSignInUser.html": "app/pageModules/offerDetailsModule",
+
+        '/pages/homeWithExtendedSearch.html': "app/pageModules/homeModule",
     }
 
     // Load Page Module

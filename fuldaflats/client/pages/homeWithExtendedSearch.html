@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title data-bind="text: getPageTitle()">FuldaFlats.de</title>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+
+    <div id="all">
+        <header>
+            <div data-bind='component: { name: "demo-warning", params: demoWarning }'></div>
+            <navigation></navigation>
+        </header>
+
+        <!-- EXTENDED SEARCH
+        _________________________________________________________ -->
+
+        <section id="search-panel-section" class="bar background-image-fixed-2 no-mb">
+            <div class="dark-mask"></div>
+            <div class="container">
+                <div id="search-panel" class="col-md-12 background-white">
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="types" class="col-md-2 col-form-label">Types:</label>
+                            <div class="col-md-10">
+                                <select class="form-control" id="types">
+                                        <option>FLAT</option>
+                                        <option>SHARE</option>
+                                        <option>SUBLET</option>
+                                        <option>COUCH</option>
+                                        <option>PARTY</option>
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <label for="furnished">Furnished:</label>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <input class="switch" type="checkbox" name="furnished" checked>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <label for="pets">Pets:</label>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <input class="switch" type="checkbox" name="pets" checked>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="types" class="col-md-4 col-form-label">University distance range from:</label>
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <input class="form-control" type="number" min="0"></input>
+                                    <div class="input-group-addon">km</div>
+                                </div>
+                            </div>
+                            <label for="types" class="col-md-1 col-form-label"> to:</label>
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <input class="form-control" type="number" min="0"></input>
+                                    <div class="input-group-addon">km</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <label for="cellar">Cellar:</label>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <input class="switch" type="checkbox" name="cellar" checked>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <label for="parking">Parking:</label>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <input class="switch" type="checkbox" name="parking" checked>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="types" class="col-md-4 col-form-label">Price range from:</label>
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <input class="form-control" type="number" min="0"></input>
+                                    <div class="input-group-addon">€</div>
+                                </div>
+                            </div>
+                            <label for="types" class="col-md-1 col-form-label"> to:</label>
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <input class="form-control" type="number" min="0"></input>
+                                    <div class="input-group-addon">€</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <label for="elevator">Elevator:</label>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <input class="switch" type="checkbox" name="elevator" checked>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <label for="accessibility">Accessibility:</label>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <input class="switch" type="checkbox" name="accessibility" checked>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="types" class="col-md-4 col-form-label">Area size from:</label>
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <input class="form-control" type="number" min="0"></input>
+                                    <div class="input-group-addon">m²</div>
+                                </div>
+                            </div>
+                            <label for="types" class="col-md-1 col-form-label"> to:</label>
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <input class="form-control" type="number" min="0"></input>
+                                    <div class="input-group-addon">m²</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <label for="wlan">Wlan:</label>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <input class="switch" type="checkbox" name="wlan" checked>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <label for="lan">Lan:</label>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <input class="switch" type="checkbox" name="lan" checked>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="types" class="col-md-4 col-form-label">Rooms count from:</label>
+                            <div class="col-md-4">
+                                <input class="form-control" type="number" min="0"></input>
+                            </div>
+                            <label for="types" class="col-md-1 col-form-label"> to:</label>
+                            <div class="col-md-4">
+                                <input class="form-control" type="number" min="0"></input>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <label for="television">Television:</label>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <input class="switch" type="checkbox" name="television" checked>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <label for="dryer">Dryer:</label>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <input class="switch" type="checkbox" name="dryer" checked>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="types" class="col-md-2 col-form-label">Tags:</label>
+                            <div class="col-md-10">
+                                <select class="form-control" id="types">
+                                        <option>computer</option>
+                                        <option>science</option>
+                                        <option>economics</option>
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <label for="washing_machine">Washing Machine:</label>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <input class="switch" type="checkbox" name="washing_machine" checked>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <label for="telephone">Telephone:</label>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <input class="switch" type="checkbox" name="telephone" checked>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="types" class="col-md-4 col-form-label">Rentable from:</label>
+                            <div class="col-md-4">
+                                <input class="form-control" type="date"></input>
+                            </div>
+                            <label for="types" class="col-md-1 col-form-label"> to:</label>
+                            <div class="col-md-4">
+                                <input class="form-control" type="date"></input>
+                            </div>
+                        </div>
+                           <div class="col-md-1">
+                        </div>
+                           <div class="col-md-1">
+                        </div>
+                           <div class="col-md-1">
+                        </div>
+                           <div class="col-md-1">
+                        </div>
+                           <div class="col-md-1">
+                        </div>
+                           <div class="col-md-1">
+                        </div>
+                           <div class="col-md-1">
+                        </div>
+                    </div>
+                    <div class="pull-right">
+                        <button data-bind="click: search" class="btn btn-lg btn-template-primary">Search</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- END EXTENDED SEARCH -->
+
+        <div data-bind='component: { name: "offer-slider", params: recentBriefOrderBar }'></div>
+        <div data-bind='component: { name: "offer-slider", params: livingInternationalBriefOrderBar }'></div>
+        <div data-bind='component: { name: "tag-cloud", params: tagCloudBar }'></div>
+        <div data-bind='component: { name: "copyright", params: copyrightBar }'></div>
+    </div>
+
+    <script src="/bower_components/requirejs/require.js" data-main="/../js/app"></script>
+    <script>
+        document.addEventListener("scripts-loaded", function(){
+            $(".switch").bootstrapSwitch({
+                state: false,
+                size: 'small',
+                onColor: 'success',
+                offColor: 'warning',
+                onText: 'Yes',
+                offText: 'No'
+            });
+       });  
+    </script>
+</body>
+
+</html>
