@@ -1,11 +1,13 @@
 define([
     'knockout',
     'app/components/searchBar/searchBar.component',
-], function (ko, searchBarComponent) {
+    'app/components/searchResultBar/searchResultBar.component',
+], function (ko, searchBarComponent, searchResultBarComponent) {
     function SearchResultPageModule() {
         var self = this;
 
         ko.components.register("search", searchBarComponent);
+        ko.components.register("search-results", searchResultBarComponent);
 
         self.initialize = function (appModel) {
             if (appModel) {
