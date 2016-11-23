@@ -26,7 +26,8 @@ define(['text!./tagCloudBar.component.html', "knockout", 'jqcloud', 'fuldaflatsA
                 if (tag && tag.title) {
                     cloudTags.push({
                         text: tag.title,
-                        weight: getRandomTagWeight()
+                        weight: getRandomTagWeight(),
+                        link:"/pages/search.html"
                     });
                 }
             })

@@ -24,8 +24,8 @@ define([
                     barTitle: "Recent Offers",
                     offers: ko.observableArray([
                         {
-                            thumbnailUrl: ko.observable('../img/portfolio-4.jpg'),
-                            detailsPageUrl: ko.observable(''),
+                            thumbnailUrl: ko.observable('/img/portfolio-4.jpg'),
+                            detailsPageUrl: ko.observable('/pages/offerDetailsNotSignInUser.html'),
                             offerType: ko.observable('WG'),
                             title: ko.observable('Title etwas länger und noch was länger'),
                             areaSize: ko.observable('50'),
@@ -34,8 +34,8 @@ define([
                             distanceToUniversity: ko.observable('10'),
                         },
                         {
-                            thumbnailUrl: ko.observable('../img/portfolio-4.jpg'),
-                            detailsPageUrl: ko.observable(''),
+                            thumbnailUrl: ko.observable('/img/portfolio-4.jpg'),
+                            detailsPageUrl: ko.observable('/pages/offerDetailsNotSignInUser.html'),
                             offerType: ko.observable('WG'),
                             title: ko.observable('Title etwas länger und noch was länger'),
                             areaSize: ko.observable('50'),
@@ -44,8 +44,8 @@ define([
                             distanceToUniversity: ko.observable('10'),
                         },
                         {
-                            thumbnailUrl: ko.observable('../img/portfolio-4.jpg'),
-                            detailsPageUrl: ko.observable(''),
+                            thumbnailUrl: ko.observable('/img/portfolio-4.jpg'),
+                            detailsPageUrl: ko.observable('/pages/offerDetailsNotSignInUser.html'),
                             offerType: ko.observable('WG'),
                             title: ko.observable('Title etwas länger und noch was länger'),
                             areaSize: ko.observable('50'),
@@ -53,8 +53,8 @@ define([
                             rentType: ko.observable('warm'),
                             distanceToUniversity: ko.observable('10'),
                         }, {
-                            thumbnailUrl: ko.observable('../img/portfolio-4.jpg'),
-                            detailsPageUrl: ko.observable(''),
+                            thumbnailUrl: ko.observable('/img/portfolio-4.jpg'),
+                            detailsPageUrl: ko.observable('/pages/offerDetailsNotSignInUser.html'),
                             offerType: ko.observable('WG'),
                             title: ko.observable('Title etwas länger und noch was länger'),
                             areaSize: ko.observable('50'),
@@ -63,8 +63,8 @@ define([
                             distanceToUniversity: ko.observable('10'),
                         }
                         , {
-                            thumbnailUrl: ko.observable('../img/portfolio-4.jpg'),
-                            detailsPageUrl: ko.observable(''),
+                            thumbnailUrl: ko.observable('/img/portfolio-4.jpg'),
+                            detailsPageUrl: ko.observable('/pages/offerDetailsNotSignInUser.html'),
                             offerType: ko.observable('WG'),
                             title: ko.observable('Title etwas länger und noch was länger'),
                             areaSize: ko.observable('50'),
@@ -85,8 +85,8 @@ define([
                     barTitle: "Living International",
                     offers: ko.observableArray([
                         {
-                            thumbnailUrl: ko.observable('../img/portfolio-4.jpg'),
-                            detailsPageUrl: ko.observable(''),
+                            thumbnailUrl: ko.observable('/img/portfolio-4.jpg'),
+                            detailsPageUrl: ko.observable('/pages/offerDetailsNotSignInUser.html'),
                             offerType: ko.observable('WG'),
                             title: ko.observable('Title etwas länger und noch was länger'),
                             areaSize: ko.observable('50'),
@@ -94,8 +94,8 @@ define([
                             rentType: ko.observable('warm'),
                             distanceToUniversity: ko.observable('10'),
                         }, {
-                            thumbnailUrl: ko.observable('../img/portfolio-4.jpg'),
-                            detailsPageUrl: ko.observable(''),
+                            thumbnailUrl: ko.observable('/img/portfolio-4.jpg'),
+                            detailsPageUrl: ko.observable('/pages/offerDetailsNotSignInUser.html'),
                             offerType: ko.observable('WG'),
                             title: ko.observable('Title etwas länger und noch was länger'),
                             areaSize: ko.observable('50'),
@@ -104,8 +104,8 @@ define([
                             distanceToUniversity: ko.observable('10'),
                         },
                         {
-                            thumbnailUrl: ko.observable('../img/portfolio-4.jpg'),
-                            detailsPageUrl: ko.observable(''),
+                            thumbnailUrl: ko.observable('/img/portfolio-4.jpg'),
+                            detailsPageUrl: ko.observable('/pages/offerDetailsNotSignInUser.html'),
                             offerType: ko.observable('WG'),
                             title: ko.observable('Title etwas länger und noch was länger'),
                             areaSize: ko.observable('50'),
@@ -113,8 +113,8 @@ define([
                             rentType: ko.observable('warm'),
                             distanceToUniversity: ko.observable('10'),
                         }, {
-                            thumbnailUrl: ko.observable('../img/portfolio-4.jpg'),
-                            detailsPageUrl: ko.observable(''),
+                            thumbnailUrl: ko.observable('/img/portfolio-4.jpg'),
+                            detailsPageUrl: ko.observable('/pages/offerDetailsNotSignInUser.html'),
                             offerType: ko.observable('WG'),
                             title: ko.observable('Title etwas länger und noch was länger'),
                             areaSize: ko.observable('50'),
@@ -122,8 +122,8 @@ define([
                             rentType: ko.observable('warm'),
                             distanceToUniversity: ko.observable('10'),
                         }, {
-                            thumbnailUrl: ko.observable('../img/portfolio-4.jpg'),
-                            detailsPageUrl: ko.observable(''),
+                            thumbnailUrl: ko.observable('/img/portfolio-4.jpg'),
+                            detailsPageUrl: ko.observable('/pages/offerDetailsNotSignInUser.html'),
                             offerType: ko.observable('WG'),
                             title: ko.observable('Title etwas länger und noch was länger'),
                             areaSize: ko.observable('50'),
