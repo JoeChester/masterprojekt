@@ -14,6 +14,8 @@
 @import url("../../css/owl.theme.css");
 @import url("../../bower_components/jqcloud2/dist/jqcloud.min.css");
 
+@import url("../../css/leaflet.css");
+
 /* your styles go here */
 
 input::-webkit-outer-spin-button,
@@ -97,6 +99,7 @@ input::-webkit-inner-spin-button {
     padding-top: 15rem;
     padding-bottom:15rem;
   }
+
   #search-panel {
     padding: 20px;
   }
@@ -126,6 +129,11 @@ input::-webkit-inner-spin-button {
   #search-panel > .row > [class*=" col-"] {
     margin: 10px 0px;
   }
+}
+
+.seachbar-results{
+    padding-top: 5rem !important;
+    padding-bottom: 5rem !important;
 }
 
 /* End - Search Panel */
@@ -190,3 +198,107 @@ input::-webkit-inner-spin-button {
   margin-top: 0px;
 }
 
+
+/*_______________ Result Page _______________ */
+
+/* ______________ MAP ____________*/
+/* Extra Small Devices, Phones */ 
+.mapColumn{
+    height: 280px;
+  }
+@media only screen and (min-width : 480px) {
+  .mapColumn{
+    height: 380px;
+  }
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+  .mapColumn{
+    height: 480px;
+  }
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+  .mapColumn{
+    height: 580px;
+  }
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+  .mapColumn{
+    height: 780px;
+  }
+}
+.map-container{
+  padding: 10px;
+  background-color: #eeeeee;
+}
+
+.leaflet-top, .leaflet-bottom{
+  z-index: 400 !important;
+}
+
+/* Extra Small Devices, Phones */ 
+  .resultColumn{
+    height: 300px;
+  }
+@media only screen and (min-width : 480px) {
+  .resultColumn{
+    height: 400px;
+  }
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+  .resultColumn{
+    height: 500px;
+  }
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+  .resultColumn{
+    height: 600px;
+  }
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+  .resultColumn{
+    height: 800px;
+  }
+}
+
+.scroll-y{
+  overflow-y: scroll;
+}
+
+.panel-search-result{
+  margin-bottom: 20px;
+  background-color: #fff;
+  border: 1px solid #eeeeee;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+  box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+
+.ellipsis {
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;  
+  -o-text-overflow: ellipsis;
+  max-height: 10rem;
+}
+
+.ellipsis:after{
+  content: '...';
+}
+
+.offer-result-keyfigures{
+  background-color: #eeeeee;
+  border: 1px solid #dddddd;
+  padding: 0.5rem;
+}

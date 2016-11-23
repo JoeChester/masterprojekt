@@ -78,6 +78,271 @@
 
 </header>
 
+<!-- __________________ SEARCH BAR ______________________ --> 
+<section id="search-panel-section" class="bar background-image-fixed-2 no-mb seachbar-results">
+    <div class="dark-mask"></div>
+    <div class="container">
+        <div id="search-panel" class="col-md-12 background-white">
+            <div class="row">
+                <div class="col-md-2">
+                    <!-- <select data-bind="options: offerTypes,
+                       value: queryParameter.offerType, optionsCaption: 'Choose Type', optionsAfterRender: optionsAfterRender"
+                        class="form-control"></select> -->
+                <select data-bind="options: offerTypes, value: queryParameter.offerType, optionsCaption: 'Choose Type'" class="form-control"></select>
+                </div>
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <input data-bind="value: queryParameter.maxDistance" class="form-control" type="number" min="0" placeholder="Max. Distance"></input>
+                        <div class="input-group-addon">km</div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <input data-bind="value: queryParameter.maxPrice" class="form-control" type="number" min="0" placeholder="Max. Price"></input>
+                        <div class="input-group-addon">€</div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <input data-bind="value: queryParameter.minAreaSize" class="form-control" type="number" min="0" placeholder="Min. Area Size"></input>
+                        <div class="input-group-addon">m²</div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <select data-bind="options: tags, optionsText: 'title', value: queryParameter.tag, optionsCaption: 'Choose Tag'" class="form-control"></select>
+                </div>
+                <!--                <div class="search-panel-search-button-container col-md-2 text-center">
+                    <button data-bind="enable: queryParameter.offerType, click: search" class="btn btn-lg btn-template-primary">Search</button>
+                </div>-->
+                <div class="search-panel-search-button-container col-md-2 text-center">
+                    <button onclick="search()" class="btn btn-lg btn-template-primary">Search</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ______________ BREADCRUMB ______________ -->
+<div id="heading-breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h1>SEARCH RESULTS</h1>
+            </div>
+            <div class="col-md-6">
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="proposal/">HOME</a>
+                    </li>
+                    <li>
+                        <span>SEARCH RESULTS</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+<!-- ______________ RESULTS ______________ -->
+<div class="col-md-6 resultColumn scroll-y">
+    <div class="panel panel-search-result">
+    <div class="panel-body">
+        <!-- Hoverable Image -->
+        <div class="offer-brief-detail-1 box-image-text col-md-5">
+        <div class="top">
+            <div class="image">
+                <img src="../img/portfolio-4.jpg" alt="" class="img-responsive">
+            </div>
+            <div class="bg"></div>
+            <div class="text">
+                <p class="buttons">
+                    <a href="#" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i>View Details</a>
+                </p>
+            </div>
+        </div>
+        </div>
+
+        <div class="col-md-7">
+        <!-- Tags -->
+        <div class="row">
+            <h4>
+                <span class="label label-default">computer science</span>
+                <span class="label label-default">english</span>
+                <span class="label label-default">german</span>
+            </h4>
+        </div>
+        <h2>Title</h2>
+        <div class="ellipsis">
+        <p>A nice group of three people awaits a new member in the apartment. 
+            All three are students at the Hochschule of Fulda and live a life of fun. 
+            So if you are interested in participating in nice evenings with kind people then 
+            this shared apartment is right for you.A nice group of three people awaits a new member in the apartment. 
+            All three are students at the Hochschule of Fulda and live a life of fun. 
+            So if you are interested in participating in nice evenings with kind people then 
+            this shared apartment is right for you.
+        </p>
+        </div>
+        <div class="ellipsis-dots">...</div>
+
+        <!-- Price -->
+        <div class="row">
+            <div class="col-md-4 offer-result-keyfigures">
+                <div class="offer-brief-detail-1-details-value"><strong>50 km</strong></div>
+                <div class="offer-brief-detail-1-details-key"><small>to University Fulda</small></div>
+            </div>
+            <div class="col-md-4 offer-result-keyfigures">
+                <div class="offer-brief-detail-1-details-value"><strong>50 m²</strong></div>
+                <div class="offer-brief-detail-1-details-key"><small>Size</small></div>
+            </div>
+            <div class="col-md-4 offer-result-keyfigures">
+                <div class="offer-brief-detail-1-details-value price-wrapper">
+                    <div class="price"><strong>500 €</strong></div>
+                    <div class="rate"><strong>/ month</strong></div>
+                </div>
+                <div class="offer-brief-detail-1-details-key"><small>Rental</small></div>
+            </div>
+        </div>
+        </div>
+
+    </div>
+    </div>
+
+    <div class="panel panel-search-result">
+    <div class="panel-body">
+        <!-- Hoverable Image -->
+        <div class="offer-brief-detail-1 box-image-text col-md-5">
+        <div class="top">
+            <div class="image">
+                <img src="../img/portfolio-4.jpg" alt="" class="img-responsive">
+            </div>
+            <div class="bg"></div>
+            <div class="text">
+                <p class="buttons">
+                    <a href="#" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i>View Details</a>
+                </p>
+            </div>
+        </div>
+        </div>
+
+        <div class="col-md-7">
+        <!-- Tags -->
+        <div class="row">
+            <h4>
+                <span class="label label-default">computer science</span>
+                <span class="label label-default">english</span>
+                <span class="label label-default">german</span>
+            </h4>
+        </div>
+        <h2>Title</h2>
+        <div class="ellipsis">
+        <p>A nice group of three people awaits a new member in the apartment. 
+            All three are students at the Hochschule of Fulda and live a life of fun. 
+            So if you are interested in participating in nice evenings with kind people then 
+            this shared apartment is right for you.A nice group of three people awaits a new member in the apartment. 
+            All three are students at the Hochschule of Fulda and live a life of fun. 
+            So if you are interested in participating in nice evenings with kind people then 
+            this shared apartment is right for you.
+        </p>
+        </div>
+        <div class="ellipsis-dots">...</div>
+
+        <!-- Price -->
+        <div class="row">
+            <div class="col-md-4 offer-result-keyfigures">
+                <div class="offer-brief-detail-1-details-value"><strong>50 km</strong></div>
+                <div class="offer-brief-detail-1-details-key"><small>to University Fulda</small></div>
+            </div>
+            <div class="col-md-4 offer-result-keyfigures">
+                <div class="offer-brief-detail-1-details-value"><strong>50 m²</strong></div>
+                <div class="offer-brief-detail-1-details-key"><small>Size</small></div>
+            </div>
+            <div class="col-md-4 offer-result-keyfigures">
+                <div class="offer-brief-detail-1-details-value price-wrapper">
+                    <div class="price"><strong>500 €</strong></div>
+                    <div class="rate"><strong>/ month</strong></div>
+                </div>
+                <div class="offer-brief-detail-1-details-key"><small>Rental</small></div>
+            </div>
+        </div>
+        </div>
+
+    </div>
+    </div>
+
+
+    <div class="panel panel-search-result">
+    <div class="panel-body">
+        <!-- Hoverable Image -->
+        <div class="offer-brief-detail-1 box-image-text col-md-5">
+        <div class="top">
+            <div class="image">
+                <img src="../img/portfolio-4.jpg" alt="" class="img-responsive">
+            </div>
+            <div class="bg"></div>
+            <div class="text">
+                <p class="buttons">
+                    <a href="#" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i>View Details</a>
+                </p>
+            </div>
+        </div>
+        </div>
+
+        <div class="col-md-7">
+        <!-- Tags -->
+        <div class="row">
+            <h4>
+                <span class="label label-default">computer science</span>
+                <span class="label label-default">english</span>
+                <span class="label label-default">german</span>
+            </h4>
+        </div>
+        <h2>Title</h2>
+        <div class="ellipsis">
+        <p>A nice group of three people awaits a new member in the apartment. 
+            All three are students at the Hochschule of Fulda and live a life of fun. 
+            So if you are interested in participating in nice evenings with kind people then 
+            this shared apartment is right for you.A nice group of three people awaits a new member in the apartment. 
+            All three are students at the Hochschule of Fulda and live a life of fun. 
+            So if you are interested in participating in nice evenings with kind people then 
+            this shared apartment is right for you.
+        </p>
+        </div>
+        <div class="ellipsis-dots">...</div>
+
+        <!-- Price -->
+        <div class="row">
+            <div class="col-md-4 offer-result-keyfigures">
+                <div class="offer-brief-detail-1-details-value"><strong>50 km</strong></div>
+                <div class="offer-brief-detail-1-details-key"><small>to University Fulda</small></div>
+            </div>
+            <div class="col-md-4 offer-result-keyfigures">
+                <div class="offer-brief-detail-1-details-value"><strong>50 m²</strong></div>
+                <div class="offer-brief-detail-1-details-key"><small>Size</small></div>
+            </div>
+            <div class="col-md-4 offer-result-keyfigures">
+                <div class="offer-brief-detail-1-details-value price-wrapper">
+                    <div class="price"><strong>500 €</strong></div>
+                    <div class="rate"><strong>/ month</strong></div>
+                </div>
+                <div class="offer-brief-detail-1-details-key"><small>Rental</small></div>
+            </div>
+        </div>
+        </div>
+
+    </div>
+    </div>
+
+
+
+
+</div>
+
+<!-- ______________ MAP ______________ -->
+<div class="col-md-6 map-container">
+    <div id="resultMap" class="mapColumn"></div>
+</div>
+</div>
 
 <!-- ______________ FOOTER ______________ -->
 <div id="copyright"><div class="container">
