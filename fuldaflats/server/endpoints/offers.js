@@ -20,7 +20,7 @@ var async = require('async');
 //Endpoint Definitions
 
 //search for offers
-/*
+
 router.post('/search', function (req, res) {
     //Store search queries in session to fetch them later 
     //in different context
@@ -28,11 +28,10 @@ router.post('/search', function (req, res) {
     console.log(req.session);
     res.sendStatus(204);
 });
-*/
 
-router.post('/search', function (req, res) {
+router.get('/search', function (req, res) {
     //use the stored search queries
-    if(!req.session.search && !req.body){
+    if(!req.session.search){
         res.sendStatus(404);
         var _noOffers = [];
         res.json(_noOffers);

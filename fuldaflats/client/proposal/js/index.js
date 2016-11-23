@@ -19,6 +19,26 @@ var queryParameter = {
     }
 };
 
+function search(){
+    var searchQuery = $.parseJSON(ko.toJSON(queryParameter));
+    console.log(searchQuery);
+    $.ajax({
+        url: "/api/offers/search",
+        type: "post",
+        dataType: "application/json",
+        data: searchQuery,
+        success: function(data, status, req){
+            console.log("Success!");
+            console.log(status);
+            window.location = "/proposal/searchResults";
+        },
+        error: function(req, status, err){
+            console.log("Error!");
+            console.log(err);
+        }
+    });
+}
+
 $(function() {
     $(".owl-carousel-offers").owlCarousel({
         items: 4,
@@ -31,8 +51,3 @@ $(function() {
     ko.applyBindings(tags);
     ko.applyBindings(queryParameter);
 });
-
-function search(){
-    var searchQuery = ko.toJSON(queryParameter);
-    console.log(searchQuery);
-}
