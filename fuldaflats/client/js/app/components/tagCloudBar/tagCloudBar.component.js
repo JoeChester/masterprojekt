@@ -1,4 +1,4 @@
-define(['text!./tagCloudBar.component.html', "knockout", 'jqcloud', 'fuldaflatsApiClient'], function(componentTemplate, ko, jqcloud, api) {
+define(['text!./tagCloudBar.component.html', "knockout", 'jqcloud', 'fuldaflatsApiClient'], function (componentTemplate, ko, jqcloud, api) {
     function TagCloudModel(params, tagCloudElement) {
         var self = this;
         var tagCloudHeight = ko.observable();
@@ -20,14 +20,20 @@ define(['text!./tagCloudBar.component.html', "knockout", 'jqcloud', 'fuldaflatsA
             return Math.floor(Math.random() * (max - min + 1) + min);
         }
 
-        api.offer.getTags().then(function(tagsResult) {
+        api.offer.getTags().then(function (tagsResult) {
             cloudTags.removeAll()
-            $.each(ko.unwrap(tagsResult), function(index, tag) {
+            $.each(ko.unwrap(tagsResult), function (index, tag) {
                 if (tag && tag.title) {
                     cloudTags.push({
                         text: tag.title,
                         weight: getRandomTagWeight(),
-                        link:"/pages/search.html"
+                        link: "/pages/search.html"
+                    });
+                } else if (tag && typeof tag === "string") {
+                    cloudTags.push({
+                        text: tag,
+                        weight: getRandomTagWeight(),
+                        link: "/pages/search.html"
                     });
                 }
             })
@@ -46,7 +52,7 @@ define(['text!./tagCloudBar.component.html', "knockout", 'jqcloud', 'fuldaflatsA
 
     return {
         viewModel: {
-            createViewModel: function(params, componentInfo) {
+            createViewModel: function (params, componentInfo) {
                 var viewModel = null;
 
                 var templateRoot = $(componentInfo.element);
