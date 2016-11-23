@@ -2,7 +2,7 @@
 requirejs([
     'jquery', 'bootstrap', 'knockout', 'jqueryCookie', 'waypoints', 'jqueryConterup',
     'jqueryParallax', 'front', 'owlCarousel', 'knockoutOwlCarousel', 'fuldaflatsApiClient'
-], function($) {
+], function ($) {
     var event = new CustomEvent('scripts-loaded');
     document.dispatchEvent(event);
     console.log("Loaded default libraries and plugins.");
@@ -14,7 +14,7 @@ requirejs([
     'app/components/demoWarningBar/demoWarningBar.component',
     'app/components/navigationBar/navigationBar.component',
     'app/components/copyrightBar/copyrightBar.component',
-], function($, ko, demoWarningBarComponent, navigationBarComponent, copyrightBarComponent) {
+], function ($, ko, demoWarningBarComponent, navigationBarComponent, copyrightBarComponent) {
 
     function AppModel() {
         var self = this;
@@ -38,11 +38,13 @@ requirejs([
             signIn: ko.observable({ url: "/pages/signIn.html", title: "Sign In" }),
             signUp: ko.observable({ url: "/pages/signUp.html", title: "Sign Up" }),
             signOut: ko.observable({ url: "/pages/signOut.html", title: "Sign Out" }),
+            offerOverview: ko.observable({ url: "/pages/offerOverview.html", title: "Offer Overview" }),
+            favoritesOverview: ko.observable({ url: "/pages/favoritesOverview.html", title: "Favorites Overview" }),
         };
 
         self.offerTypes = ["Appartment", "WG", "Couch"];
 
-        self.getPageTitle = function() {
+        self.getPageTitle = function () {
             var title = "";
             if (self.domain) {
                 title = self.domain;
@@ -91,11 +93,13 @@ requirejs([
         "/pages/signIn.html": "app/pageModules/signInModule",
         "/pages/signUp.html": "app/pageModules/signUpModule",
         "/pages/signOut.html": "app/pageModules/signOutModule",
+        "/pages/offerOverview.html": "app/pageModules/offerOverviewModule",
+        "/pages/favoritesOverview.html": "app/pageModules/favoritesOverviewModule",
     }
 
     // Load Page Module
     var pageModulePath = pagesModules[location.pathname];
-    requirejs([pageModulePath], function(pageModule) {
+    requirejs([pageModulePath], function (pageModule) {
         var appModel = new AppModel(ko);
 
         if (pageModule && pageModule.initialize) {

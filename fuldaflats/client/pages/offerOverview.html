@@ -15,12 +15,19 @@
             <navigation></navigation>
         </header>
 
-        <!-- SEACH RESULTS
+        <div data-bind='component: { name: "breadcrumb", params: breadcrumbBar }'></div>
+
+        <!-- OFFER OVERVIEW
         _________________________________________________________ -->
 
-        <!-- END SEACH RESULTS -->
+        <!-- END OFFER OVERVIEW -->
 
-        <div data-bind='component: { name: "search", params: searchPanelBar }'></div>
+        <section class="bar background-white no-mb">
+            <div class="container">
+                <div class="col-md-12">
+                </div>
+            </div>
+        </section>
 
         <div data-bind='component: { name: "copyright", params: copyrightBar }'></div>
     </div>
