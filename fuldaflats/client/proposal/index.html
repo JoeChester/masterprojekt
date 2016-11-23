@@ -35,7 +35,7 @@
         <div class="container">
             <!-- .navbar-header -->
             <div class="navbar-header">
-                <a class="navbar-brand home" href="/">
+                <a class="navbar-brand home" href="/proposal/">
                     <img src="../img/logo.png" alt="FuldaFlats Logo">
                     <span class="sr-only">FuldaFlats - go to homepage</span>
                 </a>
@@ -79,7 +79,7 @@
 </header>
 
 <!-- __________________ SEARCH BAR ______________________ --> 
-<section id="search-panel-section" class="bar background-image-fixed-2 no-mb">
+<section id="search-panel-section" class="bar background-image-fixed-2 no-mb seachbar-results">
     <div class="dark-mask"></div>
     <div class="container">
         <div id="search-panel" class="col-md-12 background-white">
@@ -92,24 +92,24 @@
                 </div>
                 <div class="col-md-2">
                     <div class="input-group">
-                        <input data-bind="value: queryParameter.maxDistance" class="form-control" type="number" min="0" placeholder="Max. Distance"></input>
+                        <input data-bind="value: queryParameter.uniDistance.lte" class="form-control" type="number" min="0" placeholder="Max. Distance"></input>
                         <div class="input-group-addon">km</div>
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="input-group">
-                        <input data-bind="value: queryParameter.maxPrice" class="form-control" type="number" min="0" placeholder="Max. Price"></input>
+                        <input data-bind="value: queryParameter.rent.lte" class="form-control" type="number" min="0" placeholder="Max. Price"></input>
                         <div class="input-group-addon">€</div>
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="input-group">
-                        <input data-bind="value: queryParameter.minAreaSize" class="form-control" type="number" min="0" placeholder="Min. Area Size"></input>
+                        <input data-bind="value: queryParameter.size.gte" class="form-control" type="number" min="0" placeholder="Min. Area Size"></input>
                         <div class="input-group-addon">m²</div>
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <select data-bind="options: tags, optionsText: 'title', value: queryParameter.tag, optionsCaption: 'Choose Tag'" class="form-control"></select>
+                    <select data-bind="options: availableTags, optionsText: 'title', value: queryParameter.tag, optionsCaption: 'Choose Tag'" class="form-control"></select>
                 </div>
                 <!--                <div class="search-panel-search-button-container col-md-2 text-center">
                     <button data-bind="enable: queryParameter.offerType, click: search" class="btn btn-lg btn-template-primary">Search</button>

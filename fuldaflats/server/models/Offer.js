@@ -14,7 +14,7 @@ module.exports = function(schema){
         description: {type: schema.Text, limit: 4000},
         rent: schema.Number,
         //rentTypes => false: cold, true: warm
-        rentType: schema.Boolean,
+        rentType: {type: schema.String, limit: 4},
         rooms: schema.Number,
         sideCosts: schema.Number,
         //priveTypes = DAY, MONTH, SEMSETER
@@ -92,6 +92,21 @@ module.exports = function(schema){
         _offer.creationDate = this.creationDate;
         _offer.reviews      = this._reviews;
         _offer.mediaObjects = this._mediaObjects;
+        return _offer;
+    };
+
+    Offer.prototype.toJSON_STUB = function(){
+        let _offer = {};
+        _offer.title        = this.title;
+        _offer.offerType    = this.offerType;
+        _offer.description  = this.description;
+        _offer.id           = this.id;
+        _offer.creationDate = this.creationDate;
+        _offer.uniDistance  = this.uniDistance;
+        _offer.size         = this.size;
+        _offer.rent         = this.rent;
+        _offer.rentType     = this.rentType;
+        _offer.priceType    = this.priceType;
         return _offer;
     };
 

@@ -273,7 +273,7 @@ input::-webkit-inner-spin-button {
 }
 
 .scroll-y{
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .panel-search-result{
@@ -291,10 +291,6 @@ input::-webkit-inner-spin-button {
   text-overflow: ellipsis;  
   -o-text-overflow: ellipsis;
   max-height: 10rem;
-}
-
-.ellipsis:after{
-  content: '...';
 }
 
 .offer-result-keyfigures{

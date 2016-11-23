@@ -25,7 +25,7 @@ router.post('/search', function (req, res) {
     //Store search queries in session to fetch them later 
     //in different context
     req.session.search = req.body;
-    console.log(req.session);
+    console.log(req.body);
     res.sendStatus(204);
 });
 
@@ -54,7 +54,7 @@ router.get('/search', function (req, res) {
             offer_joins.push(cb => {
                 //Copy Caminte Model to Plain JSON Object
                 //otherwise additional properties will get lost
-                let _offer = offer.toJSON();
+                let _offer = offer.toJSON_STUB();
                 //Execute Query
                 offer.mediaObjects((err, mediaObjects) => {
                     if (err)
