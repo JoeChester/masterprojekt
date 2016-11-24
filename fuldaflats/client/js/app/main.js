@@ -1,7 +1,7 @@
 //Load default libraries and plugins
 requirejs([
     'jquery', 'bootstrap', 'knockout', 'jqueryCookie', 'waypoints', 'jqueryConterup',
-    'jqueryParallax', 'front', 'owlCarousel', 'knockoutOwlCarousel', 'fuldaflatsApiClient', 'bootstrapSwitch'
+    'jqueryParallax', /* 'front', */ 'owlCarousel', 'knockoutOwlCarousel', 'fuldaflatsApiClient', 'bootstrapSwitch'
 ], function($) {
     var event = new CustomEvent('scripts-loaded');
     document.dispatchEvent(event);
