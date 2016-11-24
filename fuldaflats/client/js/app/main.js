@@ -2,7 +2,7 @@
 requirejs([
     'jquery', 'bootstrap', 'knockout', 'jqueryCookie', 'waypoints', 'jqueryConterup',
     'jqueryParallax', 'front', 'owlCarousel', 'knockoutOwlCarousel', 'fuldaflatsApiClient', 'bootstrapSwitch'
-], function ($) {
+], function($) {
     var event = new CustomEvent('scripts-loaded');
     document.dispatchEvent(event);
     console.log("Loaded default libraries and plugins.");
@@ -14,7 +14,7 @@ requirejs([
     'app/components/demoWarningBar/demoWarningBar.component',
     'app/components/navigationBar/navigationBar.component',
     'app/components/copyrightBar/copyrightBar.component',
-], function ($, ko, demoWarningBarComponent, navigationBarComponent, copyrightBarComponent) {
+], function($, ko, demoWarningBarComponent, navigationBarComponent, copyrightBarComponent) {
 
     function AppModel() {
         var self = this;
@@ -35,9 +35,6 @@ requirejs([
             newOffer: ko.observable({ url: "/pages/newOffer.html", title: "New Offer" }),
             offerDetails: ko.observable({ url: "/pages/offerDetails.html", title: "Offer Details" }),
             search: ko.observable({ url: "/pages/search.html", title: "Search" }),
-            signIn: ko.observable({ url: "/pages/signIn.html", title: "Sign In" }),
-            signUp: ko.observable({ url: "/pages/signUp.html", title: "Sign Up" }),
-            signOut: ko.observable({ url: "/pages/signOut.html", title: "Sign Out" }),
             termsOfUse: ko.observable({ url: "/pages/termsOfUse.html", title: "Terms Of Use" }),
 
             contact: ko.observable({ url: "mailto:" + self.contactEmailAddress, title: "Contact" }),
@@ -45,7 +42,7 @@ requirejs([
 
         self.offerTypes = ["Appartment", "WG", "Couch"];
 
-        self.getPageTitle = function () {
+        self.getPageTitle = function() {
             var title = "";
             if (self.domain) {
                 title = self.domain;
@@ -92,9 +89,6 @@ requirejs([
         "/pages/newoffer.html": "app/pageModules/newOfferModule",
         "/pages/offerdetails.html": "app/pageModules/offerDetailsModule",
         '/pages/search.html': "app/pageModules/searchModule",
-        "/pages/signin.html": "app/pageModules/signInModule",
-        "/pages/signup.html": "app/pageModules/signUpModule",
-        "/pages/signout.html": "app/pageModules/signOutModule",
         '/pages/termsofuse.html': "app/pageModules/termsOfUseModule",
 
         '/pages/homeWithExtendedSearch.html': "app/pageModules/homeModule",
@@ -102,7 +96,7 @@ requirejs([
 
     // Load Page Module
     var pageModulePath = pagesModules[location.pathname.toLowerCase()];
-    requirejs([pageModulePath], function (pageModule) {
+    requirejs([pageModulePath], function(pageModule) {
         var appModel = new AppModel(ko);
 
         if (pageModule && pageModule.initialize) {
