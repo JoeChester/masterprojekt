@@ -1,4 +1,4 @@
-define(['text!./newOfferBar.component.html', 'text!./newOfferBar.component.css', 'knockout', 'jquery'],
+define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 'knockout', 'jquery'],
     function(componentTemplate, componentCss, ko, $) {
         function NewOfferModel(params) {
             var self = this;

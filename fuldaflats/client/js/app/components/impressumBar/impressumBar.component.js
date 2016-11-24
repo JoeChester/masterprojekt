@@ -1,4 +1,4 @@
-define(['text!./impressumBar.component.html', 'text!./impressumBar.component.css', 'knockout', 'jquery'],
+define(['text!./impressumBar.component.html', 'css!./impressumBar.component.css', 'knockout', 'jquery'],
     function (componentTemplate, componentCss, ko, $) {
         function ImpressumModel(params) {
             var self = this;

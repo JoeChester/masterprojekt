@@ -1,4 +1,4 @@
-define(['text!./becomeLandlordBar.component.html', 'text!./becomeLandlordBar.component.css', 'knockout', 'jquery'],
+define(['text!./becomeLandlordBar.component.html', 'css!./becomeLandlordBar.component.css', 'knockout', 'jquery'],
     function(componentTemplate, componentCss, ko, $) {
         function BecomeLandlordModel(params) {
             var self = this;

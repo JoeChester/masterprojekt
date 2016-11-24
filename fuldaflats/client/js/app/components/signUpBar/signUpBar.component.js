@@ -1,4 +1,4 @@
-define(['text!./signUpBar.component.html', 'text!./signUpBar.component.css', 'knockout', 'jquery'],
+define(['text!./signUpBar.component.html', 'css!./signUpBar.component.css', 'knockout', 'jquery'],
     function(componentTemplate, componentCss, ko, $) {
         function SignUpModel(params) {
             var self = this;

@@ -1,4 +1,4 @@
-define(['text!./editOfferDetailsBar.component.html', 'text!./editOfferDetailsBar.component.css', 'knockout', 'jquery'],
+define(['text!./editOfferDetailsBar.component.html', 'css!./editOfferDetailsBar.component.css', 'knockout', 'jquery'],
     function(componentTemplate, componentCss, ko, $) {
         function EditOfferDetailsModel(params) {
             var self = this;

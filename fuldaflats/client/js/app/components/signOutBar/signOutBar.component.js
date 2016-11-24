@@ -1,4 +1,4 @@
-define(['text!./signOutBar.component.html', 'text!./signOutBar.component.css', 'knockout', 'jquery'],
+define(['text!./signOutBar.component.html', 'css!./signOutBar.component.css', 'knockout', 'jquery'],
     function(componentTemplate, componentCss, ko, $) {
         function SignOutModel(params) {
             var self = this;

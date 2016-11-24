@@ -1,4 +1,4 @@
-define(['text!./navigationBar.component.html', 'text!./navigationBar.component.css', 'knockout', 'jquery'],
+define(['text!./navigationBar.component.html', 'css!./navigationBar.component.css', 'knockout', 'jquery'],
     function(componentTemplate, componentCss, ko, $) {
         function NavigationModel(params) {
             var self = this;

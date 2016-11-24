@@ -1,4 +1,4 @@
-define(['text!./changePasswordBar.component.html', 'text!./changePasswordBar.component.css', 'knockout', 'jquery'],
+define(['text!./changePasswordBar.component.html', 'css!./changePasswordBar.component.css', 'knockout', 'jquery'],
     function(componentTemplate, componentCss, ko, $) {
         function ChangePasswordModel(params) {
             var self = this;

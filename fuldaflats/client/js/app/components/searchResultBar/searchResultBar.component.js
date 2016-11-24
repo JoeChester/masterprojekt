@@ -1,4 +1,4 @@
-define(['text!./searchResultBar.component.html', 'text!./searchResultBar.component.css', 'knockout', 'jquery', 'fuldaflatsApiClient'],
+define(['text!./searchResultBar.component.html', 'css!./searchResultBar.component.css', 'knockout', 'jquery', 'fuldaflatsApiClient'],
     function (componentTemplate, componentCss, ko, $, api) {
         function SearchResultModel() {
             var self = this;

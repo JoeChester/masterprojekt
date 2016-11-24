@@ -1,4 +1,4 @@
-define(['text!./editProfileDataBar.component.html', 'text!./editProfileDataBar.component.css', 'knockout', 'jquery'],
+define(['text!./editProfileDataBar.component.html', 'css!./editProfileDataBar.component.css', 'knockout', 'jquery'],
     function(componentTemplate, componentCss, ko, $) {
         function EditProfileDataModel(params) {
             var self = this;

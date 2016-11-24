@@ -16,7 +16,7 @@ requirejs.config({
         'bootstrapSwitch': { 'deps': ['jquery']},
     },
     paths: {
-        css: '../bower_components/require-css/css',
+        css: '../bower_components/require-css/css.min',
         text: '../bower_components/text/text',
         jquery: '../bower_components/jquery/dist/jquery.min',
         bootstrap: '../bower_components/bootstrap/dist/js/bootstrap.min',

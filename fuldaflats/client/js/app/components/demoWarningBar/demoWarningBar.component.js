@@ -1,4 +1,4 @@
-define(['text!./demoWarningBar.component.html', 'text!./demoWarningBar.component.css', 'knockout'],
+define(['text!./demoWarningBar.component.html', 'css!./demoWarningBar.component.css', 'knockout'],
     function(componentTemplate, componentCss, ko) {
         function DemoWarningModel(params) {
             var self = this;

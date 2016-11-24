@@ -1,4 +1,4 @@
-define(['text!./myProfileBar.component.html', 'text!./myProfileBar.component.css', 'knockout', 'jquery'],
+define(['text!./myProfileBar.component.html', 'css!./myProfileBar.component.css', 'knockout', 'jquery'],
     function(componentTemplate, componentCss, ko, $) {
         function MyProfileModel(params) {
             var self = this;

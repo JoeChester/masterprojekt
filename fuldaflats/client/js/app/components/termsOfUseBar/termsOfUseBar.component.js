@@ -1,4 +1,4 @@
-define(['text!./termsOfUseBar.component.html', 'text!./termsOfUseBar.component.css', 'knockout', 'jquery'],
+define(['text!./termsOfUseBar.component.html', 'css!./termsOfUseBar.component.css', 'knockout', 'jquery'],
     function (componentTemplate, componentCss, ko, $) {
         function TermsOfUseModel(params) {
             var self = this;

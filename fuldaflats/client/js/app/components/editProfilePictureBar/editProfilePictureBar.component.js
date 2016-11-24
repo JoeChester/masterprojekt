@@ -1,4 +1,4 @@
-define(['text!./editProfilePictureBar.component.html', 'text!./editProfilePictureBar.component.css', 'knockout', 'jquery'],
+define(['text!./editProfilePictureBar.component.html', 'css!./editProfilePictureBar.component.css', 'knockout', 'jquery'],
     function(componentTemplate, componentCss, ko, $) {
         function EditProfilePictureModel(params) {
             var self = this;

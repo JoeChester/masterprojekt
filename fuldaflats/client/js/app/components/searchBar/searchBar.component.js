@@ -1,4 +1,4 @@
-define(['text!./searchBar.component.html', 'text!./searchBar.component.css', 'knockout', 'fuldaflatsApiClient'],
+define(['text!./searchBar.component.html', 'css!./searchBar.component.css', 'knockout', 'fuldaflatsApiClient'],
     function(componentTemplate, componentCss, ko, api) {
 
         function SearchPanelModel(params) {
