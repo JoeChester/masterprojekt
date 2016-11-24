@@ -1,6 +1,6 @@
-define(['text!./searchResultBar.component.html', 'text!./searchResultBar.component.css', 'knockout', 'jquery', 'fuldaflatsApiClient'],
-    function (componentTemplate, componentCss, ko, $, api) {
-        function SearchResultModel() {
+define(['text!./termsOfUseBar.component.html', 'text!./termsOfUseBar.component.css', 'knockout', 'jquery'],
+    function (componentTemplate, componentCss, ko, $) {
+        function TermsOfUseModel(params) {
             var self = this;
             // your model functions and variables
         }
@@ -9,8 +9,7 @@ define(['text!./searchResultBar.component.html', 'text!./searchResultBar.compone
             viewModel: {
                 createViewModel: function (params, componentInfo) {
                     // componentInfo contains for example the root element from the component template
-                    var viewModel = new SearchResultModel(params);
-                    return viewModel;
+                    return new TermsOfUseModel(params);
                 }
             },
             template: componentTemplate

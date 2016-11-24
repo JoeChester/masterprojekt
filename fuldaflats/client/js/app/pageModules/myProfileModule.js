@@ -1,11 +1,13 @@
 define([
     'knockout',
     'app/components/breadcrumbBar/breadcrumbBar.component',
-], function (ko, breadcrumbBarComponent) {
+    'app/components/myProfileBar/myProfileBar.component'
+], function (ko, breadcrumbBarComponent, myProfileBarComponent) {
     function MyProfilePageModule() {
         var self = this;
 
         ko.components.register("breadcrumb", breadcrumbBarComponent);
+        ko.components.register("my-profile", myProfileBarComponent);
 
         self.initialize = function (appModel) {
             if (appModel) {

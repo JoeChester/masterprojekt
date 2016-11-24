@@ -1,5 +1,5 @@
 define(['text!./searchBar.component.html', 'text!./searchBar.component.css', 'knockout', 'fuldaflatsApiClient'],
-    function (componentTemplate, componentCss, ko, api) {
+    function(componentTemplate, componentCss, ko, api) {
 
         function SearchPanelModel(params) {
             var self = this;
@@ -19,7 +19,7 @@ define(['text!./searchBar.component.html', 'text!./searchBar.component.css', 'kn
 
             self.tags = ko.observableArray();
 
-            api.offer.getTags().then(function (tags) {
+            api.offer.getTags().then(function(tags) {
                 self.tags(ko.unwrap(tags));
             });
 
@@ -37,7 +37,7 @@ define(['text!./searchBar.component.html', 'text!./searchBar.component.css', 'kn
                     try {
                         var lastSearchQuery = JSON.parse(lastSearchQueryCookie);
                         if (lastSearchQuery) {
-                            $.each(lastSearchQuery, function (propertyName, propertyValue) {
+                            $.each(lastSearchQuery, function(propertyName, propertyValue) {
                                 if (queryParamater.hasOwnProperty(propertyName)) {
                                     queryParamater[propertyName](propertyValue);
                                 }
@@ -53,14 +53,14 @@ define(['text!./searchBar.component.html', 'text!./searchBar.component.css', 'kn
 
             self.queryParameter = getQueryParameter();
 
-            self.search = function () {
+            self.search = function() {
                 $.cookie(searchCookieName, ko.toJSON(self.queryParameter), { expires: 1, path: '/' });
                 if (self.searchPageInfo() && self.searchPageInfo().url) {
                     window.document.location.href = self.searchPageInfo().url
                 }
             };
 
-            self.optionsAfterRender = function (option, item) {
+            self.optionsAfterRender = function(option, item) {
                 ko.applyBindingsToNode(option, {
                     disable: !item
                 }, item);
@@ -69,7 +69,8 @@ define(['text!./searchBar.component.html', 'text!./searchBar.component.css', 'kn
 
         return {
             viewModel: {
-                createViewModel: function (params, componentInfo) {
+                createViewModel: function(params, componentInfo) {
+                    // componentInfo contains for example the root element from the component template
                     var viewModel = new SearchPanelModel(params);
                     return viewModel;
                 }

@@ -1,13 +1,15 @@
 define([
     'knockout',
     'app/components/breadcrumbBar/breadcrumbBar.component',
-], function(ko, breadcrumbBarComponent) {
+    'app/components/signUpBar/signUpBar.component'
+], function (ko, breadcrumbBarComponent, signUpBarComponent) {
     function SignUpPageModule() {
         var self = this;
 
         ko.components.register("breadcrumb", breadcrumbBarComponent);
+        ko.components.register("sign-up", signUpBarComponent);
 
-        self.initialize = function(appModel) {
+        self.initialize = function (appModel) {
             if (appModel) {
                 appModel.currentPage = appModel.pages.signUp;
 

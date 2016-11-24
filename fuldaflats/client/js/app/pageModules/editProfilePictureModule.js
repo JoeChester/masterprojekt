@@ -1,13 +1,15 @@
 define([
     'knockout',
     'app/components/breadcrumbBar/breadcrumbBar.component',
-], function(ko, breadcrumbBarComponent) {
+    'app/components/editProfilePictureBar/editProfilePictureBar.component'
+], function (ko, breadcrumbBarComponent, editProfilePictureBarComponent) {
     function EditProfilePicturePageModule() {
         var self = this;
 
         ko.components.register("breadcrumb", breadcrumbBarComponent);
+        ko.components.register("edit-profile-picture", editProfilePictureBarComponent);
 
-        self.initialize = function(appModel) {
+        self.initialize = function (appModel) {
             if (appModel) {
                 appModel.currentPage = appModel.pages.editProfilePicture;
 
