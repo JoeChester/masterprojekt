@@ -19,31 +19,34 @@
                     <div class="row">
                         <label for="firstName" class="control-label col-sm-2">First Name:</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" id="firstName" placeholder="Max">
+                            <input type="text" class="form-control" id="firstName" data-bind="attr:{placeholder:user.firstName}">
                         </div>
                     </div>
                     <div class="row">
                         <label for="lastName" class="control-label col-sm-2">Last Name:</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" id="lastName" placeholder="Mustermann">
+                            <input type="text" class="form-control" id="lastName" data-bind="attr:{placeholder:user.lastName}">
                         </div>
                     </div>
                     <div class="row">
                         <label for="gender" class="control-label col-sm-2">Gender:</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" id="gender" placeholder="Male">
+                           <select class="form-control" id="gender">
+                                <option>Male</option>
+                                <option>Female</option>
+                            </select>
                         </div>
                     </div>
                     <div class="row">
                         <label for="birthday" class="control-label col-sm-2">Birthday:</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" id="bithday" placeholder="01.02.1993">
+                            <input type="text" class="form-control" id="bithday" data-bind="attr:{placeholder:user.birthday}">
                         </div>
                     </div>
                     <div class="row">
                         <label for="eMail" class="control-label col-sm-2">E-Mail:</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" id="eMail" placeholder="max.mustermann@web.de">
+                            <input type="text" class="form-control" id="eMail" data-bind="attr:{placeholder:user.email}">
                         </div>
                     </div>
                     <div class="row">
