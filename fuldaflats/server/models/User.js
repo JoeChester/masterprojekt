@@ -23,7 +23,8 @@ module.exports = function(schema){
         houseNumber:    {type: schema.String, limit: 5},
         gender:         {type: schema.String, limit: 5},
         officeAddress:  {type: schema.String, limit: 4000},
-        averageRating:  {type: schema.Float, default: 0.0}
+        averageRating:  {type: schema.Float, default: 0.0},
+        profilePicture: {type: schema.String, limit: 255, default: 'uploads/cupcake.png'}
     },{});
 
     //Validators
