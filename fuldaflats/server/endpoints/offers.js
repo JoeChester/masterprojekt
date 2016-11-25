@@ -197,7 +197,7 @@ router.post('/:offerId/review', function (req, res) {
 
 //delete review
 router.delete('/:offerId/review/:reviewId', function (req, res) {
-    User.destroyById(req.param.reviewId, err => {
+    schema.models.Review.destroyById(req.param.reviewId, err => {
         if(err){
             res.status(400);
             res.json(err);
@@ -230,7 +230,7 @@ router.put('/:offerId/favorite', function (req, res) {
 
 //remove offer from favorites
 router.delete('/:offerId/favorite', function (req, res) {
-    User.destroyById(req.param.favoriteId, err => {
+    schema.models.Favorite.destroyById(req.param.favoriteId, err => {
         if(err){
             res.status(400);
             res.json(err);
