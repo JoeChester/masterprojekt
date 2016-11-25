@@ -176,22 +176,67 @@ router.delete('/:offerId', function (req, res) {
 
 //create review
 router.post('/:offerId/review', function (req, res) {
-    res.sendStatus(501);
+    //check wether the offer exists at all
+    schema.models.Offer.exists(req.param.offerId,  err => {
+        if(err){
+            res.status(400);
+            res.json(err);
+        } else {
+            var newReview = new schema.models.Review(req.body); 
+            newReview.offerId = req.param.offerId;
+            newReview.save( err => {
+                if (err) {
+                    res.status(400);
+                    res.json(err);
+                } else 
+                    res.sendStatus(201);
+            });
+        }
+    });
 });
 
 //delete review
 router.delete('/:offerId/review/:reviewId', function (req, res) {
-    res.sendStatus(501);
+    User.destroyById(req.param.reviewId, err => {
+        if(err){
+            res.status(400);
+            res.json(err);
+        } else 
+            res.sendStatus(200);
+    });
 });
 
 //set offer as favorite
 router.put('/:offerId/favorite', function (req, res) {
-    res.sendStatus(501);
+    //check wether the offer exists at all
+    schema.models.Offer.exists(req.param.offerId, err => {
+        if(err){
+            res.status(400);
+            res.json(err);
+        } else {
+            var newFav = new schema.models.Favorite(req.body); 
+            newFav.offerId = req.param.offerId;
+            newFav.userId  = req.session.user.userId;
+            newFav.save( err => {
+                if (err) {
+                    res.status(400);
+                    res.json(err);
+                } else 
+                    res.sendStatus(201);
+            });
+        }
+    });
 });
 
 //remove offer from favorites
 router.delete('/:offerId/favorite', function (req, res) {
-    res.sendStatus(501);
+    User.destroyById(req.param.favoriteId, err => {
+        if(err){
+            res.status(400);
+            res.json(err);
+        } else 
+            res.sendStatus(200);
+    });
 });
 
 module.exports = router;
