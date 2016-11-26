@@ -16,8 +16,6 @@ define([
 
         self.offerTypes = ['FLAT', 'SHARE', 'SUBLET', 'COUCH', 'PARTY'];
 
-        self.currentPage = ko.observable("");
-
         self.pages = {
             becomeLandlord: ko.observable({ url: "/pages/becomeLandlord.html", title: "Become Landlord" }),
             changePassword: ko.observable({ url: "/pages/changePassword.html", title: "Change Password" }),
@@ -62,19 +60,6 @@ define([
             templateUrl: "https://bootstrapious.com/free-templates"
         };
 
-        self.getPageTitle = function() {
-            var title = "";
-            if (self.domain) {
-                title = self.domain;
-            }
-
-            if (self.currentPage() && self.currentPage().title) {
-                title += ": " + self.currentPage().title;
-            }
-
-            return title;
-        }
-
         function loadPageModule() {
             var defer = $.Deferred();
 
@@ -91,6 +76,19 @@ define([
             });
 
             return defer.promise();
+        }
+
+        self.getPageTitle = function() {
+            var title = "";
+            if (self.domain) {
+                title = self.domain;
+            }
+
+            if (self.currentPage() && self.currentPage().title) {
+                title += ": " + self.currentPage().title;
+            }
+
+            return title;
         }
 
         self.initialize = function() {

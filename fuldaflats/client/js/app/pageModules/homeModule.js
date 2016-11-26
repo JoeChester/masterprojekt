@@ -3,7 +3,7 @@ define([
     'app/components/searchBar/searchBar.component',
     'app/components/offerBarSlider/offerBarSlider.component',
     'app/components/tagCloudBar/tagCloudBar.component',
-], function (ko, searchBarComponent, offerBarSliderComponent, tagCloudBarComponent) {
+], function(ko, searchBarComponent, offerBarSliderComponent, tagCloudBarComponent) {
     function HomePageModul() {
         var self = this;
 
@@ -11,7 +11,7 @@ define([
         ko.components.register("offer-slider", offerBarSliderComponent);
         ko.components.register("tag-cloud", tagCloudBarComponent);
 
-        self.initialize = function (appModel) {
+        self.initialize = function(appModel) {
             if (appModel) {
                 appModel.currentPage = appModel.pages.home;
 
@@ -142,9 +142,9 @@ define([
 
                 appModel.tagCloudBar = {
                     searchPageInfo: appModel.pages.search,
-                    tagCloudHeight: 150,
-                    // todo: find better colors
-                    //tagColors: ["#800026", "#bd0026", "#e31a1c", "#fc4e2a", "#fd8d3c", "#feb24c", "#fed976", "#ffeda0", "#ffffcc"]
+                    tagCloudOptions: {
+                        height: 150
+                    },
                 }
             }
         }
