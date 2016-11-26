@@ -27,6 +27,13 @@ define(['text!./navigationBar.component.html', 'css!./navigationBar.component.cs
                 userData: undefined
             });
 
+            self.signInDialogParameter = {
+                currentUser: self.currentUser
+            }
+
+            self.signUpDialogParameter = {
+                currentUser: self.currentUser
+            }
 
             self.signOut = function() {
                 api.users.signOut().then(function(currentUser) {
@@ -53,6 +60,14 @@ define(['text!./navigationBar.component.html', 'css!./navigationBar.component.cs
 
                     if (params.currentUser && ko.isObservable(params.currentUser)) {
                         self.currentUser = params.currentUser;
+
+                        self.signInDialogParameter = {
+                            currentUser: self.currentUser
+                        }
+
+                        self.signUpDialogParameter = {
+                            currentUser: self.currentUser
+                        }
                     }
                 }
             };

@@ -73,7 +73,7 @@ define(["jquery", 'knockout'], function($, ko) {
             }).done(function(requestSearchResults) {
                 var searchResults = ko.observableArray();
                 if (requestSearchResults && requestSearchResults.length > 0) {
-                    $.each(requestSearchResults, function(searchResult) {
+                    $.each(requestSearchResults, function(index, searchResult) {
                         searchResults.push(searchResult);
                     });
                 }
@@ -143,7 +143,7 @@ define(["jquery", 'knockout'], function($, ko) {
             }).done(function(requestedOfferResults) {
                 var offerResults = ko.observableArray();
                 if (requestedOfferResults && requestedOfferResults.length > 0) {
-                    $.each(requestedOfferResults, function(searchResult) {
+                    $.each(requestedOfferResults, function(index, searchResult) {
                         offerResults.push(searchResult);
                     });
                 }

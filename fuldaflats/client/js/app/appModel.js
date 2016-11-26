@@ -24,6 +24,8 @@ define([
             console.log(newValue)
         });
 
+        /*window.user = self.currentUser;*/
+
         self.pages = {
             becomeLandlord: ko.observable({ url: "/pages/becomeLandlord.html", title: "Become Landlord" }),
             changePassword: ko.observable({ url: "/pages/changePassword.html", title: "Change Password" }),

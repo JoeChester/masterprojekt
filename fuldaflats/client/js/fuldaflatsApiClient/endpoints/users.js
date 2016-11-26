@@ -7,16 +7,17 @@ define(["jquery", 'knockout'], function($, ko) {
         // user sign in
         self.signIn = function(email, password) {
             var defer = $.Deferred();
+            var userCredentials = {
+                email: email,
+                password: window.btoa(password)
+            };
 
             $.ajax({
                 url: endpointUrls.auth,
                 method: "POST",
                 dataType: "json",
                 contentType: "application/json",
-                data: {
-                    email: email,
-                    password: window.atob(password)
-                }
+                data: JSON.stringify(userCredentials)
             }).done(function(data, textStatus, jqXHR) {
                 if (jqXHR.status === 201) {
                     var userResult = ko.observable({
@@ -28,6 +29,29 @@ define(["jquery", 'knockout'], function($, ko) {
                     defer.reject("Failed to sing in the user.");
                 }
             }).fail(function(jqXHR, textStatus) {
+                /*var userResult = ko.observable({
+                    isAuthenticated: true,
+                    userData: {
+                        "id": 4,
+                        "email": "louisa1991@gmx.de",
+                        "type": 1,
+                        "firstName": "Louisa",
+                        "lastName": "Buehler",
+                        "birthday": "20.06.1991",
+                        "upgradeDate": "25.11.2016",
+                        "creationDate": "19.11.2016",
+                        "phoneNumber": "(+49) 661 100 812",
+                        "zipCode": "36039",
+                        "city": "Fulda",
+                        "street": "Henrich Str.",
+                        "houseNumber": "30",
+                        "gender": "female",
+                        "officeAddress": null,
+                        "averageRating": 4.8,
+                        "favorites": null
+                    }
+                });
+                defer.resolve(userResult)*/
                 defer.reject("Failed to sing in the user.");
             });
 

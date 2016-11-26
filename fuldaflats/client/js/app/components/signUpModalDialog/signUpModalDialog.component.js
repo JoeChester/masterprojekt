@@ -1,6 +1,6 @@
-define(['text!./signUpModalDialog.component.html', 'css!./signUpModalDialog.component.css', 'knockout', 'jquery'],
-    function(componentTemplate, componentCss, ko, $) {
-        function SignUpModel(params) {
+define(['text!./signUpModalDialog.component.html', 'css!./signUpModalDialog.component.css', 'knockout', 'jquery', 'fuldaflatsApiClient'],
+    function(componentTemplate, componentCss, ko, $, api) {
+        function SignUpModel(ko, $, api) {
             var self = this;
             // your model functions and variables
         }
