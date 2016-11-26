@@ -1,11 +1,12 @@
 define(["jquery", 'knockout', "/js/fuldaflatsApiClient/endpoints/offer.js"], function ($, ko, offerEndPoint) {
-    function FuldaflatsApiClient() {
+    function FuldaFlatsApiClient() {
         var self = this;
 
         var relativeUrl = "/api/"
         var endpointUrls = {
             offer: {
-                tags: relativeUrl + "tags"
+                tags: relativeUrl + "tags",
+                search: relativeUrl + "offers/search"
             }
         }
 
@@ -31,5 +32,5 @@ define(["jquery", 'knockout', "/js/fuldaflatsApiClient/endpoints/offer.js"], fun
         }
     }
 
-    return new FuldaflatsApiClient;
+    return new FuldaFlatsApiClient;
 });

@@ -19,7 +19,7 @@ define([
         self.currentPage = ko.observable("");
 
         self.pages = {
-            becomeLandlord: ({ url: "/pages/becomeLandlord.html", title: "Become Landlord" }),
+            becomeLandlord: ko.observable({ url: "/pages/becomeLandlord.html", title: "Become Landlord" }),
             changePassword: ko.observable({ url: "/pages/changePassword.html", title: "Change Password" }),
             editOfferDetails: ko.observable({ url: "/pages/editOfferDetails.html", title: "Edit Offer Details" }),
             editProfileData: ko.observable({ url: "/pages/editProfileData.html", title: "Edit Profile Data" }),
