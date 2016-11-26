@@ -1,8 +1,8 @@
 define(["jquery", 'knockout'], function($, ko) {
 
-    function OfferEndpoint(offerEndpointUrls, offerTypes) {
+    function OffersEndpoint(offersEndpointUrls, offerTypes) {
         var self = this;
-        var endpointUrls = offerEndpointUrls;
+        var endpointUrls = offersEndpointUrls;
 
         // Offer Serach
 
@@ -44,8 +44,6 @@ define(["jquery", 'knockout'], function($, ko) {
                     return value;
                 }
             });
-
-            console.log(searchQuery);
 
             $.ajax({
                 url: endpointUrls.search,
@@ -144,7 +142,6 @@ define(["jquery", 'knockout'], function($, ko) {
                 dataType: "json"
             }).done(function(requestedOfferResults) {
                 var offerResults = ko.observableArray();
-                console.log(requestedOfferResults);
                 if (requestedOfferResults && requestedOfferResults.length > 0) {
                     $.each(requestedOfferResults, function(searchResult) {
                         offerResults.push(searchResult);
@@ -160,5 +157,5 @@ define(["jquery", 'knockout'], function($, ko) {
         }
     }
 
-    return OfferEndpoint;
+    return OffersEndpoint;
 });

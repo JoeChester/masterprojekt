@@ -16,6 +16,16 @@ define([
 
         self.offerTypes = ['FLAT', 'SHARE', 'SUBLET', 'COUCH', 'PARTY'];
 
+        self.currentUser = ko.observable({
+            isAuthenticated: false,
+            userData: undefined
+        });
+
+        self.currentUser.subscribe(function(newValue){
+            console.log("Current User Changed")
+            console.log(newValue)
+        });
+
         self.pages = {
             becomeLandlord: ko.observable({ url: "/pages/becomeLandlord.html", title: "Become Landlord" }),
             changePassword: ko.observable({ url: "/pages/changePassword.html", title: "Change Password" }),
@@ -97,6 +107,18 @@ define([
             ko.components.register("copyright", copyrightBarComponent);
 
             api.initialize("api", self.offerTypes);
+
+            api.users.getMe().then(function(user) {
+                var userObject = ko.unwrap(user);
+                if(userObject){
+                    self.currentUser({
+                        isAuthenticated: true,
+                        userData: userObject
+                    });
+                }
+            }, function(rejectMessage) {
+                console.log(rejectMessage);
+            });
 
             loadPageModule().then(function() {
                 ko.applyBindings(self, document.getElementsByTagName("html")[0]);

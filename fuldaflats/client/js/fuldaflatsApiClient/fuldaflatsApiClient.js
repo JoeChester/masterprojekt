@@ -1,4 +1,4 @@
-define(["jquery", 'knockout', "/js/fuldaflatsApiClient/endpoints/offer.js"], function ($, ko, offerEndPoint) {
+define(["jquery", 'knockout', "/js/fuldaflatsApiClient/endpoints/offers.js", "/js/fuldaflatsApiClient/endpoints/users.js"], function($, ko, offersEndPoint, usersEndPoint) {
     function FuldaFlatsApiClient() {
         var self = this;
 
@@ -8,6 +8,11 @@ define(["jquery", 'knockout', "/js/fuldaflatsApiClient/endpoints/offer.js"], fun
                 tags: relativeUrl + "tags",
                 search: relativeUrl + "offers/search",
                 recent: relativeUrl + "offers/recent",
+            },
+            users: {
+                auth: relativeUrl + "users/auth",
+                users: relativeUrl + "users",
+                me: relativeUrl + "users/me",
             }
         }
 
@@ -26,10 +31,11 @@ define(["jquery", 'knockout', "/js/fuldaflatsApiClient/endpoints/offer.js"], fun
             }
         }
 
-        self.initialize = function (relativeApiUrl, offerTypes) {
+        self.initialize = function(relativeApiUrl, offerTypes) {
             setRelativeApiUrl(relativeApiUrl);
 
-            self.offers = new offerEndPoint(endpointUrls.offers, offerTypes);
+            self.offers = new offersEndPoint(endpointUrls.offers, offerTypes);
+            self.users = new usersEndPoint(endpointUrls.users);
         }
     }
 
