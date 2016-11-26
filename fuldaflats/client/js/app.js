@@ -13,7 +13,7 @@ requirejs.config({
         'knockoutOwlCarousel': { 'deps': ['knockout', 'jquery', 'owlCarousel'] },
         'fuldaflatsApiClient': { 'deps': ['knockout', 'jquery'] },
         'jqcloud': { 'deps': ['jquery'] },
-        'bootstrapSwitch': { 'deps': ['jquery']},
+        'bootstrapSwitch': { 'deps': ['jquery'] },
     },
     paths: {
         css: '../bower_components/require-css/css.min',
@@ -29,9 +29,24 @@ requirejs.config({
         bootstrapSwitch: '../bower_components/bootstrap-switch/dist/js/bootstrap-switch.min',
         owlCarousel: './lib/owl.carousel.min',
         knockoutOwlCarousel: './lib/knockout-owlCarousel',
-        fuldaflatsApiClient: './fuldaflatsApiClient/fuldaflatsApiClient',
-        jqcloud: '/bower_components/jqcloud2/dist/jqcloud.min'
+        jqcloud: '/bower_components/jqcloud2/dist/jqcloud.min',
+        fuldaflatsApiClient: './fuldaflatsApiClient/fuldaflatsApiClient'
     }
 });
 
-requirejs(['app/main']);
+/*
+window.onerror = function(messageOrEvent, source, lineno, colno, error) {
+    document.location.href = "/pages/error.html"
+};*/
+
+//Load default libraries, plugins and initilize app
+requirejs(['app/appModel',
+    'jquery', 'bootstrap', 'knockout', 'jqueryCookie', 'waypoints', 'jqueryConterup',
+    'jqueryParallax', /* 'front', */ 'bootstrapSwitch', 'owlCarousel', 'knockoutOwlCarousel', 'jqcloud', 'fuldaflatsApiClient'
+], function(app, $) {
+    var event = new CustomEvent('scripts-loaded');
+    document.dispatchEvent(event);
+    console.log("Loaded default libraries, plugins and initilized app.");
+
+    app.initialize();
+});

@@ -1,13 +1,25 @@
-define(["jquery", 'knockout'], function($, ko) {
+define(["jquery", 'knockout'], function ($, ko) {
 
-    function OfferEndpoint(offerEndpointUrls) {
+    function OfferEndpoint(offerEndpointUrls, offerTypes) {
         var self = this;
         var endpointUrls = offerEndpointUrls;
+
+        var offerTypes = ko.observableArray([]);
+        var unwrapOfferTypes = ko.unwrap(offerTypes);
+        if (unwrapOfferTypes && unwrapOfferTypes.length > 0) {
+            offerTypes(unwrapOfferTypes);
+        }
+        
+        self.getOfferTypes = function () {
+            var defer = $.Deferred();
+            defer.resolve(offerTypes);
+            return defer.promise();
+        }
 
         var getTagsDefer = undefined;
         var cachedTags = ko.observableArray();
 
-        self.getTags = function(force) {
+        self.getTags = function (force) {
             if (getTagsDefer == undefined) {
                 getTagsDefer = $.Deferred();
 
@@ -16,66 +28,17 @@ define(["jquery", 'knockout'], function($, ko) {
                         url: endpointUrls.tags,
                         method: "Get",
                         dataType: "json"
-                    }).done(function(tags) {
+                    }).done(function (tags) {
                         if (tags && tags.length > 0) {
                             cachedTags(tags);
                         }
 
                         getTagsDefer.resolve(cachedTags);
                         getTagsDefer = undefined;
-                    }).fail(function(jqXHR, textStatus) {
+                    }).fail(function (jqXHR, textStatus) {
                         var errorMsg = "Failed to load tags \n" + jqXHR.statusCode().status + ": " + jqXHR.statusCode().statusText;
                         console.error(errorMsg);
-                        //defer.reject(errorMsg) // Demo Test
-                        cachedTags(
-                            [
-                                {
-                                    "tag_id": 1,
-                                    "title": "Angewandte Informatik",
-                                    "category": "faculty",
-                                    "offers": null
-                                },
-                                {
-                                    "tag_id": 2,
-                                    "title": "Wirtschaftswissenschaften",
-                                    "category": "faculty",
-                                    "offers": null
-                                },
-                                {
-                                    "tag_id": 3,
-                                    "title": "Deutsch",
-                                    "category": "language",
-                                    "offers": null
-                                }, {
-                                    "tag_id": 3,
-                                    "title": "Deutsch",
-                                    "category": "language",
-                                    "offers": null
-                                }, {
-                                    "tag_id": 1,
-                                    "title": "Angewandte Informatik",
-                                    "category": "faculty",
-                                    "offers": null
-                                },
-                                {
-                                    "tag_id": 2,
-                                    "title": "Wirtschaftswissenschaften",
-                                    "category": "faculty",
-                                    "offers": null
-                                },
-                                {
-                                    "tag_id": 3,
-                                    "title": "Deutsch",
-                                    "category": "language",
-                                    "offers": null
-                                }, {
-                                    "tag_id": 3,
-                                    "title": "Deutsch",
-                                    "category": "language",
-                                    "offers": null
-                                }
-                            ]);
-                        getTagsDefer.resolve(cachedTags);
+                        defer.reject(errorMsg)
                         getTagsDefer = undefined;
                     });
                 } else {

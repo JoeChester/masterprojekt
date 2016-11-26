@@ -17,13 +17,16 @@
 
         <div data-bind='component: { name: "breadcrumb", params: breadcrumbBar }'></div>
 
-		<new-offer></new-offer>
+        <div class="bar background-gray-dark no-mb">
+            <div class="container">
+                <div class="col-md-12">
+                    <h4>Internal Client Error.</h4>
+                </div>
+            </div>
+        </div>
 
         <div data-bind='component: { name: "copyright", params: copyrightBar }'></div>
     </div>
-
-    <script src="/bower_components/requirejs/require.js" data-main="/../js/app"></script>
-
 </body>
 
 </html>

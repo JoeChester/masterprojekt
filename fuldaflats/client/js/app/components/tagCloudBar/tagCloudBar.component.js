@@ -1,6 +1,7 @@
 define(['text!./tagCloudBar.component.html', "knockout", 'jqcloud', 'fuldaflatsApiClient'], function (componentTemplate, ko, jqcloud, api) {
     function TagCloudModel(params, tagCloudElement) {
         var self = this;
+
         var tagCloudHeight = ko.observable();
         var tagColors = ko.observableArray();
         var cloudTags = ko.observableArray();
@@ -9,7 +10,7 @@ define(['text!./tagCloudBar.component.html', "knockout", 'jqcloud', 'fuldaflatsA
             tagCloudHeight(ko.unwrap(params.tagCloudHeight) || 150);
 
             var paramsTagColors = ko.unwrap(params.tagColors)
-            if (paramsTagColors && paramsTagColors.length > 0) {
+            if (paramsTagColors && paramsTagColors.length === 10) {
                 tagColors(paramsTagColors);
             }
         }
@@ -22,32 +23,49 @@ define(['text!./tagCloudBar.component.html', "knockout", 'jqcloud', 'fuldaflatsA
 
         api.offer.getTags().then(function (tagsResult) {
             cloudTags.removeAll()
+
             $.each(ko.unwrap(tagsResult), function (index, tag) {
-                if (tag && tag.title) {
-                    cloudTags.push({
-                        text: tag.title,
-                        weight: getRandomTagWeight(),
-                        link: "/pages/search.html"
-                    });
-                } else if (tag && typeof tag === "string") {
+                var tagTitle = "";
+
+                if (tag && typeof tag === "string") {
+                    tagTitle = tag;
+                } else if (tag && tag.title) {
+                    tagTitle = tag.title;
+                }
+
+                if (tagTitle) {
                     cloudTags.push({
                         text: tag,
                         weight: getRandomTagWeight(),
-                        link: "/pages/search.html"
+                        link: { href: "javascript:void(0)", "data-bind": "click: searchByTag" },
                     });
                 }
-            })
-            if (cloudTags().length > 0) {
+            });
+
+            self.showTagClound();
+        });
+
+        self.showTagClound = function () {
+            if (cloudTags().length > 0 && tagCloudElement) {
                 var jqcloudOptions = {
                     height: tagCloudHeight(),
-                    autoResize: true
+                    autoResize: true,
+                    afterCloudRender: function () {
+                        ko.applyBindings(self, tagCloudElement[0]);
+                    }
                 }
-                if (tagColors().length > 0) {
+
+                if (tagColors().length === 10) {
                     jqcloudOptions.colors = tagColors();
                 }
+
                 tagCloudElement.jQCloud(cloudTags(), jqcloudOptions);
             }
-        });
+        };
+
+        self.searchByTag = function (tagcloudModel, event) {
+            console.log(event.currentTarget.text);
+        }
     }
 
     return {

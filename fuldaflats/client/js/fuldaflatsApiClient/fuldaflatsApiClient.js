@@ -9,9 +9,26 @@ define(["jquery", 'knockout', "/js/fuldaflatsApiClient/endpoints/offer.js"], fun
             }
         }
 
-        var cachedTags = ko.observableArray();
+        function setRelativeApiUrl(relativeApiUrl) {
+            var unwrapRelativeApiUrl = ko.unwrap(relativeApiUrl);
+            if (unwrapRelativeApiUrl) {
+                if (unwrapRelativeApiUrl.indexOf("/") !== 0) {
+                    unwrapRelativeApiUrl = "/" + unwrapRelativeApiUrl;
+                }
 
-        self.offer = new offerEndPoint(endpointUrls.offer);
+                if (unwrapRelativeApiUrl.lastIndexOf("/") !== unwrapRelativeApiUrl.lenght - 1) {
+                    unwrapRelativeApiUrl = unwrapRelativeApiUrl + "/";
+                }
+
+                relativeUrl = unwrapRelativeApiUrl;
+            }
+        }
+
+        self.initialize = function (relativeApiUrl, offerTypes) {
+            setRelativeApiUrl(relativeApiUrl);
+
+            self.offer = new offerEndPoint(endpointUrls.offer, offerTypes);
+        }
     }
 
     return new FuldaflatsApiClient;
