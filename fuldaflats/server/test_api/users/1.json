@@ -15,7 +15,5 @@
     "gender": "male",
     "officeAddress" : "Leipziger Str. 45",
     "averageRating": 4.5,
-    "offers": 1,
-    "profilePicture": null,
     "favorites": null
 }

@@ -111,3 +111,16 @@ var tags = require('../test_api/tags.json');
 for(i in tags){
     createTag(tags[i]);
 }
+
+// Create Demo MOs
+function createMediaObject(mo){
+    schema.models.MediaObject.create(mo, (err, _mo) =>{
+        if(err) console.log(err);
+        else console.log("Created MO " + _mo.id + "!");
+    });
+}
+
+var mos = require('../test_api/mediaObjects.json');
+for(i in mos){
+    createMediaObject(mos[i]);
+}

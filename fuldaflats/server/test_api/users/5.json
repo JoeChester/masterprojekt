@@ -15,7 +15,5 @@
     "gender": "male",
     "officeAddress" : "Leipziger Str.",
     "averageRating": 5.0,
-    "offers": 3,
-    "profilePicture": null,
     "favorites": null
 }

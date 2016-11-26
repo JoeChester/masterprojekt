@@ -15,7 +15,5 @@
     "gender": "male",
     "officeAddress" : null,
     "averageRating": null,
-    "offers": null,
-    "profilePicture": null,
     "favorites": null
 }

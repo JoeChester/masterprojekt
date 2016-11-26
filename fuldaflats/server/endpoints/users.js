@@ -13,6 +13,7 @@ var router = express.Router({
     mergeParams: true
 });
 var _hash = require('crypto-toolkit').Hash('hex');
+var async = require('async');
 
 //SALT for Hashfunction
 const SALT = "fuldaflats#2016#";
@@ -37,11 +38,54 @@ function authenticate(req, res, successStatus) {
                 req.session.user = user;
 
                 res.status(successStatus);
-                res.json(user.toJSON());
+                return res.json(user.toJSON_ME());
             } else {
                 res.sendStatus(403);
             }
         }
+    });
+}
+
+function getUserOffers(req, res, user, _user){
+    schema.models.Offer.find({where:{landlord: user.id}}, (err, offers) =>{
+        if(!err && offers && offers.length > 0){
+            let offer_joins = [];
+            offers.forEach(offer => {
+                offer_joins.push(cb => {
+                    //Copy Caminte Model to Plain JSON Object
+                    //otherwise additional properties will get lost
+                    let _offer = offer.toJSON_STUB();
+                    //Execute Query
+                    offer.mediaObjects((err, mediaObjects) => {
+                        if (err)
+                            return cb(err);
+                        //Set additional Property    
+                        _offer.mediaObjects = mediaObjects;
+                        offer.tags((err, tags) => {
+                            if (err)
+                                return cb(err);
+                            //Set additional Property    
+                            _offer.tags = tags;
+                            //Callback to Async Parent
+                            cb(null, _offer);
+                        });
+                    });
+
+                });
+            });
+            //Execute Joins in Parallel
+            async.parallel(offer_joins, (err, _offers) => {
+                if (err) {
+                    res.status(400);
+                    return res.json(err);
+                }
+                _user.offers = _offers;
+                finalize(req, res, user, _user);
+            });
+        } else {
+            finalize(req, res, user, _user);
+        }
+        
     });
 }
 
@@ -52,12 +96,12 @@ function getFavorites(req, res, user, _user){
         if(!err && favorites && favorites.length > 0){
             _user.favorites = favorites;
         }
-        finalize(req, res, user, _user);
+        getUserOffers(req, res, user, _user);
     });
 }
 
 function getRelationships(req, res, user){
-    let _user = user.toJSON();
+    let _user = user.toJSON_ME();
     getFavorites(req, res, user, _user);
 }
 

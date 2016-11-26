@@ -104,7 +104,7 @@ router.get('/recent', function (req, res) {
             offer_joins.push(cb => {
                 //Copy Caminte Model to Plain JSON Object
                 //otherwise additional properties will get lost
-                let _offer = offer.toJSON();
+                let _offer = offer.toJSON_STUB();
                 //Execute Query
                 offer.mediaObjects((err, mediaObjects) => {
                     if (err)
