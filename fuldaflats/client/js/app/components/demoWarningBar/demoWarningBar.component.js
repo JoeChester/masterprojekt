@@ -1,12 +1,14 @@
 define(['text!./demoWarningBar.component.html', 'css!./demoWarningBar.component.css', 'knockout'],
     function(componentTemplate, componentCss, ko) {
-        function DemoWarningModel(demoWarningMessage) {
+        function DemoWarningModel() {
             var self = this;
 
             self.warningMessage = ko.observable();
 
-            if (demoWarningMessage) {
-                self.warningMessage(ko.unwrap(demoWarningMessage) || '');
+            self.initialize = function(demoWarningMessage) {
+                if (demoWarningMessage) {
+                    self.warningMessage(ko.unwrap(demoWarningMessage) || '');
+                }
             }
         }
 
@@ -14,7 +16,8 @@ define(['text!./demoWarningBar.component.html', 'css!./demoWarningBar.component.
             viewModel: {
                 createViewModel: function(demoWarningMessage, componentInfo) {
                     // componentInfo contains for example the root element from the component template
-                    return new DemoWarningModel(demoWarningMessage);
+                    var demoWarning = new DemoWarningModel(ko);
+                    return demoWarning.initialize(demoWarningMessage);
                 }
             },
             template: componentTemplate
