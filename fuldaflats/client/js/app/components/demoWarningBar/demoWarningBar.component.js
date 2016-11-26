@@ -17,7 +17,8 @@ define(['text!./demoWarningBar.component.html', 'css!./demoWarningBar.component.
                 createViewModel: function(demoWarningMessage, componentInfo) {
                     // componentInfo contains for example the root element from the component template
                     var demoWarning = new DemoWarningModel(ko);
-                    return demoWarning.initialize(demoWarningMessage);
+                    demoWarning.initialize(demoWarningMessage);
+                    return demoWarning;
                 }
             },
             template: componentTemplate

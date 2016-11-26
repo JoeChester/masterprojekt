@@ -1,4 +1,4 @@
-define(['text!./copyrightBar.component.html', 'knockout'], function (componentTemplate, ko) {
+define(['text!./copyrightBar.component.html', 'knockout'], function(componentTemplate, ko) {
     function CopyrightModel(params) {
         var self = this;
 
@@ -10,7 +10,7 @@ define(['text!./copyrightBar.component.html', 'knockout'], function (componentTe
         self.templateAuthorName = ko.observable();
         self.templateUrl = ko.observable();
 
-        self.initialize = function (params, tagCloudElement) {
+        self.initialize = function(params) {
             if (params) {
                 self.impressumPageInfo(ko.unwrap(params.impressumPageInfo) || '');
                 self.contactPageInfo(ko.unwrap(params.contactPageInfo) || '');
@@ -25,10 +25,11 @@ define(['text!./copyrightBar.component.html', 'knockout'], function (componentTe
 
     return {
         viewModel: {
-            createViewModel: function (params, componentInfo) {
+            createViewModel: function(params, componentInfo) {
                 // componentInfo contains for example the root element from the component template
                 var copyright = new CopyrightModel(ko);
-                return copyright.initialize(params);
+                copyright.initialize(params);
+                return copyright;
             }
         },
         template: componentTemplate
