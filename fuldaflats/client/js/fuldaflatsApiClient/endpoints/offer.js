@@ -59,7 +59,7 @@ define(["jquery", 'knockout'], function($, ko) {
                     defer.resolve();
                 }
             }).fail(function(jqXHR, textStatus) {
-                defer.reject("Failed to send search query to search api.");
+                defer.reject("Failed to post search query to search api.");
             });
 
             return defer.promise();
@@ -75,7 +75,7 @@ define(["jquery", 'knockout'], function($, ko) {
             }).done(function(requestSearchResults) {
                 var searchResults = ko.observableArray();
                 if (requestSearchResults && requestSearchResults.length > 0) {
-                    $.each(requestSearchResultss, function(searchResult) {
+                    $.each(requestSearchResults, function(searchResult) {
                         searchResults.push(searchResult);
                     });
                 }
@@ -132,6 +132,31 @@ define(["jquery", 'knockout'], function($, ko) {
             }
 
             return getTagsDefer.promise();
+        }
+
+        // Recent offers
+        self.getRecentOffers = function() {
+            var defer = $.Deferred();
+
+            $.ajax({
+                url: endpointUrls.recent,
+                method: "GET",
+                dataType: "json"
+            }).done(function(requestedOfferResults) {
+                var offerResults = ko.observableArray();
+                console.log(requestedOfferResults);
+                if (requestedOfferResults && requestedOfferResults.length > 0) {
+                    $.each(requestedOfferResults, function(searchResult) {
+                        offerResults.push(searchResult);
+                    });
+                }
+
+                defer.resolve(offerResults);
+            }).fail(function(jqXHR, textStatus) {
+                defer.reject("Failed to get recent offers.");
+            });
+
+            return defer.promise();
         }
     }
 

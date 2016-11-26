@@ -1,28 +1,53 @@
 define(['text!./offerBarSlider.component.html', 'css!./offerBarSlider.component.css', 'knockout'],
     function(componentTemplate, componentCss, ko) {
-        function OfferSliderModel(params) {
+        function OfferSliderModel(ko) {
             var self = this;
             self.owlCarouselOptions = {};
             self.barTitle = ko.observable();
+            self.offerDetailsPageInfo = ko.observable();
             self.offers = ko.observableArray();
 
-            if (params) {
-                self.barTitle(ko.unwrap(params.barTitle || ''));
+            self.viewDetails = function(offer, item) {
+                if (offer.id && self.offerDetailsPageInfo() && self.offerDetailsPageInfo().url) {
+                    var offerId = offer.id;
+                    document.location.href = self.offerDetailsPageInfo().url + "?offerId=" + offerId;
+                }
+            };
 
-                var paramOffers = ko.unwrap(params.offers);
-                if (paramOffers && paramOffers.length > 0) {
-                    self.offers(paramOffers);
+            self.getTotalOfferRent = function(offer) {
+                var totalRent = 0;
+
+                if (offer.rent) {
+                    totalRent += offer.rent;
+                }
+                if (offer.sideCosts) {
+                    totalRent += offer.sideCosts;
                 }
 
-                self.owlCarouselOptions = ko.unwrap(params.owlCarouselOptions);
-            }
+                return totalRent;
+            };
+
+            self.initialize = function(params) {
+                if (params) {
+                    self.barTitle(ko.unwrap(params.barTitle || ''));
+                    self.offerDetailsPageInfo(ko.unwrap(params.offerDetailsPageInfo || ''));
+
+                    if (ko.isObservable(params.offers)) {
+                        self.offers = params.offers;
+                    }
+
+                    self.owlCarouselOptions = ko.unwrap(params.owlCarouselOptions);
+                }
+            };
         }
 
         return {
             viewModel: {
                 createViewModel: function(params, componentInfo) {
                     // componentInfo contains for example the root element from the component template
-                    return new OfferSliderModel(params);
+                    var viewModel = new OfferSliderModel(ko);
+                    viewModel.initialize(params);
+                    return viewModel;
                 }
             },
             template: componentTemplate

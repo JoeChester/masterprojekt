@@ -33,10 +33,10 @@ define(['text!./tagCloudBar.component.html', "css!./tagCloudBar.component.css", 
 
             self.searchByTag = function(tagcloudModel, event) {
                 var tag = event.currentTarget.text;
-                var queryParameter = api.offer.getSearchQueryParamters();
+                var queryParameter = api.offers.getSearchQueryParamters();
                 if (queryParameter && queryParameter.tag && typeof queryParameter.tag === "function" && searchPageInfo() && searchPageInfo().url) {
                     queryParameter.tag(tag);
-                    api.offer.searchOffer(queryParameter, searchPageInfo().url)
+                    api.offers.searchOffer(queryParameter, searchPageInfo().url)
                 }
             };
 
@@ -48,7 +48,7 @@ define(['text!./tagCloudBar.component.html', "css!./tagCloudBar.component.css", 
                     tagCloudOptions(ko.unwrap(params.tagCloudOptions) || {});
                 }
 
-                api.offer.getTags().then(function(tagsResult) {
+                api.offers.getTags().then(function(tagsResult) {
                     cloudTags.removeAll()
 
                     $.each(ko.unwrap(tagsResult), function(index, tag) {

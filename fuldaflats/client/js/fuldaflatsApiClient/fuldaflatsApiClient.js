@@ -4,9 +4,10 @@ define(["jquery", 'knockout', "/js/fuldaflatsApiClient/endpoints/offer.js"], fun
 
         var relativeUrl = "/api/"
         var endpointUrls = {
-            offer: {
+            offers: {
                 tags: relativeUrl + "tags",
-                search: relativeUrl + "offers/search"
+                search: relativeUrl + "offers/search",
+                recent: relativeUrl + "offers/recent",
             }
         }
 
@@ -28,7 +29,7 @@ define(["jquery", 'knockout', "/js/fuldaflatsApiClient/endpoints/offer.js"], fun
         self.initialize = function (relativeApiUrl, offerTypes) {
             setRelativeApiUrl(relativeApiUrl);
 
-            self.offer = new offerEndPoint(endpointUrls.offer, offerTypes);
+            self.offers = new offerEndPoint(endpointUrls.offers, offerTypes);
         }
     }
 

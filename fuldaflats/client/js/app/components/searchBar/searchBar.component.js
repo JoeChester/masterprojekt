@@ -19,7 +19,7 @@ define(['text!./searchBar.component.html', 'css!./searchBar.component.css', 'kno
 
             self.tags = ko.observableArray();
 
-            api.offer.getTags().then(function(tags) {
+            api.offers.getTags().then(function(tags) {
                 self.tags(ko.unwrap(tags));
             });
 
