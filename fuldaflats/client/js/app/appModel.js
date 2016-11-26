@@ -9,6 +9,7 @@ define([
 
         self.domain = "FuldaFlats.de"
         self.CreationDate = 2016;
+        self.logoUrl = "/img/logo.png";
 
         self.contactEmailAddress = "contact@fuldaflats.de";
 
@@ -17,11 +18,31 @@ define([
         self.offerTypes = ['FLAT', 'SHARE', 'SUBLET', 'COUCH', 'PARTY'];
 
         self.currentUser = ko.observable({
-            isAuthenticated: false,
-            userData: undefined
+            isAuthenticated: true,
+            userData: {
+                "user_id": 2,
+                "email": "steve.rodgers@fuldaflats.de",
+                "type": 2,
+                "first_name": "Steve",
+                "last_name": "Rodgers",
+                "birthday": "30.06.1915",
+                "upgrade_date": null,
+                "creation_date": "16.11.2016",
+                "phone_number": null,
+                "zip_code": null,
+                "city": null,
+                "street": null,
+                "house_number": null,
+                "gender": null,
+                "office_address": null,
+                "average_rating": null,
+                "offers": null,
+                "profile_picture": "/img/person-3.png",
+                "favorites": null
+            }
         });
 
-        self.currentUser.subscribe(function(newValue){
+        self.currentUser.subscribe(function(newValue) {
             console.log("Current User Changed")
             console.log(newValue)
         });
@@ -58,6 +79,19 @@ define([
             '/pages/termsofuse.html': "app/pageModules/termsOfUseModule",
 
             '/pages/homeWithExtendedSearch.html': "app/pageModules/homeModule",
+        }
+
+        self.navigationBar = {
+            domain: self.domain,
+            logoUrl: self.logoUrl,
+            homePageInfo: self.pages.home,
+            myProfilePageInfo: self.pages.myProfile,
+            becomeLandlordPageInfo: self.pages.becomeLandlord,
+            newOfferPageInfo: self.pages.newOffer,
+            impressumPageInfo: self.pages.impressum,
+            contactPageInfo: self.pages.contact,
+            termsOfUsePageInfo: self.pages.termsOfUse,
+            currentUser: self.currentUser
         }
 
         self.copyrightBar = {
@@ -110,7 +144,7 @@ define([
 
             api.users.getMe().then(function(user) {
                 var userObject = ko.unwrap(user);
-                if(userObject){
+                if (userObject) {
                     self.currentUser({
                         isAuthenticated: true,
                         userData: userObject
