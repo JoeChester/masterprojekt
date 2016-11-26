@@ -1,8 +1,11 @@
-define(['text!./navigationBar.component.html', 'css!./navigationBar.component.css', 'knockout', 'jquery'],
-    function (componentTemplate, componentCss, ko, $) {
-        function NavigationModel($, ko) {
+define(['text!./navigationBar.component.html', 'css!./navigationBar.component.css',
+    'knockout', 'jquery', 'fuldaflatsApiClient',
+    'app/components/signInModalDialog/signInModalDialog.component',
+    'app/components/signUpModalDialog/signUpModalDialog.component'],
+    function(componentTemplate, componentCss, ko, $, api, signInModalDialogComponent, signUpModalDialogComponent) {
+        function NavigationModel($, ko, api) {
             var self = this;
-            
+
             self.userTypes = {
                 normal: 1,
                 landlord: 2,
@@ -25,11 +28,17 @@ define(['text!./navigationBar.component.html', 'css!./navigationBar.component.cs
             });
 
 
-            self.signOut = function () {
+            self.signOut = function() {
+                api.users.signOut().then(function(currentUser) {
+                    var currentUserObject = ko.unwrap(currentUser());
+                    if (currentUserObject) {
+                        self.currentUser(currentUserObject);
+                        console.log("User signed out");
+                    }
+                });
+            };
 
-            }
-
-            self.initialize = function (params) {
+            self.initialize = function(params) {
                 if (params) {
                     self.domain(ko.unwrap(params.domain) || '');
                     self.logoUrl(ko.unwrap(params.logoUrl) || '');
@@ -51,9 +60,13 @@ define(['text!./navigationBar.component.html', 'css!./navigationBar.component.cs
 
         return {
             viewModel: {
-                createViewModel: function (params, componentInfo) {
+                createViewModel: function(params, componentInfo) {
                     // componentInfo contains for example the root element from the component template
-                    var navigation = new NavigationModel($, ko);
+
+                    ko.components.register("sign-in", signInModalDialogComponent);
+                    ko.components.register("sign-up", signUpModalDialogComponent);
+
+                    var navigation = new NavigationModel($, ko, api);
                     navigation.initialize(params);
                     return navigation;
                 }

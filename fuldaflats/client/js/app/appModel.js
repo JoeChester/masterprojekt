@@ -17,30 +17,7 @@ define([
 
         self.offerTypes = ['FLAT', 'SHARE', 'SUBLET', 'COUCH', 'PARTY'];
 
-        self.currentUser = ko.observable({
-            isAuthenticated: true,
-            userData: {
-                "user_id": 2,
-                "email": "steve.rodgers@fuldaflats.de",
-                "type": 2,
-                "first_name": "Steve",
-                "last_name": "Rodgers",
-                "birthday": "30.06.1915",
-                "upgrade_date": null,
-                "creation_date": "16.11.2016",
-                "phone_number": null,
-                "zip_code": null,
-                "city": null,
-                "street": null,
-                "house_number": null,
-                "gender": null,
-                "office_address": null,
-                "average_rating": null,
-                "offers": null,
-                "profile_picture": "/img/person-3.png",
-                "favorites": null
-            }
-        });
+        self.currentUser = ko.observable();
 
         self.currentUser.subscribe(function(newValue) {
             console.log("Current User Changed")
@@ -145,10 +122,7 @@ define([
             api.users.getMe().then(function(user) {
                 var userObject = ko.unwrap(user);
                 if (userObject) {
-                    self.currentUser({
-                        isAuthenticated: true,
-                        userData: userObject
-                    });
+                    self.currentUser(userObject);
                 }
             }, function(rejectMessage) {
                 console.log(rejectMessage);

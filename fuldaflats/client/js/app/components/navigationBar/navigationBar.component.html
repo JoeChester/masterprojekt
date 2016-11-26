@@ -45,10 +45,10 @@
 					<!-- /ko -->
 					<!-- ko ifnot: currentUser().isAuthenticated -->
 					<li class="inactive">
-						<a type="button" data-toggle="modal" data-target="#signInModalDialog">Sign In</a>
+						<a type="button" href="javascript: void(0)" data-toggle="modal" data-target="#signInModalDialog">Sign In</a>
 					</li>
 					<li class="inactive">
-						<a type="button" data-toggle="modal" data-target="#signUpModalDialog">Sign Up</a>
+						<a type="button" href="javascript: void(0)" data-toggle="modal" data-target="#signUpModalDialog">Sign Up</a>
 					</li>
 					<!-- /ko -->
 					<!-- ko if: impressumPageInfo -->
@@ -71,3 +71,6 @@
 		</div>
 	</div>
 </div>
+
+<sign-in></sign-in>
+<sign-up></sign-up>
