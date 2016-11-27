@@ -27,11 +27,16 @@ function finalize(req, res, user, _user){
 
 //Authentication of a request session
 function authenticate(req, res, successStatus) {
+    if(!req.body.email || !req.body.password){
+        return res.sendStatus(400);
+    }
+
     let passwordHash = _hash.sha512(SALT + req.body.password, 'base64');
+    req.body.email = req.body.email.toLowerCase();
     schema.models.User.findOne({where: {email: req.body.email}}, (err, user) => {
         if(err){
             res.status(400);
-            res.json(err);
+            return res.json(err);
         } else {
             if(passwordHash == user.password){
                 req.session.auth = true;
@@ -40,7 +45,7 @@ function authenticate(req, res, successStatus) {
                 res.status(successStatus);
                 return res.json(user.toJSON_ME());
             } else {
-                res.sendStatus(403);
+                return res.sendStatus(403);
             }
         }
     });
@@ -163,7 +168,38 @@ router.get('/me', function (req, res) {
 
 //modify own userdata
 router.put('/me', function (req, res) {
-    res.sendStatus(501);
+    if(!req.session.auth){
+        res.sendStatus(403);
+    } else {
+        var _user = req.body;
+
+        //Invalidate some user inputs by default
+        delete _user.averageRating;
+        delete _user.profilePicture;
+        delete _user.id;
+        delete _user.type;
+        delete _user.creationDate;
+        delete _user.upgradeDate;
+        //Fetch user from db to make sure latest data is available
+        schema.models.User.update({ where: {id: req.session.user.id}} ,
+         _user, 
+         (err, user) => {
+            if (err) {
+                res.status(400);
+                res.json(err);
+            } else {
+                schema.models.User.findById(req.session.user.id, (err, user) => {
+                    if (err) {
+                        res.status(404);
+                        res.json(err);
+                    } else {
+                        //Begin Relationship Pipe
+                        getRelationships(req, res, user);
+                    }
+                });
+            }
+        });
+    }
 });
 
 //userdata for user with :userId

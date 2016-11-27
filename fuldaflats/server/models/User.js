@@ -24,7 +24,7 @@ module.exports = function(schema){
         gender:         {type: schema.String, limit: 6},
         officeAddress:  {type: schema.String, limit: 4000},
         averageRating:  {type: schema.Float, default: 0.0},
-        profilePicture: {type: schema.String, limit: 255, default: 'uploads/cupcake.png'}
+        profilePicture: {type: schema.String, limit: 255, default: '/uploads/cupcake.png'}
     },{});
 
     //Validators
@@ -48,6 +48,10 @@ module.exports = function(schema){
     User.hasMany(Offer, {as: 'offers', foreignKey: 'landlord'});
 
     //Custom Functions
+    User.beforeSave = function (next) {
+        this.email = this.email.toLowerCase();
+        next();
+    };
 
     /* The toJSON function maps a CaminteJS model Object
      * to a plain JSON Object for data exchange (for example
