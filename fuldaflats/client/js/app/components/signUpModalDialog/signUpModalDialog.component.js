@@ -9,8 +9,12 @@ define(['text!./signUpModalDialog.component.html', 'css!./signUpModalDialog.comp
             self.eMail = ko.observable();
             self.password = ko.observable();
             self.confirmPassword = ko.observable();
-            self.gender = ko.observable();
+            self.genders = ko.observableArray(["Female", "Male"]);
+            self.selectedGender = ko.observable();
             self.termsOfUseAgreement = ko.observable(false);
+
+            self.domain = ko.observable("FuldaFlats.de");
+            self.termsOfUsePageInfo = ko.observable({});
 
             self.modalDialogContainer = ko.observable();
 
@@ -22,14 +26,30 @@ define(['text!./signUpModalDialog.component.html', 'css!./signUpModalDialog.comp
 
             };
 
+            self.fromIsValid = ko.computed(function () {
+                var isValid = false;
+
+                if (self.firstName() && self.lastName() && self.eMail() && self.password() && self.confirmPassword() && self.selectedGender() && self.termsOfUseAgreement()) {
+                    isValid = true;
+                }
+
+                return isValid;
+            });
+
             self.resetDialog = function () {
                 self.firstName("");
                 self.lastName("");
                 self.eMail("");
                 self.password("");
                 self.confirmPassword("");
-                self.gender("");
+                self.selectedGender("");
                 self.termsOfUseAgreement(false);
+            };
+
+            self.optionsAfterRender = function (option, item) {
+                ko.applyBindingsToNode(option, {
+                    disable: !item
+                }, item);
             };
 
             self.initialize = function (params, dialogContainer) {
@@ -40,8 +60,13 @@ define(['text!./signUpModalDialog.component.html', 'css!./signUpModalDialog.comp
                     self.modalDialogContainer(dialogContainer);
                 }
 
-                if (params.currentUser && ko.isObservable(params.currentUser)) {
-                    self.currentUser = params.currentUser;
+                if (params) {
+                    self.domain(ko.unwrap(params.domain) || 'FuldaFlats.de');
+                    self.termsOfUsePageInfo(ko.unwrap(params.termsOfUsePageInfo) || {});
+
+                    if (params.currentUser && ko.isObservable(params.currentUser)) {
+                        self.currentUser = params.currentUser;
+                    }
                 }
             };
         }

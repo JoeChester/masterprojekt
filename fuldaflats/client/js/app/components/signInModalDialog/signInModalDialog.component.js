@@ -46,9 +46,10 @@ define(['text!./signInModalDialog.component.html', 'css!./signInModalDialog.comp
                     dialogContainer.on('hidden.bs.modal', self.resetDialog)
                     self.modalDialogContainer(dialogContainer);
                 }
-
-                if (params.currentUser && ko.isObservable(params.currentUser)) {
-                    self.currentUser = params.currentUser;
+                if (params) {
+                    if (params.currentUser && ko.isObservable(params.currentUser)) {
+                        self.currentUser = params.currentUser;
+                    }
                 }
             };
         }

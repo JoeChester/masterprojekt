@@ -47,7 +47,7 @@ define(['text!./navigationBar.component.html', 'css!./navigationBar.component.cs
 
             self.initialize = function(params) {
                 if (params) {
-                    self.domain(ko.unwrap(params.domain) || '');
+                    self.domain(ko.unwrap(params.domain) || 'FuldaFlats.de');
                     self.logoUrl(ko.unwrap(params.logoUrl) || '');
 
                     self.homePageInfo(ko.unwrap(params.homePageInfo) || '');
@@ -66,7 +66,9 @@ define(['text!./navigationBar.component.html', 'css!./navigationBar.component.cs
                         }
 
                         self.signUpDialogParameter = {
-                            currentUser: self.currentUser
+                            currentUser: self.currentUser,
+                            domain: self.domain,
+                            termsOfUsePageInfo: self.termsOfUsePageInfo
                         }
                     }
                 }
