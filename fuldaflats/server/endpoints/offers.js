@@ -17,6 +17,39 @@ var async = require('async');
 
 //Core Endpoint: /api/offers
 
+//create
+router.post('/', function (req, res) {
+    //Coding run...
+    var newOffer = new schema.models.Offer(req.body);
+
+    newOffer.isValid(valid => {
+        if (!valid) {
+            res.status(400);
+            res.json(newOffer.errors);
+        } else {
+            //....
+            newOffer.save((err, createdOffer) => {
+                if (err) {
+                    res.status(400);
+                    res.json(err);
+                } else {
+                    authenticate(req, res, 201);
+                }
+            });
+        }
+    });
+});
+
+//put
+router.put('/:id/favorite', function (req, res) {
+    //Coding run...
+});
+
+//delete
+router.delete('/:id', function (req, res) {
+    //Coding run...
+});
+
 //Endpoint Definitions
 
 //search for offers
