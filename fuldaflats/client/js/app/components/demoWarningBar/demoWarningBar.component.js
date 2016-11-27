@@ -1,14 +1,26 @@
-define(['text!./demoWarningBar.component.html', 'text!./demoWarningBar.component.css', 'knockout'], function(componentTemplate, componentCss, ko) {
-    return {
-        viewModel: function(params) {
+define(['text!./demoWarningBar.component.html', 'css!./demoWarningBar.component.css', 'knockout'],
+    function(componentTemplate, componentCss, ko) {
+        function DemoWarningModel() {
             var self = this;
 
             self.warningMessage = ko.observable();
 
-            if (params) {
-                self.warningMessage(ko.unwrap(params.warningMessage) || '');
+            self.initialize = function(demoWarningMessage) {
+                if (demoWarningMessage) {
+                    self.warningMessage(ko.unwrap(demoWarningMessage) || '');
+                }
             }
-        },
-        template: componentTemplate
-    };
-});
+        }
+
+        return {
+            viewModel: {
+                createViewModel: function(demoWarningMessage, componentInfo) {
+                    // componentInfo contains for example the root element from the component template
+                    var demoWarning = new DemoWarningModel(ko);
+                    demoWarning.initialize(demoWarningMessage);
+                    return demoWarning;
+                }
+            },
+            template: componentTemplate
+        };
+    });

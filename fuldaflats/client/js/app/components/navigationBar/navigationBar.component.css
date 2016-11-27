@@ -1,0 +1,39 @@
+/* Special component css here and general css in main.css */
+.navbar-brand > img{
+  width: 250px;
+  margin-top: 10px;
+}
+
+@media (min-width: 767px) {
+  #navigation {
+    padding-right: 0px;
+  }
+
+  #navigation .nav-profile-image-container > img {
+    height: 50px
+  }
+
+  #navigation .nav-profile-image-container {
+    margin: 10px 15px;
+  }
+}
+
+
+@media (max-width: 767px) {
+  #navigation {
+    position: relative;
+  }
+
+  #navigation .nav-profile-image-container{
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    z-index: 100;
+  }
+
+  #navigation .nav-profile-image-container > img{
+    height: 100px;
+    margin-top: 10px
+  }
+}
+

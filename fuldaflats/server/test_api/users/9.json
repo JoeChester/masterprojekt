@@ -15,7 +15,5 @@
     "gender": "female",
     "officeAddress" : "Frankfurter Str. 15",
     "averageRating": 4.6,
-    "offers": 5,
-    "profilePicture": null,
     "favorites": null
 }

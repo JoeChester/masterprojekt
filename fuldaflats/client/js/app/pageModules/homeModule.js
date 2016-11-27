@@ -3,9 +3,13 @@ define([
     'app/components/searchBar/searchBar.component',
     'app/components/offerBarSlider/offerBarSlider.component',
     'app/components/tagCloudBar/tagCloudBar.component',
-], function(ko, searchBarComponent, offerBarSliderComponent, tagCloudBarComponent) {
-    function HomePageModul() {
+    'fuldaflatsApiClient'
+], function(ko, searchBarComponent, offerBarSliderComponent, tagCloudBarComponent, api) {
+    function HomePageModul(tagCloudBarComponent, api) {
         var self = this;
+
+        var recentOffers = ko.observableArray();
+        var internationalOffers = ko.observableArray();
 
         ko.components.register("search", searchBarComponent);
         ko.components.register("offer-slider", offerBarSliderComponent);
@@ -13,6 +17,10 @@ define([
 
         self.initialize = function(appModel) {
             if (appModel) {
+                api.offers.getRecentOffers().then(function(recentOffersResult) {
+                    recentOffers(ko.unwrap(recentOffersResult) || [])
+                });
+
                 appModel.currentPage = appModel.pages.home;
 
                 appModel.searchPanelBar = {
@@ -22,57 +30,8 @@ define([
 
                 appModel.recentBriefOrderBar = {
                     barTitle: "Recent Offers",
-                    offers: ko.observableArray([
-                        {
-                            thumbnailUrl: ko.observable('/img/portfolio-4.jpg'),
-                            detailsPageUrl: ko.observable('/pages/offerDetailsNotSignInUser.html'),
-                            offerType: ko.observable('WG'),
-                            title: ko.observable('Title etwas länger und noch was länger'),
-                            areaSize: ko.observable('50'),
-                            totalRental: ko.observable('500'),
-                            rentType: ko.observable('warm'),
-                            distanceToUniversity: ko.observable('10'),
-                        },
-                        {
-                            thumbnailUrl: ko.observable('/img/portfolio-4.jpg'),
-                            detailsPageUrl: ko.observable('/pages/offerDetailsNotSignInUser.html'),
-                            offerType: ko.observable('WG'),
-                            title: ko.observable('Title etwas länger und noch was länger'),
-                            areaSize: ko.observable('50'),
-                            totalRental: ko.observable('500'),
-                            rentType: ko.observable('warm'),
-                            distanceToUniversity: ko.observable('10'),
-                        },
-                        {
-                            thumbnailUrl: ko.observable('/img/portfolio-4.jpg'),
-                            detailsPageUrl: ko.observable('/pages/offerDetailsNotSignInUser.html'),
-                            offerType: ko.observable('WG'),
-                            title: ko.observable('Title etwas länger und noch was länger'),
-                            areaSize: ko.observable('50'),
-                            totalRental: ko.observable('500'),
-                            rentType: ko.observable('warm'),
-                            distanceToUniversity: ko.observable('10'),
-                        }, {
-                            thumbnailUrl: ko.observable('/img/portfolio-4.jpg'),
-                            detailsPageUrl: ko.observable('/pages/offerDetailsNotSignInUser.html'),
-                            offerType: ko.observable('WG'),
-                            title: ko.observable('Title etwas länger und noch was länger'),
-                            areaSize: ko.observable('50'),
-                            totalRental: ko.observable('500'),
-                            rentType: ko.observable('warm'),
-                            distanceToUniversity: ko.observable('10'),
-                        }
-                        , {
-                            thumbnailUrl: ko.observable('/img/portfolio-4.jpg'),
-                            detailsPageUrl: ko.observable('/pages/offerDetailsNotSignInUser.html'),
-                            offerType: ko.observable('WG'),
-                            title: ko.observable('Title etwas länger und noch was länger'),
-                            areaSize: ko.observable('50'),
-                            totalRental: ko.observable('500'),
-                            rentType: ko.observable('warm'),
-                            distanceToUniversity: ko.observable('10'),
-                        }
-                    ]),
+                    offerDetailsPageInfo: appModel.pages.offerDetails,
+                    offers: recentOffers,
                     owlCarouselOptions: {
                         items: 4,
                         itemsDesktopSmall: [990, 3],
@@ -81,57 +40,11 @@ define([
                     }
                 };
 
+                //todo: Query International offers
                 appModel.livingInternationalBriefOrderBar = {
                     barTitle: "Living International",
-                    offers: ko.observableArray([
-                        {
-                            thumbnailUrl: ko.observable('/img/portfolio-4.jpg'),
-                            detailsPageUrl: ko.observable('/pages/offerDetailsNotSignInUser.html'),
-                            offerType: ko.observable('WG'),
-                            title: ko.observable('Title etwas länger und noch was länger'),
-                            areaSize: ko.observable('50'),
-                            totalRental: ko.observable('500'),
-                            rentType: ko.observable('warm'),
-                            distanceToUniversity: ko.observable('10'),
-                        }, {
-                            thumbnailUrl: ko.observable('/img/portfolio-4.jpg'),
-                            detailsPageUrl: ko.observable('/pages/offerDetailsNotSignInUser.html'),
-                            offerType: ko.observable('WG'),
-                            title: ko.observable('Title etwas länger und noch was länger'),
-                            areaSize: ko.observable('50'),
-                            totalRental: ko.observable('500'),
-                            rentType: ko.observable('warm'),
-                            distanceToUniversity: ko.observable('10'),
-                        },
-                        {
-                            thumbnailUrl: ko.observable('/img/portfolio-4.jpg'),
-                            detailsPageUrl: ko.observable('/pages/offerDetailsNotSignInUser.html'),
-                            offerType: ko.observable('WG'),
-                            title: ko.observable('Title etwas länger und noch was länger'),
-                            areaSize: ko.observable('50'),
-                            totalRental: ko.observable('500'),
-                            rentType: ko.observable('warm'),
-                            distanceToUniversity: ko.observable('10'),
-                        }, {
-                            thumbnailUrl: ko.observable('/img/portfolio-4.jpg'),
-                            detailsPageUrl: ko.observable('/pages/offerDetailsNotSignInUser.html'),
-                            offerType: ko.observable('WG'),
-                            title: ko.observable('Title etwas länger und noch was länger'),
-                            areaSize: ko.observable('50'),
-                            totalRental: ko.observable('500'),
-                            rentType: ko.observable('warm'),
-                            distanceToUniversity: ko.observable('10'),
-                        }, {
-                            thumbnailUrl: ko.observable('/img/portfolio-4.jpg'),
-                            detailsPageUrl: ko.observable('/pages/offerDetailsNotSignInUser.html'),
-                            offerType: ko.observable('WG'),
-                            title: ko.observable('Title etwas länger und noch was länger'),
-                            areaSize: ko.observable('50'),
-                            totalRental: ko.observable('500'),
-                            rentType: ko.observable('warm'),
-                            distanceToUniversity: ko.observable('10'),
-                        }
-                    ]),
+                    offerDetailsPageInfo: appModel.pages.offerDetails,
+                    offers: internationalOffers,
                     owlCarouselOptions: {
                         items: 4,
                         itemsDesktopSmall: [990, 3],
@@ -141,15 +54,16 @@ define([
                 };
 
                 appModel.tagCloudBar = {
-                    tagCloudHeight: 150,
-                    // todo: find better colors
-                    //tagColors: ["#800026", "#bd0026", "#e31a1c", "#fc4e2a", "#fd8d3c", "#feb24c", "#fed976", "#ffeda0", "#ffffcc"]
+                    searchPageInfo: appModel.pages.search,
+                    tagCloudOptions: {
+                        height: 150
+                    },
                 }
             }
         }
     }
 
-    return new HomePageModul();
+    return new HomePageModul(tagCloudBarComponent, api);
 });
 
 

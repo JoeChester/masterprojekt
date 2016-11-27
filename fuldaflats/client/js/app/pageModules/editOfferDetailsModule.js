@@ -1,15 +1,17 @@
 define([
     'knockout',
     'app/components/breadcrumbBar/breadcrumbBar.component',
-], function (ko, breadcrumbBarComponent) {
-    function EditOfferPageModule() {
+    'app/components/editOfferDetailsBar/editOfferDetailsBar.component'
+], function (ko, breadcrumbBarComponent, editOfferDetailsBarComponent) {
+    function EditOfferDetailsPageModule() {
         var self = this;
 
         ko.components.register("breadcrumb", breadcrumbBarComponent);
+        ko.components.register("edit-offer-details", editOfferDetailsBarComponent);
 
         self.initialize = function (appModel) {
             if (appModel) {
-                appModel.currentPage = appModel.pages.editOffer;
+                appModel.currentPage = appModel.pages.editOfferDetails;
 
                 appModel.breadcrumbBar = {
                     homePageInfo: appModel.pages.home,
@@ -19,7 +21,7 @@ define([
         };
     };
 
-    return new EditOfferPageModule();
+    return new EditOfferDetailsPageModule();
 });
 
 

@@ -1,0 +1,249 @@
+<section style="min-height:700px; margin-top: 2rem">
+	<div class="container" data-bind="with: currentUser">
+		<div class="row">
+			<div class="col-sm-offset-8 col-sm-4">
+				<a href="/pages/editProfileData.html" type="submit" class="btn btn-template-main">Edit Profile Data</a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="row">
+					<img data-bind="attr:{src: profilePicture}" class="img-responsive img-circle" alt="Profilepicture">
+				</div>
+				<form class="form-horizontal">
+					<div class="row">
+						<label class="control-label col-sm-6">Account:</label>
+						<div class="col-sm-6">
+							<div data-bind="if: $data.type==2">
+								<p id="accountStatus" class="form-control-static">Landlord</p>
+							</div>
+							<div data-bind="if: $data.type==1">
+								<p id="accountStatus" class="form-control-static">Standard User</p>
+							</div>
+						</div>
+					</div>
+					<div class="row" data-bind="if: $data.type==2">
+						<label class="control-label col-sm-6">Rating:</label>
+						<div class="col-sm-6">
+							<p id="rating" class="form-control-staticdata-bind=" text: user.averageRating ""></p>
+						</div>
+					</div>
+				</form>
+				<div class="row">
+					<a href="/pages/changePassword.html" type="submit" class="col-sm-offset-4 btn btn-template-main ">Change Password</a>
+				</div>
+			</div>
+			<div class="col-sm-8">
+				<form class="form-horizontal">
+					<div class="row">
+						<label class="control-label col-sm-2">First Name:</label>
+						<div class="col-sm-10">
+							<p id="firstName" class="form-control-static" data-bind="text: firstName"></p>
+						</div>
+					</div>
+					<div class="row">
+						<label class="control-label col-sm-2">Last Name:</label>
+						<div class="col-sm-10">
+							<p id="lastName" class="form-control-static" data-bind="text: lastName"></p>
+						</div>
+					</div>
+					<div class="row">
+						<label class="control-label col-sm-2">Gender:</label>
+						<div class="col-sm-10">
+							<p id="gender" class="form-control-static" data-bind="text: gender"></p>
+						</div>
+					</div>
+					<div class="row">
+						<label class="control-label col-sm-2">Birthday:</label>
+						<div class="col-sm-10">
+							<p id="birthday" class="form-control-static" data-bind="text: birthday"></p>
+						</div>
+					</div>
+					<div class="row">
+						<label class="control-label col-sm-2">E-Mail:</label>
+						<div class="col-sm-10">
+							<p id="email" class="form-control-static" data-bind="text: email"></p>
+						</div>
+					</div>
+					<div data-bind="if: $data.type==2">
+						<div class="row">
+							<label class="control-label col-sm-2">Phone Number:</label>
+							<div class="col-sm-10">
+								<p id="phoneNumber" class="form-control-static" data-bind="text: phoneNumber"></p>
+							</div>
+						</div>
+						<div class="row">
+							<label class="control-label col-sm-2">ZIP Code:</label>
+							<div class="col-sm-10">
+								<p id="zipCode" class="form-control-static" data-bind="text: zipCode"></p>
+							</div>
+						</div>
+						<div class="row">
+							<label class="control-label col-sm-2">City:</label>
+							<div class="col-sm-10">
+								<p id="city" class="form-control-static" data-bind="text: city"></p>
+							</div>
+						</div>
+						<div class="row">
+							<label class="control-label col-sm-2">Street:</label>
+							<div class="col-sm-10">
+								<p id="street" class="form-control-static" data-bind="text: street"></p>
+							</div>
+						</div>
+						<div class="row">
+							<label class="control-label col-sm-2">Housenumber:</label>
+							<div class="col-sm-10">
+								<p id="housenumber" class="form-control-static" data-bind="text: houseNumber"></p>
+							</div>
+						</div>
+					</div>
+				</form>
+				<!-- ______________ Tabs ______________ -->
+				<ul class="nav nav-tabs" id="userprofile-tabs">
+					<li class="active"><a data-bind="click: $parent.showTab" href="#Favorites">Favorites</a></li>
+					<li><a data-bind="click: $parent.showTab" href="#Offers">Offers</a></li>
+				</ul>
+				<!-- ______________ Favorites ______________ -->
+				<div class="tab-content clearfix">
+					<div class="tab-pane active" id="favorites">
+						<div data-bind="if: $data.favorites">
+							<div class="col-md-12 resultColumn" data-bind="foreach: { data: favorites, as: 'favorites' }">
+								<div class="panel panel-search-result">
+									<div class="panel-body">
+										<!-- Hoverable Image -->
+										<div class="offer-brief-detail-1 box-image-text col-md-5">
+											<div class="top">
+												<div class="image">
+													<img src="../img/portfolio-4.jpg" alt="" class="img-responsive">
+												</div>
+												<div class="bg"></div>
+												<div class="text">
+													<p class="buttons">
+														<a href="/pages/offerDetails.html" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i>View Details</a>
+													</p>
+												</div>
+											</div>
+										</div>
+
+										<div class="col-md-7">
+											<!-- Tags -->
+											<div class="row">
+												<h4 data-bind="foreach: { data: favorites.tags, as: 'tag' }">
+													<span class="label label-default" data-bind="text: tag.title"></span>
+												</h4>
+											</div>
+											<div class="col-sm-8">
+												<h2 data-bind="text: favorites.title"></h2>
+											</div>
+											<div class="col-sm-4">
+												<a type="submit" class="btn btn-template-main ">Delete</a>
+											</div>
+											<div class="ellipsis">
+												<p data-bind="text: favorites.description"></p>
+											</div>
+											<div class="ellipsis-dots">...</div>
+
+											<!-- Price -->
+											<div class="row">
+												<div class="col-md-4 offer-result-keyfigures">
+													<div class="offer-brief-detail-1-details-value"><strong data-bind="text: favorites.uniDistance"></strong><strong> km</strong></div>
+													<div class="offer-brief-detail-1-details-key"><small>to University Fulda</small></div>
+												</div>
+												<div class="col-md-4 offer-result-keyfigures">
+													<div class="offer-brief-detail-1-details-value"><strong data-bind="text: favorites.size"></strong><strong> m²</strong></div>
+													<div class="offer-brief-detail-1-details-key"><small>Size</small></div>
+												</div>
+												<div class="col-md-4 offer-result-keyfigures">
+													<div class="offer-brief-detail-1-details-value price-wrapper">
+														<div class="price"><strong data-bind="text: favorites.rent"></strong><strong> €</strong></div>
+														<div class="rate"><strong>/ </strong><strong data-bind="text: favorites.rentType"></strong></div>
+													</div>
+													<div class="offer-brief-detail-1-details-key"><small data-bind="text: favorites.offerType"></small></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div data-bind="ifnot: $data.favorites" class="col-md-4">
+							<p class="form-control-static bg-primary"> You have no favorites yet.</p>
+						</div>
+					</div>
+					<!-- ______________ Offers ______________ -->
+					<div class="tab-pane" id="Offers">
+						<div data-bind="if: $data.offers">
+							<div class="col-md-12 resultColumn" data-bind="foreach: { data: offers, as: 'offer' }">
+								<div class="panel panel-search-result">
+									<div class="panel-body">
+										<!-- Hoverable Image -->
+										<div class="offer-brief-detail-1 box-image-text col-md-5">
+											<div class="top">
+												<div class="image">
+													<img src="../img/portfolio-4.jpg" alt="" class="img-responsive">
+												</div>
+												<div class="bg"></div>
+												<div class="text">
+													<p class="buttons">
+														<a href="/pages/offerDetails.html" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i>View Details</a>
+													</p>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-7">
+											<!-- Tags -->
+											<div class="row">
+												<h4 data-bind="foreach: { data: offer.tags, as: 'tag' }">
+													<span class="label label-default" data-bind="text: tag.title"></span>
+												</h4>
+											</div>
+											<div class="col-sm-8">
+												<h2 data-bind="text: offer.title"></h2>
+											</div>
+											<div class="col-sm-4">
+												<a href="/pages/editOfferDetails.html" type="submit" class="btn btn-template-main ">Edit Offer</a>
+											</div>
+											<div class="ellipsis">
+												<p data-bind="text: offer.description"></p>
+											</div>
+											<div class="ellipsis-dots">...</div>
+
+											<!-- Price -->
+											<div class="row">
+												<div class="col-md-4 offer-result-keyfigures">
+													<div class="offer-brief-detail-1-details-value"><strong data-bind="text: offer.uniDistance"></strong><strong> km</strong></div>
+													<div class="offer-brief-detail-1-details-key"><small>to University Fulda</small></div>
+												</div>
+												<div class="col-md-4 offer-result-keyfigures">
+													<div class="offer-brief-detail-1-details-value"><strong data-bind="text: offer.size"></strong><strong> m²</strong></div>
+													<div class="offer-brief-detail-1-details-key"><small>Size</small></div>
+												</div>
+												<div class="col-md-4 offer-result-keyfigures">
+													<div class="offer-brief-detail-1-details-value price-wrapper">
+														<div class="price"><strong data-bind="text: offer.rent"></strong><strong> €</strong></div>
+														<div class="rate"><strong>/ </strong><strong data-bind="text: offer.rentType"></strong></div>
+													</div>
+													<div class="offer-brief-detail-1-details-key"><small data-bind="text: offer.offerType"></small></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div data-bind="ifnot: $data.offers">
+							<div data-bind="if: $data.type==1">
+								<p id="offer-error" class="form-control-static bg-primary"> To be able to create offers: </p>
+								<a href="/pages/becomeLandlord.html" type="submit" class="btn btn-template-main">Become Landlord</a>
+							</div>
+							<div data-bind="if: $data.type==2">
+								<p id="offer-error2" class="form-control-static bg-primary">No Offers yet.</p>
+								<a href="/pages/newOffer.html" type="submit" class="btn btn-template-main">Create Offer</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

@@ -1,0 +1,11 @@
+/* Special component css here and general css in main.css */
+
+#signUpModalDialog .modal-dialog{
+    max-width: 400px;
+}
+
+#signUpModalDialog .input-group,
+#signUpModalDialog .modal-body > input,
+#signUpModalDialog .modal-body > select {
+    margin-bottom: 5px;
+}

@@ -11,18 +11,13 @@
 
     <div id="all">
         <header>
-            <div data-bind='component: { name: "demo-warning", params: demoWarning }'></div>
-            <navigation></navigation>
+            <div data-bind='component: { name: "demo-warning", params: demoWarningMessage }'></div>
+            <div data-bind='component: { name: "navigation", params: navigationBar }'></div>
         </header>
 
-        <!-- SEACH RESULTS
-        _________________________________________________________ -->
-
-        <!-- END SEACH RESULTS -->
-
-        <search-results></search-results>
-
         <div data-bind='component: { name: "search", params: searchPanelBar }'></div>
+        
+        <search-results></search-results>
 
         <div data-bind='component: { name: "copyright", params: copyrightBar }'></div>
     </div>

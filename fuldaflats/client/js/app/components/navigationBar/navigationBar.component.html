@@ -1,95 +1,76 @@
-<div class="navbar-affixed-top hidden-xs " data-spy="affix" data-offset-top="200">
-    <div class="navbar navbar-default navbar-light yamm" role="navigation" id="navbar-lg">
-        <div class="container">
-            <!-- .navbar-header -->
-            <div class="navbar-header">
-                <a class="navbar-brand home" href="/">
-                    <img src="../img/logo.png" alt="FuldaFlats Logo">
-                    <span class="sr-only">FuldaFlats - go to homepage</span>
-                </a>
-            </div>
-            <!--/.navbar-header -->
-            <div class="navbar-collapse collapse" id="navigation-lg">
-                <div class="nav-profile-image-container navbar-collapse navbar-right">
-                    <img src="../img/person-3.png" alt="profile image" class="img-responsive img-circle">
-                </div>
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="inactive">
-                        <a href="/pages/myProfile.html">My Profile</a>
-                    </li>
-                    <li class="inactive">
-                        <a href="/pages/newOffer.html">New Offer</a>
-                    </li>
-                    <li class="inactive">
-                        <a href="/pages/becomeLandlord.html">Become Landlord</a>
-                    </li>
-                    <li class="inactive">
-                        <a href="/pages/signIn.html">Sign In</a>
-                    </li>
-                    <li class="inactive">
-                        <a href="/pages/signUp.html">Sign Up</a>
-                    </li>
-                    <li class="inactive">
-                        <a href="/pages/signOut.html">Sign Out</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
+<div class="navbar-affixed-top" data-spy="affix" data-offset-top="200">
+	<div class="navbar navbar-default navbar-light yamm" role="navigation" id="navbar">
+		<div class="container">
+			<div class="navbar-header">
+				<!-- ko if: homePageInfo && logoUrl && domain -->
+				<a class="navbar-brand home" data-bind="attr: { href: homePageInfo().url }">
+					<img data-bind="attr: { src: logoUrl}" alt="website logo">
+					<span class="sr-only" data-bind="text: domain"></span>
+					<span class="sr-only"> - go to homepage</span>
+				</a>
+				<!-- /ko -->
+				<div class="navbar-buttons">
+					<button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
+						<span class="sr-only">Toggle navigation</span>
+						<i class="fa fa-align-justify"></i>
+					</button>
+				</div>
+			</div>
+			<div class="navbar-collapse collapse" id="navigation">
+				<!-- ko if: currentUser().isAuthenticated && currentUser().userData && currentUser().userData.profile_picture-->
+				<div class="nav-profile-image-container navbar-right">
+					<img data-bind="attr: { src: currentUser().userData.profile_picture }" alt="profile image" class="img-responsive img-circle">
+				</div>
+				<!-- /ko -->
+				<ul class="nav navbar-nav navbar-right">
+					<!-- ko if: currentUser().isAuthenticated -->
+					<!-- ko if: myProfilePageInfo -->
+					<li class="inactive">
+						<a data-bind="attr: { href: myProfilePageInfo().url }, text: myProfilePageInfo().title"></a>
+					</li>
+					<!-- /ko -->
+					<!-- ko if: becomeLandlordPageInfo && currentUser().userData && currentUser().userData.type === userTypes.normal -->
+					<li class="inactive">
+						<a data-bind="attr: { href: becomeLandlordPageInfo().url }, text: becomeLandlordPageInfo().title"></a>
+					</li>
+					<!-- /ko -->
+					<!-- ko if: newOfferPageInfo && currentUser().userData && currentUser().userData.type === userTypes.landlord-->
+					<li class="inactive">
+						<a data-bind="attr: { href: newOfferPageInfo().url }, text: newOfferPageInfo().title"></a>
+					</li>
+					<!-- /ko -->
+					<li class="inactive">
+						<a href="javascript:void(0)" data-bind="click: signOut">Sign Out</a>
+					</li>
+					<!-- /ko -->
+					<!-- ko ifnot: currentUser().isAuthenticated -->
+					<li class="inactive">
+						<a type="button" href="javascript: void(0)" data-toggle="modal" data-target="#signInModalDialog">Sign In</a>
+					</li>
+					<li class="inactive">
+						<a type="button" href="javascript: void(0)" data-toggle="modal" data-target="#signUpModalDialog">Sign Up</a>
+					</li>
+					<!-- /ko -->
+					<!-- ko if: impressumPageInfo -->
+					<li class="inactive visible-xs">
+						<a data-bind="attr: { href: impressumPageInfo().url }, text: impressumPageInfo().title"></a>
+					</li>
+					<!-- /ko -->
+					<!-- ko if: contactPageInfo -->
+					<li class="inactive visible-xs">
+						<a data-bind="attr: { href: contactPageInfo().url }, text: contactPageInfo().title"></a>
+					</li>
+					<!-- /ko -->
+					<!-- ko if: termsOfUsePageInfo -->
+					<li class="inactive visible-xs">
+						<a data-bind="attr: { href: termsOfUsePageInfo().url }, text: termsOfUsePageInfo().title"></a>
+					</li>
+					<!-- /ko -->
+				</ul>
+			</div>
+		</div>
+	</div>
 </div>
 
-<!-- *** NAVBAR / Top Bar Extra Small ***
-_________________________________________________________ -->
-
-<div class="navbar-affixed-top visible-xs" data-spy="affix" data-offset-top="200 ">
-    <div class="navbar navbar-default yamm" role="navigation" id="navbar-xs">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand home" href="/">
-                    <img src="../img/logo.png" alt="FuldaFlats Logo">
-                    <span class="sr-only">FuldaFlats - go to homepage</span>
-                </a>
-                <div class="navbar-buttons">
-                    <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation-xs">
-                                    <span class="sr-only">Toggle navigation</span>
-                                    <i class="fa fa-align-justify"></i>
-                                </button>
-                </div>
-            </div>
-            <div class="navbar-collapse collapse" id="navigation-xs">
-                <div class="nav-profile-image-container">
-                    <img src="../img/person-3.png" alt="profile image" class="img-responsive img-circle">
-                </div>
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="inactive">
-                        <a href="/pages/myProfile.html">My Profile</a>
-                    </li>
-                    <li class="inactive">
-                        <a href="/pages/newOffer.html">New Offer</a>
-                    </li>
-                    <li class="inactive">
-                        <a href="/pages/becomeLandlord.html">Become Landlord</a>
-                    </li>
-                    <li class="inactive visible-xs">
-                        <a href="/pages/signIn.html">Sign In</a>
-                    </li>
-                    <li class="inactive visible-xs">
-                        <a href="/pages/signUp.html">Sign Up</a>
-                    </li>
-                    <li class="inactive">
-                        <a href="/pages/signOut.html">Sign Out</a>
-                    </li>
-                    <li class="inactive">
-                        <a href="/pages/impressum.html">Impressum</a>
-                    </li>
-                    <li class="inactive">
-                        <a href="mailto:contact@fuldaflats.de">Contact</a>
-                    </li>
-                    <li class="inactive">
-                        <a href="/pages/termsOfUse.html">Terms Of Use</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
+<div data-bind='component: { name: "sign-in", params: signInDialogParameter }'></div>
+<div data-bind='component: { name: "sign-up", params: signUpDialogParameter }'></div>

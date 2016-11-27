@@ -1,13 +1,15 @@
 define([
     'knockout',
     'app/components/breadcrumbBar/breadcrumbBar.component',
-], function(ko, breadcrumbBarComponent) {
+    'app/components/changePasswordBar/changePasswordBar.component'
+], function (ko, breadcrumbBarComponent, changePasswordBarComponent) {
     function ChangePasswordPageModule() {
         var self = this;
 
         ko.components.register("breadcrumb", breadcrumbBarComponent);
+        ko.components.register("change-password", changePasswordBarComponent);
 
-        self.initialize = function(appModel) {
+        self.initialize = function (appModel) {
             if (appModel) {
                 appModel.currentPage = appModel.pages.changePassword;
 

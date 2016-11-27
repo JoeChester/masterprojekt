@@ -1,71 +1,96 @@
-define(['text!./tagCloudBar.component.html', "knockout", 'jqcloud', 'fuldaflatsApiClient'], function (componentTemplate, ko, jqcloud, api) {
-    function TagCloudModel(params, tagCloudElement) {
-        var self = this;
-        var tagCloudHeight = ko.observable();
-        var tagColors = ko.observableArray();
-        var cloudTags = ko.observableArray();
+define(['text!./tagCloudBar.component.html', "css!./tagCloudBar.component.css", "knockout", 'jqcloud', 'fuldaflatsApiClient'],
+    function(componentTemplate, componentCss, ko, jqcloud, api) {
+        function TagCloudModel(ko, jqcloud, api) {
+            var self = this;
 
-        if (params) {
-            tagCloudHeight(ko.unwrap(params.tagCloudHeight) || 150);
+            var tagCloudContainer = ko.observable();
+            var tagCloudOptions = ko.observable({});
+            var tagCloudDefaultHeight = ko.observable(150);
+            var cloudTags = ko.observableArray();
+            var searchPageInfo = ko.observableArray();
 
-            var paramsTagColors = ko.unwrap(params.tagColors)
-            if (paramsTagColors && paramsTagColors.length > 0) {
-                tagColors(paramsTagColors);
+            function getRandomTagWeight() {
+                var min = 1;
+                var max = 10;
+                return Math.floor(Math.random() * (max - min + 1) + min);
             }
-        }
 
-        function getRandomTagWeight() {
-            var min = 1;
-            var max = 10;
-            return Math.floor(Math.random() * (max - min + 1) + min);
-        }
+            self.showTagClound = function() {
+                if (cloudTags().length > 0 && tagCloudContainer()) {
 
-        api.offer.getTags().then(function (tagsResult) {
-            cloudTags.removeAll()
-            $.each(ko.unwrap(tagsResult), function (index, tag) {
-                if (tag && tag.title) {
-                    cloudTags.push({
-                        text: tag.title,
-                        weight: getRandomTagWeight(),
-                        link: "/pages/search.html"
-                    });
-                } else if (tag && typeof tag === "string") {
-                    cloudTags.push({
-                        text: tag,
-                        weight: getRandomTagWeight(),
-                        link: "/pages/search.html"
-                    });
-                }
-            })
-            if (cloudTags().length > 0) {
-                var jqcloudOptions = {
-                    height: tagCloudHeight(),
-                    autoResize: true
-                }
-                if (tagColors().length > 0) {
-                    jqcloudOptions.colors = tagColors();
-                }
-                tagCloudElement.jQCloud(cloudTags(), jqcloudOptions);
-            }
-        });
-    }
-
-    return {
-        viewModel: {
-            createViewModel: function (params, componentInfo) {
-                var viewModel = null;
-
-                var templateRoot = $(componentInfo.element);
-                if (templateRoot.length > 0) {
-                    var tagcloud = templateRoot.find("#tagcloud");
-                    if (tagcloud.length > 0) {
-                        var viewModel = new TagCloudModel(params, tagcloud);
+                    if (!tagCloudOptions().height) {
+                        tagCloudOptions().height = tagCloudDefaultHeight();
                     }
+
+                    tagCloudOptions().autoResize = true;
+                    tagCloudOptions().afterCloudRender = function() {
+                        ko.applyBindings(self, tagCloudContainer()[0]);
+                    }
+
+                    tagCloudContainer().jQCloud(cloudTags(), tagCloudOptions());
+                }
+            };
+
+            self.searchByTag = function(tagcloudModel, event) {
+                var tag = event.currentTarget.text;
+                var queryParameter = api.offers.getSearchQueryParamters();
+                if (queryParameter && queryParameter.tag && typeof queryParameter.tag === "function" && searchPageInfo() && searchPageInfo().url) {
+                    queryParameter.tag(tag);
+                    api.offers.searchOffer(queryParameter, searchPageInfo().url)
+                }
+            };
+
+            self.initialize = function(params, containerElement) {
+                tagCloudContainer(ko.unwrap(containerElement) || "");
+
+                if (params) {
+                    searchPageInfo(ko.unwrap(params.searchPageInfo) || "");
+                    tagCloudOptions(ko.unwrap(params.tagCloudOptions) || {});
                 }
 
-                return viewModel;
+                api.offers.getTags().then(function(tagsResult) {
+                    cloudTags.removeAll()
+
+                    $.each(ko.unwrap(tagsResult), function(index, tag) {
+                        var tagTitle = "";
+
+                        if (tag && typeof tag === "string") {
+                            tagTitle = tag;
+                        } else if (tag && tag.title) {
+                            tagTitle = tag.title;
+                        }
+
+                        if (tagTitle) {
+                            cloudTags.push({
+                                text: tag,
+                                weight: getRandomTagWeight(),
+                                link: { href: "javascript:void(0)", "data-bind": "click: searchByTag" },
+                            });
+                        }
+                    });
+
+                    self.showTagClound();
+                });
             }
-        },
-        template: componentTemplate
-    };
-});
+        }
+
+        return {
+            viewModel: {
+                createViewModel: function(params, componentInfo) {
+                    var viewModel = null;
+
+                    var templateRoot = $(componentInfo.element);
+                    if (templateRoot.length > 0) {
+                        var tagCloudContainer = templateRoot.find("#tagcloud");
+                        if (tagCloudContainer.length > 0) {
+                            var viewModel = new TagCloudModel(ko, jqcloud, api);
+                            viewModel.initialize(params, tagCloudContainer);
+                        }
+                    }
+
+                    return viewModel;
+                }
+            },
+            template: componentTemplate
+        };
+    });

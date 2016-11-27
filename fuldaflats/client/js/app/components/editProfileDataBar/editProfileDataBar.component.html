@@ -1,0 +1,125 @@
+<section style="min-height:700px; margin-top: 2rem">
+	<div class="container" data-bind="with: currentUser">
+		<div class="row">
+			<div class="col-sm-4 box-image-text">
+				<div class="row">
+					<div class="top">
+						<div class="image">
+							<img data-bind="attr:{src: profilePicture}" class="img-responsive img-circle" alt="Profilepicture">
+						</div>
+						<div class="bg"></div>
+						<div class="text">
+							<p class="buttons">
+								<a href="editProfilePicture.html" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i>Edit Picture</a>
+							</p>
+						</div>
+					</div>
+				</div>
+				<form class="form-horizontal">
+					<div class="row">
+						<label class="control-label col-sm-6">Account:</label>
+						<div class="col-sm-6">
+							<div data-bind="if: $data.type==2">
+								<p id="accountStatus" class="form-control-static">Landlord</p>
+							</div>
+							<div data-bind="if: $data.type==1">
+								<p id="accountStatus" class="form-control-static">Standard User</p>
+							</div>
+						</div>
+					</div>
+					<div class="row" data-bind="if: $data.type==2">
+						<label class="control-label col-sm-6">Rating:</label>
+						<div class="col-sm-6">
+							<p id="rating" class="form-control-static">4,7</p>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="col-sm-8">
+				<form class="form-horizontal">
+					<div class="row">
+						<label for="firstName" class="control-label col-sm-2">First Name:</label>
+						<div class="col-sm-5">
+							<input type="text" class="form-control" id="firstName" data-bind="attr:{placeholder:firstName}">
+						</div>
+					</div>
+					<div class="row">
+						<label for="lastName" class="control-label col-sm-2">Last Name:</label>
+						<div class="col-sm-5">
+							<input type="text" class="form-control" id="lastName" data-bind="attr:{placeholder:lastName}">
+						</div>
+					</div>
+					<div class="row">
+						<div data-bind="if: $data.gender()=="female"">
+							<label for="gender" class="control-label col-sm-2">Gender:</label>
+							<div class="col-sm-5">
+								<select class="form-control" id="gender">
+									<option>Female</option>
+									<option>Male</option>
+                            </select>
+							</div>
+						</div>
+						<div data-bind="if: $data.gender=="male"">
+							<div class="col-sm-5" data-bind="if: $data.gender()=="male"">
+								<select class="form-control" id="gender2">
+									<option>Male</option>
+									<option>Female</option>
+                            </select>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<label for="birthday" class="control-label col-sm-2">Birthday:</label>
+						<div class="col-sm-5">
+							<input type="text" class="form-control" id="bithday" data-bind="attr:{placeholder:birthday}">
+						</div>
+					</div>
+					<div class="row">
+						<label for="eMail" class="control-label col-sm-2">E-Mail:</label>
+						<div class="col-sm-5">
+							<input type="text" class="form-control" id="email" data-bind="attr:{placeholder:email}">
+						</div>
+					</div>
+					<div data-bind="if: $data.type==2">
+						<div class="row">
+							<label for="phoneNumber" class="control-label col-sm-2">Phone Number:</label>
+							<div class="col-sm-5">
+								<input type="text" class="form-control" id="phoneNumber" data-bind="attr:{placeholder:phoneNumber}">
+							</div>
+						</div>
+						<div class="row">
+							<label for="zipCode" class="control-label col-sm-2">ZIP Code:</label>
+							<div class="col-sm-5">
+								<input type="text" class="form-control" id="zipCode" data-bind="attr:{placeholder:zipCode}">
+							</div>
+						</div>
+						<div class="row">
+							<label for="city" class="control-label col-sm-2">City:</label>
+							<div class="col-sm-5">
+								<input type="text" class="form-control" id="city" data-bind="attr:{placeholder:city}">
+							</div>
+						</div>
+						<div class="row">
+							<label for="street" class="control-label col-sm-2">Street:</label>
+							<div class="col-sm-5">
+								<input type="text" class="form-control" id="street" data-bind="attr:{placeholder:street}">
+							</div>
+						</div>
+						<div class="row marginbottom">
+							<label for="housenumber" class="control-label col-sm-2">Housenumber:</label>
+							<div class="col-sm-5">
+								<input type="text" class="form-control" id="housenumber" data-bind="attr:{placeholder:houseNumber}">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-offset-2 col-sm-5">
+							<a href="/pages/myProfile.html" type="submit" class="btn btn-template-main">Accept</a>
+							<a href="/pages/myProfile.html" type="submit" class="btn btn-marginleft btn-template-main">Cancel</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>

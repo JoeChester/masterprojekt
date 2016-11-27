@@ -1,0 +1,52 @@
+[
+    {
+        "type": 1,
+        "mainUrl": "uploads/sampleA.jpg",
+        "thumbnailUrl": "uploads/sampleA.jpg",
+        "creationDate": "26.11.2016",
+        "offerId": 1,
+        "createdByUserId": 1
+    }, {
+        "type": 1,
+        "mainUrl": "uploads/sampleB.jpg",
+        "thumbnailUrl": "uploads/sampleB.jpg",
+        "creationDate": "26.11.2016",
+        "offerId": 1,
+        "createdByUserId": 1
+    }, {
+        "type": 1,
+        "mainUrl": "uploads/sampleA.jpg",
+        "thumbnailUrl": "uploads/sampleA.jpg",
+        "creationDate": "26.11.2016",
+        "offerId": 2,
+        "createdByUserId": 1
+    }, {
+        "type": 1,
+        "mainUrl": "uploads/sampleC.jpg",
+        "thumbnailUrl": "uploads/sampleC.jpg",
+        "creationDate": "26.11.2016",
+        "offerId": 2,
+        "createdByUserId": 1
+    }, {
+        "type": 1,
+        "mainUrl": "uploads/sampleA.jpg",
+        "thumbnailUrl": "uploads/sampleA.jpg",
+        "creationDate": "26.11.2016",
+        "offerId": 5,
+        "createdByUserId": 1
+    }, {
+        "type": 1,
+        "mainUrl": "uploads/sampleA.jpg",
+        "thumbnailUrl": "uploads/sampleA.jpg",
+        "creationDate": "26.11.2016",
+        "offerId": 6,
+        "createdByUserId": 1
+    }, {
+        "type": 1,
+        "mainUrl": "uploads/sampleC.jpg",
+        "thumbnailUrl": "uploads/sampleC.jpg",
+        "creationDate": "26.11.2016",
+        "offerId": 7,
+        "createdByUserId": 1
+    }
+]

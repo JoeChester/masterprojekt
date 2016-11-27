@@ -11,7 +11,7 @@ module.exports = function(schema){
         type:  {type: schema.Number},
         mainUrl: {type: schema.String},
         thumbnailUrl: {type: schema.String}, 
-        creationDate: {type: schema.Date, default: Date.now },
+        creationDate: {type: schema.Date, default: Date.now() },
         userId: {type: schema.Number},
         offerId: {type: schema.Number},
         createdByUserId: {type: schema.Number}

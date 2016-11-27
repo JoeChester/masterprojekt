@@ -1,11 +1,13 @@
 define([
     'knockout',
     'app/components/breadcrumbBar/breadcrumbBar.component',
-], function(ko, breadcrumbBarComponent) {
+    'app/components/editProfileDataBar/editProfileDataBar.component'
+], function(ko, breadcrumbBarComponent, editProfileDataBarComponent) {
     function EditProfileDataPageModule() {
         var self = this;
 
         ko.components.register("breadcrumb", breadcrumbBarComponent);
+        ko.components.register("edit-profile-data", editProfileDataBarComponent);
 
         self.initialize = function(appModel) {
             if (appModel) {

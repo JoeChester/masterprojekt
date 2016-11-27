@@ -1,0 +1,9 @@
+/* Special component css here and general css in main.css */
+
+#signInModalDialog .modal-dialog{
+    max-width: 400px;
+}
+
+#signInModalDialog .input-group {
+    margin-bottom: 5px;
+}

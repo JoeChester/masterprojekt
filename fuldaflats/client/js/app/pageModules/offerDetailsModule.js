@@ -1,13 +1,15 @@
 define([
     'knockout',
     'app/components/breadcrumbBar/breadcrumbBar.component',
-], function(ko, breadcrumbBarComponent) {
+    'app/components/offerDetailsBar/offerDetailsBar.component'
+], function (ko, breadcrumbBarComponent, offerDetailsBarComponent) {
     function OfferDetailsPageModule() {
         var self = this;
 
         ko.components.register("breadcrumb", breadcrumbBarComponent);
+        ko.components.register("offer-details", offerDetailsBarComponent);
 
-        self.initialize = function(appModel) {
+        self.initialize = function (appModel) {
             if (appModel) {
                 appModel.currentPage = appModel.pages.offerDetails;
 
