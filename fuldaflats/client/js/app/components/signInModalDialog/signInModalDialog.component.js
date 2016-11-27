@@ -4,14 +4,18 @@ define(['text!./signInModalDialog.component.html', 'css!./signInModalDialog.comp
             var self = this;
 
             self.currentUser = ko.observable();
-            self.username = ko.observable();
+            self.eMail = ko.observable();
             self.password = ko.observable();
             self.rememberMe = ko.observable(false);
             self.modalDialogContainer = ko.observable();
 
+            function focusInput() {
+                self.modalDialogContainer().find("[autofocus]:first").focus();
+            }
+
             self.signIn = function(mode, event) {
-                if (self.username() && self.password()) {
-                    api.users.signIn(self.username(), self.password()).then(
+                if (self.eMail() && self.password()) {
+                    api.users.signIn(self.eMail(), self.password()).then(
                         function(userResult) {
                             var userObject = ko.unwrap(userResult);
                             if (userObject) {
@@ -27,16 +31,19 @@ define(['text!./signInModalDialog.component.html', 'css!./signInModalDialog.comp
                             //todo: show error;
                         });
                 }
-            }
+            };
 
             self.resetDialog = function() {
-                self.username("");
+                self.eMail("");
                 self.password("");
                 self.rememberMe(false);
-            }
+            };
 
             self.initialize = function(params, dialogContainer) {
                 if (dialogContainer) {
+                    dialogContainer.on('shown.bs.modal', focusInput);
+                    dialogContainer.on('show.bs.modal', self.resetDialog)
+                    dialogContainer.on('hidden.bs.modal', self.resetDialog)
                     self.modalDialogContainer(dialogContainer);
                 }
 
@@ -49,6 +56,7 @@ define(['text!./signInModalDialog.component.html', 'css!./signInModalDialog.comp
         return {
             viewModel: {
                 createViewModel: function(params, componentInfo) {
+                    // componentInfo contains for example the root element from the component template
                     var viewModel = null;
 
                     var templateRoot = $(componentInfo.element);
@@ -59,8 +67,6 @@ define(['text!./signInModalDialog.component.html', 'css!./signInModalDialog.comp
                             signIn.initialize(params, signInDialog);
                         }
                     }
-
-                    // componentInfo contains for example the root element from the component template
 
                     return signIn;
                 }

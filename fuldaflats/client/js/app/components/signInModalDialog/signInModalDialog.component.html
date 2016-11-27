@@ -6,24 +6,25 @@
 				<h4 class="modal-title">Sign In</h4>
 			</div>
 			<div class="modal-body">
-				<div class="form-group">
-					<label for="username"><span class="glyphicon glyphicon-user"></span> Username</label>
-					<input data-bind="value: username" type="text" class="form-control" id="username" placeholder="Enter email">
+				<div class="input-group">
+					<input data-bind="value: eMail" type="email" class="form-control" placeholder="Email" autofocus>
+					<div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
 				</div>
-				<div class="form-group">
-					<label for="password"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
-					<input data-bind="value: password" type="text" class="form-control" id="password" placeholder="Enter password">
+				<div class="input-group">
+					<input data-bind="value: password" type="text" class="form-control" placeholder="Password">
+					<div class="input-group-addon"><span class="glyphicon glyphicon-eye-open"></span></div>
 				</div>
 				<div class="checkbox">
-					<label for="rememberMe"><input data-bind="checked: rememberMe" type="checkbox" value="" checked id="rememberMe">Remember Me</label>
+					<label for="rememberMe"><input data-bind="checked: rememberMe" type="checkbox" value="">Remember Me</label>
 				</div>
-				<button data-bind="click: signIn, enable: username() && username()" class="btn btn-template-primary btn-block"><span class="glyphicon glyphicon-off"></span> Sign In</button>
+				<button data-bind="click: signIn, enable: eMail() && password()" class="btn btn-template-primary btn-block">Sign In</button>
 			</div>
 			<div class="modal-footer">
-				<button data-bind="click: resetDialog" class="btn btn-sm btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
-				<p>Not a member? <a data-bind="click: resetDialog" href="javascript: void(0)" data-dismiss="modal" data-toggle="modal" data-target="#signUpModalDialog">Sign Up</a></p>
+				<div class="text-center">
+					<span>Not a member? <a data-bind="click: resetDialog" href="javascript: void(0)" data-dismiss="modal" data-toggle="modal"
+							data-target="#signUpModalDialog">Sign Up</a></span>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 </div>

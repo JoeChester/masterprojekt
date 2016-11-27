@@ -3,3 +3,7 @@
 #signInModalDialog .modal-dialog{
     max-width: 400px;
 }
+
+#signInModalDialog .input-group{
+    margin-bottom: 5px;
+}
