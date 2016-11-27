@@ -19,7 +19,7 @@ define(["jquery", 'knockout'], function($, ko) {
                 $.ajax({
                     url: endpointUrls.auth,
                     method: "POST",
-                    dataType: "json",
+                    dataType: "application/json",
                     contentType: "application/json",
                     data: ko.toJSON(signUpData)
                 }).done(function(data, textStatus, jqXHR) {
@@ -70,13 +70,13 @@ define(["jquery", 'knockout'], function($, ko) {
             var defer = $.Deferred();
             var userCredentials = {
                 email: email,
-                password: window.btoa(password)
+                password: password
             };
 
             $.ajax({
                 url: endpointUrls.auth,
                 method: "POST",
-                dataType: "json",
+                dataType: "application/json",
                 contentType: "application/json",
                 data: JSON.stringify(userCredentials)
             }).done(function(data, textStatus, jqXHR) {
@@ -149,8 +149,7 @@ define(["jquery", 'knockout'], function($, ko) {
 
             $.ajax({
                 url: endpointUrls.me,
-                method: "GET",
-                dataType: "json"
+                method: "GET"
             }).done(function(requestedUserResults) {
                 var userResult = ko.observable();
                 if (requestedUserResults) {
