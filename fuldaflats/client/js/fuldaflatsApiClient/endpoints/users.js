@@ -12,7 +12,7 @@ define(["jquery", 'knockout'], function ($, ko) {
             if (signUpData) {
 
                 $.ajax({
-                    url: endpointUrls.auth,
+                    url: endpointUrls.users,
                     method: "POST",
                     dataType: "json",
                     contentType: "application/json",
