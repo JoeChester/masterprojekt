@@ -1,4 +1,4 @@
-define(["jquery", 'knockout'], function($, ko) {
+define(["jquery", 'knockout'], function ($, ko) {
 
     function UsersEndpoint(usersEndpointUrls, offerTypes) {
         var self = this;
@@ -6,23 +6,18 @@ define(["jquery", 'knockout'], function($, ko) {
 
         // sign up
 
-        self.signUp = function(signUpData) {
+        self.signUp = function (signUpData) {
             var defer = $.Deferred();
 
             if (signUpData) {
-                var password = ko.unwrap(signUpData.password);
-                if (password) {
-                    password = window.btoa(password)
-                    signUpData.password = password
-                }
 
                 $.ajax({
                     url: endpointUrls.auth,
                     method: "POST",
-                    dataType: "application/json",
+                    dataType: "json",
                     contentType: "application/json",
                     data: ko.toJSON(signUpData)
-                }).done(function(data, textStatus, jqXHR) {
+                }).done(function (data, textStatus, jqXHR) {
                     if (jqXHR.status === 201 && data) {
                         var userResult = ko.observable({
                             isAuthenticated: true,
@@ -32,7 +27,7 @@ define(["jquery", 'knockout'], function($, ko) {
                     } else {
                         defer.reject("Failed to sing in the user.");
                     }
-                }).fail(function(jqXHR, textStatus) {
+                }).fail(function (jqXHR, textStatus) {
                     /*             var userResult = ko.observable({
                                      isAuthenticated: true,
                                      userData: {
@@ -66,7 +61,7 @@ define(["jquery", 'knockout'], function($, ko) {
         }
 
         // user sign in
-        self.signIn = function(email, password) {
+        self.signIn = function (email, password) {
             var defer = $.Deferred();
             var userCredentials = {
                 email: email,
@@ -76,11 +71,11 @@ define(["jquery", 'knockout'], function($, ko) {
             $.ajax({
                 url: endpointUrls.auth,
                 method: "POST",
-                dataType: "application/json",
+                dataType: "json",
                 contentType: "application/json",
                 data: JSON.stringify(userCredentials)
-            }).done(function(data, textStatus, jqXHR) {
-                if (jqXHR.status === 201 && data) {
+            }).done(function (data, textStatus, jqXHR) {
+                if (jqXHR.status === 200 && data) {
                     var userResult = ko.observable({
                         isAuthenticated: true,
                         userData: data
@@ -89,7 +84,7 @@ define(["jquery", 'knockout'], function($, ko) {
                 } else {
                     defer.reject("Failed to sing in the user.");
                 }
-            }).fail(function(jqXHR, textStatus) {
+            }).fail(function (jqXHR, textStatus) {
                 /*                var userResult = ko.observable({
                                     isAuthenticated: true,
                                     userData: {
@@ -120,13 +115,13 @@ define(["jquery", 'knockout'], function($, ko) {
         };
 
         // user sign out
-        self.signOut = function() {
+        self.signOut = function () {
             var defer = $.Deferred();
 
             $.ajax({
                 url: endpointUrls.auth,
                 method: "DELETE",
-            }).done(function(data, textStatus, jqXHR) {
+            }).done(function (data, textStatus, jqXHR) {
                 if (jqXHR.status === 204) {
                     var userResult = ko.observable({
                         isAuthenticated: false,
@@ -136,7 +131,7 @@ define(["jquery", 'knockout'], function($, ko) {
                 } else {
                     defer.reject("Failed to sing out the current user.");
                 }
-            }).fail(function(jqXHR, textStatus) {
+            }).fail(function (jqXHR, textStatus) {
                 defer.reject("Failed to sing out the current user.");
             });
 
@@ -144,13 +139,13 @@ define(["jquery", 'knockout'], function($, ko) {
         };
 
         // get current User
-        self.getMe = function() {
+        self.getMe = function () {
             var defer = $.Deferred();
 
             $.ajax({
                 url: endpointUrls.me,
                 method: "GET"
-            }).done(function(requestedUserResults) {
+            }).done(function (requestedUserResults) {
                 var userResult = ko.observable();
                 if (requestedUserResults) {
                     userResult({
@@ -160,7 +155,7 @@ define(["jquery", 'knockout'], function($, ko) {
                 }
 
                 defer.resolve(userResult);
-            }).fail(function(jqXHR, textStatus) {
+            }).fail(function (jqXHR, textStatus) {
                 if (jqXHR.status === 403) {
                     defer.resolve(ko.observable({
                         isAuthenticated: false,
