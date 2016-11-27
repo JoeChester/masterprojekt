@@ -48,7 +48,15 @@ router.put('/:id/favorite', function (req, res) {
 //delete
 router.delete('/:id', function (req, res) {
     //Coding run...
+    schema.models.offer.destroyById(req.param.offerId, err => {
+         if(err){
+            res.status(400);
+            res.json(err);
+        } else 
+            res.sendStatus(200);    
+    });
 });
+
 
 //Endpoint Definitions
 
