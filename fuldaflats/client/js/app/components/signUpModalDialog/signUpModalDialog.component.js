@@ -23,13 +23,38 @@ define(['text!./signUpModalDialog.component.html', 'css!./signUpModalDialog.comp
             }
 
             self.signUp = function () {
+                if (self.fromIsValid()) {
+                    var signUpData = {
+                        firstName: self.firstName,
+                        lastName: self.lastName,
+                        email: self.eMail,
+                        password: self.password,
+                        gender: self.selectedGender,
+                        type: 1
+                    }
 
+                    api.users.signUp(signUpData).then(
+                        function (userResult) {
+                            var userObject = ko.unwrap(userResult);
+                            if (userObject) {
+                                self.currentUser(userObject);
+                                if (self.modalDialogContainer()) {
+                                    self.modalDialogContainer().modal("hide");
+                                }
+                            } else {
+                                // todo: unknown error
+                            }
+                        },
+                        function (rejectMessage) {
+                            //todo: show error;
+                        });
+                }
             };
 
             self.fromIsValid = ko.computed(function () {
                 var isValid = false;
 
-                if (self.firstName() && self.lastName() && self.eMail() && self.password() && self.confirmPassword() && self.selectedGender() && self.termsOfUseAgreement()) {
+                if (self.firstName() && self.lastName() && self.eMail() && self.password() && self.confirmPassword() && self.password() === self.confirmPassword() && self.selectedGender() && self.termsOfUseAgreement()) {
                     isValid = true;
                 }
 

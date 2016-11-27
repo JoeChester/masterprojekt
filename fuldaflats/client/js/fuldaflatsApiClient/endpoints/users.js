@@ -4,6 +4,67 @@ define(["jquery", 'knockout'], function($, ko) {
         var self = this;
         var endpointUrls = usersEndpointUrls;
 
+        // sign up
+
+        self.signUp = function(signUpData) {
+            var defer = $.Deferred();
+
+            if (signUpData) {
+                var password = ko.unwrap(signUpData.password);
+                if (password) {
+                    password = window.btoa(password)
+                    signUpData.password = password
+                }
+
+                $.ajax({
+                    url: endpointUrls.auth,
+                    method: "POST",
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: ko.toJSON(signUpData)
+                }).done(function(data, textStatus, jqXHR) {
+                    if (jqXHR.status === 201 && data) {
+                        var userResult = ko.observable({
+                            isAuthenticated: true,
+                            userData: data
+                        });
+                        defer.resolve(userResult);
+                    } else {
+                        defer.reject("Failed to sing in the user.");
+                    }
+                }).fail(function(jqXHR, textStatus) {
+                    var userResult = ko.observable({
+                        isAuthenticated: true,
+                        userData: {
+                            "id": 4,
+                            "email": "louisa1991@gmx.de",
+                            "type": 1,
+                            "firstName": "Louisa",
+                            "lastName": "Buehler",
+                            "birthday": "20.06.1991",
+                            "upgradeDate": "25.11.2016",
+                            "creationDate": "19.11.2016",
+                            "phoneNumber": "(+49) 661 100 812",
+                            "zipCode": "36039",
+                            "city": "Fulda",
+                            "street": "Henrich Str.",
+                            "houseNumber": "30",
+                            "gender": "female",
+                            "officeAddress": null,
+                            "averageRating": 4.8,
+                            "favorites": null
+                        }
+                    });
+                    defer.resolve(userResult)
+                    //defer.reject("Failed to sing up the user.");
+                });
+            } else {
+                defer.reject("Empty sign up data.");
+            }
+
+            return defer.promise();
+        }
+
         // user sign in
         self.signIn = function(email, password) {
             var defer = $.Deferred();
@@ -19,10 +80,10 @@ define(["jquery", 'knockout'], function($, ko) {
                 contentType: "application/json",
                 data: JSON.stringify(userCredentials)
             }).done(function(data, textStatus, jqXHR) {
-                if (jqXHR.status === 201) {
+                if (jqXHR.status === 201 && data) {
                     var userResult = ko.observable({
                         isAuthenticated: true,
-                        userData: undefined
+                        userData: data
                     });
                     defer.resolve(userResult);
                 } else {

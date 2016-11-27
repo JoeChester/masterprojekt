@@ -6,18 +6,18 @@
                 <h4 class="modal-title">Sign Up</h4>
             </div>
             <div class="modal-body">
-                <input data-bind="value: firstName" type="text" class="form-control" placeholder="First Name" autofocus>
-                <input data-bind="value: lastName" type="text" class="form-control" placeholder="Last Name">
+                <input data-bind="value: firstName" maxlength="255" type="text" class="form-control" placeholder="First Name" autofocus>
+                <input data-bind="value: lastName" maxlength="255" type="text" class="form-control" placeholder="Last Name">
                 <div class="input-group">
-                    <input data-bind="value: eMail" type="email" class="form-control" placeholder="Email">
+                    <input data-bind="value: eMail" maxlength="255" type="email" class="form-control" placeholder="Email">
                     <div class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></div>
                 </div>
                 <div class="input-group">
-                    <input data-bind="value: password" type="password" class="form-control" placeholder="Password">
+                    <input data-bind="value: password" maxlength="255" type="password" class="form-control" placeholder="Password">
                     <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
                 </div>
                 <div class="input-group">
-                    <input data-bind="value: confirmPassword" type="password" class="form-control" placeholder="Confirm Password">
+                    <input data-bind="value: confirmPassword" maxlength="255" type="password" class="form-control" placeholder="Confirm Password">
                     <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
                 </div>
                 <select data-bind="options: genders,
