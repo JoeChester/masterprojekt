@@ -1,1 +1,104 @@
-/* Special component css here and general css in main.css */
+/*_______________ Result Page _______________ */
+
+/* ______________ MAP ____________*/
+/* Extra Small Devices, Phones */ 
+.mapColumn{
+    height: 280px;
+  }
+@media only screen and (min-width : 480px) {
+  .mapColumn{
+    height: 380px;
+  }
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+  .mapColumn{
+    height: 480px;
+  }
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+  .mapColumn{
+    height: 580px;
+  }
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+  .mapColumn{
+    height: 780px;
+  }
+}
+.map-container{
+   padding: 10px; 
+  background-color: #eeeeee;
+}
+
+.leaflet-top, .leaflet-bottom{
+  z-index: 400 !important;
+}
+
+/* Extra Small Devices, Phones */ 
+  .resultColumn{
+    height: 300px;
+  }
+@media only screen and (min-width : 480px) {
+  .resultColumn{
+    height: 400px;
+  }
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+  .resultColumn{
+    height: 500px;
+  }
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+  .resultColumn{
+    height: 600px;
+  }
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+  .resultColumn{
+    height: 800px;
+  }
+}
+
+.scroll-y{
+  overflow-y: auto;
+}
+
+.panel-search-result{
+  margin-bottom: 20px;
+  background-color: #fff;
+  border: 1px solid #eeeeee;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+  box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+
+.ellipsis {
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;  
+  -o-text-overflow: ellipsis;
+  max-height: 10rem;
+}
+
+.offer-result-keyfigures{
+  background-color: #eeeeee;
+  border: 1px solid #dddddd;
+  padding: 0.5rem;
+}
+
+.row{
+    margin-left: 0;
+    margin-right: 0;
+}

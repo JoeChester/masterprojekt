@@ -3,6 +3,9 @@ requirejs.config({
     map: {
     },
     shim: {
+        leaflet: {
+            exports: 'L'
+        },
         'bootstrap': { 'deps': ['jquery'] },
         'jqueryCookie': { 'deps': ['jquery'] },
         'waypoints': { 'deps': ['jquery'] },
@@ -30,7 +33,8 @@ requirejs.config({
         owlCarousel: './lib/owl.carousel.min',
         knockoutOwlCarousel: './lib/knockout-owlCarousel',
         jqcloud: '/bower_components/jqcloud2/dist/jqcloud.min',
-        fuldaflatsApiClient: './fuldaflatsApiClient/fuldaflatsApiClient'
+        fuldaflatsApiClient: './fuldaflatsApiClient/fuldaflatsApiClient',
+        leaflet: './lib/leaflet'
     }
 });
 
@@ -41,7 +45,7 @@ window.onerror = function(messageOrEvent, source, lineno, colno, error) {
 
 //Load default libraries, plugins and initilize app
 requirejs(['app/appModel',
-    'jquery', 'bootstrap', 'knockout', 'jqueryCookie', 'waypoints', 'jqueryConterup',
+    'jquery', 'bootstrap', 'knockout', 'jqueryCookie', 'waypoints', 'jqueryConterup', 'leaflet',
     'jqueryParallax', /* 'front', */ 'bootstrapSwitch', 'owlCarousel', 'knockoutOwlCarousel', 'jqcloud', 'fuldaflatsApiClient'
 ], function(app, $) {
     var event = new CustomEvent('scripts-loaded');
