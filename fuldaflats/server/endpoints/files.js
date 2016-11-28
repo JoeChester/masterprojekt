@@ -37,7 +37,7 @@ router.post('/offers/:offerId', function (req, res) {
         }
 
         let _filepath = {};
-        _filepath.path = config.express.fileDownload + req.file.filename;
+        _filepath.path = "/" + config.express.fileDownload + req.file.filename;
 
         schema.models.Offer.findById(req.params.offerId, (err, offer) => {
             if(err){
@@ -87,7 +87,7 @@ router.post('/profilePicture', function (req, res) {
         }
 
         let _filepath = {};
-        _filepath.path = config.express.fileDownload + req.file.filename;
+        _filepath.path = "/" + config.express.fileDownload + req.file.filename;
 
         schema.models.User.update(
             { where: {id: req.session.user.id}} , 

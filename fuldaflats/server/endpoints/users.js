@@ -203,7 +203,7 @@ router.put('/me', function (req, res) {
     }
 });
 
-//userdata for user with :userId
+//userdata for user with :userId => public profiles, not implemented yet (Prio 2)
 router.get('/:userId', function (req, res) {
     res.sendStatus(501);
 });

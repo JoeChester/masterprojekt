@@ -219,7 +219,7 @@ router.get('/:offerId', function (req, res) {
         if(err){
             return res.sendStatus(404);
         }
-        let _offer = offer.toJSON(req.session.auth);
+        let _offer = offer.toJSON_FULL(req.session.auth);
         offer.mediaObjects((err, mediaObjects) =>{
             if(!err){
                 _offer.mediaObjects = mediaObjects;
@@ -231,8 +231,24 @@ router.get('/:offerId', function (req, res) {
                 offer.tags((err, tags) =>{
                     if(!err){
                         _offer.tags = tags;
-                        res.json(_offer);
                     }
+                    schema.models.User.findById(_offer.landlord, (err, _user) =>{
+                        if(!err){
+                            _offer.landlord = _user.toJSON_STUB();
+                        }
+                        //Dont find any favorites if not authenticated
+                        let favoriteUserId = 0;
+                        if(req.session.auth){
+                            favoriteUserId = req.session.user.id;
+                        }
+                        schema.models.Favorite.find({where: {userId: favoriteUserId, offerId: _offer.id}}, (err, favorite) =>{
+                            if(!err && favorite){
+                                _offer.favorite = favorite;
+                            }
+                            res.status(200);
+                            return res.json(_offer);
+                        });
+                    });
                 });
             });
         });
