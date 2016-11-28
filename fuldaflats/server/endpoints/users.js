@@ -33,6 +33,7 @@ function authenticate(req, res, successStatus) {
 
     let passwordHash = _hash.sha512(SALT + req.body.password, 'base64');
     req.body.email = req.body.email.toLowerCase();
+    
     schema.models.User.findOne({where: {email: req.body.email}}, (err, user) => {
         if(err){
             res.status(400);
@@ -202,7 +203,7 @@ router.put('/me', function (req, res) {
     }
 });
 
-//userdata for user with :userId
+//userdata for user with :userId => public profiles, not implemented yet (Prio 2)
 router.get('/:userId', function (req, res) {
     res.sendStatus(501);
 });

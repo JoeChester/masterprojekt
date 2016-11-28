@@ -79,5 +79,20 @@ module.exports = function(schema){
         return _user;
     }
 
+    User.prototype.toJSON_STUB = function(){
+        let _user = {};
+        _user.id = this.id;
+        _user.email = this.email;
+        _user.type = this.type;
+        _user.firstName = this.firstName;
+        _user.lastName = this.lastName;
+        _user.phoneNumber = this.phoneNumber;
+        _user.gender = this.gender;
+        _user.officeAddress = this.officeAddress;
+        _user.averageRating = this.averageRating;
+        _user.profilePicture = this.profilePicture;
+        return _user;
+    }
+
     return User;
 };

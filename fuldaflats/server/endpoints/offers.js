@@ -1,7 +1,12 @@
 /************************************************************
  * File:            offers.js
+<<<<<<< HEAD
  * Author:          Jonas Kleinkauf
  * LastMod:         17.11.2016
+=======
+ * Author:          Jonas Kleinkauf, Plisam Ekpai-Laodema
+ * LastMod:         28.11.2016
+>>>>>>> ff776978780313f5137ac67abe7628ec57596725
  * Description:     REST endpoints for offers
  ************************************************************/
 
@@ -86,8 +91,22 @@ router.post('/search', function (req, res) {
     //Store search queries in session to fetch them later 
     //in different context
     req.session.search = req.body;
-    console.log(req.body);
-    res.sendStatus(204);
+
+    //Resolve tag search relationship
+    if(req.session.search.tags){
+        schema.models.Tag.find({where: {title: { in: req.session.search.tags}}}, (err, tags) =>{
+            req.session.search.id = {};
+            req.session.search.id.in = [];
+            for(i in tags){
+                req.session.search.id.in.push(tags[i].offerId);
+            }
+            req.session.search.tags = undefined;
+            return res.sendStatus(204);
+        });
+    }
+    else {
+        return res.sendStatus(204);
+    }
 });
 
 router.get('/search', function (req, res) {
@@ -200,7 +219,7 @@ router.get('/:offerId', function (req, res) {
         if(err){
             return res.sendStatus(404);
         }
-        let _offer = offer.toJSON(req.session.auth);
+        let _offer = offer.toJSON_FULL(req.session.auth);
         offer.mediaObjects((err, mediaObjects) =>{
             if(!err){
                 _offer.mediaObjects = mediaObjects;
@@ -212,8 +231,24 @@ router.get('/:offerId', function (req, res) {
                 offer.tags((err, tags) =>{
                     if(!err){
                         _offer.tags = tags;
-                        res.json(_offer);
                     }
+                    schema.models.User.findById(_offer.landlord, (err, _user) =>{
+                        if(!err){
+                            _offer.landlord = _user.toJSON_STUB();
+                        }
+                        //Dont find any favorites if not authenticated
+                        let favoriteUserId = 0;
+                        if(req.session.auth){
+                            favoriteUserId = req.session.user.id;
+                        }
+                        schema.models.Favorite.find({where: {userId: favoriteUserId, offerId: _offer.id}}, (err, favorite) =>{
+                            if(!err && favorite){
+                                _offer.favorite = favorite;
+                            }
+                            res.status(200);
+                            return res.json(_offer);
+                        });
+                    });
                 });
             });
         });

@@ -190,6 +190,7 @@ module.exports = function (schema) {
         _offer.longitude = this.longitude;
         _offer.latitude = this.latitude;
         _offer.uniDistance = this.uniDistance;
+        _offer.landlord = this.landlord;
 
         _offer.reviews = this._reviews;
         _offer.mediaObjects = this._mediaObjects;
