@@ -5,6 +5,8 @@ define(['text!./editProfileDataBar.component.html', 'css!./editProfileDataBar.co
             self.currentUser = ko.observable();
             self.testBinding = ko.observable('myBinding');
 
+            self.genders =  ko.observableArray(['female', 'male']);
+
             $.getJSON({
                 url: '/api/users/me',
                 success: function (data, status, req) {
