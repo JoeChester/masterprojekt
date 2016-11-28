@@ -22,7 +22,7 @@ var async = require('async');
 
 //Core Endpoint: /api/offers
 
-//create
+//create offer
 router.post('/', function (req, res) {
     if(!req.session.auth){
             res.sendStatus(403);
@@ -39,7 +39,7 @@ router.post('/', function (req, res) {
     }
 });
 
-//put
+//modify offer
 router.put('/:id/favorite', function (req, res) {
     if(!req.session.auth){
             res.sendStatus(403);
@@ -67,7 +67,7 @@ router.put('/:id/favorite', function (req, res) {
     }
 });
 
-//delete
+//delete offer
 router.delete('/:id', function (req, res) {
     if(!req.session.auth){
             res.sendStatus(403);
@@ -255,20 +255,6 @@ router.get('/:offerId', function (req, res) {
     });
 });
 
-//create offer
-router.post('/', function (req, res) {
-    res.sendStatus(501);
-});
-
-//modify offer
-router.put('/:offerId', function (req, res) {
-    res.sendStatus(501);
-});
-
-//delete offer (or set inactive?)
-router.delete('/:offerId', function (req, res) {
-    res.sendStatus(501);
-});
 
 //create review
 router.post('/:offerId/review', function (req, res) {
