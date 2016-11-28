@@ -1,11 +1,7 @@
-define(['text!./searchResultBar.component.html', 'css!./searchResultBar.component.css', 'knockout', 'jquery', 'fuldaflatsApiClient', 'leaflet'],
-    function (componentTemplate, componentCss, ko, $, api, L) {
+define(['text!./searchResultBar.component.html', 'css!./searchResultBar.component.css', 'knockout', 'jquery', 'fuldaflatsApiClient', 'css!../offerBarSlider/offerBarSlider.component.css'],
+    function (componentTemplate, componentCss, ko, $, api, offerBarCss) {
         function SearchResultModel() {
             var self = this;
-            console.log(L);
-            // your model functions and variables
-
-            var resultMap;
 
             var forceNullObservable = function () {
                 var obs = ko.observable();
@@ -25,27 +21,8 @@ define(['text!./searchResultBar.component.html', 'css!./searchResultBar.componen
 
             self.offers = ko.observableArray([]),
 
-            function search() {
-                var searchQuery = ko.toJSON(model.queryParameter);
-                console.log(searchQuery);
-                $.ajax({
-                    url: "/api/offers/search",
-                    type: "post",
-                    dataType: "application/json",
-                    contentType: "application/json",
-                    data: searchQuery,
-                    success: function (data, status, req) {
-                        getSearchResults();
-                    },
-                    error: function (req, status, err) {
-                        console.log("Error!");
-                        console.log(err);
-                    }
-                });
-            }
 
-
-            function getSearchResults() {
+            self.getSearchResults = function() {
                 self.offers.removeAll();
                 $.ajax({
                     url: "/api/offers/search",
@@ -56,23 +33,18 @@ define(['text!./searchResultBar.component.html', 'css!./searchResultBar.componen
                         }
                     },
                     error: function (req, status, err) {
-
+                        console.log(status);
+                        console.log(err);
+                        console.log(req);
                     }
                 });
             }
 
-            function setupMap() {
-                resultMap = L.map('resultMap').setView([50.5647986, 9.6828528], 14);
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    maxZoom: 18,
-                    minZoom: 11,
-                    attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
-                }).addTo(resultMap);
-            }
+            searchCallback = self.getSearchResults;
 
             $(function () {
-                //setupMap();
-                getSearchResults();
+                self.getSearchResults();
+                //initMap();
             });
 
         }

@@ -1,6 +1,23 @@
 define(['text!./searchBar.component.html', 'css!./searchBar.component.css', 'knockout', 'fuldaflatsApiClient'],
     function(componentTemplate, componentCss, ko, api) {
 
+
+        var forceNullObservable = function() {
+            var obs = ko.observable();
+
+            return ko.computed({
+                read: function() {
+                    return obs();
+                },
+                write: function(val) {
+                    if(val === '') {
+                        val = null;
+                    }
+                    obs(val);
+                }
+            });
+        };
+
         function SearchPanelModel(params) {
             var self = this;
             var searchCookieName = "lastSearchQuery";
@@ -23,13 +40,23 @@ define(['text!./searchBar.component.html', 'css!./searchBar.component.css', 'kno
                 self.tags(ko.unwrap(tags));
             });
 
+            self.availableTags = ko.observableArray(['computer science', 'economics']),
+            self.offerTypes = ko.observableArray(['FLAT', 'SHARE', 'SUBLET', 'COUCH', 'PARTY']),
+            self.queryParameter = {
+                offerType: forceNullObservable(),
+                uniDistance: { lte: forceNullObservable()},
+                rent: { lte: forceNullObservable()},
+                size: { gte: forceNullObservable()},
+                tag: forceNullObservable()
+            }
+
             function getQueryParameter() {
                 var queryParamater = {
-                    offerType: ko.observable(),
-                    maxDistance: ko.observable(),
-                    maxPrice: ko.observable(),
-                    minAreaSize: ko.observable(),
-                    tag: ko.observable()
+                    offerType: forceNullObservable(),
+                    uniDistance: { lte: forceNullObservable()},
+                    rent: { lte: forceNullObservable()},
+                    size: { gte: forceNullObservable()},
+                    tag: forceNullObservable()
                 }
 
                 var lastSearchQueryCookie = $.cookie("lastSearchQuery");
@@ -53,11 +80,32 @@ define(['text!./searchBar.component.html', 'css!./searchBar.component.css', 'kno
 
             self.queryParameter = getQueryParameter();
 
-            self.search = function() {
-                $.cookie(searchCookieName, ko.toJSON(self.queryParameter), { expires: 1, path: '/' });
-                if (self.searchPageInfo() && self.searchPageInfo().url) {
-                    window.document.location.href = self.searchPageInfo().url
+            if(isIndex){
+                searchCallback = function(){
+                    $.cookie(searchCookieName, ko.toJSON(self.queryParameter), { expires: 1, path: '/' });
+                        if (self.searchPageInfo() && self.searchPageInfo().url) {
+                            window.document.location.href = self.searchPageInfo().url
+                        }
                 }
+            }
+
+            self.search = function() {
+                var searchQuery = ko.toJSON(self.queryParameter);
+                console.log(searchQuery);
+                $.ajax({
+                    url: "/api/offers/search",
+                    type: "post",
+                    dataType: "application/json",
+                    contentType: "application/json",
+                    data: searchQuery,
+                    success: function(data, status, req){
+                        searchCallback();
+                    },
+                    error: function(req, status, err){
+                        console.log("Error!");
+                        console.log(err);
+                    }
+                });
             };
 
             self.optionsAfterRender = function(option, item) {
