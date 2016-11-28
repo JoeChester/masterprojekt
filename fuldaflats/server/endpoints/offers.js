@@ -260,7 +260,9 @@ router.post('/:offerId/review', function (req, res) {
             res.status(400);
             res.json(err);
         } else {
-            var newReview = new schema.models.Review(req.body); 
+            var newReview = new schema.models.Review(req.body);
+
+            newReview.userId = req.param.session.user.id, 
             newReview.offerId = req.param.offerId;
             newReview.save( err => {
                 if (err) {
