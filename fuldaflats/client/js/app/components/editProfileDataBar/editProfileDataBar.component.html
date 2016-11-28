@@ -52,9 +52,10 @@
 					<div class="row">
 						<label for="gender" class="control-label col-sm-2">Gender:</label>
 						<div class="col-sm-5">
-							<select class="form-control" id="gender" 
-								data-bind="options: $parent.genders, value: gender"
-							></select>
+							<select class="form-control" id="gender" data-bind="value: gender">
+								<option>female</option>
+								<option>male</option>
+							</select>
 						</div>
 					</div>
 					<div class="row">
