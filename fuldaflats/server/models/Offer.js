@@ -133,7 +133,7 @@ module.exports = function (schema) {
     });
 
     //Validators
-    Offer.validatesPresenceOf('offerTitle', 'offerType', 'street', 'number', 'postCode', 'city', 'description');
+    //Offer.validatesPresenceOf('offerTitle', 'offerType', 'street', 'number', 'postCode', 'city', 'description');
 
     //Custom Functions
 

@@ -29,6 +29,7 @@ router.post('/', function (req, res) {
             if (err != null) {
                 res.json(err);
             } else {
+                console.log(offer);
                 res.json(offer);
             }
         });

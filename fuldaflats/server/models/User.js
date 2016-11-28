@@ -48,8 +48,11 @@ module.exports = function(schema){
     User.hasMany(Offer, {as: 'offers', foreignKey: 'landlord'});
 
     //Custom Functions
-    User.beforeSave = function (next) {
+    User.beforeValidation = function (next) {
         this.email = this.email.toLowerCase();
+        this.birthday = new Date(this.birthday);
+        this.upgradeDate = new Date(this.upgradeDate);
+        this.creationDate = new Date(this.creationDate);
         next();
     };
 
