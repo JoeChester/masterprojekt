@@ -106,3 +106,21 @@
 .nomargin{
   margin: 0;
 }
+
+.marker-popup{
+  width: 250px;
+}
+
+.map-popup-details{
+  background-color: #eeeeee;
+  border: 1px solid #dddddd;
+  padding: 0.5rem;
+}
+
+.map-popup-img{
+  color: #FFFFFF !important;
+}
+
+.map-popup-viewtext{
+  height: 30% !important;
+}

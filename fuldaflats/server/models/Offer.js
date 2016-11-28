@@ -209,6 +209,8 @@ module.exports = function (schema) {
         _offer.rent = this.rent;
         _offer.rentType = this.rentType;
         _offer.priceType = this.priceType;
+        _offer.longitude = this.longitude;
+        _offer.latitude = this.latitude;
         return _offer;
     };
 

@@ -37,7 +37,7 @@ define([
             myProfile: ko.observable({ url: "/pages/myProfile.html", title: "My Profile" }),
             newOffer: ko.observable({ url: "/pages/newOffer.html", title: "New Offer" }),
             offerDetails: ko.observable({ url: "/pages/offerDetails.html", title: "Offer Details" }),
-            search: ko.observable({ url: "/pages/search.html", title: "Search" }),
+            search: ko.observable({ url: "/pages/search", title: "Search" }),
             termsOfUse: ko.observable({ url: "/pages/termsOfUse.html", title: "Terms Of Use" }),
             contact: ko.observable({ url: "mailto:" + self.contactEmailAddress, title: "Contact" }),
         };
@@ -54,7 +54,7 @@ define([
             "/pages/myprofile.html": "app/pageModules/myProfileModule",
             "/pages/newoffer.html": "app/pageModules/newOfferModule",
             "/pages/offerdetails.html": "app/pageModules/offerDetailsModule",
-            '/pages/search.html': "app/pageModules/searchModule",
+            '/pages/search': "app/pageModules/searchModule",
             '/pages/termsofuse.html': "app/pageModules/termsOfUseModule",
 
             '/pages/homeWithExtendedSearch.html': "app/pageModules/homeModule",
