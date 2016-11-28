@@ -19,19 +19,24 @@ var async = require('async');
 
 //create
 router.post('/', function (req, res) {
-    if(!req.session.auth){
-            res.sendStatus(403);
-    } else {
-         schema.models.Offer.create(
-        req.body,
-        function (err, offer) {
-            if (err != null) {
-                res.json(err);
-            } else {
-                res.json(offer);
-            }
-        });
+    Offer.validatesPresenceOf('offerTitle', 'offerType', 'street', 'number', 'floor', 'postCode', 'city')
+    user.isValid(function (valid) {
+    if (!valid) {
+        if(!req.session.auth){
+                res.sendStatus(403);
+        } else {
+            schema.models.Offer.create(
+            req.body,
+            function (err, offer) {
+                if (err != null) {
+                    res.json(err);
+                } else {
+                    res.json(offer);
+                }
+            });
+        }
     }
+    })
 });
 
 //put
