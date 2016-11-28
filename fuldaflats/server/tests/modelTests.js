@@ -1,5 +1,5 @@
 var schema = require('../models');
 
-schema.models.Offer.findById(1, (err, offer)=>{
-    console.log(offer.reviews({where: {offerId: offer.id}}));
-});
+schema.models.Tag.find({where: {title: { in: ["english", "german"]}}}, (err, tags) =>{
+    console.log(tags);
+})

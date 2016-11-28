@@ -1,7 +1,7 @@
 /************************************************************
  * File:            offers.js
- * Author:          Plisam Ekpai-Laodema, Jonas Kleinkauf
- * LastMod:         17.11.2016
+ * Author:          Jonas Kleinkauf, Plisam Ekpai-Laodema
+ * LastMod:         28.11.2016
  * Description:     REST endpoints for offers
  ************************************************************/
 
@@ -91,8 +91,22 @@ router.post('/search', function (req, res) {
     //Store search queries in session to fetch them later 
     //in different context
     req.session.search = req.body;
-    console.log(req.body);
-    res.sendStatus(204);
+
+    //Resolve tag search relationship
+    if(req.session.search.tags){
+        schema.models.Tag.find({where: {title: { in: req.session.search.tags}}}, (err, tags) =>{
+            req.session.search.id = {};
+            req.session.search.id.in = [];
+            for(i in tags){
+                req.session.search.id.in.push(tags[i].offerId);
+            }
+            req.session.search.tags = undefined;
+            return res.sendStatus(204);
+        });
+    }
+    else {
+        return res.sendStatus(204);
+    }
 });
 
 router.get('/search', function (req, res) {

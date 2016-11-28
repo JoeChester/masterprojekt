@@ -33,6 +33,7 @@ function authenticate(req, res, successStatus) {
 
     let passwordHash = _hash.sha512(SALT + req.body.password, 'base64');
     req.body.email = req.body.email.toLowerCase();
+    
     schema.models.User.findOne({where: {email: req.body.email}}, (err, user) => {
         if(err){
             res.status(400);
