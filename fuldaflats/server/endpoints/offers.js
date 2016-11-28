@@ -19,42 +19,62 @@ var async = require('async');
 
 //create
 router.post('/', function (req, res) {
-    //Coding run...
-    var newOffer = new schema.models.Offer(req.body);
-
-    newOffer.isValid(valid => {
-        if (!valid) {
-            res.status(400);
-            res.json(newOffer.errors);
-        } else {
-            //....
-            newOffer.save((err, createdOffer) => {
-                if (err) {
-                    res.status(400);
-                    res.json(err);
-                } else {
-                    authenticate(req, res, 201);
-                }
-            });
-        }
-    });
+    if(!req.session.auth){
+            res.sendStatus(403);
+    } else {
+         schema.models.Offer.create(
+        req.body,
+        function (err, offer) {
+            if (err != null) {
+                res.json(err);
+            } else {
+                res.json(offer);
+            }
+        });
+    }
 });
 
 //put
 router.put('/:id/favorite', function (req, res) {
-    //Coding run...
+    if(!req.session.auth){
+            res.sendStatus(403);
+    } else {
+            var _offer = req.body;
+
+            schema.models.Offer.update({ where: {id: req.session.offer.id}} ,
+            _offer, 
+            (err, offer) => {
+                if (err) {
+                    res.status(400);
+                    res.json(err);
+                } else {
+                    schema.models.Offer.findById(req.session.offer.id, (err, offer) => {
+                        if (err) {
+                            res.status(404);
+                            res.json(err);
+                        } else {
+                            //Begin Relationship Pipe
+                            getRelationships(req, res, offer);
+                        }
+                    });
+                }
+            });
+    }
 });
 
 //delete
 router.delete('/:id', function (req, res) {
-    //Coding run...
-    schema.models.offer.destroyById(req.param.offerId, err => {
-         if(err){
-            res.status(400);
-            res.json(err);
-        } else 
-            res.sendStatus(200);    
-    });
+    if(!req.session.auth){
+            res.sendStatus(403);
+    } else {
+        schema.models.offer.destroyById(req.param.offerId, err => {
+            if(err){
+                res.status(400);
+                res.json(err);
+            } else 
+                res.sendStatus(200);    
+        });
+    }
 });
 
 
