@@ -1,6 +1,6 @@
 /************************************************************
  * File:            offers.js
- * Author:          Plisam Ekpai-Laodema, Jonas Kleinkauf
+ * Author:          Jonas Kleinkauf
  * LastMod:         17.11.2016
  * Description:     REST endpoints for offers
  ************************************************************/
@@ -19,24 +19,19 @@ var async = require('async');
 
 //create
 router.post('/', function (req, res) {
-    Offer.validatesPresenceOf('offerTitle', 'offerType', 'street', 'number', 'floor', 'postCode', 'city')
-    user.isValid(function (valid) {
-    if (!valid) {
-        if(!req.session.auth){
-                res.sendStatus(403);
-        } else {
-            schema.models.Offer.create(
-            req.body,
-            function (err, offer) {
-                if (err != null) {
-                    res.json(err);
-                } else {
-                    res.json(offer);
-                }
-            });
-        }
+    if(!req.session.auth){
+            res.sendStatus(403);
+    } else {
+         schema.models.Offer.create(
+        req.body,
+        function (err, offer) {
+            if (err != null) {
+                res.json(err);
+            } else {
+                res.json(offer);
+            }
+        });
     }
-    })
 });
 
 //put
