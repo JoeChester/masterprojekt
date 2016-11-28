@@ -1,12 +1,8 @@
 /************************************************************
  * File:            offers.js
-<<<<<<< HEAD
- * Author:          Jonas Kleinkauf
- * LastMod:         17.11.2016
-=======
- * Author:          Jonas Kleinkauf, Plisam Ekpai-Laodema
+ * Author:          Jonas Kleinkauf, Plisam Ekpai-Laodema,
+ *                  Franz Weidmann
  * LastMod:         28.11.2016
->>>>>>> ff776978780313f5137ac67abe7628ec57596725
  * Description:     REST endpoints for offers
  ************************************************************/
 
@@ -279,13 +275,23 @@ router.post('/:offerId/review', function (req, res) {
 
 //delete review
 router.delete('/:offerId/review/:reviewId', function (req, res) {
-    schema.models.Review.destroyById(req.param.reviewId, err => {
-        if(err){
-            res.status(400);
-            res.json(err);
-        } else 
-            res.sendStatus(200);
+
+    schema.models.Review.find({
+        where:{
+              userId: req.param.session.user.id,
+              offerId: req.param.offerId,
+              id: req.param.reviewId
+        }
+    }, (err, review) => {
+        review.destroy( err => {
+            if(err){
+                res.status(400);
+                res.json(err);
+            } else 
+                res.sendStatus(200);
+        });
     });
+
 });
 
 //set offer as favorite
@@ -312,12 +318,19 @@ router.put('/:offerId/favorite', function (req, res) {
 
 //remove offer from favorites
 router.delete('/:offerId/favorite', function (req, res) {
-    schema.models.Favorite.destroyById(req.param.favoriteId, err => {
-        if(err){
-            res.status(400);
-            res.json(err);
-        } else 
-            res.sendStatus(200);
+    schema.models.Favorite.find({
+        where:{
+              userId: req.param.session.user.id,
+              offerId: req.param.offerId
+        }
+    }, (err, favorite) => {
+        favorite.destroy( err => {
+            if(err){
+                res.status(400);
+                res.json(err);
+            } else 
+                res.sendStatus(200);
+        });
     });
 });
 
