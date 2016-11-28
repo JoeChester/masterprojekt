@@ -13,6 +13,13 @@ define(['text!./searchResultBar.component.html', 'css!./searchResultBar.componen
             popupAnchor: [0, -43],
         });
 
+        var iconHS = L.icon({
+            iconUrl: '/img/hs_marker.png',
+            iconSize: [40, 40],
+            iconAnchor: [20, 40],
+            popupAnchor: [0, -43],
+        });
+
         function SearchResultModel() {
             var self = this;
 
@@ -69,14 +76,19 @@ define(['text!./searchResultBar.component.html', 'css!./searchResultBar.componen
                     minZoom: 1,
                     attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
                 }).addTo(resultMap);
+
+                var hs_latlng = ['50.5648258', '9.6842798'];
+                var popup = '<div class="marker-popup"><img src="/img/logo_hs.png" alt="" class="img-responsive"></div>'
+                L.marker(hs_latlng, {icon: iconHS}).addTo(resultMap).bindPopup(popup);
+
             }
 
             function placeMarkers(offers) {
                 for (var i in offers) {
                     var latlng = [offers[i].latitude, offers[i].longitude];
                     var iconPopup = iconBlue;
-                    var pictureUrl = offers[i].mediaObjects[0].thumbnailUrl || "uploads/sampleB.jpg";
-                    pictureUrl = "../../../../" + pictureUrl;
+                    var pictureUrl = offers[i].mediaObjects[0].thumbnailUrl || "/uploads/sampleB.jpg";
+                    pictureUrl = "/" + pictureUrl;
 
 
                     var picture = '<div class="box-image-text">' +
@@ -87,7 +99,8 @@ define(['text!./searchResultBar.component.html', 'css!./searchResultBar.componen
                         '<div class="bg"></div>' +
                         '<div class="text map-popup-viewtext">' +
                         '<p class="buttons">' +
-                        '<a href="/pages/offerDetails.html?offerId=' + offers[i].id + '" class="btn btn-template-transparent-primary map-popup-img"><i class="fa fa-link"></i>View Details</a>' +
+                        '<a href="/pages/offerDetails.html?offerId=' + offers[i].id + 
+                        '" class="btn btn-template-transparent-primary map-popup-img"><i class="fa fa-link"></i>View Details</a>' +
                         '</p>' +
                         '</div>' +
                         '</div>' +
