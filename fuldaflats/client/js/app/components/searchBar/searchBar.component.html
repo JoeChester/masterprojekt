@@ -11,19 +11,19 @@
                 </div>
                 <div class="col-md-2">
                     <div class="input-group">
-                        <input data-bind="value: $data.queryParameter().uniDistance.lte" class="form-control" type="number" min="0" placeholder="Max. Distance"></input>
+                        <input data-bind="textInput: $data.queryParameter().uniDistance.lte" class="form-control" type="number" min="0" placeholder="Max. Distance"></input>
                         <div class="input-group-addon">km</div>
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="input-group">
-                        <input data-bind="value: $data.queryParameter().rent.lte" class="form-control" type="number" min="0" placeholder="Max. Price"></input>
+                        <input data-bind="textInput: $data.queryParameter().rent.lte" class="form-control" type="number" min="0" placeholder="Max. Price"></input>
                         <div class="input-group-addon">€</div>
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="input-group">
-                        <input data-bind="value: $data.queryParameter().size.gte" class="form-control" type="number" min="0" placeholder="Min. Area Size"></input>
+                        <input data-bind="textInput: $data.queryParameter().size.gte" class="form-control" type="number" min="0" placeholder="Min. Area Size"></input>
                         <div class="input-group-addon">m²</div>
                     </div>
                 </div>
@@ -52,13 +52,7 @@
                     <div class="form-group">
                         <label for="types" class="col-md-2 col-form-label">Type:</label>
                         <div class="col-md-10">
-                            <select class="form-control" id="types">
-                                <option>FLAT</option>
-                                <option>SHARE</option>
-                                <option>SUBLET</option>
-                                <option>COUCH</option>
-                                <option>PARTY</option>
-                            </select>
+                            <select data-bind="options: offerTypes, value: $data.queryParameter().offerType, optionsCaption: 'Choose Type'" class="form-control"></select>
                         </div>
                     </div>
                 </div>
@@ -67,14 +61,14 @@
                     <label for="types" class="col-md-5 col-form-label">University distance range from:</label>
                     <div class="col-md-3">
                         <div class="input-group">
-                            <input class="form-control" type="number" min="0"></input>
+                            <input data-bind="textInput: $data.queryParameter().uniDistance.gte" class="form-control" type="number" min="0"></input>
                             <div class="input-group-addon">km</div>
                         </div>
                     </div>
                     <label for="types" class="col-md-1 col-form-label"> to:</label>
                     <div class="col-md-3">
                         <div class="input-group">
-                            <input class="form-control" type="number" min="0"></input>
+                            <input data-bind="textInput: $data.queryParameter().uniDistance.lte" class="form-control" type="number" min="0"></input>
                             <div class="input-group-addon">km</div>
                         </div>
                     </div>
@@ -84,14 +78,14 @@
                     <label for="types" class="col-md-5 col-form-label">Price range from:</label>
                     <div class="col-md-3">
                         <div class="input-group">
-                            <input class="form-control" type="number" min="0"></input>
+                            <input data-bind="textInput: $data.queryParameter().rent.gte" class="form-control" type="number" min="0"></input>
                             <div class="input-group-addon">€</div>
                         </div>
                     </div>
                     <label for="types" class="col-md-1 col-form-label"> to:</label>
                     <div class="col-md-3">
                         <div class="input-group">
-                            <input class="form-control" type="number" min="0"></input>
+                            <input data-bind="textInput: $data.queryParameter().rent.lte" class="form-control" type="number" min="0"></input>
                             <div class="input-group-addon">€</div>
                         </div>
                     </div>
@@ -101,14 +95,14 @@
                     <label for="types" class="col-md-5 col-form-label">Area size from:</label>
                     <div class="col-md-3">
                         <div class="input-group">
-                            <input class="form-control" type="number" min="0"></input>
+                            <input data-bind="textInput: $data.queryParameter().size.gte" class="form-control" type="number" min="0"></input>
                             <div class="input-group-addon">m²</div>
                         </div>
                     </div>
                     <label for="types" class="col-md-1 col-form-label"> to:</label>
                     <div class="col-md-3">
                         <div class="input-group">
-                            <input class="form-control" type="number" min="0"></input>
+                            <input data-bind="textInput: $data.queryParameter().size.lte" class="form-control" type="number" min="0"></input>
                             <div class="input-group-addon">m²</div>
                         </div>
                     </div>
@@ -118,13 +112,13 @@
                     <label for="types" class="col-md-5 col-form-label">Rooms count from:</label>
                     <div class="col-md-3">
                         <div class="input-group">
-                            <input class="form-control" type="number" min="0"></input>
+                            <input data-bind="textInput: $data.queryParameter().rooms.gte" class="form-control" type="number" min="0"></input>
                         </div>
                     </div>
                     <label for="types" class="col-md-1 col-form-label"> to:</label>
                     <div class="col-md-3">
                         <div class="input-group">
-                            <input class="form-control" type="number" min="0"></input>
+                            <input data-bind="textInput: $data.queryParameter().rooms.lte" class="form-control" type="number" min="0"></input>
                         </div>
                     </div>
                 </div>
@@ -146,19 +140,19 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <input class="switch" type="checkbox" name="furnished" checked>
+                            <input class="switch" type="checkbox" name="furnished" data-bind="checked: $data.queryParameter().furnished">
                             <label for="furnished">Furnished:</label>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <input class="switch" type="checkbox" name="pets" checked>
+                            <input class="switch" type="checkbox" name="pets" data-bind="checked: $data.queryParameter().pets">
                             <label for="pets">Pets:</label>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <input class="switch" type="checkbox" name="cellar" checked>
+                            <input class="switch" type="checkbox" name="cellar" data-bind="checked: $data.queryParameter().cellar">
                             <label for="cellar">Cellar:</label>
                         </div>
                     </div>
@@ -167,19 +161,19 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <input class="switch" type="checkbox" name="parking" checked>
+                            <input class="switch" type="checkbox" name="parking" data-bind="checked: $data.queryParameter().parking">
                             <label for="parking">Parking:</label>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <input class="switch" type="checkbox" name="elevator" checked>
+                            <input class="switch" type="checkbox" name="elevator" data-bind="checked: $data.queryParameter().elevator">
                             <label for="elevator">Elevator:</label>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <input class="switch" type="checkbox" name="accessibility" checked>
+                            <input class="switch" type="checkbox" name="accessibility" data-bind="checked: $data.queryParameter().accessibility">
                             <label for="accessibility">Accessibility:</label>
                         </div>
                     </div>
@@ -188,19 +182,19 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <input class="switch" type="checkbox" name="dryer" checked>
+                            <input class="switch" type="checkbox" name="dryer" data-bind="checked: $data.queryParameter().dryer">
                             <label for="dryer">Dryer:</label>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <input class="switch" type="checkbox" name="washingmachine" checked>
+                            <input class="switch" type="checkbox" name="washingmachine" data-bind="checked: $data.queryParameter().washingmachine">
                             <label for="washingmachine">Washing Machine:</label>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <input class="switch" type="checkbox" name="television" checked>
+                            <input class="switch" type="checkbox" name="television" data-bind="checked: $data.queryParameter().television">
                             <label for="television">Television:</label>
                         </div>
                     </div>
@@ -209,19 +203,19 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <input class="switch" type="checkbox" name="wlan" checked>
+                            <input class="switch" type="checkbox" name="wlan" data-bind="checked: $data.queryParameter().wlan">
                             <label for="wlan">WLAN:</label>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <input class="switch" type="checkbox" name="lan" checked>
+                            <input class="switch" type="checkbox" name="lan" data-bind="checked: $data.queryParameter().lan">
                             <label for="lan">LAN:</label>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <input class="switch" type="checkbox" name="telephone" checked>
+                            <input class="switch" type="checkbox" name="telephone" data-bind="checked: $data.queryParameter().telephone">
                             <label for="telephone">Telephone:</label>
                         </div>
                     </div>
@@ -231,7 +225,7 @@
                     <label for="types" class="col-md-4 col-form-label">Min. Internet Speed:</label>
                     <div class="col-md-4">
                         <div class="input-group">
-                            <input class="form-control" type="number" min="0"></input>
+                            <input data-bind="checked: $data.queryParameter().internetspeed.gte" class="form-control" type="number" min="0"></input>
                             <div class="input-group-addon">Mbit/s</div>
                         </div>
                     </div>

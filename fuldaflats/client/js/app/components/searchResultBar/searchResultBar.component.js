@@ -39,35 +39,46 @@ define(['text!./searchResultBar.component.html', 'css!./searchResultBar.componen
                 });
             };
 
+            function _getThumbnail(offer){
+                if(offer.hasOwnProperty("mediaObjects")){
+                    if(offer.mediaObjects[0]){
+                        return "/" + offer.mediaObjects[0].thumbnailUrl;
+                    }
+                }
+                return "/uploads/dummy.png"
+            }
+
             self.offers = ko.observableArray([]),
 
 
-                self.getSearchResults = function () {
-                    self.offers.removeAll();
-                    //Remove all Markers from the map
-                    for (var i in locationMarkers) {
-                        resultMap.removeLayer(locationMarkers[i])
-                    }
-
-                    $.ajax({
-                        url: "/api/offers/search",
-                        success: function (data, status, req) {
-                            console.log(data);
-                            for (var i in data) {
-                                data[i].detailsUrl = '/pages/offerDetails?offerId=' + data[i].id;
-                                self.offers.push(data[i]);
-                            }
-                            placeMarkers(data);
-                        },
-                        error: function (req, status, err) {
-                            console.log(status);
-                            console.log(err);
-                            console.log(req);
-                        }
-                    });
+            self.getSearchResults = function () {
+                self.offers.removeAll();
+                //Remove all Markers from the map
+                for (var i in locationMarkers) {
+                    resultMap.removeLayer(locationMarkers[i])
                 }
 
+                $.ajax({
+                    url: "/api/offers/search",
+                    success: function (data, status, req) {
+                        for (var i in data) {
+                            data[i].detailsUrl = '/pages/offerDetails?offerId=' + data[i].id;
+                            data[i].thumbnailUrl = _getThumbnail(data[i]);
+                            self.offers.push(data[i]);
+                        }
+                        placeMarkers(data);
+                    },
+                    error: function (req, status, err) {
+                        console.log(status);
+                        console.log(err);
+                        console.log(req);
+                    }
+                });
+            }
+
             searchCallback = self.getSearchResults;
+
+            
 
             function initMap() {
                 resultMap = L.map('resultMap').setView([50.5647986, 9.6828528], 14);
@@ -88,14 +99,10 @@ define(['text!./searchResultBar.component.html', 'css!./searchResultBar.componen
                 for (var i in offers) {
                     var latlng = [offers[i].latitude, offers[i].longitude];
                     var iconPopup = iconBlue;
-                    var pictureUrl = offers[i].mediaObjects[0].thumbnailUrl || "/uploads/sampleB.jpg";
-                    pictureUrl = "/" + pictureUrl;
-
-
                     var picture = '<div class="box-image-text">' +
                         '<div class="top">' +
                         '<div class="image">' +
-                        '<img src="' + pictureUrl + '" alt="" class="img-responsive">' +
+                        '<img src="' + offers[i].thumbnailUrl + '" alt="" class="img-responsive">' +
                         '</div>' +
                         '<div class="bg"></div>' +
                         '<div class="text map-popup-viewtext">' +
@@ -107,7 +114,7 @@ define(['text!./searchResultBar.component.html', 'css!./searchResultBar.componen
                         '</div>' +
                         '</div>';
 
-                    var caption = '<h4>' + offers[i].title + '</h4>';
+                    var caption = '<a href="' + offers[i].detailsUrl + '"><h4>' + offers[i].title + '</h4></a>';
                     var size = '<div class="map-popup-details col-md-6">' +
                         '<div class="offer-brief-detail-1-details-value"><strong>' + offers[i].size + ' m²</strong></div>' +
                         '<div class="offer-brief-detail-1-details-key"><small>Size</small></div></div>';

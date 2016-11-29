@@ -54,30 +54,38 @@ define(['text!./searchBar.component.html', 'css!./searchBar.component.css', 'kno
                 return object;
             }
 
-            self.queryParameter = ko.observable({
-                    offerType: forceNullObservable(),
-                    uniDistance: { lte: forceNullObservable()},
-                    rent: { lte: forceNullObservable()},
-                    size: { gte: forceNullObservable()},
-                    tag: forceNullObservable()
-                });
+            
+            var queryParamaterEmpty = {
+                offerType: forceNullObservable(),
+                uniDistance: { gte: forceNullObservable(), lte: forceNullObservable()},
+                rent: { gte: forceNullObservable(), lte: forceNullObservable()},
+                size: { gte: forceNullObservable(), lte: forceNullObservable()},
+                tag: forceNullObservable(),
+                //Extended Search Parameters
+                rooms: { gte: forceNullObservable(), lte: forceNullObservable()},
+                furnished: forceNullObservable(),
+                pets: forceNullObservable(),
+                cellar: forceNullObservable(),
+                parking: forceNullObservable(),
+                elevator: forceNullObservable(),
+                accessibility: forceNullObservable(),
+                dryer: forceNullObservable(),
+                washingmachine: forceNullObservable(),
+                television: forceNullObservable(),
+                wlan: forceNullObservable(),
+                lan: forceNullObservable(),
+                telephone: forceNullObservable(),
+                internetspeed:{ gte: forceNullObservable()}
+            };
+
+            self.queryParameter = ko.observable(queryParamaterEmpty);
 
             function getQueryParameter() {
-                var queryParamaterEmpty = {
-                    offerType: forceNullObservable(),
-                    uniDistance: { lte: forceNullObservable()},
-                    rent: { lte: forceNullObservable()},
-                    size: { gte: forceNullObservable()},
-                    tag: forceNullObservable()
-                }
-
                 $.ajax({
                     url: "/api/offers/search/last",
                     type: "get",
                     contentType: "application/json",
                     success: function(data, status, req){
-                        console.log("LAST SEARCH");
-                        console.log(JSON.stringify(data));
                         self.queryParameter(createRecursiveNotNullObservable(data));
                     },
                     error: function(req, status, err){
@@ -100,6 +108,7 @@ define(['text!./searchBar.component.html', 'css!./searchBar.component.css', 'kno
             // Function Bindings
             self.search = function() {
                 var searchQuery = ko.toJSON(self.queryParameter);
+                console.log(searchQuery);
                 $.ajax({
                     url: "/api/offers/search",
                     type: "post",

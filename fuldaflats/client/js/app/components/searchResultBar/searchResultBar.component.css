@@ -124,3 +124,7 @@
 .map-popup-viewtext{
   height: 30% !important;
 }
+
+.label{
+  line-height: 2.5rem !important;
+}

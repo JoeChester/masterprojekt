@@ -8,7 +8,7 @@
                     <div class="offer-brief-detail-1 box-image-text col-md-5">
                         <div class="top">
                             <div class="image">
-                                <img src="../img/portfolio-4.jpg" alt="" class="img-responsive">
+                                <img data-bind="attr: { src: offer.thumbnailUrl }" alt="" class="img-responsive">
                             </div>
                             <div class="bg"></div>
                             <div class="text">
@@ -25,7 +25,9 @@
                                 <span class="label label-default" data-bind="text: tag.title"></span>
                             </h4>
                         </div>
-                        <h2 data-bind="text: offer.title"></h2>
+                        <a data-bind="attr: { href: offer.detailsUrl }">
+                            <h2 data-bind="text: offer.title"></h2>
+                        </a>
                         <div class="ellipsis">
                             <p data-bind="text: offer.description"></p>
                         </div>
