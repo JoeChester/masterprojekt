@@ -7,28 +7,28 @@
                     <!-- <select data-bind="options: offerTypes,
                        value: queryParameter.offerType, optionsCaption: 'Choose Type', optionsAfterRender: optionsAfterRender"
                         class="form-control"></select> -->
-                    <select data-bind="options: offerTypes, value: queryParameter.offerType, optionsCaption: 'Choose Type'" class="form-control"></select>
+                    <select data-bind="options: offerTypes, value: $data.queryParameter().offerType, optionsCaption: 'Choose Type'" class="form-control"></select>
                 </div>
                 <div class="col-md-2">
                     <div class="input-group">
-                        <input data-bind="value: queryParameter.uniDistance.lte" class="form-control" type="number" min="0" placeholder="Max. Distance"></input>
+                        <input data-bind="value: $data.queryParameter().uniDistance.lte" class="form-control" type="number" min="0" placeholder="Max. Distance"></input>
                         <div class="input-group-addon">km</div>
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="input-group">
-                        <input data-bind="value: queryParameter.rent.lte" class="form-control" type="number" min="0" placeholder="Max. Price"></input>
+                        <input data-bind="value: $data.queryParameter().rent.lte" class="form-control" type="number" min="0" placeholder="Max. Price"></input>
                         <div class="input-group-addon">€</div>
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="input-group">
-                        <input data-bind="value: queryParameter.size.gte" class="form-control" type="number" min="0" placeholder="Min. Area Size"></input>
+                        <input data-bind="value: $data.queryParameter().size.gte" class="form-control" type="number" min="0" placeholder="Min. Area Size"></input>
                         <div class="input-group-addon">m²</div>
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <select data-bind="options: availableTags, optionsText: 'title', value: queryParameter.tag, optionsCaption: 'Choose Tag'"
+                    <select data-bind="options: availableTags, value: $data.queryParameter().tag, optionsText: 'title', optionsCaption: 'Choose Tag'"
                         class="form-control"></select>
                 </div>
                 <!--                <div class="search-panel-search-button-container col-md-2 text-center">

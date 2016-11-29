@@ -146,6 +146,7 @@ router.post('/auth', function (req, res) {
 router.delete('/auth', function (req, res) {
     req.session.auth = false;
     req.session.user = undefined;
+    req.session.search = undefined;
     res.sendStatus(204);
 });
 

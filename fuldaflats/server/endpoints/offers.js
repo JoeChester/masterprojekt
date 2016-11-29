@@ -16,6 +16,17 @@ var async = require('async');
 
 //Functions
 
+//Recursively crawl the current search query before
+//sending and remova all null or empty values
+function ff_removeNulls(obj){
+    var isArray = obj instanceof Array;
+    for (var k in obj){
+        if (obj[k]===null || obj[k]=="" ) isArray ? obj.splice(k,1) : delete obj[k];
+        else if (typeof obj[k]=="object") obj[k] = ff_removeNulls(obj[k]);
+    }
+    return obj;
+}
+
 //Core Endpoint: /api/offers
 
 //create offer
@@ -116,6 +127,7 @@ router.get('/search', function (req, res) {
 
     let searchQuery = {};
     searchQuery.where = req.session.search;
+    searchQuery.where = ff_removeNulls(searchQuery.where);
 
     schema.models.Offer.find(searchQuery, (err, offers) => {
         if(err){

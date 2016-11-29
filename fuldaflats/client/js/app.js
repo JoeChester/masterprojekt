@@ -1,3 +1,7 @@
+
+// GLOBAL FUNCTIONS !!! IMPORTANT !!!
+// I WANT THESE FUNCTIONS IN EVERY SINGLE PAGE
+// JUST DONT PUT THEM INTO FREAKIN REQUIRE MODULES PLEASE!
 var loginCallbacks = [];
 function executeLoginCallbacks(){
     for(var i in loginCallbacks){
@@ -21,6 +25,7 @@ requirejs.config({
         //'front': { 'deps': ['jquery'] },
         'owlCarousel': { 'deps': ['jquery'] },
         'knockoutOwlCarousel': { 'deps': ['knockout', 'jquery', 'owlCarousel'] },
+        'knockoutMapping': { 'deps': ['knockout', 'jquery'] },
         'fuldaflatsApiClient': { 'deps': ['knockout', 'jquery'] },
         'jqcloud': { 'deps': ['jquery'] },
         'bootstrapSwitch': { 'deps': ['jquery'] },
@@ -39,6 +44,7 @@ requirejs.config({
         bootstrapSwitch: '../bower_components/bootstrap-switch/dist/js/bootstrap-switch.min',
         owlCarousel: './lib/owl.carousel.min',
         knockoutOwlCarousel: './lib/knockout-owlCarousel',
+        knockoutMapping: './lib/knockout.mapping-latest',
         jqcloud: '/bower_components/jqcloud2/dist/jqcloud.min',
         fuldaflatsApiClient: './fuldaflatsApiClient/fuldaflatsApiClient',
         leaflet: './lib/leaflet'

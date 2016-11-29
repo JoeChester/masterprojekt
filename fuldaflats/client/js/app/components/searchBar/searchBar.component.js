@@ -1,16 +1,15 @@
 define(['text!./searchBar.component.html', 'css!./searchBar.component.css', 'knockout', 'fuldaflatsApiClient'],
     function(componentTemplate, componentCss, ko, api) {
 
-
-        var forceNullObservable = function() {
-            var obs = ko.observable();
+        var forceNullObservable = function(_val) {
+            var obs = ko.observable(_val);
 
             return ko.computed({
                 read: function() {
                     return obs();
                 },
                 write: function(val) {
-                    if(val === '') {
+                    if(val == '') {
                         val = null;
                     }
                     obs(val);
@@ -41,17 +40,30 @@ define(['text!./searchBar.component.html', 'css!./searchBar.component.css', 'kno
             });
 
             self.availableTags = ko.observableArray(['computer science', 'economics']),
-            self.offerTypes = ko.observableArray(['FLAT', 'SHARE', 'SUBLET', 'COUCH', 'PARTY']),
-            self.queryParameter = {
-                offerType: forceNullObservable(),
-                uniDistance: { lte: forceNullObservable()},
-                rent: { lte: forceNullObservable()},
-                size: { gte: forceNullObservable()},
-                tag: forceNullObservable()
+            self.offerTypes = ko.observableArray(['FLAT', 'SHARE', 'SUBLET', 'COUCH', 'PARTY']);
+
+            //Recursively crawl the last search query and set knockout observables in leaf nodes
+            function createRecursiveNotNullObservable (object) {
+                for(var c1 in object){
+                    if(typeof object[c1] != "object"){
+                        object[c1] = forceNullObservable(object[c1]);
+                        continue;
+                    }
+                    object[c1] = createRecursiveNotNullObservable(object[c1]);
+                }
+                return object;
             }
 
+            self.queryParameter = ko.observable({
+                    offerType: forceNullObservable(),
+                    uniDistance: { lte: forceNullObservable()},
+                    rent: { lte: forceNullObservable()},
+                    size: { gte: forceNullObservable()},
+                    tag: forceNullObservable()
+                });
+
             function getQueryParameter() {
-                var queryParamater = {
+                var queryParamaterEmpty = {
                     offerType: forceNullObservable(),
                     uniDistance: { lte: forceNullObservable()},
                     rent: { lte: forceNullObservable()},
@@ -59,26 +71,22 @@ define(['text!./searchBar.component.html', 'css!./searchBar.component.css', 'kno
                     tag: forceNullObservable()
                 }
 
-                var lastSearchQueryCookie = $.cookie("lastSearchQuery");
-                if (lastSearchQueryCookie) {
-                    try {
-                        var lastSearchQuery = JSON.parse(lastSearchQueryCookie);
-                        if (lastSearchQuery) {
-                            $.each(lastSearchQuery, function(propertyName, propertyValue) {
-                                if (queryParamater.hasOwnProperty(propertyName)) {
-                                    queryParamater[propertyName](propertyValue);
-                                }
-                            });
-                        }
-                    } catch (exception) {
-                        console.error("Could not parse latest search query");
+                $.ajax({
+                    url: "/api/offers/search/last",
+                    type: "get",
+                    contentType: "application/json",
+                    success: function(data, status, req){
+                        console.log("LAST SEARCH");
+                        console.log(JSON.stringify(data));
+                        self.queryParameter(createRecursiveNotNullObservable(data));
+                    },
+                    error: function(req, status, err){
+                        self.queryParameter(queryParamaterEmpty);
                     }
-                }
-
-                return queryParamater;
+                });
             };
 
-            self.queryParameter = getQueryParameter();
+            getQueryParameter();
 
             if(isIndex){
                 searchCallback = function(){
@@ -92,7 +100,6 @@ define(['text!./searchBar.component.html', 'css!./searchBar.component.css', 'kno
             // Function Bindings
             self.search = function() {
                 var searchQuery = ko.toJSON(self.queryParameter);
-                console.log(searchQuery);
                 $.ajax({
                     url: "/api/offers/search",
                     type: "post",
