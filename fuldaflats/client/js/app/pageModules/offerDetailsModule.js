@@ -17,11 +17,13 @@ define([
                     homePageInfo: appModel.pages.home,
                     currentPageInfo: appModel.currentPage
                 }
+
+                appModel.offerDetailsBar = {
+                    currentUser: appModel.currentUser
+                }
             }
         };
     };
-
+    
     return new OfferDetailsPageModule();
 });
-
-
