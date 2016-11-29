@@ -89,6 +89,7 @@ define(['text!./searchBar.component.html', 'css!./searchBar.component.css', 'kno
                 }
             }
 
+            // Function Bindings
             self.search = function() {
                 var searchQuery = ko.toJSON(self.queryParameter);
                 console.log(searchQuery);
@@ -107,6 +108,23 @@ define(['text!./searchBar.component.html', 'css!./searchBar.component.css', 'kno
                     }
                 });
             };
+
+            //Extended Search Bar
+            self.showExtendedSearchButton = ko.observable();
+            self.showExtendedSearchButton(false || !isIndex);
+            self.showExtendedSearch = ko.observable();
+            self.showExtendedSearch(false);
+            self.showSimpleSearch = ko.observable();
+            self.showSimpleSearch(true);
+
+            self.openExtendedSearch = function(){
+                self.showExtendedSearch(true);
+                self.showSimpleSearch(false);
+            }
+            self.hideExtendedSearch = function(){
+                self.showExtendedSearch(false);
+                self.showSimpleSearch(true);
+            }
 
             self.optionsAfterRender = function(option, item) {
                 ko.applyBindingsToNode(option, {

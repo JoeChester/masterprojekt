@@ -54,6 +54,7 @@ define(['text!./searchResultBar.component.html', 'css!./searchResultBar.componen
                         success: function (data, status, req) {
                             console.log(data);
                             for (var i in data) {
+                                data[i].detailsUrl = '/pages/offerDetails?offerId=' + data[i].id;
                                 self.offers.push(data[i]);
                             }
                             placeMarkers(data);
@@ -99,7 +100,7 @@ define(['text!./searchResultBar.component.html', 'css!./searchResultBar.componen
                         '<div class="bg"></div>' +
                         '<div class="text map-popup-viewtext">' +
                         '<p class="buttons">' +
-                        '<a href="/pages/offerDetails.html?offerId=' + offers[i].id + 
+                        '<a href="' + offers[i].detailsUrl + 
                         '" class="btn btn-template-transparent-primary map-popup-img"><i class="fa fa-link"></i>View Details</a>' +
                         '</p>' +
                         '</div>' +

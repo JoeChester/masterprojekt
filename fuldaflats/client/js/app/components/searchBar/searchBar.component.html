@@ -1,13 +1,13 @@
 <section id="search-panel-section" class="bar background-image-fixed-2 no-mb seachbar-results">
     <div class="dark-mask"></div>
     <div class="container">
-        <div id="search-panel" class="col-md-12 background-white">
+        <div id="search-panel" class="search-panel col-md-12 background-white" data-bind="visible: showSimpleSearch">
             <div class="row">
                 <div class="col-md-2">
                     <!-- <select data-bind="options: offerTypes,
                        value: queryParameter.offerType, optionsCaption: 'Choose Type', optionsAfterRender: optionsAfterRender"
                         class="form-control"></select> -->
-                <select data-bind="options: offerTypes, value: queryParameter.offerType, optionsCaption: 'Choose Type'" class="form-control"></select>
+                    <select data-bind="options: offerTypes, value: queryParameter.offerType, optionsCaption: 'Choose Type'" class="form-control"></select>
                 </div>
                 <div class="col-md-2">
                     <div class="input-group">
@@ -28,15 +28,227 @@
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <select data-bind="options: availableTags, optionsText: 'title', value: queryParameter.tag, optionsCaption: 'Choose Tag'" class="form-control"></select>
+                    <select data-bind="options: availableTags, optionsText: 'title', value: queryParameter.tag, optionsCaption: 'Choose Tag'"
+                        class="form-control"></select>
                 </div>
                 <!--                <div class="search-panel-search-button-container col-md-2 text-center">
                     <button data-bind="enable: queryParameter.offerType, click: search" class="btn btn-lg btn-template-primary">Search</button>
                 </div>-->
                 <div class="search-panel-search-button-container col-md-2 text-center">
-                    <button data-bind="click: search" class="btn btn-lg btn-template-primary">Search</button>
+                    <div class="pull-right">
+                        <button data-bind="click: search" class="btn btn-lg btn-template-primary">Search</button>
+                        <button data-bind="click: openExtendedSearch" class="btn btn-lg btn-template-primary">
+                                <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+                            </button>
+                    </div>
                 </div>
             </div>
         </div>
+        <!-- __________ Extended Search Panel __________ -->
+        <div id="extended-search-panel" class="search-panel col-md-12 background-white" data-bind="visible: showExtendedSearch">
+            <div class="col-md-6">
+
+                <div class="row">
+                    <div class="form-group">
+                        <label for="types" class="col-md-2 col-form-label">Type:</label>
+                        <div class="col-md-10">
+                            <select class="form-control" id="types">
+                                <option>FLAT</option>
+                                <option>SHARE</option>
+                                <option>SUBLET</option>
+                                <option>COUCH</option>
+                                <option>PARTY</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <label for="types" class="col-md-5 col-form-label">University distance range from:</label>
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <input class="form-control" type="number" min="0"></input>
+                            <div class="input-group-addon">km</div>
+                        </div>
+                    </div>
+                    <label for="types" class="col-md-1 col-form-label"> to:</label>
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <input class="form-control" type="number" min="0"></input>
+                            <div class="input-group-addon">km</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <label for="types" class="col-md-5 col-form-label">Price range from:</label>
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <input class="form-control" type="number" min="0"></input>
+                            <div class="input-group-addon">€</div>
+                        </div>
+                    </div>
+                    <label for="types" class="col-md-1 col-form-label"> to:</label>
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <input class="form-control" type="number" min="0"></input>
+                            <div class="input-group-addon">€</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <label for="types" class="col-md-5 col-form-label">Area size from:</label>
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <input class="form-control" type="number" min="0"></input>
+                            <div class="input-group-addon">m²</div>
+                        </div>
+                    </div>
+                    <label for="types" class="col-md-1 col-form-label"> to:</label>
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <input class="form-control" type="number" min="0"></input>
+                            <div class="input-group-addon">m²</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <label for="types" class="col-md-5 col-form-label">Rooms count from:</label>
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <input class="form-control" type="number" min="0"></input>
+                        </div>
+                    </div>
+                    <label for="types" class="col-md-1 col-form-label"> to:</label>
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <input class="form-control" type="number" min="0"></input>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <label for="types" class="col-md-2 col-form-label">Tag:</label>
+                        <div class="col-md-10">
+                            <select class="form-control" id="types">
+                                <option>english</option>
+                                <option>german</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- End Column 1 -->
+
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input class="switch" type="checkbox" name="furnished" checked>
+                            <label for="furnished">Furnished:</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input class="switch" type="checkbox" name="pets" checked>
+                            <label for="pets">Pets:</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input class="switch" type="checkbox" name="cellar" checked>
+                            <label for="cellar">Cellar:</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input class="switch" type="checkbox" name="parking" checked>
+                            <label for="parking">Parking:</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input class="switch" type="checkbox" name="elevator" checked>
+                            <label for="elevator">Elevator:</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input class="switch" type="checkbox" name="accessibility" checked>
+                            <label for="accessibility">Accessibility:</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input class="switch" type="checkbox" name="dryer" checked>
+                            <label for="dryer">Dryer:</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input class="switch" type="checkbox" name="washingmachine" checked>
+                            <label for="washingmachine">Washing Machine:</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input class="switch" type="checkbox" name="television" checked>
+                            <label for="television">Television:</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input class="switch" type="checkbox" name="wlan" checked>
+                            <label for="wlan">WLAN:</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input class="switch" type="checkbox" name="lan" checked>
+                            <label for="lan">LAN:</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input class="switch" type="checkbox" name="telephone" checked>
+                            <label for="telephone">Telephone:</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <label for="types" class="col-md-4 col-form-label">Min. Internet Speed:</label>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <input class="form-control" type="number" min="0"></input>
+                            <div class="input-group-addon">Mbit/s</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="pull-right">
+                        <button data-bind="click: search" class="btn btn-lg btn-template-primary">Search</button>
+                        <button data-bind="click: hideExtendedSearch" class="btn btn-lg btn-template-primary">
+                    <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+                </button>
+            </div>
+                </div>
+            </div> <!-- End Column 2 -->
+
+        </div>
+        <!-- __________ END Extended Search Panel __________ -->
+    </div>
     </div>
 </section>
