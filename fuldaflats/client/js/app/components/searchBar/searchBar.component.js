@@ -111,11 +111,28 @@ define(['text!./searchBar.component.html', 'css!./searchBar.component.css', 'kno
 
             //Extended Search Bar
             self.showExtendedSearchButton = ko.observable();
-            self.showExtendedSearchButton(false || !isIndex);
             self.showExtendedSearch = ko.observable();
             self.showExtendedSearch(false);
             self.showSimpleSearch = ko.observable();
             self.showSimpleSearch(true);
+
+            //Check if I may show simple search
+            self.checkLogin = function(){
+            $.ajax({
+                    url: "/api/users/me",
+                    type: "get",
+                    contentType: "application/json",
+                    success: function(data, status, req){
+                        self.showExtendedSearchButton(true);
+                    },
+                    error: function(req, status, err){
+                        self.showExtendedSearchButton(false);
+                    }
+                });
+            }
+        
+            self.checkLogin();
+            loginCallbacks.push(self.checkLogin);
 
             self.openExtendedSearch = function(){
                 self.showExtendedSearch(true);

@@ -60,7 +60,6 @@ define(['text!./navigationBar.component.html', 'css!./navigationBar.component.cs
 
                     if (params.currentUser && ko.isObservable(params.currentUser)) {
                         self.currentUser = params.currentUser;
-
                         self.signInDialogParameter = {
                             currentUser: self.currentUser
                         }

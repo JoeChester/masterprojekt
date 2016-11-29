@@ -81,6 +81,7 @@ define(["jquery", 'knockout'], function ($, ko) {
                         userData: data
                     });
                     defer.resolve(userResult);
+                    executeLoginCallbacks();
                 } else {
                     defer.reject("Failed to sing in the user.");
                 }
@@ -128,6 +129,8 @@ define(["jquery", 'knockout'], function ($, ko) {
                         userData: undefined
                     });
                     defer.resolve(userResult);
+                    executeLoginCallbacks();
+                    window.location = "/";
                 } else {
                     defer.reject("Failed to sing out the current user.");
                 }

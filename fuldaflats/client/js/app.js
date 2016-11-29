@@ -1,3 +1,10 @@
+var loginCallbacks = [];
+function executeLoginCallbacks(){
+    for(var i in loginCallbacks){
+        loginCallbacks[i]();
+    }
+};
+
 requirejs.config({
     baseUrl: location.pathname.indexOf("/pages/") === 0 ? '/../js' : "/js",
     map: {

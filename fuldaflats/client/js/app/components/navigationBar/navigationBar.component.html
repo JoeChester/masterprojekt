@@ -17,52 +17,52 @@
 				</div>
 			</div>
 			<div class="navbar-collapse collapse" id="navigation">
-				<!-- ko if: currentUser().isAuthenticated && currentUser().userData && currentUser().userData.profile_picture-->
+				<!-- ko if: currentUser().isAuthenticated && currentUser().userData && currentUser().userData.profilePicture-->
 				<div class="nav-profile-image-container navbar-right">
-					<img data-bind="attr: { src: currentUser().userData.profile_picture }" alt="profile image" class="img-responsive img-circle">
+					<img data-bind="attr: { src: currentUser().userData.profilePicture }" alt="profile image" class="img-responsive img-circle">
 				</div>
 				<!-- /ko -->
 				<ul class="nav navbar-nav navbar-right">
 					<!-- ko if: currentUser().isAuthenticated -->
 					<!-- ko if: myProfilePageInfo -->
-					<li class="inactive">
+					<li class="inactive navmenuentry">
 						<a data-bind="attr: { href: myProfilePageInfo().url }, text: myProfilePageInfo().title"></a>
 					</li>
 					<!-- /ko -->
 					<!-- ko if: becomeLandlordPageInfo && currentUser().userData && currentUser().userData.type === userTypes.normal -->
-					<li class="inactive">
+					<li class="inactive navmenuentry">
 						<a data-bind="attr: { href: becomeLandlordPageInfo().url }, text: becomeLandlordPageInfo().title"></a>
 					</li>
 					<!-- /ko -->
 					<!-- ko if: newOfferPageInfo && currentUser().userData && currentUser().userData.type === userTypes.landlord-->
-					<li class="inactive">
+					<li class="inactive navmenuentry">
 						<a data-bind="attr: { href: newOfferPageInfo().url }, text: newOfferPageInfo().title"></a>
 					</li>
 					<!-- /ko -->
-					<li class="inactive">
+					<li class="inactive navmenuentry">
 						<a href="javascript:void(0)" data-bind="click: signOut">Sign Out</a>
 					</li>
 					<!-- /ko -->
 					<!-- ko ifnot: currentUser().isAuthenticated -->
-					<li class="inactive">
+					<li class="inactive navmenuentry">
 						<a type="button" href="javascript: void(0)" data-toggle="modal" data-target="#signInModalDialog">Sign In</a>
 					</li>
-					<li class="inactive">
+					<li class="inactive navmenuentry">
 						<a type="button" href="javascript: void(0)" data-toggle="modal" data-target="#signUpModalDialog">Sign Up</a>
 					</li>
 					<!-- /ko -->
 					<!-- ko if: impressumPageInfo -->
-					<li class="inactive visible-xs">
+					<li class="inactive visible-xs navmenuentry">
 						<a data-bind="attr: { href: impressumPageInfo().url }, text: impressumPageInfo().title"></a>
 					</li>
 					<!-- /ko -->
 					<!-- ko if: contactPageInfo -->
-					<li class="inactive visible-xs">
+					<li class="inactive visible-xs navmenuentry">
 						<a data-bind="attr: { href: contactPageInfo().url }, text: contactPageInfo().title"></a>
 					</li>
 					<!-- /ko -->
 					<!-- ko if: termsOfUsePageInfo -->
-					<li class="inactive visible-xs">
+					<li class="inactive visible-xs navmenuentry">
 						<a data-bind="attr: { href: termsOfUsePageInfo().url }, text: termsOfUsePageInfo().title"></a>
 					</li>
 					<!-- /ko -->

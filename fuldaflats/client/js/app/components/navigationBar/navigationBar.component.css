@@ -10,7 +10,8 @@
   }
 
   #navigation .nav-profile-image-container > img {
-    height: 50px
+    height: 50px;
+    margin-left: 10px;
   }
 
   #navigation .nav-profile-image-container {
@@ -37,3 +38,8 @@
   }
 }
 
+@media (max-width: 767px) {
+  .navmenuentry{
+    width: 50%
+  }
+}

@@ -109,10 +109,9 @@ router.post('/search', function (req, res) {
 router.get('/search', function (req, res) {
     //use the stored search queries
     if(!req.session.search){
-        res.sendStatus(404);
+        res.status(404);
         var _noOffers = [];
-        res.json(_noOffers);
-        return;
+        return res.json(_noOffers);
     }
 
     let searchQuery = {};
@@ -164,6 +163,17 @@ router.get('/search', function (req, res) {
         });
 
     });
+});
+
+//get last search
+router.get('/search/last', function (req, res) {
+    if(!req.session.search){
+        res.status(404);
+        var _noOffers = [];
+        return res.json(_noOffers);
+    } else {
+        res.json(req.session.search);
+    }
 });
 
 //recent offers
