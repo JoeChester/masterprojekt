@@ -18,12 +18,24 @@ define(['text!./signUpModalDialog.component.html', 'css!./signUpModalDialog.comp
 
             self.modalDialogContainer = ko.observable();
 
+            self.internalError = ko.observable(false);
+            self.isSignUpDataError = ko.observable(false);
+            self.signUpDataErrorMessage = ko.observable("");
+
+            function resetErrors() {
+                self.internalError(false);
+                self.isSignUpDataError(false);
+                self.signUpDataErrorMessage("");
+            };
+
             function focusInput() {
                 self.modalDialogContainer().find("[autofocus]:first").focus();
-            }
+            };
 
             self.signUp = function () {
                 if (self.fromIsValid()) {
+                    resetErrors();
+
                     var signUpData = {
                         firstName: self.firstName,
                         lastName: self.lastName,
@@ -42,19 +54,45 @@ define(['text!./signUpModalDialog.component.html', 'css!./signUpModalDialog.comp
                                     self.modalDialogContainer().modal("hide");
                                 }
                             } else {
-                                // todo: unknown error
+                                self.internalError(true);
                             }
                         },
-                        function (rejectMessage) {
-                            //todo: show error;
+                        function (xhr) {
+                            if (xhr && xhr.status === 400 && xhr.responseJSON
+                                && (xhr.responseJSON.lastName || xhr.responseJSON.firstName || xhr.responseJSON.email
+                                    || xhr.responseJSON.password || xhr.responseJSON.gender)) {
+                                var errorMessage = "";
+                                try {
+                                    errorMessage = xhr.responseJSON[Object.keys(xhr.responseJSON)[0]][0]
+                                    if (errorMessage) {
+                                        if (errorMessage.lastIndexOf(".") !== errorMessage.length - 1) {
+                                            errorMessage = errorMessage + ".";
+                                        }
+                                        self.isSignUpDataError(true);
+                                        self.signUpDataErrorMessage(errorMessage);
+                                    } else {
+                                        throw Error("Unable to extract error message from server response.")
+                                    }
+                                } catch (ex) {
+                                    console.error("Error while extracting sign up error from server response.")
+                                    self.internalError(true);
+                                }
+                            } else {
+                                self.internalError(true);
+                            }
                         });
+                } else {
+                    self.isSignUpDataError(true);
+                    self.signUpDataErrorMessage("Please fill all fields.");
                 }
             };
 
             self.fromIsValid = ko.computed(function () {
                 var isValid = false;
 
-                if (self.firstName() && self.lastName() && self.eMail() && self.password() && self.confirmPassword() && self.password() === self.confirmPassword() && self.selectedGender() && self.termsOfUseAgreement()) {
+                if (self.firstName() && self.lastName() && self.eMail() && self.password() &&
+                    self.confirmPassword() && self.password() === self.confirmPassword() && self.selectedGender()
+                    && self.termsOfUseAgreement()) {
                     isValid = true;
                 }
 
@@ -69,6 +107,7 @@ define(['text!./signUpModalDialog.component.html', 'css!./signUpModalDialog.comp
                 self.confirmPassword("");
                 self.selectedGender("");
                 self.termsOfUseAgreement(false);
+                resetErrors();
             };
 
             self.optionsAfterRender = function (option, item) {
