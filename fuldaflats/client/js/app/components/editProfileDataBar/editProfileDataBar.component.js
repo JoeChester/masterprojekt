@@ -4,13 +4,14 @@ define(['text!./editProfileDataBar.component.html', 'css!./editProfileDataBar.co
         function EditProfileDataModel(params) {
             var self = this;
             self.currentUser = ko.observable();
+            self.userChanges = ko.observable({});
             self.testBinding = ko.observable('myBinding');
 
             $.getJSON({
                 url: '/api/users/me',
                 success: function (data, status, req) {
                                         if(data.birthday){
-                        data.birthday = moment(data.birthday).format('LL');
+                        data.birthday = moment(data.birthday).format('L');
                     }
                     self.currentUser(data);
                 }
@@ -19,6 +20,29 @@ define(['text!./editProfileDataBar.component.html', 'css!./editProfileDataBar.co
             self.showTab = function (scope, event) {
                 event.preventDefault()
                 $(event.currentTarget).tab('show')
+            }
+
+                self.accept = function(){
+                    self.userChanges().gender = self.currentUser().gender;
+                    var _userChanges = ko.toJSON(self.userChanges);
+
+                    $.ajax({
+                        method: "PUT",
+                        url: "/api/users/me",
+                        dataType: "application/json",
+                        contentType: "application/json",
+                        data: _userChanges,
+                        success: function(data, status, req){
+                            window.location = "/pages/myProfile";
+                        },
+                        error: function(req, status, error){
+                            if(req.status == 200){
+                                window.location = "/pages/myProfile";
+                                return;
+                            }
+                            errorCallback(error);
+                        }
+                    });
             }
         }
 

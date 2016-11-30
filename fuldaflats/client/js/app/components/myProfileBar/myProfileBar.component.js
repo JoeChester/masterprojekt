@@ -21,6 +21,7 @@ define(['text!./myProfileBar.component.html', 'css!./myProfileBar.component.css'
 
             self.showTab = function(scope, event) {
                 event.preventDefault()
+                console.log(event);
                 $(event.currentTarget).tab('show')
             }
         }

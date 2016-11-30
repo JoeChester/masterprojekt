@@ -4,13 +4,14 @@ define(['text!./becomeLandlordBar.component.html', 'css!./becomeLandlordBar.comp
              moment.locale('de');
             var self = this;
             self.currentUser = ko.observable();
+            self.userChanges = ko.observable({});
             self.testBinding = ko.observable('myBinding');
 
             $.getJSON({
                 url: '/api/users/me',
                 success: function (data, status, req) {
                                        if(data.birthday){
-                        data.birthday = moment(data.birthday).format('LL');
+                        data.birthday = moment(data.birthday).format('L');
                     }
                     self.currentUser(data);
                 }
@@ -19,6 +20,12 @@ define(['text!./becomeLandlordBar.component.html', 'css!./becomeLandlordBar.comp
             self.showTab = function (scope, event) {
                 event.preventDefault()
                 $(event.currentTarget).tab('show')
+            }
+
+            self.upgrade = function(){
+                var _userChanges = JSON.parse(ko.toJSON(self.userChanges));
+                _userChanges.gender = $("#gender").val();
+                console.log(_userChanges);
             }
         }
 
