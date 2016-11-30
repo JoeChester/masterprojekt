@@ -6,6 +6,15 @@
                 <h4 class="modal-title">Sign Up</h4>
             </div>
             <div class="modal-body">
+                <!-- ko if: internalError-->
+                <div class="alert alert-danger">
+                    <strong>Internal Error:</strong> Please try it again later.
+                </div>
+                <!-- /ko -->
+                <!-- ko if: isSignUpDataError && signUpDataErrorMessage-->
+                <div data-bind="text: signUpDataErrorMessage" class="alert alert-danger">
+                </div>
+                <!-- /ko -->
                 <input data-bind="textInput: firstName" maxlength="255" type="text" class="form-control" placeholder="First Name" autofocus>
                 <input data-bind="textInput: lastName" maxlength="255" type="text" class="form-control" placeholder="Last Name">
                 <div class="input-group">
@@ -21,7 +30,8 @@
                     <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
                 </div>
                 <select data-bind="options: genders,
-                       textInput: selectedGender, optionsCaption: 'Choose Gender', optionsAfterRender: optionsAfterRender" class="form-control"></select>
+                       textInput: selectedGender, optionsCaption: 'Choose Gender', optionsAfterRender: optionsAfterRender"
+                    class="form-control"></select>
                 <div class="checkbox">
                     <label for="termsOfUseAgreement"><input id="termsOfUseAgreement" data-bind="checked: termsOfUseAgreement" type="checkbox"> I agree to <span data-bind="text: domain"></span> <a data-bind="attr: { href: termsOfUsePageInfo().url }">Terms of Service</a></label>
                 </div>

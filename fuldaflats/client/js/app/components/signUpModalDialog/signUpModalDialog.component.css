@@ -9,3 +9,8 @@
 #signUpModalDialog .modal-body > select {
     margin-bottom: 5px;
 }
+
+#signUpModalDialog .alert {
+    margin-bottom: 10px;
+    padding: 5px;
+}

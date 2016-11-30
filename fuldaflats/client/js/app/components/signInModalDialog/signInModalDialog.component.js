@@ -12,9 +12,6 @@ define(['text!./signInModalDialog.component.html', 'css!./signInModalDialog.comp
             self.internalError = ko.observable(false);
             self.invalidCredentials = ko.observable(false);
 
-            window.internalError = self.internalError;
-            window.invalidCredentials =  self.invalidCredentials;
-
             function focusInput() {
                 self.modalDialogContainer().find("[autofocus]:first").focus();
             }
@@ -55,6 +52,7 @@ define(['text!./signInModalDialog.component.html', 'css!./signInModalDialog.comp
                 self.eMail("");
                 self.password("");
                 self.rememberMe(false);
+                resetErrors();
             };
 
             self.initialize = function (params, dialogContainer) {

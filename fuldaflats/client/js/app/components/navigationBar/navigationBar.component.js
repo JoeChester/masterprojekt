@@ -3,7 +3,7 @@ define(['text!./navigationBar.component.html', 'css!./navigationBar.component.cs
     'app/components/signInModalDialog/signInModalDialog.component',
     'app/components/signUpModalDialog/signUpModalDialog.component',
     'app/components/errorModalDialog/errorModalDialog.component'],
-    function(componentTemplate, componentCss, ko, $, api, signInModalDialogComponent, signUpModalDialogComponent, errorModalDialogComponent) {
+    function (componentTemplate, componentCss, ko, $, api, signInModalDialogComponent, signUpModalDialogComponent, errorModalDialogComponent) {
         function NavigationModel($, ko, api) {
             var self = this;
 
@@ -23,10 +23,7 @@ define(['text!./navigationBar.component.html', 'css!./navigationBar.component.cs
             self.contactPageInfo = ko.observable();
             self.termsOfUsePageInfo = ko.observable();
 
-            self.currentUser = ko.observable({
-                isAuthenticated: false,
-                userData: undefined
-            });
+            self.currentUser = ko.observable();
 
             self.signInDialogParameter = {
                 currentUser: self.currentUser
@@ -36,8 +33,8 @@ define(['text!./navigationBar.component.html', 'css!./navigationBar.component.cs
                 currentUser: self.currentUser
             }
 
-            self.signOut = function() {
-                api.users.signOut().then(function(currentUser) {
+            self.signOut = function () {
+                api.users.signOut().then(function (currentUser) {
                     var currentUserObject = ko.unwrap(currentUser());
                     if (currentUserObject) {
                         self.currentUser(currentUserObject);
@@ -46,7 +43,7 @@ define(['text!./navigationBar.component.html', 'css!./navigationBar.component.cs
                 });
             };
 
-            self.initialize = function(params) {
+            self.initialize = function (params) {
                 if (params) {
                     self.domain(ko.unwrap(params.domain) || 'FuldaFlats.de');
                     self.logoUrl(ko.unwrap(params.logoUrl) || '');
@@ -61,6 +58,7 @@ define(['text!./navigationBar.component.html', 'css!./navigationBar.component.cs
 
                     if (params.currentUser && ko.isObservable(params.currentUser)) {
                         self.currentUser = params.currentUser;
+
                         self.signInDialogParameter = {
                             currentUser: self.currentUser
                         }
@@ -77,7 +75,7 @@ define(['text!./navigationBar.component.html', 'css!./navigationBar.component.cs
 
         return {
             viewModel: {
-                createViewModel: function(params, componentInfo) {
+                createViewModel: function (params, componentInfo) {
                     // componentInfo contains for example the root element from the component template
 
                     ko.components.register("sign-in", signInModalDialogComponent);
