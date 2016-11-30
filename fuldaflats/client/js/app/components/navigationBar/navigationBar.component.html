@@ -4,7 +4,9 @@
 			<div class="navbar-header">
 				<!-- ko if: homePageInfo && logoUrl && domain -->
 				<a class="navbar-brand home" data-bind="attr: { href: homePageInfo().url }">
-					<img data-bind="attr: { src: logoUrl}" alt="website logo">
+					<img data-bind="attr: { src: logoUrl}" alt="website logo" class="visible-xs hidden-xs visible-md visible-lg">
+					<img data-bind="attr: { src: logoUrl}" alt="website logo" class="visible-xs">
+					<img data-bind="attr: { src: smallLogoUrl}" alt="website logo" class="visible-sm">
 					<span class="sr-only" data-bind="text: domain"></span>
 					<span class="sr-only"> - go to homepage</span>
 				</a>
