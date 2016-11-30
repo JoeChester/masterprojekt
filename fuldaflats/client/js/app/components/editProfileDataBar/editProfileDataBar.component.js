@@ -1,5 +1,6 @@
-define(['text!./editProfileDataBar.component.html', 'css!./editProfileDataBar.component.css', 'knockout', 'jquery'],
-    function (componentTemplate, componentCss, ko, $) {
+define(['text!./editProfileDataBar.component.html', 'css!./editProfileDataBar.component.css', 'knockout', 'jquery', 'moment'],
+    function (componentTemplate, componentCss, ko, $, moment) {
+         moment.locale('de');
         function EditProfileDataModel(params) {
             var self = this;
             self.currentUser = ko.observable();
@@ -8,7 +9,9 @@ define(['text!./editProfileDataBar.component.html', 'css!./editProfileDataBar.co
             $.getJSON({
                 url: '/api/users/me',
                 success: function (data, status, req) {
-                    console.log(data);
+                                        if(data.birthday){
+                        data.birthday = moment(data.birthday).format('LL');
+                    }
                     self.currentUser(data);
                 }
             });

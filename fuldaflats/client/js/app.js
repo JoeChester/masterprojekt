@@ -37,6 +37,7 @@ requirejs.config({
         'fuldaflatsApiClient': { 'deps': ['knockout', 'jquery'] },
         'jqcloud': { 'deps': ['jquery'] },
         'bootstrapSwitch': { 'deps': ['jquery'] },
+        'moment' : {'deps': []}
     },
     paths: {
         css: '../bower_components/require-css/css.min',
@@ -55,7 +56,8 @@ requirejs.config({
         knockoutMapping: './lib/knockout.mapping-latest',
         jqcloud: '/bower_components/jqcloud2/dist/jqcloud.min',
         fuldaflatsApiClient: './fuldaflatsApiClient/fuldaflatsApiClient',
-        leaflet: './lib/leaflet'
+        leaflet: './lib/leaflet',
+        moment: './lib/moment.min'
     }
 });
 

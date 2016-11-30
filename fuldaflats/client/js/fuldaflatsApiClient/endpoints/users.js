@@ -5,7 +5,6 @@ define(["jquery", 'knockout'], function ($, ko) {
         var endpointUrls = usersEndpointUrls;
 
         // sign up
-
         self.signUp = function (signUpData) {
             var defer = $.Deferred();
 
@@ -25,33 +24,12 @@ define(["jquery", 'knockout'], function ($, ko) {
                         });
                         defer.resolve(userResult);
                     } else {
-                        defer.reject("Failed to sing in the user.");
+                        console.error("Failed to sing up the current user. Invalid response data.");
+                        defer.reject(jqXHR);
                     }
                 }).fail(function (jqXHR, textStatus) {
-                    /*             var userResult = ko.observable({
-                                     isAuthenticated: true,
-                                     userData: {
-                                         "id": 4,
-                                         "email": "louisa1991@gmx.de",
-                                         "type": 1,
-                                         "firstName": "Louisa",
-                                         "lastName": "Buehler",
-                                         "birthday": "20.06.1991",
-                                         "upgradeDate": "25.11.2016",
-                                         "creationDate": "19.11.2016",
-                                         "phoneNumber": "(+49) 661 100 812",
-                                         "zipCode": "36039",
-                                         "city": "Fulda",
-                                         "street": "Henrich Str.",
-                                         "houseNumber": "30",
-                                         "gender": "female",
-                                         "officeAddress": null,
-                                         "averageRating": 4.8,
-                                         "favorites": null
-                                     }
-                                 });
-                                 defer.resolve(userResult)*/
-                    defer.reject("Failed to sing up the user.");
+                    console.error("Failed to sing up the current user. Sign Up request failed.");
+                    defer.reject(jqXHR);
                 });
             } else {
                 defer.reject("Empty sign up data.");
@@ -73,7 +51,7 @@ define(["jquery", 'knockout'], function ($, ko) {
                 method: "POST",
                 dataType: "json",
                 contentType: "application/json",
-                data: JSON.stringify(userCredentials)
+                data: ko.toJSON(userCredentials)
             }).done(function (data, textStatus, jqXHR) {
                 if (jqXHR.status === 200 && data) {
                     var userResult = ko.observable({
@@ -83,33 +61,15 @@ define(["jquery", 'knockout'], function ($, ko) {
                     defer.resolve(userResult);
                     executeLoginCallbacks();
                 } else {
-                    defer.reject("Failed to sing in the user.");
+                    console.error("Failed to sing in the current user. Invalid response data.");
+                    defer.reject(jqXHR);
                 }
             }).fail(function (jqXHR, textStatus) {
-                /*                var userResult = ko.observable({
-                                    isAuthenticated: true,
-                                    userData: {
-                                        "id": 4,
-                                        "email": "louisa1991@gmx.de",
-                                        "type": 1,
-                                        "firstName": "Louisa",
-                                        "lastName": "Buehler",
-                                        "birthday": "20.06.1991",
-                                        "upgradeDate": "25.11.2016",
-                                        "creationDate": "19.11.2016",
-                                        "phoneNumber": "(+49) 661 100 812",
-                                        "zipCode": "36039",
-                                        "city": "Fulda",
-                                        "street": "Henrich Str.",
-                                        "houseNumber": "30",
-                                        "gender": "female",
-                                        "officeAddress": null,
-                                        "averageRating": 4.8,
-                                        "favorites": null
-                                    }
-                                });
-                                defer.resolve(userResult)*/
-                defer.reject("Failed to sing in the user.");
+                if (jqXHR.status !== 403) {
+                    console.error("Failed to sing in the current user. Sign In request failed.");
+                }
+
+                defer.reject(jqXHR);
             });
 
             return defer.promise();
@@ -132,10 +92,12 @@ define(["jquery", 'knockout'], function ($, ko) {
                     executeLoginCallbacks();
                     window.location = "/";
                 } else {
-                    defer.reject("Failed to sing out the current user.");
+                    console.error("Failed to sing out the current user. Invalid response data.");
+                    defer.reject(jqXHR);
                 }
             }).fail(function (jqXHR, textStatus) {
-                defer.reject("Failed to sing out the current user.");
+                console.error("Failed to sing out the current user. Sign Out request failed.");
+                defer.reject(jqXHR);
             });
 
             return defer.promise();
@@ -155,9 +117,11 @@ define(["jquery", 'knockout'], function ($, ko) {
                         isAuthenticated: true,
                         userData: requestedUserResults
                     });
+                    defer.resolve(userResult);
+                } else {
+                    console.error("Failed to get the current user profile. Invalid response data.");
+                    defer.reject(jqXHR);
                 }
-
-                defer.resolve(userResult);
             }).fail(function (jqXHR, textStatus) {
                 if (jqXHR.status === 403) {
                     defer.resolve(ko.observable({
@@ -165,7 +129,8 @@ define(["jquery", 'knockout'], function ($, ko) {
                         userData: undefined
                     }));
                 } else {
-                    defer.reject("Failed to get the current user.");
+                    console.error("Failed to get the current user. User profile request failed.");
+                    defer.reject(jqXHR);
                 }
             });
 

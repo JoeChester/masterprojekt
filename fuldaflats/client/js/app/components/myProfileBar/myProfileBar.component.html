@@ -2,7 +2,7 @@
 	<div class="container" data-bind="with: currentUser">
 		<div class="row">
 			<div class="col-sm-offset-8 col-sm-4">
-				<a href="/pages/editProfileData.html" type="submit" class="btn btn-template-main">Edit Profile Data</a>
+				<a href="/pages/editProfileData" type="submit" class="btn btn-template-main">Edit Profile Data</a>
 			</div>
 		</div>
 		<div class="row">
@@ -30,7 +30,7 @@
 					</div>
 				</form>
 				<div class="row">
-					<a href="/pages/changePassword.html" type="submit" class="col-sm-offset-4 btn btn-template-main ">Change Password</a>
+					<a href="/pages/changePassword" type="submit" class="col-sm-offset-4 btn btn-template-main ">Change Password</a>
 				</div>
 			</div>
 			<div class="col-sm-8">
@@ -119,7 +119,7 @@
 												<div class="bg"></div>
 												<div class="text">
 													<p class="buttons">
-														<a href="/pages/offerDetails.html" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i>View Details</a>
+														<a href="/pages/offerDetails" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i>View Details</a>
 													</p>
 												</div>
 											</div>
@@ -185,7 +185,7 @@
 												<div class="bg"></div>
 												<div class="text">
 													<p class="buttons">
-														<a href="/pages/offerDetails.html" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i>View Details</a>
+														<a href="/pages/offerDetails" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i>View Details</a>
 													</p>
 												</div>
 											</div>
@@ -201,7 +201,7 @@
 												<h2 data-bind="text: offer.title"></h2>
 											</div>
 											<div class="col-sm-4">
-												<a href="/pages/editOfferDetails.html" type="submit" class="btn btn-template-main ">Edit Offer</a>
+												<a href="/pages/editOfferDetails" type="submit" class="btn btn-template-main ">Edit Offer</a>
 											</div>
 											<div class="ellipsis">
 												<p data-bind="text: offer.description"></p>
@@ -234,11 +234,11 @@
 						<div data-bind="ifnot: $data.offers">
 							<div data-bind="if: $data.type==1">
 								<p id="offer-error" class="form-control-static bg-primary"> To be able to create offers: </p>
-								<a href="/pages/becomeLandlord.html" type="submit" class="btn btn-template-main">Become Landlord</a>
+								<a href="/pages/becomeLandlord" type="submit" class="btn btn-template-main">Become Landlord</a>
 							</div>
 							<div data-bind="if: $data.type==2">
 								<p id="offer-error2" class="form-control-static bg-primary">No Offers yet.</p>
-								<a href="/pages/newOffer.html" type="submit" class="btn btn-template-main">Create Offer</a>
+								<a href="/pages/newOffer" type="submit" class="btn btn-template-main">Create Offer</a>
 							</div>
 						</div>
 					</div>

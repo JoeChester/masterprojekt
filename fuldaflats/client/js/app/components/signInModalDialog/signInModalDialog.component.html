@@ -6,6 +6,16 @@
 				<h4 class="modal-title">Sign In</h4>
 			</div>
 			<div class="modal-body">
+				<!-- ko if: internalError-->
+				<div class="alert alert-danger">
+					<strong>Internal Error:</strong> Please try it again later.
+				</div>
+				<!-- /ko -->
+				<!-- ko if: invalidCredentials -->
+				<div class="alert alert-danger">
+					Invalid email or password.
+				</div>
+				<!-- /ko -->
 				<div class="input-group">
 					<input data-bind="textInput: eMail" maxlength="255" type="email" class="form-control" placeholder="Email" autofocus>
 					<div class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></div>
