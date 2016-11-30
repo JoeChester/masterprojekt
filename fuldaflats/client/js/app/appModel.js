@@ -10,7 +10,7 @@ define([
         self.domain = "FuldaFlats.de"
         self.CreationDate = 2016;
         self.logoUrl = "/img/logo.png";
-        self.smallLogoUrl = "/img/fav.icon";
+        self.smallLogoUrl = "/img/smallLogo.png";
 
         self.contactEmailAddress = "contact@fuldaflats.de";
 
