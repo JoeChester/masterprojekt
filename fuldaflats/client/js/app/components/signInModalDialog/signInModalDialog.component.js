@@ -38,8 +38,9 @@ define(['text!./signInModalDialog.component.html', 'css!./signInModalDialog.comp
                             }
                         },
                         function (xhr) {
-                            if (xhr === 403) {
+                            if (xhr.status === 403 || xhr.status === 400) {
                                 self.invalidCredentials(true);
+                                errorCallback({credentials: ['Invalid email or password.']});
                             } else {
                                 self.internalError(true);
                             }

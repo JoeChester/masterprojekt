@@ -35,7 +35,7 @@ function authenticate(req, res, successStatus) {
     req.body.email = req.body.email.toLowerCase();
     
     schema.models.User.findOne({where: {email: req.body.email}}, (err, user) => {
-        if(err){
+        if(err || user == null){
             res.status(400);
             return res.json(err);
         } else {
