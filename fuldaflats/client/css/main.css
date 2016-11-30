@@ -47,3 +47,7 @@ input::-webkit-inner-spin-button {
   margin-top: 0px;
 }
 
+.modal-open .navbar-fixed-top,
+.modal-open .navbar-fixed-bottom {
+padding-right: 17px;
+}

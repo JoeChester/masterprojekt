@@ -28,7 +28,7 @@ define(['text!./signInModalDialog.component.html', 'css!./signInModalDialog.comp
                             }
                         },
                         function(rejectMessage) {
-                            //todo: show error;
+                            errorCallback({credentials: [rejectMessage]});
                         });
                 }
             };
