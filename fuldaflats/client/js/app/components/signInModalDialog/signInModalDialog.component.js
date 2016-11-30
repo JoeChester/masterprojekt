@@ -1,5 +1,5 @@
 define(['text!./signInModalDialog.component.html', 'css!./signInModalDialog.component.css', 'knockout', 'jquery', 'fuldaflatsApiClient'],
-    function (componentTemplate, componentCss, ko, $, api) {
+    function(componentTemplate, componentCss, ko, $, api) {
         function SignInModel($, ko, api) {
             var self = this;
 
@@ -14,19 +14,42 @@ define(['text!./signInModalDialog.component.html', 'css!./signInModalDialog.comp
 
             function focusInput() {
                 self.modalDialogContainer().find("[autofocus]:first").focus();
-            }
+            };
 
             function resetErrors() {
                 self.internalError(false);
                 self.invalidCredentials(false);
-            }
+            };
 
-            self.signIn = function (mode, event) {
-                if (self.eMail() && self.password()) {
+            self.isValidPassword = ko.computed(function() {
+                var isValidPassword = false;
+
+                if (self.password()) {
+                    isValidPassword = true;
+                    resetErrors();
+                }
+
+                return isValidPassword;
+            });
+
+            self.isValidEmail = ko.computed(function() {
+                var isValidEmail = false;
+                var regEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+                if (self.eMail() && regEmail.test(self.eMail())) {
+                    isValidEmail = true;
+                    resetErrors();
+                }
+
+                return isValidEmail;
+            });
+
+            self.signIn = function(mode, event) {
+                if (self.isValidEmail() && self.isValidPassword()) {
                     resetErrors();
 
                     api.users.signIn(self.eMail(), self.password()).then(
-                        function (userResult) {
+                        function(userResult) {
                             var userObject = ko.unwrap(userResult);
                             if (userObject) {
                                 self.currentUser(userObject);
@@ -37,10 +60,9 @@ define(['text!./signInModalDialog.component.html', 'css!./signInModalDialog.comp
                                 self.internalError(true);
                             }
                         },
-                        function (xhr) {
+                        function(xhr) {
                             if (xhr.status === 403 || xhr.status === 400) {
                                 self.invalidCredentials(true);
-                                errorCallback({credentials: ['Invalid email or password.']});
                             } else {
                                 self.internalError(true);
                             }
@@ -48,14 +70,14 @@ define(['text!./signInModalDialog.component.html', 'css!./signInModalDialog.comp
                 }
             };
 
-            self.resetDialog = function () {
+            self.resetDialog = function() {
                 self.eMail("");
                 self.password("");
                 self.rememberMe(false);
                 resetErrors();
             };
 
-            self.initialize = function (params, dialogContainer) {
+            self.initialize = function(params, dialogContainer) {
                 if (dialogContainer) {
                     dialogContainer.on('shown.bs.modal', focusInput);
                     dialogContainer.on('show.bs.modal', self.resetDialog)
@@ -73,7 +95,7 @@ define(['text!./signInModalDialog.component.html', 'css!./signInModalDialog.comp
 
         return {
             viewModel: {
-                createViewModel: function (params, componentInfo) {
+                createViewModel: function(params, componentInfo) {
                     // componentInfo contains for example the root element from the component template
                     var viewModel = null;
 

@@ -17,17 +17,19 @@
 				</div>
 				<!-- /ko -->
 				<div class="input-group">
-					<input data-bind="textInput: eMail" maxlength="255" type="email" class="form-control" placeholder="Email" autofocus>
+					<input data-bind="textInput: eMail , css: { valid: isValidEmail() && (!internalError() || invalidCredentials()), inValid: internalError() || invalidCredentials() }"
+						maxlength="255" type="email" class="form-control" placeholder="Email" autofocus>
 					<div class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></div>
 				</div>
 				<div class="input-group">
-					<input data-bind="textInput: password" maxlength="255" type="password" class="form-control" placeholder="Password">
+					<input data-bind="textInput: password, css: { valid: isValidPassword() && (!internalError() || invalidCredentials()), inValid: internalError() || invalidCredentials() }"
+						maxlength="255" type="password" class="form-control" placeholder="Password">
 					<div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
 				</div>
 				<div class="checkbox">
 					<label for="rememberMe"><input data-bind="checked: rememberMe" type="checkbox" id="rememberMe">Remember Me</label>
 				</div>
-				<button data-bind="click: signIn, enable: eMail() && password()" class="btn btn-template-primary btn-block">Sign In</button>
+				<button data-bind="click: signIn, enable: isValidEmail() && isValidPassword()" class="btn btn-template-primary btn-block">Sign In</button>
 			</div>
 			<div class="modal-footer">
 				<div class="text-center">
