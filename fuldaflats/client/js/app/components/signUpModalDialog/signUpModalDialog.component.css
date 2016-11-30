@@ -14,3 +14,11 @@
     margin-bottom: 10px;
     padding: 5px;
 }
+
+#signUpModalDialog .valid{
+    border: 1px solid green;
+}
+
+#signUpModalDialog .inValid{
+    border: 1px solid red;
+}
