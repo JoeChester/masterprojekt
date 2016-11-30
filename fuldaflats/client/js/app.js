@@ -9,6 +9,14 @@ function executeLoginCallbacks(){
     }
 };
 
+//Standard errorCallback, 
+//to be overwritten by error module;
+var errorCallback = function(errors){
+    for(var i in errors){
+        console.error(errors[i]);
+    }
+}
+
 requirejs.config({
     baseUrl: location.pathname.indexOf("/pages/") === 0 ? '/../js' : "/js",
     map: {

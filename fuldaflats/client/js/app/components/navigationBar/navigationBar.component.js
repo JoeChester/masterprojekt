@@ -1,8 +1,9 @@
 define(['text!./navigationBar.component.html', 'css!./navigationBar.component.css',
     'knockout', 'jquery', 'fuldaflatsApiClient',
     'app/components/signInModalDialog/signInModalDialog.component',
-    'app/components/signUpModalDialog/signUpModalDialog.component'],
-    function(componentTemplate, componentCss, ko, $, api, signInModalDialogComponent, signUpModalDialogComponent) {
+    'app/components/signUpModalDialog/signUpModalDialog.component',
+    'app/components/errorModalDialog/errorModalDialog.component'],
+    function(componentTemplate, componentCss, ko, $, api, signInModalDialogComponent, signUpModalDialogComponent, errorModalDialogComponent) {
         function NavigationModel($, ko, api) {
             var self = this;
 
@@ -81,6 +82,7 @@ define(['text!./navigationBar.component.html', 'css!./navigationBar.component.cs
 
                     ko.components.register("sign-in", signInModalDialogComponent);
                     ko.components.register("sign-up", signUpModalDialogComponent);
+                    ko.components.register("error", errorModalDialogComponent);
 
                     var navigation = new NavigationModel($, ko, api);
                     navigation.initialize(params);
