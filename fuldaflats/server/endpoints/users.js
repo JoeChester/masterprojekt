@@ -170,11 +170,11 @@ router.get('/me', function (req, res) {
 
 //modify own userdata
 router.put('/me', function (req, res) {
-    if(!req.session.auth){
+    if(!req.session.auth || !req.session.user.id){
         res.sendStatus(403);
     } else {
         var _user = req.body;
-
+        let _userId = req.session.user.id;
         //Invalidate some user inputs by default
         delete _user.averageRating;
         delete _user.profilePicture;
@@ -183,20 +183,20 @@ router.put('/me', function (req, res) {
         delete _user.creationDate;
         delete _user.upgradeDate;
         //Fetch user from db to make sure latest data is available
-        schema.models.User.update({ where: {id: req.session.user.id}} ,
+        schema.models.User.update({ where: {id: _userId}} ,
          _user, 
-         (err, user) => {
+         (err, __user) => {
             if (err) {
                 res.status(400);
                 res.json(err);
             } else {
-                schema.models.User.findById(req.session.user.id, (err, user) => {
+                schema.models.User.findById(_userId, (err, ___user) => {
                     if (err) {
                         res.status(404);
                         res.json(err);
                     } else {
                         //Begin Relationship Pipe
-                        getRelationships(req, res, user);
+                        getRelationships(req, res, ___user);
                     }
                 });
             }
