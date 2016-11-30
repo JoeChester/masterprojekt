@@ -35,7 +35,7 @@
                 <div class="checkbox">
                     <label for="termsOfUseAgreement"><input id="termsOfUseAgreement" data-bind="checked: termsOfUseAgreement" type="checkbox"> I agree to <span data-bind="text: domain"></span> <a data-bind="attr: { href: termsOfUsePageInfo().url }">Terms of Service</a></label>
                 </div>
-                <button data-bind="click: signUp, " class="btn btn-template-primary btn-block">Sign Up</button>
+                <button data-bind="click: signUp, enable: fromIsValid" class="btn btn-template-primary btn-block">Sign Up</button>
             </div>
             <div class="modal-footer">
                 <div class="text-center">
