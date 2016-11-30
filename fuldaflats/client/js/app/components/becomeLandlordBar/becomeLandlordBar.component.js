@@ -1,6 +1,7 @@
-define(['text!./becomeLandlordBar.component.html', 'css!./becomeLandlordBar.component.css', 'knockout', 'jquery'],
-    function (componentTemplate, componentCss, ko, $) {
+define(['text!./becomeLandlordBar.component.html', 'css!./becomeLandlordBar.component.css', 'knockout', 'jquery', 'moment'],
+    function (componentTemplate, componentCss, ko, $, moment) {
         function BecomeLandlordModel(params) {
+             moment.locale('de');
             var self = this;
             self.currentUser = ko.observable();
             self.testBinding = ko.observable('myBinding');
@@ -8,7 +9,9 @@ define(['text!./becomeLandlordBar.component.html', 'css!./becomeLandlordBar.comp
             $.getJSON({
                 url: '/api/users/me',
                 success: function (data, status, req) {
-                    console.log(data);
+                                       if(data.birthday){
+                        data.birthday = moment(data.birthday).format('LL');
+                    }
                     self.currentUser(data);
                 }
             });
