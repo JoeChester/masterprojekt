@@ -34,8 +34,8 @@ define(['text!./tagCloudBar.component.html', "css!./tagCloudBar.component.css", 
             self.searchByTag = function(tagcloudModel, event) {
                 var tag = event.currentTarget.text;
                 var queryParameter = api.offers.getSearchQueryParamters();
-                if (queryParameter && queryParameter.tag && typeof queryParameter.tag === "function" && searchPageInfo() && searchPageInfo().url) {
-                    queryParameter.tag(tag);
+                if (queryParameter && queryParameter.tags && typeof queryParameter.tags === "function" && searchPageInfo() && searchPageInfo().url) {
+                    queryParameter.tags([tag]);
                     api.offers.searchOffer(queryParameter, searchPageInfo().url)
                 }
             };
