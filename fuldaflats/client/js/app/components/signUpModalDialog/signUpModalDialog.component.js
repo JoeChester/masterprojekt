@@ -14,7 +14,7 @@ define(['text!./signUpModalDialog.component.html', 'css!./signUpModalDialog.comp
             self.eMail = ko.observable();
             self.password = ko.observable();
             self.confirmPassword = ko.observable();
-            self.genders = ko.observableArray(["Female", "Male"]);
+            self.genders = ko.observableArray(["female", "male"]);
             self.selectedGender = ko.observable();
             self.termsOfUseAgreement = ko.observable(false);
 
