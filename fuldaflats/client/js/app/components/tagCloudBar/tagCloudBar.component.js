@@ -24,6 +24,7 @@ define(['text!./tagCloudBar.component.html', "css!./tagCloudBar.component.css", 
 
                     tagCloudOptions().autoResize = true;
                     tagCloudOptions().afterCloudRender = function() {
+                        ko.cleanNode(tagCloudContainer()[0]);
                         ko.applyBindings(self, tagCloudContainer()[0]);
                     }
 
