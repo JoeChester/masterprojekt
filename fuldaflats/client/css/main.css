@@ -33,17 +33,15 @@ input::-webkit-inner-spin-button {
   background: #fff;
 }
 
-
-/* general style or special component style ? */
-.btn-marginleft{
+.btn-marginleft {
   margin-left: 0.5rem;
 }
 
-.marginbottom{
+.marginbottom {
   margin-bottom: 2rem;
 }
 
-.siteheader-nomargin{
+.siteheader-nomargin {
   margin-top: 0px;
 }
 
