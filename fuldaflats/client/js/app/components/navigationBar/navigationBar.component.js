@@ -36,11 +36,7 @@ define(['text!./navigationBar.component.html', 'css!./navigationBar.component.cs
 
             self.signOut = function() {
                 api.users.signOut().then(function(currentUser) {
-                    var currentUserObject = ko.unwrap(currentUser());
-                    if (currentUserObject) {
-                        self.currentUser(currentUserObject);
-                        console.log("User signed out");
-                    }
+                    console.log("User signed out");
                 });
             };
 
