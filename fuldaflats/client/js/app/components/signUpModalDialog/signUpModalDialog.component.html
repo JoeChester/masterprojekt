@@ -27,13 +27,18 @@
                     </div>
                     <div class="input-group">
                         <input data-bind="textInput: password, css: { valid: isValidPassword() && !invalidPassword(), inValid: invalidPassword() && signUpDataErrorMessage() }"
-                            minlength="8" maxlength="255" type="password" class="form-control" placeholder="Password">
+                            minlength="5" maxlength="255" type="password" class="form-control" placeholder="Password with min. length of 5">
                         <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
                     </div>
                     <div class="input-group">
                         <input data-bind="textInput: confirmPassword, css: { valid: isValidPassword() && !invalidPassword(), inValid: invalidPassword() && signUpDataErrorMessage() }"
-                            minlength="8" maxlength="255" type="password" class="form-control" placeholder="Confirm Password">
+                            minlength="5" maxlength="255" type="password" class="form-control" placeholder="Confirm Password">
                         <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+                    </div>
+                    <div class="input-group">
+                        <input data-bind="date: birthDay, css: { valid: birthDay() && !invalidBirthday(), inValid: invalidBirthday() && signUpDataErrorMessage() }"
+                            type="date" class="form-control">
+                        <div class="input-group-addon">Birthday</div>
                     </div>
                     <select data-bind="options: genders,
                        textInput: selectedGender, optionsCaption: 'Choose Gender', optionsAfterRender: optionsAfterRender , css: { valid: selectedGender() && !invalidGender(), inValid: invalidGender() && signUpDataErrorMessage() }"

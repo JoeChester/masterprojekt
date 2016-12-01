@@ -1,5 +1,6 @@
-define(['text!./signUpModalDialog.component.html', 'css!./signUpModalDialog.component.css', 'knockout', 'jquery', 'fuldaflatsApiClient'],
-    function(componentTemplate, componentCss, ko, $, api) {
+define(['text!./signUpModalDialog.component.html', 'css!./signUpModalDialog.component.css',
+    'knockout', 'jquery', 'fuldaflatsApiClient', "moment"],
+    function(componentTemplate, componentCss, ko, $, api, moment) {
         function SignUpModel($, ko, api) {
             var self = this;
             // your model functions and variables
@@ -15,6 +16,7 @@ define(['text!./signUpModalDialog.component.html', 'css!./signUpModalDialog.comp
             self.password = ko.observable();
             self.confirmPassword = ko.observable();
             self.genders = ko.observableArray(["female", "male"]);
+            self.birthDay = ko.observable();
             self.selectedGender = ko.observable();
             self.termsOfUseAgreement = ko.observable(false);
 
@@ -22,6 +24,7 @@ define(['text!./signUpModalDialog.component.html', 'css!./signUpModalDialog.comp
             self.invalidLastName = ko.observable(false);
             self.invalidEmail = ko.observable(false);
             self.invalidPassword = ko.observable(false);
+            self.invalidBirthday = ko.observable(false);
             self.invalidGender = ko.observable(false);
 
             self.internalError = ko.observable(false);
@@ -33,6 +36,7 @@ define(['text!./signUpModalDialog.component.html', 'css!./signUpModalDialog.comp
                 self.invalidLastName(false);
                 self.invalidEmail(false);
                 self.invalidPassword(false);
+                self.invalidBirthday(false);
                 self.invalidGender(false);
             };
 
@@ -67,11 +71,15 @@ define(['text!./signUpModalDialog.component.html', 'css!./signUpModalDialog.comp
                             case "password":
                                 self.invalidPassword(true);
                                 break;
+                            case "birthday":
+                                self.invalidBirthday(true);
+                                break;
                             case "gender":
                                 self.invalidGender(true);
                                 break;
                         }
                     }
+
                     self.isSignUpDataError(true);
                     self.signUpDataErrorMessage(errorMessage);
                 } else {
@@ -79,16 +87,23 @@ define(['text!./signUpModalDialog.component.html', 'css!./signUpModalDialog.comp
                 }
             };
 
-
             self.signUp = function() {
                 if (self.formIsValid()) {
                     resetErrors();
+
+                    var birthDayValue = ko.unwrap(self.birthDay);
+                    if (birthDayValue instanceof Date) {
+                        birthDayValue = self.birthDay().toISOString();
+                    } else {
+                        birthDayValue = "";
+                    }
 
                     var signUpData = {
                         firstName: self.firstName,
                         lastName: self.lastName,
                         email: self.eMail,
                         password: self.password,
+                        birthday: birthDayValue,
                         gender: self.selectedGender,
                         type: 1
                     }
@@ -108,7 +123,7 @@ define(['text!./signUpModalDialog.component.html', 'css!./signUpModalDialog.comp
                         function(xhr) {
                             if (xhr && xhr.status === 400 && xhr.responseJSON
                                 && (xhr.responseJSON.lastName || xhr.responseJSON.firstName || xhr.responseJSON.email
-                                    || xhr.responseJSON.password || xhr.responseJSON.gender)) {
+                                    || xhr.responseJSON.password || xhr.responseJSON.gender || xhr.responseJSON.birthday)) {
                                 var errorMessage = "";
                                 try {
                                     processResponseErrorMessage(xhr);
@@ -129,7 +144,7 @@ define(['text!./signUpModalDialog.component.html', 'css!./signUpModalDialog.comp
             self.isValidPassword = ko.computed(function() {
                 var isValidPassword = false;
 
-                if (self.password() && self.password().length >= 8 &&
+                if (self.password() && self.password().length >= 5 &&
                     self.confirmPassword() && self.password() === self.confirmPassword()) {
                     isValidPassword = true;
                     resetErrors();
@@ -153,7 +168,7 @@ define(['text!./signUpModalDialog.component.html', 'css!./signUpModalDialog.comp
             self.formIsValid = ko.computed(function() {
                 var isValid = false;
 
-                if (self.firstName() && self.lastName() && self.isValidEmail() && self.isValidPassword() && self.selectedGender()
+                if (self.firstName() && self.lastName() && self.isValidEmail() && self.isValidPassword() && self.birthDay() && self.selectedGender()
                     && self.termsOfUseAgreement()) {
                     resetErrors();
                     isValid = true;
