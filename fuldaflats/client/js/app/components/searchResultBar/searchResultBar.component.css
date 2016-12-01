@@ -2,71 +2,71 @@
 
 /* ______________ MAP ____________*/
 /* Extra Small Devices, Phones */ 
-.mapColumn{
+#resultMapContainer .mapColumn{
     height: 280px;
   }
 @media only screen and (min-width : 480px) {
-  .mapColumn{
+  #resultMapContainer .mapColumn{
     height: 380px;
   }
 }
 
 /* Small Devices, Tablets */
 @media only screen and (min-width : 768px) {
-  .mapColumn{
+  #resultMapContainer .mapColumn{
     height: 480px;
   }
 }
 
 /* Medium Devices, Desktops */
 @media only screen and (min-width : 992px) {
-  .mapColumn{
+  #resultMapContainer .mapColumn{
     height: 580px;
   }
 }
 
 /* Large Devices, Wide Screens */
 @media only screen and (min-width : 1200px) {
-  .mapColumn{
+  #resultMapContainer .mapColumn{
     height: 780px;
   }
 }
-.map-container{
+#resultMapContainer {
    padding: 10px; 
   background-color: #eeeeee;
 }
 
-.leaflet-top, .leaflet-bottom{
+#resultMapContainer .leaflet-top, .leaflet-bottom{
   z-index: 400 !important;
 }
 
 /* Extra Small Devices, Phones */ 
-  .resultColumn{
+  #resultMapContainer .resultColumn{
     height: 300px;
   }
 @media only screen and (min-width : 480px) {
-  .resultColumn{
+  #resultMapContainer .resultColumn{
     height: 400px;
   }
 }
 
 /* Small Devices, Tablets */
 @media only screen and (min-width : 768px) {
-  .resultColumn{
+  #resultMapContainer .resultColumn{
     height: 500px;
   }
 }
 
 /* Medium Devices, Desktops */
 @media only screen and (min-width : 992px) {
-  .resultColumn{
+  #resultMapContainer .resultColumn{
     height: 600px;
   }
 }
 
 /* Large Devices, Wide Screens */
 @media only screen and (min-width : 1200px) {
-  .resultColumn{
+  #resultMapContainer .resultColumn{
     height: 800px;
   }
 }
@@ -107,21 +107,21 @@
   margin: 0;
 }
 
-.marker-popup{
+#resultMapContainer .marker-popup{
   width: 250px;
 }
 
-.map-popup-details{
+#resultMapContainer .map-popup-details{
   background-color: #eeeeee;
   border: 1px solid #dddddd;
   padding: 0.5rem;
 }
 
-.map-popup-img{
+#resultMapContainer .map-popup-img{
   color: #FFFFFF !important;
 }
 
-.map-popup-viewtext{
+#resultMapContainer .map-popup-viewtext{
   height: 30% !important;
 }
 

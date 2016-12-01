@@ -1,0 +1,23 @@
+#contactMapContainer .marker-popup{
+  width: 250px;
+}
+
+#contactMapContainer .map-popup-details{
+  background-color: white;
+}
+
+#contactMapContainer .map-popup-img{
+  color: #FFFFFF !important;
+}
+
+#contactMapContainer .map-popup-viewtext{
+  height: 30% !important;
+}
+
+#contactMapContainer .mapColumn{
+    height: 280px;
+  }
+
+#contactMapContainer .leaflet-top, #contactMap .leaflet-bottom{
+  z-index: 400 !important;
+}

@@ -2,9 +2,38 @@ define(['text!./contactModalDialog.component.html', 'css!./contactModalDialog.co
     function (componentTemplate, componentCss, ko, $) {
         function ContactInModel($, ko, api) {
             var self = this;
+            var contactMap = ko.observable();
+            var dialogContainer = ko.observable();
 
-            self.initialize = function (params, dialogContainer) {
+            function initMap() {
+                var iconHS = L.icon({
+                    iconUrl: '/img/hs_marker.png',
+                    iconSize: [40, 40],
+                    iconAnchor: [20, 40],
+                    popupAnchor: [0, -43],
+                });
 
+                contactMap(L.map('contactMap').setView([50.5647986, 9.6828528], 12));
+
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+                }).addTo(contactMap());
+
+                var hs_latlng = ['50.5648258', '9.6842798'];
+                var popup = '<div class="marker-popup"><img src="/img/logo_hs.png" alt="" class="img-responsive"></div>'
+                L.marker(hs_latlng, { icon: iconHS }).addTo(contactMap()).bindPopup(popup);
+
+
+            }
+
+            self.initialize = function (params, dialogContainerElement) {
+                if (dialogContainerElement) {
+                    dialogContainer(dialogContainerElement);
+
+                    $(dialogContainer).on('shown.bs.modal', function () {
+                        initMap();
+                    });
+                }
             };
         }
 
@@ -18,7 +47,7 @@ define(['text!./contactModalDialog.component.html', 'css!./contactModalDialog.co
                     if (templateRoot.length > 0) {
                         var contactDialog = templateRoot.find("#contactModalDialog");
                         if (contactDialog.length > 0) {
-                            var contact = new ContactInModel($, ko, api);
+                            var contact = new ContactInModel($, ko);
                             contact.initialize(params, contactDialog);
                         }
                     }

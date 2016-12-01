@@ -1,8 +1,8 @@
 define(['text!./searchResultBar.component.html', 'css!./searchResultBar.component.css', 'knockout',
-        'jquery', 'fuldaflatsApiClient', 'leaflet', 'css!/css/leaflet.css',
+        'jquery', 'fuldaflatsApiClient', 'leaflet',
         'css!../offerBarSlider/offerBarSlider.component.css'
     ],
-    function (componentTemplate, componentCss, ko, $, api, L, leafletCss, offerBarCss) {
+    function (componentTemplate, componentCss, ko, $, api, L, offerBarCss) {
 
         var resultMap;
         var locationMarkers = [];

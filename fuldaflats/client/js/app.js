@@ -11,7 +11,7 @@ function executeLoginCallbacks() {
 
 //Standard errorCallback, 
 //to be overwritten by error module;
-var errorCallback = function (errors) {
+var errorCallback = function(errors) {
     for (var i in errors) {
         console.error(errors[i]);
     }
@@ -22,9 +22,6 @@ requirejs.config({
     map: {
     },
     shim: {
-        leaflet: {
-            exports: 'L'
-        },
         'bootstrap': { 'deps': ['jquery'] },
         'jqueryCookie': { 'deps': ['jquery'] },
         'waypoints': { 'deps': ['jquery'] },
@@ -71,8 +68,8 @@ window.onerror = function(messageOrEvent, source, lineno, colno, error) {
 requirejs(['app/appModel',
     'jquery', 'bootstrap', 'knockout', 'jqueryCookie', 'waypoints', 'jqueryConterup', 'leaflet',
     'jqueryParallax', /* 'front', */ 'bootstrapSwitch', 'owlCarousel', 'knockoutOwlCarousel', 'jqcloud', 'fuldaflatsApiClient',
-    'knockoutDate'
-], function (app, $) {
+    'leaflet', 'moment', 'knockoutDate'
+], function(app, $) {
     var event = new CustomEvent('scripts-loaded');
     document.dispatchEvent(event);
     console.log("Loaded default libraries, plugins and initilized app.");
