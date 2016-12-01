@@ -2,8 +2,9 @@ define(['text!./navigationBar.component.html', 'css!./navigationBar.component.cs
     'knockout', 'jquery', 'fuldaflatsApiClient',
     'app/components/signInModalDialog/signInModalDialog.component',
     'app/components/signUpModalDialog/signUpModalDialog.component',
-    'app/components/errorModalDialog/errorModalDialog.component'],
-    function(componentTemplate, componentCss, ko, $, api, signInModalDialogComponent, signUpModalDialogComponent, errorModalDialogComponent) {
+    'app/components/errorModalDialog/errorModalDialog.component',
+    'app/components/contactModalDialog/contactModalDialog.component'],
+    function(componentTemplate, componentCss, ko, $, api, signInModalDialogComponent, signUpModalDialogComponent, errorModalDialogComponent, contactModalDialogComponent) {
         function NavigationModel($, ko, api) {
             var self = this;
 
@@ -21,7 +22,6 @@ define(['text!./navigationBar.component.html', 'css!./navigationBar.component.cs
             self.becomeLandlordPageInfo = ko.observable();
             self.newOfferPageInfo = ko.observable();
             self.impressumPageInfo = ko.observable();
-            self.contactPageInfo = ko.observable();
             self.termsOfUsePageInfo = ko.observable();
 
             self.currentUser = ko.observable();
@@ -51,7 +51,6 @@ define(['text!./navigationBar.component.html', 'css!./navigationBar.component.cs
                     self.becomeLandlordPageInfo(ko.unwrap(params.becomeLandlordPageInfo) || '');
                     self.newOfferPageInfo(ko.unwrap(params.newOfferPageInfo) || '');
                     self.impressumPageInfo(ko.unwrap(params.impressumPageInfo) || '');
-                    self.contactPageInfo(ko.unwrap(params.contactPageInfo) || '');
                     self.termsOfUsePageInfo(ko.unwrap(params.termsOfUsePageInfo) || '');
 
                     if (params.currentUser && ko.isObservable(params.currentUser)) {
@@ -79,6 +78,7 @@ define(['text!./navigationBar.component.html', 'css!./navigationBar.component.cs
                     ko.components.register("sign-in", signInModalDialogComponent);
                     ko.components.register("sign-up", signUpModalDialogComponent);
                     ko.components.register("error", errorModalDialogComponent);
+                    ko.components.register("contact", contactModalDialogComponent);
 
                     var navigation = new NavigationModel($, ko, api);
                     navigation.initialize(params);

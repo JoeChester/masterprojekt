@@ -43,7 +43,6 @@ define([
             offerDetails: ko.observable({ url: "/pages/offerDetails", title: "Offer Details" }),
             search: ko.observable({ url: "/pages/search", title: "Search" }),
             termsOfUse: ko.observable({ url: "/pages/termsOfUse", title: "Terms Of Use" }),
-            contact: ko.observable({ url: "mailto:" + self.contactEmailAddress, title: "Contact" }),
         };
 
         self.pagesModules = {
@@ -73,14 +72,12 @@ define([
             becomeLandlordPageInfo: self.pages.becomeLandlord,
             newOfferPageInfo: self.pages.newOffer,
             impressumPageInfo: self.pages.impressum,
-            contactPageInfo: self.pages.contact,
             termsOfUsePageInfo: self.pages.termsOfUse,
             currentUser: self.currentUser
         }
 
         self.copyrightBar = {
             impressumPageInfo: self.pages.impressum,
-            contactPageInfo: self.pages.contact,
             termsOfUsePageInfo: self.pages.termsOfUse,
             copyrightDate: self.CreationDate,
             copyrightName: self.domain,
