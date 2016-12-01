@@ -1,11 +1,11 @@
 define([
-    'knockout',
+    'knockout', 'jquery',
     'app/components/searchBar/searchBar.component',
     'app/components/offerBarSlider/offerBarSlider.component',
     'app/components/tagCloudBar/tagCloudBar.component',
     'fuldaflatsApiClient'
-], function(ko, searchBarComponent, offerBarSliderComponent, tagCloudBarComponent, api) {
-    function HomePageModul(tagCloudBarComponent, api) {
+], function (ko, $, searchBarComponent, offerBarSliderComponent, tagCloudBarComponent, api) {
+    function HomePageModul(ko, $, searchBarComponent, offerBarSliderComponent, tagCloudBarComponent, api) {
         var self = this;
 
         var recentOffers = ko.observableArray();
@@ -15,10 +15,41 @@ define([
         ko.components.register("offer-slider", offerBarSliderComponent);
         ko.components.register("tag-cloud", tagCloudBarComponent);
 
-        self.initialize = function(appModel) {
+        self.searchByTags = function (tags) {
+            var defer = $.Deferred();
+
+            if (tags instanceof Array) {
+                var queryParameter = api.offers.getSearchQueryParamters();
+                if (queryParameter && queryParameter.tags && typeof queryParameter.tags === "function") {
+                    queryParameter.tags(tags);
+                    api.offers.searchOffer(queryParameter).then(function () {
+                        api.offers.getOfferSearchResult().then(function (offerSearchResult) {
+                            if (offerSearchResult) {
+                                defer.resolve(offerSearchResult);
+                            } else {
+                                defer.reject("Invalid tags search result.");
+                            }
+                        });
+                    });
+                } else {
+                    defer.reject("Invalid queryParameter from api client.");
+                }
+            } else {
+                defer.reject("Invalid tags array.");
+            }
+
+            return defer.promise();
+        };
+
+        self.initialize = function (appModel) {
             if (appModel) {
-                api.offers.getRecentOffers().then(function(recentOffersResult) {
+                api.offers.getRecentOffers().then(function (recentOffersResult) {
                     recentOffers(ko.unwrap(recentOffersResult) || [])
+                });
+
+                // Living International Offers 
+                self.searchByTags(["english"]).then(function (offerSearchResult) {
+                    internationalOffers(ko.unwrap(offerSearchResult) || []);
                 });
 
                 appModel.currentPage = appModel.pages.home;
@@ -63,7 +94,7 @@ define([
         }
     }
 
-    return new HomePageModul(tagCloudBarComponent, api);
+    return new HomePageModul(ko, $, searchBarComponent, offerBarSliderComponent, tagCloudBarComponent, api);
 });
 
 
