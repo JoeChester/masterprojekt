@@ -1,3 +1,9 @@
+/************************************************************
+ * File:            newOfferBar.component.js
+ * Author:          Patrick Hasenauer
+ * LastMod:         02.12.2016
+ * Description:     JS Component Handler for new offer bar.
+ ************************************************************/
 define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 'knockout', 'jquery'],
     function(componentTemplate, componentCss, ko, $) {
         function NewOfferModel(params) {

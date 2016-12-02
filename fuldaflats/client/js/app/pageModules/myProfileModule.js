@@ -1,3 +1,9 @@
+/************************************************************
+ * File:            myProfileModule.js
+ * Author:          Patrick Hasenauer
+ * LastMod:         02.12.2016
+ * Description:     My profile page module.
+ ************************************************************/
 define([
     'knockout',
     'app/components/breadcrumbBar/breadcrumbBar.component',

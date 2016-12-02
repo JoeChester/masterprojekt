@@ -1,3 +1,9 @@
+/************************************************************
+ * File:            navigationBar.component.js
+ * Author:          Patrick Hasenauer
+ * LastMod:         02.12.2016
+ * Description:     JS Component Handler for navigation bar.
+ ************************************************************/
 define(['text!./navigationBar.component.html', 'css!./navigationBar.component.css',
     'knockout', 'jquery', 'fuldaflatsApiClient',
     'app/components/signInModalDialog/signInModalDialog.component',

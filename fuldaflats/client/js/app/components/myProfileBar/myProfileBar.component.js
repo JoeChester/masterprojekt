@@ -1,3 +1,9 @@
+/************************************************************
+ * File:            myProfileBar.component.js
+ * Author:          Michelle Rothenbuecher, Patrick Hasenauer
+ * LastMod:         02.12.2016
+ * Description:     JS Component Handler for my profile bar.
+ ************************************************************/
 define(['text!./myProfileBar.component.html', 'css!./myProfileBar.component.css', 'knockout', 'jquery', 'moment'],
     function(componentTemplate, componentCss, ko, $, moment) {
         

@@ -1,3 +1,9 @@
+/************************************************************
+ * File:            offerDetailsBar.component.js
+ * Author:          Martin Herbener, Patrick Hasenauer
+ * LastMod:         02.12.2016
+ * Description:     JS Component Handler for offer details bar.
+ ************************************************************/
 define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.component.css', 'knockout', 'jquery', 'lightbox'],
     function (componentTemplate, componentCss, ko, $, lightbox) {
 

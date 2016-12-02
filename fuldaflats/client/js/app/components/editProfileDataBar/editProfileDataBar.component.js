@@ -1,3 +1,9 @@
+/************************************************************
+ * File:            editProfileDataBar.component.js
+ * Author:          Michelle Rothenbuecher, Patrick Hasenauer
+ * LastMod:         02.12.2016
+ * Description:     JS Component Handler for edit profile data bar.
+ ************************************************************/
 define(['text!./editProfileDataBar.component.html', 'css!./editProfileDataBar.component.css', 'knockout', 'jquery', 'moment'],
     function (componentTemplate, componentCss, ko, $, moment) {
          moment.locale('de');

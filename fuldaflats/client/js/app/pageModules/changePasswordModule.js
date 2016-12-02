@@ -1,3 +1,9 @@
+/************************************************************
+ * File:            changePasswordModule.js
+ * Author:          Patrick Hasenauer
+ * LastMod:         02.12.2016
+ * Description:     Change password page module.
+ ************************************************************/
 define([
     'knockout',
     'app/components/breadcrumbBar/breadcrumbBar.component',

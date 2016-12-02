@@ -1,3 +1,9 @@
+/************************************************************
+ * File:            offer.js
+ * Author:          Patrick Hasenauer, Jonas Kleinkauf
+ * LastMod:         02.12.2016
+ * Description:     Javascript api client endpoints for offers.
+ ************************************************************/
 define(["jquery", 'knockout'], function ($, ko) {
 
     function OffersEndpoint(offersEndpointUrls, offerTypes) {

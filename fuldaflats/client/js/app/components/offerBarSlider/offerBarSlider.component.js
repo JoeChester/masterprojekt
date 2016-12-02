@@ -1,3 +1,9 @@
+/************************************************************
+ * File:            offerBarSlider.component.js
+ * Author:          Patrick Hasenauer
+ * LastMod:         02.12.2016
+ * Description:     JS Component Handler for offer bar slider.
+ ************************************************************/
 define(['text!./offerBarSlider.component.html', 'css!./offerBarSlider.component.css', 'knockout'],
     function(componentTemplate, componentCss, ko) {
         function OfferSliderModel(ko) {

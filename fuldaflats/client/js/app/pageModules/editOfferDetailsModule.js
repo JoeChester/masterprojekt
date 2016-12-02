@@ -1,3 +1,9 @@
+/************************************************************
+ * File:            editOfferDetailsModule.js
+ * Author:          Patrick Hasenauer
+ * LastMod:         02.12.2016
+ * Description:     Edit offer details page module.
+ ************************************************************/
 define([
     'knockout',
     'app/components/breadcrumbBar/breadcrumbBar.component',

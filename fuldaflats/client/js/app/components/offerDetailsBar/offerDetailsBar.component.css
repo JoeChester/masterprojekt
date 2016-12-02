@@ -1,3 +1,9 @@
+/************************************************************
+ * File:            offerDetailsBar.component.css
+ * Author:          Jonas Kleinkauf
+ * LastMod:         02.12.2016
+ * Description:     Custom CSS for offer details bar.
+ ************************************************************/
 /* Special component css here and general css in main.css */
 .mediaObject-carousel{
     height: 500px;

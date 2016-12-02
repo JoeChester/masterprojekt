@@ -1,3 +1,9 @@
+/************************************************************
+ * File:            signupModalDialog.component.js
+ * Author:          Patrick Hasenauer
+ * LastMod:         02.12.2016
+ * Description:     JS Component Handler for sign up dialog.
+ ************************************************************/
 define(['text!./signUpModalDialog.component.html', 'css!./signUpModalDialog.component.css',
     'knockout', 'jquery', 'fuldaflatsApiClient', "moment"],
     function(componentTemplate, componentCss, ko, $, api, moment) {

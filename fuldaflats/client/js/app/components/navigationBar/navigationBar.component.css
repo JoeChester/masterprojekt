@@ -1,3 +1,9 @@
+/************************************************************
+ * File:            navigationBar.component.css
+ * Author:          Patrick Hasenauer, Jonas Kleinlauf
+ * LastMod:         02.12.2016
+ * Description:     Custom CSS for navigation bar.
+ ************************************************************/
 /* Special component css here and general css in main.css */
 .navbar-brand > .logo{
   width: 250px;

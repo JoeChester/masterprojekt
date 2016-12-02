@@ -1,3 +1,9 @@
+/************************************************************
+ * File:            impressumBar.component.js
+ * Author:          Patrick Hasenauer
+ * LastMod:         02.12.2016
+ * Description:     JS Component Handler for impressum bar.
+ ************************************************************/
 define(['text!./impressumBar.component.html', 'css!./impressumBar.component.css', 'knockout', 'jquery'],
     function (componentTemplate, componentCss, ko, $) {
         function ImpressumModel(params) {
