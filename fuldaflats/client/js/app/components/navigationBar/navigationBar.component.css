@@ -1,7 +1,39 @@
 /* Special component css here and general css in main.css */
-.navbar-brand > img{
+.navbar-brand > .logo{
   width: 250px;
   margin-top: 10px;
+}
+
+/* ExtraSmall Devices, Tablets */
+@media only screen and (min-width : 480px) {
+  .navbar-brand > .logo{
+    width: 250px;
+    margin-top: 10px;
+  }
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+  .navbar-brand > .logo{
+    width: 230px;
+    margin-top: 10px;
+  }
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+  .navbar-brand > .logo{
+    width: 250px;
+    margin-top: 10px;
+  }
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+  .navbar-brand > .logo{
+    width: 250px;
+    margin-top: 10px;
+  }
 }
 
 @media (min-width: 767px) {
