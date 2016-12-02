@@ -1,9 +1,10 @@
-define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.component.css', 'knockout', 'jquery'],
-    function (componentTemplate, componentCss, ko, $) {
+define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.component.css', 'knockout', 'jquery', 'lightbox'],
+    function (componentTemplate, componentCss, ko, $, lightbox) {
+
         function OfferDetailsModel(params) {
             var self = this;
-            // your model functions and variables
 
+            // your model functions and variables
             function getURLParameter(name) {
                 return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
             };
@@ -64,11 +65,8 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
                                     offerData.mediaObjects[i].carouselActive = false;
                                 }
                                 offerData.mediaObjects[0].carouselActive = true;
-                                console.log(offerData);
                                 self.offer(offerData);
                             }
-                            console.log(status);
-                            console.log(req);
                         }
                     });
                 }

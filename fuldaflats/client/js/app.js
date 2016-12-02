@@ -24,6 +24,7 @@ requirejs.config({
             exports: 'L'
         },
         'bootstrap': { 'deps': ['jquery'] },
+        'lightbox': {'deps': ['jquery']},
         'jqueryCookie': { 'deps': ['jquery'] },
         'waypoints': { 'deps': ['jquery'] },
         'jqueryConterup': { 'deps': ['jquery'] },
@@ -42,6 +43,7 @@ requirejs.config({
         text: '../bower_components/text/text',
         jquery: '../bower_components/jquery/dist/jquery.min',
         bootstrap: '../bower_components/bootstrap/dist/js/bootstrap.min',
+        lightbox : './lib/lightbox.min',
         knockout: '../bower_components/knockout/dist/knockout',
         jqueryCookie: './lib/jquery.cookie',
         waypoints: './lib/waypoints.min',
