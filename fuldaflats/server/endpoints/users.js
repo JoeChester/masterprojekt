@@ -44,7 +44,8 @@ function authenticate(req, res, successStatus) {
                 req.session.user = user;
 
                 res.status(successStatus);
-                return res.json(user.toJSON_ME());
+                //Begin Relationship Pipe
+                return getRelationships(req, res, user);
             } else {
                 return res.sendStatus(403);
             }
