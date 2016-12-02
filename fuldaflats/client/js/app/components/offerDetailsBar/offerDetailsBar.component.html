@@ -4,7 +4,7 @@
 <section style="min-height:700px; margin-top: 2rem">
     <div class="container">
         <div class="row">
-            <h3 data-bind="text: offer().title"></h3>
+            <h1 data-bind="text: offer().title"></h1>
         </div>
         <div class="row">
             <div id="mediaObjectsCarousel" class="carousel slide col-md-12" data-ride="carousel">
@@ -16,7 +16,7 @@
                 <div class="carousel-inner" role="listbox" data-bind="foreach: { data: offer().mediaObjects, as: 'mediaObject'}">
                     <div class="item" data-bind="css: { active: mediaObject.carouselActive }">
                         <div class="mediaObject-container">
-                            <a data-bind="attr:{href: mediaObject.mainUrl}" target="_blank">
+                            <a data-bind="attr:{href: mediaObject.mainUrl}" data-lightbox="mediaObjectsLightbox">
                                 <img data-bind="attr: {src: mediaObject.mainUrl}" class="mediaObject-img">
                             </a>
                         </div>
