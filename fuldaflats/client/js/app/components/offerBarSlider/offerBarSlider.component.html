@@ -10,10 +10,10 @@
             <div data-bind="owlCarousel: { data: offers, as: 'offer', owlOptions: owlCarouselOptions }" class="owl-carousel-offers owl-carousel">
                 <div class="col-xs-12">
                     <div class="offer-brief-details box-image-text table-bordered">
-                        <!-- ko if: offer.mediaObjects && offer.mediaObjects.length > 0 && offer.mediaObjects[0].thumbnailUrl -->
+                        <!-- ko if: offer.thumbnailUrl -->
                         <div class="top">
                             <div class="image thumbnail-container">
-                                <img data-bind="attr: { src:offer.mediaObjects[0].thumbnailUrl }" alt="" class="img-responsive thumbnail-img">
+                                <img data-bind="attr: { src:offer.thumbnailUrl }" alt="" class="img-responsive thumbnail-img">
                             </div>
                             <div class="bg"></div>
                             <div class="text">
