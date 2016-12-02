@@ -1,3 +1,10 @@
+/************************************************************
+ * File:            searchResultBar.component.js
+ * Author:          Jonas Kleinkauf, Patrick Hasenauer
+ * LastMod:         02.12.2016
+ * Description:     JS Component Handler for seach results
+ ************************************************************/
+
 define(['text!./searchResultBar.component.html', 'css!./searchResultBar.component.css', 'knockout',
         'jquery', 'fuldaflatsApiClient', 'leaflet', 'css!/css/leaflet.css',
         'css!../offerBarSlider/offerBarSlider.component.css'
@@ -39,17 +46,7 @@ define(['text!./searchResultBar.component.html', 'css!./searchResultBar.componen
                 });
             };
 
-            function _getThumbnail(offer){
-                if(offer.hasOwnProperty("mediaObjects")){
-                    if(offer.mediaObjects[0]){
-                        return "/" + offer.mediaObjects[0].thumbnailUrl;
-                    }
-                }
-                return "/uploads/dummy.png"
-            }
-
             self.offers = ko.observableArray([]),
-
 
             self.getSearchResults = function () {
                 self.offers.removeAll();
@@ -61,9 +58,10 @@ define(['text!./searchResultBar.component.html', 'css!./searchResultBar.componen
                 $.ajax({
                     url: "/api/offers/search",
                     success: function (data, status, req) {
+                        console.log(data);
                         for (var i in data) {
                             data[i].detailsUrl = '/pages/offerDetails?offerId=' + data[i].id;
-                            data[i].thumbnailUrl = _getThumbnail(data[i]);
+                            data[i].isFavorite = ko.observable(data[i].isFavorite);
                             self.offers.push(data[i]);
                         }
                         placeMarkers(data);
@@ -75,17 +73,47 @@ define(['text!./searchResultBar.component.html', 'css!./searchResultBar.componen
                     }
                 });
             }
-
             searchCallback = self.getSearchResults;
 
-            
+            //Favorite Functions
+            self.setFavorite = function(offer){
+                offer.isFavorite(true);
+                $.ajax({
+                    url: "/api/offers/" + offer.id + "/favorite",
+                    method: "PUT",
+                    success: function(data, status, req){
+                        console.log("Favorite Added!");
+                    },
+                    error: function(req, status, err){
+                        errorCallback(JSON.parse(req.responseText));
+                        offer.isFavorite(false);
+                    } 
+                });
+            }
 
+            self.unsetFavorite = function(offer){
+                offer.isFavorite(false);
+                $.ajax({
+                    url: "/api/offers/" + offer.id + "/favorite",
+                    method: "DELETE",
+                    success: function(data, status, req){
+                        console.log("Favorite Removed!");
+                    },
+                    error: function(req, status, err){
+                        console.error(req);
+                        errorCallback(err);
+                        offer.isFavorite(true);
+                    } 
+                });
+            }
+
+            //Map Functions
             function initMap() {
                 resultMap = L.map('resultMap').setView([50.5647986, 9.6828528], 14);
 
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    maxZoom: 2,
-                    minZoom: 1,
+                    maxZoom: 16,
+                    minZoom: 5,
                     attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
                 }).addTo(resultMap);
 
@@ -97,12 +125,12 @@ define(['text!./searchResultBar.component.html', 'css!./searchResultBar.componen
 
             function placeMarkers(offers) {
                 for (var i in offers) {
-                    var latlng = [offers[i].latitude, offers[i].longitude];
+                    var latlng = [offers[i].longitude, offers[i].latitude];
                     var iconPopup = iconBlue;
                     var picture = '<div class="box-image-text">' +
                         '<div class="top">' +
                         '<div class="image">' +
-                        '<img src="' + offers[i].thumbnailUrl + '" alt="" class="img-responsive">' +
+                        '<img src="' + offers[i].thumbnailUrl + '" alt="" class="img-responsive thumbnail-img">' +
                         '</div>' +
                         '<div class="bg"></div>' +
                         '<div class="text map-popup-viewtext">' +
@@ -134,6 +162,7 @@ define(['text!./searchResultBar.component.html', 'css!./searchResultBar.componen
                 }
             }
 
+            //Initialization Function
             $(function () {
                 self.getSearchResults();
                 initMap();

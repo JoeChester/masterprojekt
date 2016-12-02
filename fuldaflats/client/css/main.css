@@ -51,3 +51,12 @@ input::-webkit-inner-spin-button {
 .modal-open .navbar-fixed-bottom {
 padding-right: 17px;
 }
+
+.favorite-icon{
+  font-size: 3rem;
+  cursor: pointer;
+}
+
+.purpleblue-text{
+  color: #6060ff;
+}

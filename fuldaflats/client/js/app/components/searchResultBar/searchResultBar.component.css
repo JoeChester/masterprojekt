@@ -128,3 +128,7 @@
 .label{
   line-height: 2.5rem !important;
 }
+
+.thumbnail-img{
+  max-height: 250px;
+}

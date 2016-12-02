@@ -147,6 +147,7 @@ module.exports = function (schema) {
         _offer.creationDate = this.creationDate;
         _offer.reviews = this._reviews;
         _offer.mediaObjects = this._mediaObjects;
+        _offer.thumbnailUrl = "/uploads/dummy.png";
         return _offer;
     };
 
@@ -191,7 +192,7 @@ module.exports = function (schema) {
         _offer.latitude = this.latitude;
         _offer.uniDistance = this.uniDistance;
         _offer.landlord = this.landlord;
-
+        _offer.thumbnailUrl = "/uploads/dummy.png";
         _offer.reviews = this._reviews;
         _offer.mediaObjects = this._mediaObjects;
         return _offer;
@@ -211,6 +212,7 @@ module.exports = function (schema) {
         _offer.priceType = this.priceType;
         _offer.longitude = this.longitude;
         _offer.latitude = this.latitude;
+        _offer.thumbnailUrl = "/uploads/dummy.png";
         return _offer;
     };
 

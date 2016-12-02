@@ -67,6 +67,9 @@ function getUserOffers(req, res, user, _user){
                             return cb(err);
                         //Set additional Property    
                         _offer.mediaObjects = mediaObjects;
+                        if(mediaObjects[0]){
+                            _offer.thumbnailUrl = mediaObjects[0].thumbnailUrl;
+                        }
                         offer.tags((err, tags) => {
                             if (err)
                                 return cb(err);
@@ -99,10 +102,63 @@ function getUserOffers(req, res, user, _user){
 function getFavorites(req, res, user, _user){
     if(!_user) _user = user.toJSON();
     user.favorites((err, favorites) =>{
+        let favoriteJoins = [];
+        let offerIds = [];
         if(!err && favorites && favorites.length > 0){
-            _user.favorites = favorites;
+            for(let i in favorites){
+                offerIds.push(favorites[i].offerId);
+            }
+            schema.models.Offer.find({where: {id : { in: offerIds}}}, (err, offers) => {
+                if(err){
+                    res.status(404);
+                    return res.json(err);
+                }
+                //Join MediaObjects to Offer
+                //Setup Pipeline
+                let offer_joins = [];
+                offers.forEach(offer => {
+                    offer_joins.push(cb => {
+                        //Copy Caminte Model to Plain JSON Object
+                        //otherwise additional properties will get lost
+                        let _offer = offer.toJSON_STUB();
+                        _offer.isFavorite = true;
+                        //Execute Query
+                        offer.mediaObjects((err, mediaObjects) => {
+                            if (err)
+                                return cb(err);
+                            //Set additional Property    
+                            _offer.mediaObjects = mediaObjects;
+                            if(mediaObjects[0]){
+                                _offer.thumbnailUrl = mediaObjects[0].thumbnailUrl;
+                            }
+                            offer.tags((err, tags) => {
+                                if (err)
+                                    return cb(err);
+                                //Set additional Property    
+                                _offer.tags = tags;
+                                //Callback to Async Parent
+                                cb(null, _offer);
+                            });
+                        });
+
+                    });
+                });
+
+                //Execute Joins in Parallel
+                async.parallel(offer_joins, (err, _favorites) => {
+                    if (err) {
+                        res.status(400);
+                        res.json(err);
+                    }
+                    _user.favorites = _favorites;
+                    getUserOffers(req, res, user, _user);
+                });
+
+            });
+        } else {
+            _user.favorites = [];
+            getUserOffers(req, res, user, _user);
         }
-        getUserOffers(req, res, user, _user);
     });
 }
 

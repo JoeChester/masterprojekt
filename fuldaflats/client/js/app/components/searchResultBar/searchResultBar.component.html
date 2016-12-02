@@ -8,7 +8,7 @@
                     <div class="offer-brief-detail-1 box-image-text col-md-5">
                         <div class="top">
                             <div class="image">
-                                <img data-bind="attr: { src: offer.thumbnailUrl }" alt="" class="img-responsive">
+                                <img data-bind="attr: { src: offer.thumbnailUrl }" alt="" class="img-responsive thumbnail-img">
                             </div>
                             <div class="bg"></div>
                             <div class="text">
@@ -25,9 +25,23 @@
                                 <span class="label label-default" data-bind="text: tag.title"></span>
                             </h4>
                         </div>
-                        <a data-bind="attr: { href: offer.detailsUrl }">
-                            <h2 data-bind="text: offer.title"></h2>
-                        </a>
+                        <div class="row">
+                            <div class="col-md-11">
+                                <a data-bind="attr: { href: offer.detailsUrl }">
+                                    <h2 data-bind="text: offer.title"></h2>
+                                </a>
+                            </div>
+                            <div class="col-md-1">
+                                <span data-bind="ifnot: offer.isFavorite">
+                                    <span class="glyphicon glyphicon glyphicon-heart-empty favorite-icon" aria-hidden="true" 
+                                        title="Set Favorite" data-bind="click: $parent.setFavorite"></span>
+                                </span>
+                                <span data-bind="if: offer.isFavorite">
+                                    <span class="glyphicon glyphicon glyphicon-heart favorite-icon purpleblue-text" aria-hidden="true" 
+                                        title="Remove from Favorites" data-bind="click: $parent.unsetFavorite"></span>
+                                </span>
+                            </div>
+                        </div>
                         <div class="ellipsis">
                             <p data-bind="text: offer.description"></p>
                         </div>
