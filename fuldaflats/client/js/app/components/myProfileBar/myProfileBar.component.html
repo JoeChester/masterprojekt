@@ -100,8 +100,8 @@
 				</form>
 				<!-- ______________ Tabs ______________ -->
 				<ul class="nav nav-tabs" id="userprofile-tabs">
-					<li class="active"><a data-bind="click: $parent.showTab" href="#Favorites">Favorites</a></li>
-					<li><a data-bind="click: $parent.showTab" href="#Offers">Offers</a></li>
+					<li class="active"><a data-bind="click: $parent.showTab" href="#favorites">Favorites</a></li>
+					<li><a data-bind="click: $parent.showTab" href="#offers">Offers</a></li>
 				</ul>
 				<!-- ______________ Favorites ______________ -->
 				<div class="tab-content clearfix">
@@ -166,12 +166,12 @@
 								</div>
 							</div>
 						</div>
-						<div data-bind="ifnot: $data.favorites" class="col-md-4">
-							<p class="form-control-static bg-primary"> You have no favorites yet.</p>
+						<div data-bind="ifnot: $data.favorites">
+							<div class="alert alert-info" role="alert">You have no favorites yet.</div>
 						</div>
 					</div>
 					<!-- ______________ Offers ______________ -->
-					<div class="tab-pane" id="Offers">
+					<div class="tab-pane" id="offers">
 						<div data-bind="if: $data.offers">
 							<div class="col-md-12 resultColumn" data-bind="foreach: { data: offers, as: 'offer' }">
 								<div class="panel panel-search-result">
@@ -233,11 +233,11 @@
 						</div>
 						<div data-bind="ifnot: $data.offers">
 							<div data-bind="if: $data.type==1">
-								<p id="offer-error" class="form-control-static bg-primary"> To be able to create offers: </p>
+								<div class="alert alert-info" role="alert">To be able to create offers:</div>
 								<a href="/pages/becomeLandlord" type="submit" class="btn btn-template-main">Become Landlord</a>
 							</div>
 							<div data-bind="if: $data.type==2">
-								<p id="offer-error2" class="form-control-static bg-primary">No Offers yet.</p>
+								<div class="alert alert-info" role="alert">No Offers yet.</div>
 								<a href="/pages/newOffer" type="submit" class="btn btn-template-main">Create Offer</a>
 							</div>
 						</div>

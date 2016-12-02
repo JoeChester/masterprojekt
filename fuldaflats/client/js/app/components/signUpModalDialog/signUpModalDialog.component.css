@@ -5,12 +5,20 @@
 }
 
 #signUpModalDialog .input-group,
-#signUpModalDialog .modal-body > input,
-#signUpModalDialog .modal-body > select {
+#signUpModalDialog .modal-body > form > input,
+#signUpModalDialog .modal-body > form > select {
     margin-bottom: 5px;
 }
 
 #signUpModalDialog .alert {
     margin-bottom: 10px;
     padding: 5px;
+}
+
+#signUpModalDialog .valid{
+    border: 1px solid green;
+}
+
+#signUpModalDialog .inValid{
+    border: 1px solid red;
 }

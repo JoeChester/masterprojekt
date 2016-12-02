@@ -4,7 +4,9 @@
 			<div class="navbar-header">
 				<!-- ko if: homePageInfo && logoUrl && domain -->
 				<a class="navbar-brand home" data-bind="attr: { href: homePageInfo().url }">
-					<img data-bind="attr: { src: logoUrl}" alt="website logo">
+					<img data-bind="attr: { src: logoUrl}" alt="website logo" class="visible-xs hidden-xs visible-md visible-lg">
+					<img data-bind="attr: { src: logoUrl}" alt="website logo" class="visible-xs">
+					<img data-bind="attr: { src: smallLogoUrl}" alt="website logo" class="visible-sm">
 					<span class="sr-only" data-bind="text: domain"></span>
 					<span class="sr-only"> - go to homepage</span>
 				</a>
@@ -56,11 +58,9 @@
 						<a data-bind="attr: { href: impressumPageInfo().url }, text: impressumPageInfo().title"></a>
 					</li>
 					<!-- /ko -->
-					<!-- ko if: contactPageInfo -->
 					<li class="inactive visible-xs navmenuentry">
-						<a data-bind="attr: { href: contactPageInfo().url }, text: contactPageInfo().title"></a>
+						<a type="button" href="javascript: void(0)" data-toggle="modal" data-target="#contactModalDialog">Contact</a>
 					</li>
-					<!-- /ko -->
 					<!-- ko if: termsOfUsePageInfo -->
 					<li class="inactive visible-xs navmenuentry">
 						<a data-bind="attr: { href: termsOfUsePageInfo().url }, text: termsOfUsePageInfo().title"></a>
@@ -75,3 +75,4 @@
 <div data-bind='component: { name: "sign-in", params: signInDialogParameter }'></div>
 <div data-bind='component: { name: "sign-up", params: signUpDialogParameter }'></div>
 <div data-bind='component: { name: "error" }'></div>
+<div data-bind='component: { name: "contact" }'></div>

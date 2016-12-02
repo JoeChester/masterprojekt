@@ -3,13 +3,14 @@ define([
     'app/components/demoWarningBar/demoWarningBar.component',
     'app/components/navigationBar/navigationBar.component',
     'app/components/copyrightBar/copyrightBar.component',
-], function ($, ko, api, demoWarningBarComponent, navigationBarComponent, copyrightBarComponent) {
+], function($, ko, api, demoWarningBarComponent, navigationBarComponent, copyrightBarComponent) {
     function AppModel($, ko, api, demoWarningBarComponent, navigationBarComponent, copyrightBarComponent) {
         var self = this;
 
         self.domain = "FuldaFlats.de"
         self.CreationDate = 2016;
         self.logoUrl = "/img/logo.png";
+        self.smallLogoUrl = "/img/smallLogo.png";
 
         self.contactEmailAddress = "contact@fuldaflats.de";
 
@@ -22,7 +23,7 @@ define([
             userData: undefined
         });
 
-        self.currentUser.subscribe(function (newValue) {
+        self.currentUser.subscribe(function(newValue) {
             console.log("Current User Status Changed")
             console.log(newValue)
         });
@@ -42,7 +43,6 @@ define([
             offerDetails: ko.observable({ url: "/pages/offerDetails", title: "Offer Details" }),
             search: ko.observable({ url: "/pages/search", title: "Search" }),
             termsOfUse: ko.observable({ url: "/pages/termsOfUse", title: "Terms Of Use" }),
-            contact: ko.observable({ url: "mailto:" + self.contactEmailAddress, title: "Contact" }),
         };
 
         self.pagesModules = {
@@ -66,19 +66,18 @@ define([
         self.navigationBar = {
             domain: self.domain,
             logoUrl: self.logoUrl,
+            smallLogoUrl: self.smallLogoUrl,
             homePageInfo: self.pages.home,
             myProfilePageInfo: self.pages.myProfile,
             becomeLandlordPageInfo: self.pages.becomeLandlord,
             newOfferPageInfo: self.pages.newOffer,
             impressumPageInfo: self.pages.impressum,
-            contactPageInfo: self.pages.contact,
             termsOfUsePageInfo: self.pages.termsOfUse,
             currentUser: self.currentUser
         }
 
         self.copyrightBar = {
             impressumPageInfo: self.pages.impressum,
-            contactPageInfo: self.pages.contact,
             termsOfUsePageInfo: self.pages.termsOfUse,
             copyrightDate: self.CreationDate,
             copyrightName: self.domain,
@@ -90,7 +89,7 @@ define([
             var defer = $.Deferred();
 
             var pageModulePath = self.pagesModules[document.location.pathname.toLowerCase()];
-            requirejs([pageModulePath], function (pageModule) {
+            requirejs([pageModulePath], function(pageModule) {
                 if (pageModule && pageModule.initialize) {
                     pageModule.initialize(self);
                     console.log("Loaded page module: \"" + pageModulePath + "\" for location \"" + location.pathname.toLowerCase() + "\"");
@@ -104,7 +103,7 @@ define([
             return defer.promise();
         }
 
-        self.getPageTitle = function () {
+        self.getPageTitle = function() {
             var title = "";
             if (self.domain) {
                 title = self.domain;
@@ -117,25 +116,25 @@ define([
             return title;
         }
 
-        self.initialize = function () {
+        self.initialize = function() {
             ko.components.register("demo-warning", demoWarningBarComponent);
             ko.components.register("navigation", navigationBarComponent);
             ko.components.register("copyright", copyrightBarComponent);
 
             api.initialize("api", self.offerTypes);
 
-            api.users.getMe().then(function (user) {
+            api.users.getMe().then(function(user) {
                 var userObject = ko.unwrap(user);
                 if (userObject) {
                     self.currentUser(userObject);
                 }
-            }, function (rejectMessage) {
+            }, function(rejectMessage) {
                 console.log(rejectMessage);
             });
 
-            loadPageModule().then(function () {
+            loadPageModule().then(function() {
                 ko.applyBindings(self, document.getElementsByTagName("html")[0]);
-            }, function () {
+            }, function() {
                 throw "Failed to load page module";
             });
         }

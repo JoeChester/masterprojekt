@@ -3,24 +3,22 @@
 // I WANT THESE FUNCTIONS IN EVERY SINGLE PAGE
 // JUST DONT PUT THEM INTO FREAKIN REQUIRE MODULES PLEASE!
 var loginCallbacks = [];
-function executeLoginCallbacks(){
-    for(var i in loginCallbacks){
+function executeLoginCallbacks() {
+    for (var i in loginCallbacks) {
         loginCallbacks[i]();
     }
 };
 
 //Standard errorCallback, 
 //to be overwritten by error module;
-var errorCallback = function(errors){
-    for(var i in errors){
+var errorCallback = function(errors) {
+    for (var i in errors) {
         console.error(errors[i]);
     }
 }
 
 requirejs.config({
     baseUrl: location.pathname.indexOf("/pages/") === 0 ? '/../js' : "/js",
-    map: {
-    },
     shim: {
         leaflet: {
             exports: 'L'
@@ -37,7 +35,7 @@ requirejs.config({
         'fuldaflatsApiClient': { 'deps': ['knockout', 'jquery'] },
         'jqcloud': { 'deps': ['jquery'] },
         'bootstrapSwitch': { 'deps': ['jquery'] },
-        'moment' : {'deps': []}
+        'knockoutDate': { 'deps': ['knockout', 'moment'] },
     },
     paths: {
         css: '../bower_components/require-css/css.min',
@@ -57,7 +55,8 @@ requirejs.config({
         jqcloud: '/bower_components/jqcloud2/dist/jqcloud.min',
         fuldaflatsApiClient: './fuldaflatsApiClient/fuldaflatsApiClient',
         leaflet: './lib/leaflet',
-        moment: './lib/moment.min'
+        moment: './lib/moment.min',
+        knockoutDate: './lib/knockout-date'
     }
 });
 
@@ -69,7 +68,8 @@ window.onerror = function(messageOrEvent, source, lineno, colno, error) {
 //Load default libraries, plugins and initilize app
 requirejs(['app/appModel',
     'jquery', 'bootstrap', 'knockout', 'jqueryCookie', 'waypoints', 'jqueryConterup', 'leaflet',
-    'jqueryParallax', /* 'front', */ 'bootstrapSwitch', 'owlCarousel', 'knockoutOwlCarousel', 'jqcloud', 'fuldaflatsApiClient'
+    'jqueryParallax', /* 'front', */ 'bootstrapSwitch', 'owlCarousel', 'knockoutOwlCarousel', 'jqcloud', 'fuldaflatsApiClient',
+    'moment', 'knockoutDate'
 ], function(app, $) {
     var event = new CustomEvent('scripts-loaded');
     document.dispatchEvent(event);

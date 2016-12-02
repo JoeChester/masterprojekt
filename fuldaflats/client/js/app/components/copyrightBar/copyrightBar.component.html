@@ -5,13 +5,11 @@
                 <!-- ko if: impressumPageInfo -->
                 <span><a data-bind="attr: { href: impressumPageInfo().url }, text: impressumPageInfo().title"></a></span>
                 <!-- /ko -->
-                <!-- ko if: impressumPageInfo && contactPageInfo  -->
+                <!-- ko if: impressumPageInfo -->
                 <span>|</span>
                 <!-- /ko -->
-                <!-- ko if: contactPageInfo -->
-                <span><a data-bind="attr: { href: contactPageInfo().url }, text: contactPageInfo().title"></a></span>
-                <!-- /ko -->
-                <!-- ko if: contactPageInfo && termsOfUsePageInfo  -->
+                <a type="button" href="javascript: void(0)" data-toggle="modal" data-target="#contactModalDialog">Contact</a>
+                <!-- ko if: termsOfUsePageInfo  -->
                 <span>|</span>
                 <!-- /ko -->
                 <!-- ko if: termsOfUsePageInfo -->

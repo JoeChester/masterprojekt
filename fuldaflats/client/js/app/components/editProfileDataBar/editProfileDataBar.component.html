@@ -40,13 +40,13 @@
 					<div class="row">
 						<label for="firstName" class="control-label col-sm-2">First Name:</label>
 						<div class="col-sm-5">
-							<input type="text" class="form-control" id="firstName" data-bind="attr:{placeholder:firstName}">
+							<input type="text" class="form-control" id="firstName" data-bind="attr:{placeholder:firstName}, value: $parent.userChanges().firstName">
 						</div>
 					</div>
 					<div class="row">
 						<label for="lastName" class="control-label col-sm-2">Last Name:</label>
 						<div class="col-sm-5">
-							<input type="text" class="form-control" id="lastName" data-bind="attr:{placeholder:lastName}">
+							<input type="text" class="form-control" id="lastName" data-bind="attr:{placeholder:lastName}, value: $parent.userChanges().lastName">
 						</div>
 					</div>
 					<div class="row">
@@ -61,50 +61,50 @@
 					<div class="row">
 						<label for="birthday" class="control-label col-sm-2">Birthday:</label>
 						<div class="col-sm-5">
-							<input type="text" class="form-control" id="bithday" data-bind="attr:{placeholder:birthday}">
+							<input type="text" class="form-control" id="bithday" data-bind="attr:{placeholder:birthday}, value: $parent.userChanges().birthday">
 						</div>
 					</div>
 					<div class="row">
 						<label for="eMail" class="control-label col-sm-2">E-Mail:</label>
 						<div class="col-sm-5">
-							<input type="text" class="form-control" id="email" data-bind="attr:{placeholder:email}">
+							<input type="text" class="form-control" id="email" data-bind="attr:{placeholder:email} , value: $parent.userChanges().email">
 						</div>
 					</div>
 					<div data-bind="if: $data.type==2">
 						<div class="row">
 							<label for="phoneNumber" class="control-label col-sm-2">Phone Number:</label>
 							<div class="col-sm-5">
-								<input type="text" class="form-control" id="phoneNumber" data-bind="attr:{placeholder:phoneNumber}">
+								<input type="text" class="form-control" id="phoneNumber" data-bind="attr:{placeholder:phoneNumber}, value: $parent.userChanges().phoneNumber">
 							</div>
 						</div>
 						<div class="row">
 							<label for="zipCode" class="control-label col-sm-2">ZIP Code:</label>
 							<div class="col-sm-5">
-								<input type="text" class="form-control" id="zipCode" data-bind="attr:{placeholder:zipCode}">
+								<input type="text" class="form-control" id="zipCode" data-bind="attr:{placeholder:zipCode} , value: $parent.userChanges().zipCode">
 							</div>
 						</div>
 						<div class="row">
 							<label for="city" class="control-label col-sm-2">City:</label>
 							<div class="col-sm-5">
-								<input type="text" class="form-control" id="city" data-bind="attr:{placeholder:city}">
+								<input type="text" class="form-control" id="city" data-bind="attr:{placeholder:city}, , value: $parent.userChanges().city">
 							</div>
 						</div>
 						<div class="row">
 							<label for="street" class="control-label col-sm-2">Street:</label>
 							<div class="col-sm-5">
-								<input type="text" class="form-control" id="street" data-bind="attr:{placeholder:street}">
+								<input type="text" class="form-control" id="street" data-bind="attr:{placeholder:street}, value: $parent.userChanges().street">
 							</div>
 						</div>
 						<div class="row marginbottom">
 							<label for="housenumber" class="control-label col-sm-2">Housenumber:</label>
 							<div class="col-sm-5">
-								<input type="text" class="form-control" id="housenumber" data-bind="attr:{placeholder:houseNumber}">
+								<input type="text" class="form-control" id="housenumber" data-bind="attr:{placeholder:houseNumber}, value: $parent.userChanges().houseNumber">
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-offset-2 col-sm-5">
-							<a href="/pages/myProfile" type="submit" class="btn btn-template-main">Accept</a>
+							<button data-bind="click: $parent.accept" type="submit" class="btn btn-template-main">Accept</button>
 							<a href="/pages/myProfile" type="submit" class="btn btn-marginleft btn-template-main">Cancel</a>
 						</div>
 					</div>

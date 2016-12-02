@@ -6,10 +6,10 @@
  ************************************************************/
 
 define(['text!./searchResultBar.component.html', 'css!./searchResultBar.component.css', 'knockout',
-        'jquery', 'fuldaflatsApiClient', 'leaflet', 'css!/css/leaflet.css',
+        'jquery', 'fuldaflatsApiClient', 'leaflet',
         'css!../offerBarSlider/offerBarSlider.component.css'
     ],
-    function (componentTemplate, componentCss, ko, $, api, L, leafletCss, offerBarCss) {
+    function (componentTemplate, componentCss, ko, $, api, L, offerBarCss) {
 
         var resultMap;
         var locationMarkers = [];
@@ -27,7 +27,7 @@ define(['text!./searchResultBar.component.html', 'css!./searchResultBar.componen
             popupAnchor: [0, -43],
         });
 
-        function SearchResultModel() {
+        function SearchResultModel(componentTemplate, componentCss, ko, $, api, L, offerBarCss) {
             var self = this;
 
             var forceNullObservable = function () {
@@ -174,7 +174,7 @@ define(['text!./searchResultBar.component.html', 'css!./searchResultBar.componen
             viewModel: {
                 createViewModel: function (params, componentInfo) {
                     // componentInfo contains for example the root element from the component template
-                    var viewModel = new SearchResultModel(params);
+                    var viewModel = new SearchResultModel(componentTemplate, componentCss, ko, $, api, L, offerBarCss);
                     return viewModel;
                 }
             },
