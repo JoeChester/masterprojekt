@@ -22,6 +22,12 @@ define(['text!./contactModalDialog.component.html', 'css!./contactModalDialog.co
             self.email = ko.observable();
             self.leafletMapOptions = ko.observable();
 
+            function removeMap() {
+                if (leafletMap() && typeof leafletMap().remove === "function") {
+                    leafletMap().remove();
+                }
+            };
+
             function initializeMap(options) {
                 if (L && leafletMapElement() && leafletMapElement().length > 0
                     && options && options.view && options.view.coordinats && options.view.zoom) {
@@ -52,6 +58,10 @@ define(['text!./contactModalDialog.component.html', 'css!./contactModalDialog.co
                     dialogContainer(dialogContainerElement);
                     leafletMapElement(contactMapElement);
 
+                    $(dialogContainer).on('hidden.bs.modal', function () {
+                        removeMap();
+                    });
+
                     $(dialogContainer).on('shown.bs.modal', function () {
                         initializeMap(self.leafletMapOptions());
                     });
@@ -68,6 +78,7 @@ define(['text!./contactModalDialog.component.html', 'css!./contactModalDialog.co
                     self.phone(params.phone || "");
                     self.email(params.email || "");
                 }
+
             };
         }
 
