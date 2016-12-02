@@ -1,7 +1,9 @@
 /************************************************************
  * File:            main.css
- * Author:          Patrick
- * LastMod:         17.11.2016
+ * Author:          Patrick Hasenauer, Jonas Kleinkauf
+ * LastMod:         02.12.2016
+ * Description:     Main CSS File to be loaded, imports all
+                    dependency css files
 ************************************************************/
 
 @import url("http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,500,700,800");
