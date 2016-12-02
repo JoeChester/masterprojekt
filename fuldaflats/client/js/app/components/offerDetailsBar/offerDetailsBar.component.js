@@ -59,6 +59,12 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
                         url: '/api/offers/' + self.offerId(),
                         success: function (offerData, status, req) {
                             if(offerData){
+                                for(var i in offerData.mediaObjects){
+                                    offerData.mediaObjects[i].carouselIndex = i;
+                                    offerData.mediaObjects[i].carouselActive = false;
+                                }
+                                offerData.mediaObjects[0].carouselActive = true;
+                                console.log(offerData);
                                 self.offer(offerData);
                             }
                             console.log(status);
@@ -66,6 +72,7 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
                         }
                     });
                 }
+
                 if (params) {
                     if (params.currentUser && ko.isObservable(params.currentUser)) {
                         self.currentUser = params.currentUser;

@@ -124,3 +124,15 @@ var mos = require('../test_api/mediaObjects.json');
 for(i in mos){
     createMediaObject(mos[i]);
 }
+
+function createFavorite(fav){
+    schema.models.Favorite.create(fav, (err, _fav)=>{
+        if(err) console.log(err);
+        else console.log("Created Favorite " + _fav.id + "!");
+    });
+}
+
+var favs = require('../test_api/favorites.json');
+for(i in favs){
+    createFavorite(favs[i]);
+}
