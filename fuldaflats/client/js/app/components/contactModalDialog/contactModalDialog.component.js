@@ -2,37 +2,65 @@ define(['text!./contactModalDialog.component.html', 'css!./contactModalDialog.co
     function (componentTemplate, componentCss, ko, $, L) {
         function ContactInModel($, ko, L) {
             var self = this;
-            var contactMap = ko.observable();
             var dialogContainer = ko.observable();
 
-            function initMap() {
-                var iconHS = L.icon({
-                    iconUrl: '/img/hs_marker.png',
-                    iconSize: [40, 40],
-                    iconAnchor: [20, 40],
-                    popupAnchor: [0, -43],
-                });
+            var leafletMapElement = ko.observable();
+            var leafletMap = ko.observable();
+            self.organisationName = ko.observable();
+            self.street = ko.observable();
+            self.housenumber = ko.observable();
+            self.city = ko.observable();
+            self.zipCode = ko.observable();
+            self.country = ko.observable();
+            self.phone = ko.observable();
+            self.email = ko.observable();
+            self.leafletMapOptions = ko.observable();
 
-                contactMap(L.map('contactMap').setView([50.5647986, 9.6828528], 12));
+            function initializeMap(options) {
+                if (L && leafletMapElement() && leafletMapElement().length > 0
+                    && options && options.view && options.view.coordinats && options.view.zoom) {
+                    var map = L.map(leafletMapElement()[0]);
+                    map.setView(options.view.coordinats, options.view.zoom);
 
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
-                }).addTo(contactMap());
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: options.attribution,
+                    }).addTo(map);
 
-                var hs_latlng = ['50.5648258', '9.6842798'];
-                var popup = '<div class="marker-popup"><img src="/img/logo_hs.png" alt="" class="img-responsive"></div>'
-                L.marker(hs_latlng, { icon: iconHS }).addTo(contactMap()).bindPopup(popup);
+                    if (options.markers && options.markers.length > 0) {
+                        $.each(options.markers, function (index, marker) {
+                            if (marker.iconUrl && marker.iconSize && marker.iconAnchor
+                                && marker.popupAnchor && marker.coordinates && marker.popupMarkup) {
+                                var mapMarker = L.marker(marker.coordinates, { icon: L.icon(marker) })
+                                mapMarker.bindPopup(marker.popupMarkup);
+                                mapMarker.addTo(map);
+                            }
+                        });
+                    }
 
+                    leafletMap(map);
+                }
+            };
 
-            }
-
-            self.initialize = function (params, dialogContainerElement) {
+            self.initialize = function (params, dialogContainerElement, contactMapElement) {
                 if (dialogContainerElement) {
                     dialogContainer(dialogContainerElement);
+                    leafletMapElement(contactMapElement);
 
                     $(dialogContainer).on('shown.bs.modal', function () {
-                        initMap();
+                        initializeMap(self.leafletMapOptions());
                     });
+                }
+
+                if (params) {
+                    self.leafletMapOptions(params.leafletMapOptions || undefined);
+                    self.organisationName(params.organisationName || "");
+                    self.street(params.street || "");
+                    self.housenumber(params.housenumber || "");
+                    self.city(params.city || "");
+                    self.zipCode(params.zipCode || "");
+                    self.country(params.country || "");
+                    self.phone(params.phone || "");
+                    self.email(params.email || "");
                 }
             };
         }
@@ -46,9 +74,10 @@ define(['text!./contactModalDialog.component.html', 'css!./contactModalDialog.co
                     var templateRoot = $(componentInfo.element);
                     if (templateRoot.length > 0) {
                         var contactDialog = templateRoot.find("#contactModalDialog");
+                        var contactMap = contactDialog.find("#contactMap");
                         if (contactDialog.length > 0) {
                             var contact = new ContactInModel($, ko, L);
-                            contact.initialize(params, contactDialog);
+                            contact.initialize(params, contactDialog, contactMap);
                         }
                     }
 

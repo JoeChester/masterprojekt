@@ -12,7 +12,33 @@ define([
         self.logoUrl = "/img/logo.png";
         self.smallLogoUrl = "/img/smallLogo.png";
 
-        self.contactEmailAddress = "contact@fuldaflats.de";
+        self.contactData = {
+            organisationName: "FuldaFlats",
+            street: "Leipziger Str.",
+            housenumber: "123",
+            city: "Fulda",
+            zipCode: "36037",
+            country: "Germany",
+            phone: "0000 - 0000000",
+            email: "contact@fuldaflats.de",
+            leafletMapOptions: {
+                attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+                markers: [
+                    {
+                        iconUrl: '/img/hs_marker.png',
+                        iconSize: [40, 40],
+                        iconAnchor: [20, 40],
+                        popupAnchor: [0, -43],
+                        popupMarkup: '<div class="marker-popup"><img src="/img/logo_hs.png" alt="" class="img-responsive"></div>',
+                        coordinates: [50.5648258, 9.6842798]
+                    }
+                ],
+                view: {
+                    coordinats: [50.5688258, 9.6842798],
+                    zoom: 12
+                }
+            }
+        };
 
         self.demoWarningMessage = "SFSU/FAU/Fulda Software Engineering Project, Fall 2016. For Demonstration Only";
 
@@ -73,7 +99,8 @@ define([
             newOfferPageInfo: self.pages.newOffer,
             impressumPageInfo: self.pages.impressum,
             termsOfUsePageInfo: self.pages.termsOfUse,
-            currentUser: self.currentUser
+            currentUser: self.currentUser,
+            contactData: self.contactData
         }
 
         self.copyrightBar = {
