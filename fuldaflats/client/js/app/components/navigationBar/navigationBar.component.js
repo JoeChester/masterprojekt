@@ -4,7 +4,7 @@ define(['text!./navigationBar.component.html', 'css!./navigationBar.component.cs
     'app/components/signUpModalDialog/signUpModalDialog.component',
     'app/components/errorModalDialog/errorModalDialog.component',
     'app/components/contactModalDialog/contactModalDialog.component'],
-    function(componentTemplate, componentCss, ko, $, api, signInModalDialogComponent, signUpModalDialogComponent, errorModalDialogComponent, contactModalDialogComponent) {
+    function (componentTemplate, componentCss, ko, $, api, signInModalDialogComponent, signUpModalDialogComponent, errorModalDialogComponent, contactModalDialogComponent) {
         function NavigationModel($, ko, api) {
             var self = this;
 
@@ -34,13 +34,15 @@ define(['text!./navigationBar.component.html', 'css!./navigationBar.component.cs
                 currentUser: self.currentUser
             }
 
-            self.signOut = function() {
-                api.users.signOut().then(function(currentUser) {
+            self.contactDialogParamter = undefined;
+
+            self.signOut = function () {
+                api.users.signOut().then(function (currentUser) {
                     console.log("User signed out");
                 });
             };
 
-            self.initialize = function(params) {
+            self.initialize = function (params) {
                 if (params) {
                     self.domain(ko.unwrap(params.domain) || 'FuldaFlats.de');
                     self.logoUrl(ko.unwrap(params.logoUrl) || '');
@@ -66,13 +68,17 @@ define(['text!./navigationBar.component.html', 'css!./navigationBar.component.cs
                             termsOfUsePageInfo: self.termsOfUsePageInfo
                         }
                     }
+
+                    if (params.contactData) {
+                        self.contactDialogParamter = ko.unwrap(params.contactData);
+                    }
                 }
             };
         }
 
         return {
             viewModel: {
-                createViewModel: function(params, componentInfo) {
+                createViewModel: function (params, componentInfo) {
                     // componentInfo contains for example the root element from the component template
 
                     ko.components.register("sign-in", signInModalDialogComponent);
