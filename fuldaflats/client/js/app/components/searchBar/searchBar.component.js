@@ -94,7 +94,10 @@ define(['text!./searchBar.component.html', 'css!./searchBar.component.css', 'kno
                 });
             };
 
-            getQueryParameter();
+            //only get query parameter if on search results (temporary bugfix)
+            if(!isIndex){
+                getQueryParameter();
+            }
 
             if(isIndex){
                 searchCallback = function(){

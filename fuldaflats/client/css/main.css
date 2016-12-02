@@ -59,3 +59,13 @@ padding-right: 17px;
 .purpleblue-text{
   color: #6060ff;
 }
+
+.thumbnail-container{
+  height: 250px;
+  overflow: hidden;
+}
+
+.thumbnail-img{
+  height: 100%;
+  max-width: initial;
+}
