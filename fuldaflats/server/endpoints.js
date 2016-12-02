@@ -1,7 +1,7 @@
 /************************************************************
  * File:            endpoints.js
  * Author:          Jonas Kleinkauf
- * LastMod:         17.11.2016
+ * LastMod:         02.12.2016
  * Description:     Aggregator module for REST endpoints
 ************************************************************/
 
@@ -27,9 +27,6 @@ app.use(session({
 }));
 
 //Import Routers
-var Todos = require('./endpoints/todos');
-app.use('/api/todos', Todos);
-
 var Offers = require('./endpoints/offers');
 app.use('/api/offers', Offers);
 

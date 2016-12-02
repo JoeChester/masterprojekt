@@ -2,7 +2,7 @@
  * File:            offers.js
  * Author:          Jonas Kleinkauf, Plisam Ekpai-Laodema,
  *                  Franz Weidmann
- * LastMod:         28.11.2016
+ * LastMod:         02.12.2016
  * Description:     REST endpoints for offers
  ************************************************************/
 

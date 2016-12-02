@@ -1,7 +1,7 @@
 /************************************************************
  * File:            users.js
  * Author:          Jonas Kleinkauf
- * LastMod:         17.11.2016
+ * LastMod:         02.12.2016
  * Description:     REST endpoints for users and
  *                  authentication
  ************************************************************/

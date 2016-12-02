@@ -15,43 +15,43 @@ function createUser(user){
 
 console.log("Creating Demo Data for fuldaflats.de (a lot of errors in this script dont matter)...");
 
-var user1 = require('../test_api/users/1.json');
+var user1 = require('./data/users/1.json');
 user1.password = _hash.sha512(SALT + PASSWORD, 'base64');
 createUser(user1);
 
-var user2 = require('../test_api/users/2.json');
+var user2 = require('./data/users/2.json');
 user2.password = _hash.sha512(SALT + PASSWORD, 'base64');
 createUser(user2);
 
-var user3 = require('../test_api/users/3.json');
+var user3 = require('./data/users/3.json');
 user3.password = _hash.sha512(SALT + PASSWORD, 'base64');
 createUser(user3);
 
-var user4 = require('../test_api/users/4.json');
+var user4 = require('./data/users/4.json');
 user4.password = _hash.sha512(SALT + PASSWORD, 'base64');
 createUser(user4);
 
-var user5 = require('../test_api/users/5.json');
+var user5 = require('./data/users/5.json');
 user5.password = _hash.sha512(SALT + PASSWORD, 'base64');
 createUser(user5);
 
-var user6 = require('../test_api/users/6.json');
+var user6 = require('./data/users/6.json');
 user6.password = _hash.sha512(SALT + PASSWORD, 'base64');
 createUser(user6);
 
-var user7 = require('../test_api/users/7.json');
+var user7 = require('./data/users/7.json');
 user7.password = _hash.sha512(SALT + PASSWORD, 'base64');
 createUser(user7);
 
-var user8 = require('../test_api/users/8.json');
+var user8 = require('./data/users/8.json');
 user8.password = _hash.sha512(SALT + PASSWORD, 'base64');
 createUser(user8);
 
-var user9 = require('../test_api/users/9.json');
+var user9 = require('./data/users/9.json');
 user9.password = _hash.sha512(SALT + PASSWORD, 'base64');
 createUser(user9);
 
-var user10 = require('../test_api/users/10.json');
+var user10 = require('./data/users/10.json');
 user10.password = _hash.sha512(SALT + PASSWORD, 'base64');
 createUser(user10);
 
@@ -63,40 +63,40 @@ function createOffer(offer){
     });
 }
 
-var offer1 = require('../test_api/offers/1.json');
+var offer1 = require('./data/offers/1.json');
 createOffer(offer1);
 
-var offer2 = require('../test_api/offers/2.json');
+var offer2 = require('./data/offers/2.json');
 createOffer(offer2);
 
-var offer3 = require('../test_api/offers/3.json');
+var offer3 = require('./data/offers/3.json');
 createOffer(offer3);
 
-var offer4 = require('../test_api/offers/4.json');
+var offer4 = require('./data/offers/4.json');
 createOffer(offer4);
 
-var offer5 = require('../test_api/offers/5.json');
+var offer5 = require('./data/offers/5.json');
 createOffer(offer5);
 
-var offer6 = require('../test_api/offers/6.json');
+var offer6 = require('./data/offers/6.json');
 createOffer(offer6);
 
-var offer7 = require('../test_api/offers/7.json');
+var offer7 = require('./data/offers/7.json');
 createOffer(offer7);
 
-var offer8 = require('../test_api/offers/8.json');
+var offer8 = require('./data/offers/8.json');
 createOffer(offer8);
 
-var offer9 = require('../test_api/offers/9.json');
+var offer9 = require('./data/offers/9.json');
 createOffer(offer9);
 
-var offer10 = require('../test_api/offers/10.json');
+var offer10 = require('./data/offers/10.json');
 createOffer(offer10);
 
-var offer11 = require('../test_api/offers/11.json');
+var offer11 = require('./data/offers/11.json');
 createOffer(offer11);
 
-var offer12 = require('../test_api/offers/12.json');
+var offer12 = require('./data/offers/12.json');
 createOffer(offer12);
 
 // Create Demo Tags
@@ -107,7 +107,7 @@ function createTag(tag){
     });
 }
 
-var tags = require('../test_api/tags.json');
+var tags = require('./data/tags.json');
 for(i in tags){
     createTag(tags[i]);
 }
@@ -120,7 +120,7 @@ function createMediaObject(mo){
     });
 }
 
-var mos = require('../test_api/mediaObjects.json');
+var mos = require('./data/mediaObjects.json');
 for(i in mos){
     createMediaObject(mos[i]);
 }
@@ -132,7 +132,7 @@ function createFavorite(fav){
     });
 }
 
-var favs = require('../test_api/favorites.json');
+var favs = require('./data/favorites.json');
 for(i in favs){
     createFavorite(favs[i]);
 }

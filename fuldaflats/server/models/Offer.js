@@ -1,7 +1,7 @@
 /************************************************************
  * File:            Offer.js
  * Author:          Jonas Kleinkauf, Franz Weidmann, Plisam Ekpai-Laodema
- * LastMod:         19.11.2016
+ * LastMod:         02.12.2016
  * Description:     Database module for offers
  ************************************************************/
 
