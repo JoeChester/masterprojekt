@@ -148,6 +148,7 @@ module.exports = function (schema) {
         _offer.reviews = this._reviews;
         _offer.mediaObjects = this._mediaObjects;
         _offer.thumbnailUrl = "/uploads/dummy.png";
+        _offer.mediaObjects = [{thumbnailUrl : "/uploads/dummy.png", mainUrl: "/uploads/dummy.png", type: 0}];
         return _offer;
     };
 
@@ -193,8 +194,7 @@ module.exports = function (schema) {
         _offer.uniDistance = this.uniDistance;
         _offer.landlord = this.landlord;
         _offer.thumbnailUrl = "/uploads/dummy.png";
-        _offer.reviews = this._reviews;
-        _offer.mediaObjects = this._mediaObjects;
+        _offer.mediaObjects = [{thumbnailUrl : "/uploads/dummy.png", mainUrl: "/uploads/dummy.png", type: 0}];
         return _offer;
     };
 
@@ -213,6 +213,8 @@ module.exports = function (schema) {
         _offer.longitude = this.longitude;
         _offer.latitude = this.latitude;
         _offer.thumbnailUrl = "/uploads/dummy.png";
+        //Add Dummy Picture Media Object
+        _offer.mediaObjects = [{thumbnailUrl : "/uploads/dummy.png", mainUrl: "/uploads/dummy.png", type: 0}];
         return _offer;
     };
 

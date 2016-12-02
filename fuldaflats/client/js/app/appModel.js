@@ -10,7 +10,7 @@ define([
         self.domain = "FuldaFlats.de"
         self.CreationDate = 2016;
         self.logoUrl = "/img/logo.png";
-        self.smallLogoUrl = "/img/smallLogo.png";
+        self.smallLogoUrl = "/img/logo-small.png";
 
         self.contactData = {
             organisationName: "FuldaFlats",

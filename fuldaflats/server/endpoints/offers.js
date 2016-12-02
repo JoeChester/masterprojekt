@@ -156,8 +156,8 @@ router.get('/search', function (req, res) {
                     if (err)
                         return cb(err);
                     //Set additional Property    
-                    _offer.mediaObjects = mediaObjects;
                     if (mediaObjects[0]) {
+                        _offer.mediaObjects = mediaObjects;
                         _offer.thumbnailUrl = mediaObjects[0].thumbnailUrl;
                     }
                     offer.tags((err, tags) => {
@@ -239,8 +239,8 @@ router.get('/recent', function (req, res) {
                     if (err)
                         return cb(err);
                     //Set additional Property    
-                    _offer.mediaObjects = mediaObjects;
                     if (mediaObjects[0]) {
+                        _offer.mediaObjects = mediaObjects;
                         _offer.thumbnailUrl = mediaObjects[0].thumbnailUrl;
                     }
                     //Callback to Async Parent
@@ -274,8 +274,8 @@ router.get('/:offerId', function (req, res) {
         let _offer = offer.toJSON_FULL(req.session.auth);
         offer.mediaObjects((err, mediaObjects) => {
             if (!err) {
-                _offer.mediaObjects = mediaObjects;
                 if (mediaObjects[0]) {
+                    _offer.mediaObjects = mediaObjects;
                     _offer.thumbnailUrl = mediaObjects[0].thumbnailUrl;
                 }
             }
