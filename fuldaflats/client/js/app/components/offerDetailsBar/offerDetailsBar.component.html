@@ -4,394 +4,367 @@
 <section style="min-height:700px; margin-top: 2rem">
     <div class="container">
         <div class="row">
-            <div class="col-sm-1"></div>
-            <div class="col-sm-10">
-                <h3 data-bind="text: offer().title"></h3>
+            <h3 data-bind="text: offer().title"></h3>
+        </div>
+        <div class="row">
+            <div id="mediaObjectsCarousel" class="carousel slide col-md-12" data-ride="carousel">
+                <ol class="carousel-indicators" data-bind="foreach: { data: offer().mediaObjects, as: 'mediaObject'}">
+                    <li data-target="#mediaObjectsCarousel" data-bind="attr:{'data-slide-to': mediaObject.carouselIndex}, css: { active: mediaObject.carouselActive }"></li>
+                </ol>
+            
 
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="image">
-                            <img src="../img/Offer-Big-Image.jpg" alt="" class="img-responsive">
-                        </div>
-                    </div>
-                </div><br>
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="thumbnail">
-                            <a href="../img/bathroom.jpg">
-                                <img src="../img/bathroom.jpg" alt="Lights" style="width:100%">
-                                <div class="caption">
-                                    <p>Bathroom</p>
-                                </div>
+                <div class="carousel-inner" role="listbox" data-bind="foreach: { data: offer().mediaObjects, as: 'mediaObject'}">
+                    <div class="item" data-bind="css: { active: mediaObject.carouselActive }">
+                        <div class="mediaObject-container">
+                            <a data-bind="attr:{href: mediaObject.mainUrl}" target="_blank">
+                                <img data-bind="attr: {src: mediaObject.mainUrl}" class="mediaObject-img">
                             </a>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="thumbnail">
-                            <a href="../img/kitchen.jpg">
-                                <img src="../img/kitchen.jpg" alt="Lights" style="width:100%">
-                                <div class="caption">
-                                    <p>Kitchen</p>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="thumbnail">
-                            <a data-bind="attr: {href: mediaObjects().mainUrl}">
-                                <img data-bind="attr: {src: mediaObjects().mainUrl}" alt="Lights" style="width:100%">
-                                <div class="caption">
-                                    <p>Bedroom</p>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="thumbnail">
-                            <a href="../img/cellar.jpg">
-                                <img src="../img/cellar.jpg" alt="Lights" style="width:100%">
-                                <div class="caption">
-                                    <p>Cellar</p>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div><br><br>
-
-                <div class="row" style="background-color: #ddd">
-                    <div class="col-sm-12"><br>
-                        <div class="col-sm-4">
-                            <label class="control-label col-sm-6">Offer Type:</label>
-                            <label class="control-label col-sm-6" data-bind="text: offer().offerType"></label>
-                        </div>
-                        <div class="col-sm-4"></div>
-                        <div class="col-sm-4">
-                            <label class="control-label col-sm-6">Rental(w):</label>
-                            <label class="control-label col-sm-6" data-bind="text: offer().rent"></label>
-                        </div><br>
-                    </div><br>
                 </div>
-                <div class="row" style="background-color: #ddd">
-                    <div class="col-sm-12">
-                        <div class="col-sm-4">
-                            <label class="control-label col-sm-6">Size:</label>
-                            <label class="control-label col-sm-6" data-bind="text: offer().size"></label>
-                        </div>
-                        <div class="col-sm-4"></div>
-                        <div class="col-sm-4">
-                            <label class="control-label col-sm-6">Addition:</label>
-                            <label class="control-label col-sm-6" data-bind="text: offer().sideCosts"></label>
-                        </div>
-                    </div><br>
-                </div>
-                <div class="row" style="background-color: #ddd">
-                    <div class="col-sm-12">
-                        <div class="col-sm-4">
-                            <label class="control-label col-sm-6">Rooms:</label>
-                            <label class="control-label col-sm-6" data-bind="text: offer().rooms"></label>
-                        </div>
-                        <div class="col-sm-4"></div>
-                        <div class="col-sm-4">
-                            <label class="control-label col-sm-6">Rental:</label>
-                            <label class="control-label col-sm-6" data-bind="text: offer().rent"></label>
-                        </div>
-                    </div><br><br>
-                </div><br>
-                <!-- ko if: currentUser().isAuthenticated -->
-                <div>
-                    <div class="row" style="background-color: #ddd">
-                        <div class="col-sm-12">
-                            <div class="col-sm-4"><br>
-                                <label class="control-label col-sm-6">Landlord:</label>
-                                <label class="control-label col-sm-6"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" style="background-color: #ddd">
-                        <div class="col-sm-12">
-                            <div class="col-sm-4">
-                                <img src="../img/person-3.png" class="img-responsive col-sm-6" alt="Profilepicture">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" style="background-color: #ddd">
-                        <div class="col-sm-12">
-                            <div class="col-sm-4">
-                                <div class="col-sm-8">
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" style="background-color: #ddd">
-                        <div class="col-sm-12">
-                            <div class="col-sm-6">
-                                <label class="control-label col-sm-4">Name:</label>
-                                <label class="control-label col-sm-8" data-bind="text: user().lastName"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" style="background-color: #ddd">
-                        <div class="col-sm-12">
-                            <div class="col-sm-6">
-                                <label class="control-label col-sm-4">Phone:</label>
-                                <label class="control-label col-sm-8" data-bind="text: user().phoneNumber"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" style="background-color: #ddd">
-                        <div class="col-sm-12">
-                            <div class="col-sm-6">
-                                <label class="control-label col-sm-4">E-Mail:</label>
-                                <label class="control-label col-sm-8" data-bind="text: user().email"></label>
-                            </div>
 
-                        </div>
+                <!-- Controls -->
+                <a class="left carousel-control" href="#mediaObjectsCarousel" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left blue-text" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#mediaObjectsCarousel" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right blue-text" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+        <div class="row" style="background-color: #ddd">
+            <div class="col-sm-12"><br>
+                <div class="col-sm-4">
+                    <label class="control-label col-sm-6">Offer Type:</label>
+                    <label class="control-label col-sm-6" data-bind="text: offer().offerType"></label>
+                </div>
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                    <label class="control-label col-sm-6">Rental(w):</label>
+                    <label class="control-label col-sm-6" data-bind="text: offer().rent"></label>
+                </div><br>
+            </div><br>
+        </div>
+        <div class="row" style="background-color: #ddd">
+            <div class="col-sm-12">
+                <div class="col-sm-4">
+                    <label class="control-label col-sm-6">Size:</label>
+                    <label class="control-label col-sm-6" data-bind="text: offer().size"></label>
+                </div>
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                    <label class="control-label col-sm-6">Addition:</label>
+                    <label class="control-label col-sm-6" data-bind="text: offer().sideCosts"></label>
+                </div>
+            </div><br>
+        </div>
+        <div class="row" style="background-color: #ddd">
+            <div class="col-sm-12">
+                <div class="col-sm-4">
+                    <label class="control-label col-sm-6">Rooms:</label>
+                    <label class="control-label col-sm-6" data-bind="text: offer().rooms"></label>
+                </div>
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                    <label class="control-label col-sm-6">Rental:</label>
+                    <label class="control-label col-sm-6" data-bind="text: offer().rent"></label>
+                </div>
+            </div><br><br>
+        </div><br>
+        <!-- ko if: currentUser().isAuthenticated -->
+        <div>
+            <div class="row" style="background-color: #ddd">
+                <div class="col-sm-12">
+                    <div class="col-sm-4"><br>
+                        <label class="control-label col-sm-6">Landlord:</label>
+                        <label class="control-label col-sm-6"></label>
                     </div>
-                    <div class="row" style="background-color: #ddd">
-                        <div class="col-sm-12">
-                            <div class="col-sm-6">
-                                <label class="control-label col-sm-4">Office:</label>
-                                <label class="control-label col-sm-8" data-bind="text: user().officeAddress"></label><br><br>
-                            </div>
-                        </div><br>
+                </div>
+            </div>
+            <div class="row" style="background-color: #ddd">
+                <div class="col-sm-12">
+                    <div class="col-sm-4">
+                        <img src="../img/person-3.png" class="img-responsive col-sm-6" alt="Profilepicture">
                     </div>
-                    <br>
-                    <div class="row" style="background-color: #ddd">
-                        <div class="col-sm-4">
-                            <div class="row" style="background-color: #ddd">
-                                <div class="col-sm-12"><br>
-                                    <div class="col-sm-12">
-                                        <label class="control-label col-sm-6">Street:</label>
-                                        <label class="control-label col-sm-6" data-bind="text: offer().street"></label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row" style="background-color: #ddd">
-                                <div class="col-sm-12">
-                                    <div class="col-sm-12">
-                                        <label class="control-label col-sm-6">Nr.:</label>
-                                        <label class="control-label col-sm-6" data-bind="text: offer().houseNumber"></label>
-                                    </div>
-                                </div><br>
-                            </div>
-                            <div class="row" style="background-color: #ddd">
-                                <div class="col-sm-12">
-                                    <div class="col-sm-12">
-                                        <label class="control-label col-sm-6">Floor:</label>
-                                        <label class="control-label col-sm-6" data-bind="text: offer().floor"></label>
-                                    </div>
-                                </div><br>
-                            </div>
-                            <div class="row" style="background-color: #ddd">
-                                <div class="col-sm-12">
-                                    <div class="col-sm-12">
-                                        <label class="control-label col-sm-6">Post Code:</label>
-                                        <label class="control-label col-sm-6" data-bind="text: offer().zipCode"></label>
-                                    </div>
-                                </div><br>
-                            </div>
-                            <div class="row" style="background-color: #ddd">
-                                <div class="col-sm-12">
-                                    <div class="col-sm-12">
-                                        <label class="control-label col-sm-6">City:</label>
-                                        <label class="control-label col-sm-6" data-bind="text: offer().city"></label>
-                                    </div>
-                                </div>
-                            </div><br>
-                        </div>
+                </div>
+            </div>
+            <div class="row" style="background-color: #ddd">
+                <div class="col-sm-12">
+                    <div class="col-sm-4">
                         <div class="col-sm-8">
-                            <div class="col-sm-12"><br>
-                                <img src="../img/map.jpg" class="img-responsive" alt="Map"><br>
-                            </div>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
                         </div>
-                    </div><br>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="background-color: #ddd">
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <label class="control-label col-sm-4">Name:</label>
+                        <label class="control-label col-sm-8" data-bind="text: user().lastName"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="background-color: #ddd">
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <label class="control-label col-sm-4">Phone:</label>
+                        <label class="control-label col-sm-8" data-bind="text: user().phoneNumber"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="background-color: #ddd">
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <label class="control-label col-sm-4">E-Mail:</label>
+                        <label class="control-label col-sm-8" data-bind="text: user().email"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="background-color: #ddd">
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <label class="control-label col-sm-4">Office:</label>
+                        <label class="control-label col-sm-8" data-bind="text: user().officeAddress"></label><br><br>
+                    </div>
+                </div><br>
+            </div>
+            <br>
+            <div class="row" style="background-color: #ddd">
+                <div class="col-sm-4">
                     <div class="row" style="background-color: #ddd">
                         <div class="col-sm-12"><br>
-                            <div class="col-sm-4">
-                                <label class="control-label col-sm-6">Description:</label>
+                            <div class="col-sm-12">
+                                <label class="control-label col-sm-6">Street:</label>
+                                <label class="control-label col-sm-6" data-bind="text: offer().street"></label>
                             </div>
                         </div>
                     </div>
                     <div class="row" style="background-color: #ddd">
                         <div class="col-sm-12">
                             <div class="col-sm-12">
-                                <label class="control-label col-sm-12" data-bind="text: offer().description"></label><br>
+                                <label class="control-label col-sm-6">Nr.:</label>
+                                <label class="control-label col-sm-6" data-bind="text: offer().houseNumber"></label>
                             </div>
                         </div><br>
+                    </div>
+                    <div class="row" style="background-color: #ddd">
+                        <div class="col-sm-12">
+                            <div class="col-sm-12">
+                                <label class="control-label col-sm-6">Floor:</label>
+                                <label class="control-label col-sm-6" data-bind="text: offer().floor"></label>
+                            </div>
+                        </div><br>
+                    </div>
+                    <div class="row" style="background-color: #ddd">
+                        <div class="col-sm-12">
+                            <div class="col-sm-12">
+                                <label class="control-label col-sm-6">Post Code:</label>
+                                <label class="control-label col-sm-6" data-bind="text: offer().zipCode"></label>
+                            </div>
+                        </div><br>
+                    </div>
+                    <div class="row" style="background-color: #ddd">
+                        <div class="col-sm-12">
+                            <div class="col-sm-12">
+                                <label class="control-label col-sm-6">City:</label>
+                                <label class="control-label col-sm-6" data-bind="text: offer().city"></label>
+                            </div>
+                        </div>
                     </div><br>
-                    <div class="row" style="background-color: #ddd">
-                        <div class="col-sm-12"><br>
-                            <div class="col-sm-4">
-                                <label class="control-label col-sm-6">Bathroom:</label>
-                                <label class="control-label col-sm-6" data-bind="text: offer().bathroomDescription"></label>
-                            </div>
-                            <div class="col-sm-4"></div>
-                            <div class="col-sm-4">
-                                <label class="control-label col-sm-6">Heating:</label>
-                                <label class="control-label col-sm-6" data-bind="text: offer().heatingDescription"></label>
-                            </div><br>
-                        </div><br>
-                    </div>
-                    <div class="row" style="background-color: #ddd">
-                        <div class="col-sm-12">
-                            <div class="col-sm-4">
-                                <label class="control-label col-sm-6">Kitchen:</label>
-                                <label class="control-label col-sm-6" data-bind="text: offer().kitchenDescription"></label>
-                            </div>
-                            <div class="col-sm-4"></div>
-                            <div class="col-sm-4">
-                                <label class="control-label col-sm-6">Washer:</label>
-                                <label class="control-label col-sm-6" data-bind="if: offer().washingMachine">Yes</label>
-                            </div>
-                        </div><br>
-                    </div>
-                    <div class="row" style="background-color: #ddd">
-                        <div class="col-sm-12">
-                            <div class="col-sm-4">
-                                <label class="control-label col-sm-6">Cellar:</label>
-                                <label class="control-label col-sm-6" data-bind="if: offer().cellar">Yes</label>
-                            </div>
-                            <div class="col-sm-4"></div>
-                            <div class="col-sm-4">
-                                <label class="control-label col-sm-6">Dryer:</label>
-                                <label class="control-label col-sm-6" data-bind="if: offer().dryer">Yes</label>
-                            </div>
-                        </div><br>
-                    </div>
-                    <div class="row" style="background-color: #ddd">
-                        <div class="col-sm-12">
-                            <div class="col-sm-4">
-                                <label class="control-label col-sm-6">Parking:</label>
-                                <label class="control-label col-sm-6" data-bind="if: offer().parking">Yes</label>
-                            </div>
-                            <div class="col-sm-4"></div>
-                            <div class="col-sm-4">
-                                <label class="control-label col-sm-6">TV:</label>
-                                <label class="control-label col-sm-6" data-bind="if: offer().telephone">Yes</label>
-                            </div>
-                        </div><br>
-                    </div>
-                    <div class="row" style="background-color: #ddd">
-                        <div class="col-sm-12">
-                            <div class="col-sm-4">
-                                <label class="control-label col-sm-6">Elevator:</label>
-                                <label class="control-label col-sm-6" data-bind="if: offer().elevator">Yes</label>
-                            </div>
-                            <div class="col-sm-4"></div>
-                            <div class="col-sm-4">
-                                <label class="control-label col-sm-6">Phone:</label>
-                                <label class="control-label col-sm-6" data-bind="if: offer().telephone">Yes</label>
-                            </div>
-                        </div><br>
-                    </div>
-                    <div class="row" style="background-color: #ddd">
-                        <div class="col-sm-12">
-                            <div class="col-sm-4">
-                                <label class="control-label col-sm-6"></label>
-                                <label class="control-label col-sm-6"></label>
-                            </div>
-                            <div class="col-sm-4"></div>
-                            <div class="col-sm-4">
-                                <label class="control-label col-sm-6">Internet:</label>
-                                <label class="control-label col-sm-6">Yes</label>
-                            </div>
-                        </div><br><br>
-                    </div><br>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="col-sm-8">
-                                <label class="control-label col-sm-6"><h4>Customer Reviews</h4></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="col-sm-8">
-                                <span class="">&nbsp;&nbsp;&nbsp;</span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="col-sm-8">
-                                <label class="control-label col-sm-6">Very nice Apartement</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="col-sm-8">
-                                <label class="control-label col-sm-6"><small>By Paula on February 3, 2014</small></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="col-sm-10">
-                                <label class="control-label col-sm-12" data-bind="foreach:{ data: offer().reviews, as: 'review'}">
-                                <label data-bind="text: review.description"></label>
-                                </label>
-                            </div>
-                            <div class="col-sm-2">
-                                <img src="../img/person-3.png" class="img-responsive" alt="Profilepicture">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="col-sm-4"></div>
-                            <button type="button" class="btn btn-primary col-sm-4">Write A Customer Review</button>
-                            <div class="col-sm-4"></div>
-                        </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="col-sm-12"><br>
+                        <img src="../img/map.jpg" class="img-responsive" alt="Map"><br>
                     </div>
                 </div>
-                <!-- /ko -->
-                <!-- ko ifnot: currentUser().isAuthenticated -->
-                <div>
-                    <div class="row" style="background-color: #ddd">
-                        <div class="col-sm-12"><br><br><br><br>
-                            <div class="col-sm-4"></div>
-                            <div class="col-sm-4">
-                                <label class="control-label col-sm-12">To See All Details ...</label>
-                            </div>
-                            <div class="col-sm-4"></div>
-
-                        </div><br>
-                    </div>
-                    <div class="row" style="background-color: #ddd">
-                        <div class="col-sm-12">
-                            <div class="col-sm-4"></div>
-                            <div class="col-sm-4">
-                                <!-- ko ifnot: currentUser().isAuthenticated -->
-                                <a type="button" href="javascript: void(0)" data-toggle="modal" data-target="#signUpModalDialog" class="col-sm-offset-1 btn btn-template-main">Sign Up</a>
-                                <a type="button" href="javascript: void(0)" data-toggle="modal" data-target="#signInModalDialog" class="col-sm-offset-1 btn btn-template-main">Sign In</a>
-                                <!-- /ko -->
-                            </div>
-                            <div class="col-sm-4"></div>
-                            <br><br><br><br><br>
-                        </div><br>
+            </div><br>
+            <div class="row" style="background-color: #ddd">
+                <div class="col-sm-12"><br>
+                    <div class="col-sm-4">
+                        <label class="control-label col-sm-6">Description:</label>
                     </div>
                 </div>
-                <!-- /ko -->
             </div>
-            <div class="col-sm-1"></div>
+            <div class="row" style="background-color: #ddd">
+                <div class="col-sm-12">
+                    <div class="col-sm-12">
+                        <label class="control-label col-sm-12" data-bind="text: offer().description"></label><br>
+                    </div>
+                </div><br>
+            </div><br>
+            <div class="row" style="background-color: #ddd">
+                <div class="col-sm-12"><br>
+                    <div class="col-sm-4">
+                        <label class="control-label col-sm-6">Bathroom:</label>
+                        <label class="control-label col-sm-6" data-bind="text: offer().bathroomDescription"></label>
+                    </div>
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4">
+                        <label class="control-label col-sm-6">Heating:</label>
+                        <label class="control-label col-sm-6" data-bind="text: offer().heatingDescription"></label>
+                    </div><br>
+                </div><br>
+            </div>
+            <div class="row" style="background-color: #ddd">
+                <div class="col-sm-12">
+                    <div class="col-sm-4">
+                        <label class="control-label col-sm-6">Kitchen:</label>
+                        <label class="control-label col-sm-6" data-bind="text: offer().kitchenDescription"></label>
+                    </div>
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4">
+                        <label class="control-label col-sm-6">Washer:</label>
+                        <label class="control-label col-sm-6" data-bind="if: offer().washingMachine">Yes</label>
+                    </div>
+                </div><br>
+            </div>
+            <div class="row" style="background-color: #ddd">
+                <div class="col-sm-12">
+                    <div class="col-sm-4">
+                        <label class="control-label col-sm-6">Cellar:</label>
+                        <label class="control-label col-sm-6" data-bind="if: offer().cellar">Yes</label>
+                    </div>
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4">
+                        <label class="control-label col-sm-6">Dryer:</label>
+                        <label class="control-label col-sm-6" data-bind="if: offer().dryer">Yes</label>
+                    </div>
+                </div><br>
+            </div>
+            <div class="row" style="background-color: #ddd">
+                <div class="col-sm-12">
+                    <div class="col-sm-4">
+                        <label class="control-label col-sm-6">Parking:</label>
+                        <label class="control-label col-sm-6" data-bind="if: offer().parking">Yes</label>
+                    </div>
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4">
+                        <label class="control-label col-sm-6">TV:</label>
+                        <label class="control-label col-sm-6" data-bind="if: offer().telephone">Yes</label>
+                    </div>
+                </div><br>
+            </div>
+            <div class="row" style="background-color: #ddd">
+                <div class="col-sm-12">
+                    <div class="col-sm-4">
+                        <label class="control-label col-sm-6">Elevator:</label>
+                        <label class="control-label col-sm-6" data-bind="if: offer().elevator">Yes</label>
+                    </div>
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4">
+                        <label class="control-label col-sm-6">Phone:</label>
+                        <label class="control-label col-sm-6" data-bind="if: offer().telephone">Yes</label>
+                    </div>
+                </div><br>
+            </div>
+            <div class="row" style="background-color: #ddd">
+                <div class="col-sm-12">
+                    <div class="col-sm-4">
+                        <label class="control-label col-sm-6"></label>
+                        <label class="control-label col-sm-6"></label>
+                    </div>
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4">
+                        <label class="control-label col-sm-6">Internet:</label>
+                        <label class="control-label col-sm-6">Yes</label>
+                    </div>
+                </div><br><br>
+            </div><br>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col-sm-8">
+                        <label class="control-label col-sm-6"><h4>Customer Reviews</h4></label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col-sm-8">
+                        <span class="">&nbsp;&nbsp;&nbsp;</span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col-sm-8">
+                        <label class="control-label col-sm-6">Very nice Apartement</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col-sm-8">
+                        <label class="control-label col-sm-6"><small>By Paula on February 3, 2014</small></label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col-sm-10">
+                        <label class="control-label col-sm-12" data-bind="foreach:{ data: offer().reviews, as: 'review'}">
+                                <label data-bind="text: review.description"></label>
+                        </label>
+                    </div>
+                    <div class="col-sm-2">
+                        <img src="../img/person-3.png" class="img-responsive" alt="Profilepicture">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col-sm-4"></div>
+                    <button type="button" class="btn btn-primary col-sm-4">Write A Customer Review</button>
+                    <div class="col-sm-4"></div>
+                </div>
+            </div>
         </div>
+        <!-- /ko -->
+        <!-- ko ifnot: currentUser().isAuthenticated -->
+        <div>
+            <div class="row" style="background-color: #ddd">
+                <div class="col-sm-12"><br><br><br><br>
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4">
+                        <label class="control-label col-sm-12">To See All Details ...</label>
+                    </div>
+                    <div class="col-sm-4"></div>
+                </div><br>
+            </div>
+            <div class="row" style="background-color: #ddd">
+                <div class="col-sm-12">
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4">
+                        <!-- ko ifnot: currentUser().isAuthenticated -->
+                        <a type="button" href="javascript: void(0)" data-toggle="modal" data-target="#signUpModalDialog" class="col-sm-offset-1 btn btn-template-main">Sign Up</a>
+                        <a type="button" href="javascript: void(0)" data-toggle="modal" data-target="#signInModalDialog" class="col-sm-offset-1 btn btn-template-main">Sign In</a>
+                        <!-- /ko -->
+                    </div>
+                    <div class="col-sm-4"></div>
+                    <br><br><br><br><br>
+                </div><br>
+            </div>
+        </div>
+        <!-- /ko -->
+    </div>
+    <div class="col-sm-1"></div>
+    </div>
     </div>
     <!-- /container -->
 </section>
 <!-- /ko -->
 <!-- END OFFER DETAILS  -->
-
 <!--<section style="min-height:700px; margin-top: 2rem">
     <div class="container">
         <div class="row">

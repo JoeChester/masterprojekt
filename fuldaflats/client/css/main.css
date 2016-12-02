@@ -60,6 +60,10 @@ padding-right: 17px;
   color: #6060ff;
 }
 
+.blue-text{
+  color: #467fbf;
+}
+
 .thumbnail-container{
   height: 250px;
   overflow: hidden;
