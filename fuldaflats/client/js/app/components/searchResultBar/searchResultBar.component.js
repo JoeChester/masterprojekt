@@ -129,7 +129,7 @@ define(['text!./searchResultBar.component.html', 'css!./searchResultBar.componen
                     var iconPopup = iconBlue;
                     var picture = '<div class="box-image-text">' +
                         '<div class="top">' +
-                        '<div class="image">' +
+                        '<div class="image thumbnail-container">' +
                         '<img src="' + offers[i].thumbnailUrl + '" alt="" class="img-responsive thumbnail-img">' +
                         '</div>' +
                         '<div class="bg"></div>' +

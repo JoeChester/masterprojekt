@@ -148,7 +148,6 @@ module.exports = function (schema) {
         _offer.reviews = this._reviews;
         _offer.mediaObjects = this._mediaObjects;
         _offer.thumbnailUrl = "/uploads/dummy.png";
-        _offer.mediaObjects = [{thumbnailUrl : "/uploads/dummy.png", mainUrl: "/uploads/dummy.png", type: 0}];
         return _offer;
     };
 

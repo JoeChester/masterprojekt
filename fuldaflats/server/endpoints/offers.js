@@ -34,16 +34,15 @@ router.post('/', function (req, res) {
     if (!req.session.auth) {
         res.sendStatus(403);
     } else {
-        schema.models.Offer.create(
-            req.body,
-            function (err, offer) {
-                if (err != null) {
+        let offer = new schema.models.Offer();
+        offer.landlord = req.session.user.id;
+        offer.save((err, _offer) =>{
+            if (err != null) {
                     res.json(err);
                 } else {
-                    console.log(offer);
-                    res.json(offer);
+                    res.json(_offer);
                 }
-            });
+        });
     }
 });
 
