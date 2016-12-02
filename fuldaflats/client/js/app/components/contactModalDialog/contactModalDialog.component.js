@@ -1,6 +1,6 @@
-define(['text!./contactModalDialog.component.html', 'css!./contactModalDialog.component.css', 'knockout', 'jquery'],
-    function (componentTemplate, componentCss, ko, $) {
-        function ContactInModel($, ko, api) {
+define(['text!./contactModalDialog.component.html', 'css!./contactModalDialog.component.css', 'knockout', 'jquery', 'leaflet'],
+    function (componentTemplate, componentCss, ko, $, L) {
+        function ContactInModel($, ko, L) {
             var self = this;
             var contactMap = ko.observable();
             var dialogContainer = ko.observable();
@@ -47,7 +47,7 @@ define(['text!./contactModalDialog.component.html', 'css!./contactModalDialog.co
                     if (templateRoot.length > 0) {
                         var contactDialog = templateRoot.find("#contactModalDialog");
                         if (contactDialog.length > 0) {
-                            var contact = new ContactInModel($, ko);
+                            var contact = new ContactInModel($, ko, L);
                             contact.initialize(params, contactDialog);
                         }
                     }

@@ -19,9 +19,10 @@ var errorCallback = function(errors) {
 
 requirejs.config({
     baseUrl: location.pathname.indexOf("/pages/") === 0 ? '/../js' : "/js",
-    map: {
-    },
     shim: {
+        leaflet: {
+            exports: 'L'
+        },
         'bootstrap': { 'deps': ['jquery'] },
         'jqueryCookie': { 'deps': ['jquery'] },
         'waypoints': { 'deps': ['jquery'] },
@@ -68,7 +69,7 @@ window.onerror = function(messageOrEvent, source, lineno, colno, error) {
 requirejs(['app/appModel',
     'jquery', 'bootstrap', 'knockout', 'jqueryCookie', 'waypoints', 'jqueryConterup', 'leaflet',
     'jqueryParallax', /* 'front', */ 'bootstrapSwitch', 'owlCarousel', 'knockoutOwlCarousel', 'jqcloud', 'fuldaflatsApiClient',
-    'leaflet', 'moment', 'knockoutDate'
+    'moment', 'knockoutDate'
 ], function(app, $) {
     var event = new CustomEvent('scripts-loaded');
     document.dispatchEvent(event);
