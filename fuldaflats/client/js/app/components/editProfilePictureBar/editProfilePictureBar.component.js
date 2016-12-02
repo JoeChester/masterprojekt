@@ -1,3 +1,9 @@
+/************************************************************
+ * File:            editProfilePictureBar.component.js
+ * Author:          Patrick Hasenauer
+ * LastMod:         02.12.2016
+ * Description:     JS Component Handler for edit profile picture bar.
+ ************************************************************/
 define(['text!./editProfilePictureBar.component.html', 'css!./editProfilePictureBar.component.css', 'knockout', 'jquery'],
     function(componentTemplate, componentCss, ko, $) {
         function EditProfilePictureModel(params) {

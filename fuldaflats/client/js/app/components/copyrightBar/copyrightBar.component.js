@@ -1,3 +1,9 @@
+/************************************************************
+ * File:            copyrightBar.component.js
+ * Author:          Patrick Hasenauer
+ * LastMod:         02.12.2016
+ * Description:     JS Component Handler for copyright bar.
+ ************************************************************/
 define(['text!./copyrightBar.component.html', 'knockout'], function (componentTemplate, ko) {
     function CopyrightModel(params) {
         var self = this;

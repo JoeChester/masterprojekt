@@ -1,3 +1,9 @@
+/************************************************************
+ * File:            changePasswordBar.component.js
+ * Author:          Patrick Hasenauer
+ * LastMod:         02.12.2016
+ * Description:     JS Component Handler for change password bar.
+ ************************************************************/
 define(['text!./changePasswordBar.component.html', 'css!./changePasswordBar.component.css', 'knockout', 'jquery'],
     function(componentTemplate, componentCss, ko, $) {
         function ChangePasswordModel(params) {

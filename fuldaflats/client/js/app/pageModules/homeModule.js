@@ -1,3 +1,9 @@
+/************************************************************
+ * File:            homeModule.js
+ * Author:          Patrick Hasenauer
+ * LastMod:         02.12.2016
+ * Description:     Home page module.
+ ************************************************************/
 define([
     'knockout', 'jquery',
     'app/components/searchBar/searchBar.component',

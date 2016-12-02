@@ -1,3 +1,9 @@
+/************************************************************
+ * File:            editOfferDetailsBar.component.js
+ * Author:          Patrick Hasenauer
+ * LastMod:         02.12.2016
+ * Description:     JS Component Handler for edit offer details bar.
+ ************************************************************/
 define(['text!./editOfferDetailsBar.component.html', 'css!./editOfferDetailsBar.component.css', 'knockout', 'jquery'],
     function(componentTemplate, componentCss, ko, $) {
         function EditOfferDetailsModel(params) {

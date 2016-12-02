@@ -1,3 +1,9 @@
+/************************************************************
+ * File:            appModel.js
+ * Author:          Patrick Hasenauer, Jonas Kleinkauf
+ * LastMod:         02.12.2016
+ * Description:     App Model, page module loading and binding, primary app data.
+ ************************************************************/
 define([
     'jquery', 'knockout', 'fuldaflatsApiClient',
     'app/components/demoWarningBar/demoWarningBar.component',

@@ -75,4 +75,5 @@ padding-right: 17px;
 .thumbnail-img{
   height: 100%;
   max-width: initial;
+  margin: auto;
 }

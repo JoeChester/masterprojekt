@@ -1,3 +1,9 @@
+/************************************************************
+ * File:            searchBar.component.css
+ * Author:          Jonas Kleinkauf, Patrick Hasenauer
+ * LastMod:         02.12.2016
+ * Description:     Custom CSS for search bar.
+ ************************************************************/
 @media (min-width: 992px) {
   #search-panel-section{
     padding: 70px;

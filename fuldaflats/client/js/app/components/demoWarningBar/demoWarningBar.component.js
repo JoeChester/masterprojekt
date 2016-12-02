@@ -1,3 +1,9 @@
+/************************************************************
+ * File:            demoWarningBar.component.js
+ * Author:          Patrick Hasenauer
+ * LastMod:         02.12.2016
+ * Description:     JS Component Handler for demo warning bar.
+ ************************************************************/
 define(['text!./demoWarningBar.component.html', 'css!./demoWarningBar.component.css', 'knockout'],
     function(componentTemplate, componentCss, ko) {
         function DemoWarningModel() {

@@ -1,3 +1,9 @@
+/************************************************************
+ * File:            offerDetailsModule.js
+ * Author:          Patrick Hasenauer, Martin Heberner
+ * LastMod:         02.12.2016
+ * Description:     Offer details page module.
+ ************************************************************/
 define([
     'knockout',
     'app/components/breadcrumbBar/breadcrumbBar.component',

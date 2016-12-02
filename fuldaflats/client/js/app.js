@@ -1,3 +1,9 @@
+/************************************************************
+ * File:            app.js
+ * Author:          Patrick Hasenauer, Jonas Kleinkauf
+ * LastMod:         02.12.2016
+ * Description:     requirejs libraries registration and app loading.
+ ************************************************************/
 
 // GLOBAL FUNCTIONS !!! IMPORTANT !!!
 // I WANT THESE FUNCTIONS IN EVERY SINGLE PAGE
@@ -58,7 +64,8 @@ requirejs.config({
         fuldaflatsApiClient: './fuldaflatsApiClient/fuldaflatsApiClient',
         leaflet: './lib/leaflet',
         moment: './lib/moment.min',
-        knockoutDate: './lib/knockout-date'
+        knockoutDate: './lib/knockout-date',
+        customEventPolyfill: './lib/ie-custom-event-polyfill'
     }
 });
 
@@ -71,7 +78,7 @@ window.onerror = function(messageOrEvent, source, lineno, colno, error) {
 requirejs(['app/appModel',
     'jquery', 'bootstrap', 'knockout', 'jqueryCookie', 'waypoints', 'jqueryConterup', 'leaflet',
     'jqueryParallax', /* 'front', */ 'bootstrapSwitch', 'owlCarousel', 'knockoutOwlCarousel', 'jqcloud', 'fuldaflatsApiClient',
-    'moment', 'knockoutDate'
+    'moment', 'knockoutDate', 'customEventPolyfill'
 ], function(app, $) {
     var event = new CustomEvent('scripts-loaded');
     document.dispatchEvent(event);

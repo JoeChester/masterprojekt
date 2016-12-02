@@ -1,3 +1,9 @@
+/************************************************************
+ * File:            tagCloudBar.component.js
+ * Author:          Patrick Hasenauer
+ * LastMod:         02.12.2016
+ * Description:     JS Component Handler for tag cloud bar.
+ ************************************************************/
 define(['text!./tagCloudBar.component.html', "css!./tagCloudBar.component.css", "knockout", 'jqcloud', 'fuldaflatsApiClient'],
     function(componentTemplate, componentCss, ko, jqcloud, api) {
         function TagCloudModel(ko, jqcloud, api) {

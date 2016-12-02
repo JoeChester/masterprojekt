@@ -1,3 +1,9 @@
+/************************************************************
+ * File:            becomeLandlordBar.component.js
+ * Author:          Michelle Rothenbuecher, Patrick Hasenauer
+ * LastMod:         02.12.2016
+ * Description:     JS Component Handler for become landlord bar.
+ ************************************************************/
 define(['text!./becomeLandlordBar.component.html', 'css!./becomeLandlordBar.component.css', 'knockout', 'jquery', 'moment'],
     function (componentTemplate, componentCss, ko, $, moment) {
         function BecomeLandlordModel(params) {

@@ -1,3 +1,9 @@
+/************************************************************
+ * File:            contactModalDialog.component.js
+ * Author:          Patrick Hasenauer
+ * LastMod:         02.12.2016
+ * Description:     JS Component Handler for contact modal dialog.
+ ************************************************************/
 define(['text!./contactModalDialog.component.html', 'css!./contactModalDialog.component.css', 'knockout', 'jquery', 'leaflet'],
     function (componentTemplate, componentCss, ko, $, L) {
         function ContactInModel($, ko, L) {
@@ -15,6 +21,12 @@ define(['text!./contactModalDialog.component.html', 'css!./contactModalDialog.co
             self.phone = ko.observable();
             self.email = ko.observable();
             self.leafletMapOptions = ko.observable();
+
+            function removeMap() {
+                if (leafletMap() && typeof leafletMap().remove === "function") {
+                    leafletMap().remove();
+                }
+            };
 
             function initializeMap(options) {
                 if (L && leafletMapElement() && leafletMapElement().length > 0
@@ -46,6 +58,10 @@ define(['text!./contactModalDialog.component.html', 'css!./contactModalDialog.co
                     dialogContainer(dialogContainerElement);
                     leafletMapElement(contactMapElement);
 
+                    $(dialogContainer).on('hidden.bs.modal', function () {
+                        removeMap();
+                    });
+
                     $(dialogContainer).on('shown.bs.modal', function () {
                         initializeMap(self.leafletMapOptions());
                     });
@@ -62,6 +78,7 @@ define(['text!./contactModalDialog.component.html', 'css!./contactModalDialog.co
                     self.phone(params.phone || "");
                     self.email(params.email || "");
                 }
+
             };
         }
 

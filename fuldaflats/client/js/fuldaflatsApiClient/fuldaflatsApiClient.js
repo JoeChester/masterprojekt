@@ -1,3 +1,9 @@
+/************************************************************
+ * File:            fuldaflatsApiClient.js
+ * Author:          Patrick Hasenauer
+ * LastMod:         02.12.2016
+ * Description:     Javascript client for fuldaflats api.
+ ************************************************************/
 define(["jquery", 'knockout', "/js/fuldaflatsApiClient/endpoints/offers.js", "/js/fuldaflatsApiClient/endpoints/users.js"], function($, ko, offersEndPoint, usersEndPoint) {
     function FuldaFlatsApiClient() {
         var self = this;

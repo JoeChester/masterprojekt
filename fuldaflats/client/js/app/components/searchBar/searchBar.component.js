@@ -1,3 +1,9 @@
+/************************************************************
+ * File:            searchBar.component.js
+ * Author:          Jonas Kleinkauf, Patrick Hasenauer
+ * LastMod:         02.12.2016
+ * Description:     JS Component Handler for search bar.
+ ************************************************************/
 define(['text!./searchBar.component.html', 'css!./searchBar.component.css', 'knockout', 'fuldaflatsApiClient'],
     function(componentTemplate, componentCss, ko, api) {
 

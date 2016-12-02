@@ -1,3 +1,9 @@
+/************************************************************
+ * File:            searchModule
+ * Author:          Patrick Hasenauer, Jonas Kleinkauf
+ * LastMod:         02.12.2016
+ * Description:     Search page module.
+ ************************************************************/
 define([
     'knockout',
     'app/components/searchBar/searchBar.component',

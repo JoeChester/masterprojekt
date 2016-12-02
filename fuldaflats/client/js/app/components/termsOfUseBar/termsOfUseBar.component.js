@@ -1,3 +1,9 @@
+/************************************************************
+ * File:            termsOfUseNar.component.js
+ * Author:          Patrick Hasenauer
+ * LastMod:         02.12.2016
+ * Description:     JS Component Handler for terms of use bar.
+ ************************************************************/
 define(['text!./termsOfUseBar.component.html', 'css!./termsOfUseBar.component.css', 'knockout', 'jquery'],
     function (componentTemplate, componentCss, ko, $) {
         function TermsOfUseModel(params) {

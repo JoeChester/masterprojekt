@@ -1,3 +1,9 @@
+/************************************************************
+ * File:            users.js
+ * Author:          Patrick Hasenauer, Jonas Kleinkauf
+ * LastMod:         02.12.2016
+ * Description:     Javascript api client endpoints for users.
+ ************************************************************/
 define(["jquery", 'knockout'], function ($, ko) {
 
     function UsersEndpoint(usersEndpointUrls, offerTypes) {

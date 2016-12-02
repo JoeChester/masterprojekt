@@ -1,3 +1,9 @@
+/************************************************************
+ * File:            knockout-date.js
+ * Author:          Patrick Hasenauer
+ * LastMod:         02.12.2016
+ * Description:     Knockout binding date value binding for date input fields
+ *  ************************************************************/
 (function (factory) {
     if (typeof define === "function" && define.amd) {
         define(["knockout", "moment"], factory);

@@ -1,3 +1,9 @@
+/************************************************************
+ * File:            signinModalDialog.component.js
+ * Author:          Patrick Hasenauer
+ * LastMod:         02.12.2016
+ * Description:     JS Component Handler for sign in dialog.
+ ************************************************************/
 define(['text!./signInModalDialog.component.html', 'css!./signInModalDialog.component.css', 'knockout', 'jquery', 'fuldaflatsApiClient'],
     function(componentTemplate, componentCss, ko, $, api) {
         function SignInModel($, ko, api) {
