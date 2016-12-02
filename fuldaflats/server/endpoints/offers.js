@@ -36,6 +36,7 @@ router.post('/', function (req, res) {
     } else {
         let offer = new schema.models.Offer();
         offer.landlord = req.session.user.id;
+        offer.status = 0;
         offer.save((err, _offer) =>{
             if (err != null) {
                     res.json(err);
@@ -135,6 +136,7 @@ router.get('/search', function (req, res) {
     let searchQuery = {};
     searchQuery.where = req.session.search;
     searchQuery.where = ffRemoveNulls(searchQuery.where);
+    searchQuery.where.status = 1;
 
     schema.models.Offer.find(searchQuery, (err, offers) => {
         if (err) {
@@ -217,6 +219,9 @@ router.get('/search/last', function (req, res) {
 //recent offers
 router.get('/recent', function (req, res) {
     schema.models.Offer.find({
+        where: {
+            status : 1 //only find active offers
+        },
         order: 'creationDate DESC',
         limit: 10
     }, (err, offers) => {
@@ -269,6 +274,12 @@ router.get('/:offerId', function (req, res) {
     schema.models.Offer.findById(req.params.offerId, (err, offer) => {
         if (err) {
             return res.sendStatus(404);
+        }
+        //Only Owners can see inactive offers
+        if(req.session.auth){
+            if(offer.status != 1 && offer.landlord != req.session.user.id){
+                return res.sendStatus(401);
+            }
         }
         let _offer = offer.toJSON_FULL(req.session.auth);
         offer.mediaObjects((err, mediaObjects) => {

@@ -48,6 +48,24 @@ define(['text!./navigationBar.component.html', 'css!./navigationBar.component.cs
                 });
             };
 
+            self.newOffer = function(){
+                $.ajax({
+                    method: "POST",
+                    url: "/api/offers",
+                    contantType: "application/json",
+                    success: function(data, status, req){
+                        console.log("Created new offer!");
+                        console.log(data);
+                        window.location = "/pages/editOfferDetails?offerId=" + data.id;
+                    },
+                    error: function(req, status, error){
+                        console.error("Failed to create offer:");
+                        console.error(req);
+                        errorCallback(error);
+                    }
+                });
+            }
+
             self.initialize = function (params) {
                 if (params) {
                     self.domain(ko.unwrap(params.domain) || 'FuldaFlats.de');

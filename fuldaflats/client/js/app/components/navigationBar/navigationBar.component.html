@@ -42,7 +42,7 @@
 					<!-- /ko -->
 					<!-- ko if: newOfferPageInfo && currentUser().userData && currentUser().userData.type === userTypes.landlord-->
 					<li class="inactive navmenuentry">
-						<a data-bind="attr: { href: newOfferPageInfo().url }, text: newOfferPageInfo().title"></a>
+						<a href="javascript:void(0)" data-bind="click: newOffer, attr: { href: newOfferPageInfo().url }, text: newOfferPageInfo().title"></a>
 					</li>
 					<!-- /ko -->
 					<li class="inactive navmenuentry">
