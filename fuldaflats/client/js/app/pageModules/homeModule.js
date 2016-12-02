@@ -8,6 +8,7 @@ define([
     function HomePageModul(ko, $, searchBarComponent, offerBarSliderComponent, tagCloudBarComponent, api) {
         var self = this;
 
+        var favoritesOffers = ko.observableArray();
         var recentOffers = ko.observableArray();
         var internationalOffers = ko.observableArray();
 
@@ -57,9 +58,21 @@ define([
                 appModel.searchPanelBar = {
                     offerTypes: appModel.offerTypes,
                     searchPageInfo: appModel.pages.search
-                }
+                };
 
-                appModel.recentBriefOrderBar = {
+                appModel.favoritesOfferBar = {
+                    barTitle: "My Favorites",
+                    offerDetailsPageInfo: appModel.pages.offerDetails,
+                    offers: favoritesOffers,
+                    owlCarouselOptions: {
+                        items: 4,
+                        itemsDesktopSmall: [990, 3],
+                        itemsTablet: [768, 2],
+                        itemsMobile: [480, 1]
+                    }
+                };
+
+                appModel.recentBriefOfferBar = {
                     barTitle: "Recent Offers",
                     offerDetailsPageInfo: appModel.pages.offerDetails,
                     offers: recentOffers,
@@ -72,7 +85,7 @@ define([
                 };
 
                 //todo: Query International offers
-                appModel.livingInternationalBriefOrderBar = {
+                appModel.livingInternationalBriefOfferBar = {
                     barTitle: "Living International",
                     offerDetailsPageInfo: appModel.pages.offerDetails,
                     offers: internationalOffers,
