@@ -4,8 +4,11 @@
  * LastMod:         02.12.2016
  * Description:     JS Component Handler for edit offer details bar.
  ************************************************************/
-define(['text!./editOfferDetailsBar.component.html', 'css!./editOfferDetailsBar.component.css', 'knockout', 'jquery'],
-    function(componentTemplate, componentCss, ko, $) {
+define(['text!./editOfferDetailsBar.component.html',
+ 'css!./editOfferDetailsBar.component.css',
+ 'app/components/fileUploaderModal/fileUploaderModal.component',
+ 'knockout', 'jquery'],
+    function(componentTemplate, componentCss, fileUploaderModalComponent, ko, $) {
         function EditOfferDetailsModel(params) {
             var self = this;
             // your model functions and variables
@@ -15,6 +18,8 @@ define(['text!./editOfferDetailsBar.component.html', 'css!./editOfferDetailsBar.
             viewModel: {
                 createViewModel: function(params, componentInfo) {
                     // componentInfo contains for example the root element from the component template
+                    ko.components.register("fileUploaderModal", fileUploaderModalComponent);
+
                     return new EditOfferDetailsModel(params);
                 }
             },

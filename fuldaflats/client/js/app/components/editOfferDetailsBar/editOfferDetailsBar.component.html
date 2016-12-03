@@ -16,9 +16,9 @@
                         <div class="row"><br>
                             <label class="control-label col-sm-11"><h5>Add Pictures and/or Videos:</h5></label>
                             <div class="col-sm-1">
-                                <button type="button" class="btn btn-default" aria-label="Right Align">
-											<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-										</button>
+                                <button type="button" data-toggle="modal" data-target="#fileUploaderModal" class="btn btn-default" aria-label="Right Align">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                </button>
                             </div>
                         </div><br>
                         <div class="row">
@@ -473,5 +473,6 @@
     </div>
     <!-- /container -->
 </section>
+<div data-bind='component: { name: "fileUploaderModal"}'></div>
 
 <!-- END OFFER DETAILS NOT SIGN IN USER  -->

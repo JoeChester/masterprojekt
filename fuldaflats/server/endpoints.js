@@ -39,4 +39,7 @@ app.use('/api/tags', Tags);
 var Users = require('./endpoints/users');
 app.use('/api/users', Users);
 
+var mediaObjects = require('./endpoints/mediaObjects');
+app.use('/api/mediaObjects', mediaObjects);
+
 module.exports = app;

@@ -4,7 +4,11 @@
  * LastMod:         02.12.2016
  * Description:     Javascript client for fuldaflats api.
  ************************************************************/
-define(["jquery", 'knockout', "/js/fuldaflatsApiClient/endpoints/offers.js", "/js/fuldaflatsApiClient/endpoints/users.js"], function($, ko, offersEndPoint, usersEndPoint) {
+define(["jquery", 'knockout',
+ "/js/fuldaflatsApiClient/endpoints/offers.js",
+ "/js/fuldaflatsApiClient/endpoints/users.js",
+ "/js/fuldaflatsApiClient/endpoints/mediaObjects.js"],
+ function($, ko, offersEndPoint, usersEndPoint, mediaObjectsEndpoint) {
     function FuldaFlatsApiClient() {
         var self = this;
 
@@ -19,7 +23,11 @@ define(["jquery", 'knockout', "/js/fuldaflatsApiClient/endpoints/offers.js", "/j
                 auth: relativeUrl + "users/auth",
                 users: relativeUrl + "users",
                 me: relativeUrl + "users/me",
+            },
+            mediaObjects: {
+                getMediaObjectsByUserID: relativeUrl + "mediaObjects"
             }
+
         }
 
         function setRelativeApiUrl(relativeApiUrl) {
@@ -42,6 +50,9 @@ define(["jquery", 'knockout', "/js/fuldaflatsApiClient/endpoints/offers.js", "/j
 
             self.offers = new offersEndPoint(endpointUrls.offers, offerTypes);
             self.users = new usersEndPoint(endpointUrls.users);
+
+            self.mediaObjects = new mediaObjectsEndpoint(endpointUrls.mediaObjects);
+            
         }
     }
 
