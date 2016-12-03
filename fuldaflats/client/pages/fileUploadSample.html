@@ -1,0 +1,60 @@
+<html>
+    <head>
+    </head>
+    <body>
+
+
+    <label for="exampleInputFile">File input</label>
+    <input type="file" id="exampleInputFile" name="file">
+    <button onclick="upload()">Upload</button>
+    
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+
+    <script>
+    
+        var offerId = 1; //Arbitrary Offer Id, 1 is good because its in test data and belongs to tony stark user
+
+        //Just Check if Login is valid
+        $.ajax({
+            method: "GET",
+            url: "/api/users/me",
+            contentType: "application/json",
+            success: function(data, status, req){
+                console.log("User Login is Valid!");
+            },
+            error: function(req, status, error){
+                console.error("Invalid User Login! Please use main site to log in and then try again!");
+            }
+        });
+
+        function upload(){
+            var form = new FormData();
+            form.append("file", $("#exampleInputFile")[0].files[0]);
+            var uploadUrl = "/api/files/offers/" + offerId;
+
+            var settings = {
+                async: true,
+                url: uploadUrl,
+                method: "POST",
+                processData: false,
+                contentType: false,
+                mimeType: "multipart/form-data",
+                data: form, 
+                success: function(d, s, r){
+                    console.log("SUCCESS!");
+                },
+                error: function(r,s,e){
+                    console.error(s);
+                    console.error(e);
+                    console.error(r);
+                }
+            }
+
+            $.ajax(settings);
+        }
+
+    
+    </script>
+
+    </body>
+</html>
