@@ -7,9 +7,11 @@
 
 define(['text!./searchResultBar.component.html', 'css!./searchResultBar.component.css', 'knockout',
         'jquery', 'fuldaflatsApiClient', 'leaflet',
-        'css!../offerBarSlider/offerBarSlider.component.css'
+        'css!../offerBarSlider/offerBarSlider.component.css', 'moment'
     ],
-    function (componentTemplate, componentCss, ko, $, api, L, offerBarCss) {
+    function (componentTemplate, componentCss, ko, $, api, L, offerBarCss, moment) {
+        
+        moment.locale('de');
 
         var resultMap;
         var locationMarkers = [];
@@ -30,6 +32,8 @@ define(['text!./searchResultBar.component.html', 'css!./searchResultBar.componen
         function SearchResultModel(componentTemplate, componentCss, ko, $, api, L, offerBarCss) {
             var self = this;
 
+            self.offers = ko.observableArray([]);
+
             var forceNullObservable = function () {
                 var obs = ko.observable();
 
@@ -46,7 +50,34 @@ define(['text!./searchResultBar.component.html', 'css!./searchResultBar.componen
                 });
             };
 
-            self.offers = ko.observableArray([]),
+            self.sortCriteria = ko.observableArray([
+                {
+                    name: "Sort by creation date",
+                    fn: function(left, right){
+                        return left.creationDate == right.creationDate ? 0 : (left.creationDate < right.creationDate ? -1 : 1)
+                    }
+                },
+                {
+                    name: "Sort by price",
+                    fn: function(left, right){
+                        return left.rent == right.rent ? 0 : (left.rent < right.rent ? -1 : 1)
+                    }
+                },
+                {
+                    name: "Sort by distance",
+                    fn: function(left, right){
+                        return left.uniDistance == right.uniDistance ? 0 : (left.uniDistance < right.uniDistance ? -1 : 1)
+                    }
+                }
+            ]);
+
+            self.selectedSortCriteria = ko.observable();
+            self.selectedSortCriteria(self.sortCriteria()[0].fn);
+            self.sortOffers = function(){
+                console.log("Sort Offers Called!");
+                console.log(self.selectedSortCriteria());
+                self.offers.sort(self.selectedSortCriteria().fn);
+            }
 
             self.getSearchResults = function () {
                 self.offers.removeAll();
@@ -58,12 +89,13 @@ define(['text!./searchResultBar.component.html', 'css!./searchResultBar.componen
                 $.ajax({
                     url: "/api/offers/search",
                     success: function (data, status, req) {
-                        console.log(data);
                         for (var i in data) {
                             data[i].detailsUrl = '/pages/offerDetails?offerId=' + data[i].id;
                             data[i].isFavorite = ko.observable(data[i].isFavorite);
+                            data[i].creationDateFormat = moment(data[i].creationDate).format('L');
                             self.offers.push(data[i]);
                         }
+                        self.sortOffers();
                         placeMarkers(data);
                     },
                     error: function (req, status, err) {

@@ -32,8 +32,6 @@
     "washingMachine": true,
     "telephone": false,
     "status": 1,
-    "creationDate": "11.11.2016",
-    "lastModified": "11.11.2016",
     "longitude": 50.1124,
     "latitude": 6.123,
     "uniDistance": 4.1,
