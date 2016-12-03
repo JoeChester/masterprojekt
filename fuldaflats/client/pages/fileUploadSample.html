@@ -7,12 +7,18 @@
     <label for="exampleInputFile">File input</label>
     <input type="file" id="exampleInputFile" name="file">
     <button onclick="upload()">Upload</button>
+    <br>
+    <img src="" id="lastUpload">
+    <br>
+    <button onclick="deleteLastUpload()">Delete</button>
     
     <script src="/bower_components/jquery/dist/jquery.min.js"></script>
 
     <script>
     
         var offerId = 1; //Arbitrary Offer Id, 1 is good because its in test data and belongs to tony stark user
+
+        var lastId;
 
         //Just Check if Login is valid
         $.ajax({
@@ -26,6 +32,10 @@
                 console.error("Invalid User Login! Please use main site to log in and then try again!");
             }
         });
+
+        function setImage(url){
+            $("#lastUpload").attr("src", url);
+        }
 
         function upload(){
             var form = new FormData();
@@ -42,6 +52,10 @@
                 data: form, 
                 success: function(d, s, r){
                     console.log("SUCCESS!");
+                    console.log(d);
+                    d = JSON.parse(d);
+                    setImage(d.mainUrl);
+                    lastId = d.id;
                 },
                 error: function(r,s,e){
                     console.error(s);
@@ -51,6 +65,10 @@
             }
 
             $.ajax(settings);
+        }
+
+        function deleteLastUpload(){
+            console.error("Not Implemented yet!");
         }
 
     
