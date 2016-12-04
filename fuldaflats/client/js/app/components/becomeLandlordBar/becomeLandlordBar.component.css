@@ -1,1 +1,6 @@
 /* Special component css here and general css in main.css */
+.errorField{
+    border-style: solid;
+    border-width: 2px;
+    border-color: red;
+}
