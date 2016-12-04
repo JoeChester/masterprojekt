@@ -13,7 +13,10 @@ define(['text!./myProfileBar.component.html', 'css!./myProfileBar.component.css'
             var self = this;
             // your model functions and variables
             self.currentUser = ko.observable();
-            self.favorites = ko.observable();
+
+            function removeFavorite(offerId){
+                console.log("Remove Favorite: " + offerId);
+            }
 
             $.getJSON({ 
                 url: '/api/users/me', 
@@ -21,10 +24,18 @@ define(['text!./myProfileBar.component.html', 'css!./myProfileBar.component.css'
                     if(data.birthday){
                         data.birthday = moment(data.birthday).format('LL');
                     }
-                    for (var i in data.favorites) {
-                            data.favorites[i].detailsUrl = '/pages/offerDetails?offerId=' + data.favorites[i].id;
-                            data.favorites[i].creationDateFormat = moment(data.favorites[i].creationDate).format('L');
+                    if(data.favorites){
+                        if(data.favorites.length > 0){
+                            for (var i in data.favorites) {
+                                data.favorites[i].detailsUrl = '/pages/offerDetails?offerId=' + data.favorites[i].id;
+                                data.favorites[i].creationDateFormat = moment(data.favorites[i].creationDate).format('L');
+                                data.favorites[i].removeFavorite = function(){
+                                    removeFavorite(this.id);
+                                }
+                            }
                         }
+                    }
+                    
                     console.log(data);
                     self.currentUser(data);
                 }
@@ -35,6 +46,7 @@ define(['text!./myProfileBar.component.html', 'css!./myProfileBar.component.css'
                 console.log(event);
                 $(event.currentTarget).tab('show')
             }
+
         }
 
         return {
