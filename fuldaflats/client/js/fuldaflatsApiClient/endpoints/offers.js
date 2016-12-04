@@ -4,20 +4,20 @@
  * LastMod:         02.12.2016
  * Description:     Javascript api client endpoints for offers.
  ************************************************************/
-define(["jquery", 'knockout'], function ($, ko) {
+define(["jquery", 'knockout'], function($, ko) {
 
     function OffersEndpoint(offersEndpointUrls, offerTypes) {
         var self = this;
         var endpointUrls = offersEndpointUrls;
 
         // Offer Serach
-        var forceNullObservable = function () {
+        var forceNullObservable = function() {
             var obs = ko.observable(null);
             return ko.pureComputed({
-                read: function () {
+                read: function() {
                     return obs();
                 },
-                write: function (value) {
+                write: function(value) {
                     if (value === '') {
                         value = null;
                     }
@@ -27,7 +27,7 @@ define(["jquery", 'knockout'], function ($, ko) {
             });
         };
 
-        self.getSearchQueryParamters = function () {
+        self.getSearchQueryParamters = function() {
             return {
                 offerType: forceNullObservable(),
                 uniDistance: { lte: forceNullObservable() },
@@ -37,10 +37,10 @@ define(["jquery", 'knockout'], function ($, ko) {
             }
         }
 
-        self.searchOffer = function (queryParameters, redirectSearchPageUrl) {
+        self.searchOffer = function(queryParameters, redirectSearchPageUrl) {
             var defer = $.Deferred();
 
-            var searchQuery = ko.toJSON(queryParameters, function (key, value) {
+            var searchQuery = ko.toJSON(queryParameters, function(key, value) {
                 if (key !== "offerType" && key !== "tag" && value == null) {
                     return;
                 }
@@ -54,13 +54,13 @@ define(["jquery", 'knockout'], function ($, ko) {
                 method: "POST",
                 contentType: "application/json",
                 data: searchQuery,
-            }).done(function () {
+            }).done(function() {
                 if (redirectSearchPageUrl) {
                     document.location.href = redirectSearchPageUrl;
                 } else {
                     defer.resolve();
                 }
-            }).fail(function (jqXHR, textStatus) {
+            }).fail(function(jqXHR, textStatus) {
                 console.error("Failed to post search query to search api.");
                 defer.reject(jqXHR);
             });
@@ -68,22 +68,22 @@ define(["jquery", 'knockout'], function ($, ko) {
             return defer.promise();
         };
 
-        self.getOfferSearchResult = function () {
+        self.getOfferSearchResult = function() {
             var defer = $.Deferred();
 
             $.ajax({
                 url: endpointUrls.search,
                 method: "GET",
                 dataType: "json"
-            }).done(function (requestSearchResults) {
+            }).done(function(requestSearchResults) {
                 var searchResults = ko.observableArray();
                 if (requestSearchResults && requestSearchResults.length > 0) {
-                    $.each(requestSearchResults, function (index, searchResult) {
+                    $.each(requestSearchResults, function(index, searchResult) {
                         searchResults.push(searchResult);
                     });
                 }
                 defer.resolve(searchResults);
-            }).fail(function (jqXHR, textStatus) {
+            }).fail(function(jqXHR, textStatus) {
                 console.error("Failed to get offer search result.");
                 defer.reject(jqXHR);
             });
@@ -98,7 +98,7 @@ define(["jquery", 'knockout'], function ($, ko) {
             offerTypes(unwrapOfferTypes);
         }
 
-        self.getOfferTypes = function () {
+        self.getOfferTypes = function() {
             var defer = $.Deferred();
             defer.resolve(offerTypes);
             return defer.promise();
@@ -108,7 +108,7 @@ define(["jquery", 'knockout'], function ($, ko) {
         var getTagsDefer = undefined;
         var cachedTags = ko.observableArray();
 
-        self.getTags = function (force) {
+        self.getTags = function(force) {
             if (getTagsDefer == undefined) {
                 getTagsDefer = $.Deferred();
 
@@ -117,14 +117,14 @@ define(["jquery", 'knockout'], function ($, ko) {
                         url: endpointUrls.tags,
                         method: "GET",
                         dataType: "json"
-                    }).done(function (tags) {
+                    }).done(function(tags) {
                         if (tags && tags.length > 0) {
                             cachedTags(tags);
                         }
 
                         getTagsDefer.resolve(cachedTags);
                         getTagsDefer = undefined;
-                    }).fail(function (jqXHR, textStatus) {
+                    }).fail(function(jqXHR, textStatus) {
                         var errorMsg = "Failed to load tags \n" + jqXHR.statusCode().status + ": " + jqXHR.statusCode().statusText;
                         console.error(errorMsg);
                         defer.reject(jqXHR)
@@ -139,23 +139,23 @@ define(["jquery", 'knockout'], function ($, ko) {
         }
 
         // Recent offers
-        self.getRecentOffers = function () {
+        self.getRecentOffers = function() {
             var defer = $.Deferred();
 
             $.ajax({
                 url: endpointUrls.recent,
                 method: "GET",
                 dataType: "json"
-            }).done(function (requestedOfferResults) {
+            }).done(function(requestedOfferResults) {
                 var offerResults = ko.observableArray();
                 if (requestedOfferResults && requestedOfferResults.length > 0) {
-                    $.each(requestedOfferResults, function (index, searchResult) {
+                    $.each(requestedOfferResults, function(index, searchResult) {
                         offerResults.push(searchResult);
                     });
                 }
 
                 defer.resolve(offerResults);
-            }).fail(function (jqXHR, textStatus) {
+            }).fail(function(jqXHR, textStatus) {
                 console.error("Failed to get recent offers.");
                 defer.reject(jqXHR);
             });
@@ -164,14 +164,14 @@ define(["jquery", 'knockout'], function ($, ko) {
         }
 
         // Get Offer By Id
-        self.getOfferById = function (offerId) {
+        self.getOfferById = function(offerId) {
             var defer = $.Deferred();
 
             $.getJSON({
                 url: endpointUrls.offers + "/" + offerId,
                 method: "GET",
                 dataType: "json"
-            }).done(function (requestedOffer) {
+            }).done(function(requestedOffer) {
                 if (requestedOffer) {
                     var offer = ko.observable(requestedOffer);
                     defer.resolve(offer);
@@ -179,13 +179,35 @@ define(["jquery", 'knockout'], function ($, ko) {
                     console.error("Failed to get offer by id " + offerId + ". Unexpected  server response.");
                     defer.reject(jqXHR);
                 }
-            }).fail(function (jqXHR, textStatus) {
+            }).fail(function(jqXHR, textStatus) {
                 console.error("Failed to get offer by id " + offerId);
                 defer.reject(jqXHR);
             });
 
             return defer.promise();
         };
+
+        self.updatedOffer = function(offer) {
+            var defer = $.Deferred();
+
+            var localOffer = ko.unwrap(offer);
+
+            $.getJSON({
+                url: endpointUrls.offers + "/" + localOffer.id,
+                method: "PUT",
+                contentType: "application/json",
+                dataType: "text",
+                data: ko.toJSON(localOffer)
+            }).done(function(updatedOffer) {
+                defer.resolve();
+            }).fail(function(jqXHR, textStatus) {
+                console.error("Failed to update offer:");
+                console.error(localOffer);
+                defer.reject(jqXHR);
+            });
+
+            return defer.promise();
+        }
     }
 
     return OffersEndpoint;

@@ -192,13 +192,16 @@ router.get('/search', function (req, res) {
     });
 });
 
-//get last search
+//get last search parameters
 router.get('/search/last', function (req, res) {
     if (!req.session.search) {
         res.status(404);
-        var _noOffers = [];
-        return res.json(_noOffers);
+        var _noParameters = [];
+        return res.json(_noParameters);
     } else {
+        if(req.session.search.id){
+            delete req.session.search.id;
+        }
         res.json(req.session.search);
     }
 });
