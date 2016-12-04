@@ -4,8 +4,9 @@
  * LastMod:         02.12.2016
  * Description:     JS Component Handler for search bar.
  ************************************************************/
-define(['text!./searchBar.component.html', 'css!./searchBar.component.css', 'knockout', 'fuldaflatsApiClient'],
-    function(componentTemplate, componentCss, ko, api) {
+define(['text!./searchBar.component.html', 'css!./searchBar.component.css', 
+'knockout', 'fuldaflatsApiClient', 'bootstrapMultiselect'],
+    function(componentTemplate, componentCss, ko, api, multiselect) {
 
         var forceNullObservable = function(_val) {
             var obs = ko.observable(_val);
@@ -39,13 +40,21 @@ define(['text!./searchBar.component.html', 'css!./searchBar.component.css', 'kno
                 }
             }
 
-            self.tags = ko.observableArray();
+            
 
+            self.availableTags = ko.observableArray();
             api.offers.getTags().then(function(tags) {
-                self.tags(ko.unwrap(tags));
+                self.availableTags(ko.unwrap(tags));
+                $('#tags1').multiselect({
+                    numberDisplayed: 1,
+                    nonSelectedText: 'Choose Tags'
+                });
+                $('#tags2').multiselect({
+                    numberDisplayed: 1,
+                    nonSelectedText: 'Choose Tags'
+                });
             });
 
-            self.availableTags = ko.observableArray(['computer science', 'economics']),
             self.offerTypes = ko.observableArray(['FLAT', 'SHARE', 'SUBLET', 'COUCH', 'PARTY']);
 
             //Recursively crawl the last search query and set knockout observables in leaf nodes
@@ -92,6 +101,7 @@ define(['text!./searchBar.component.html', 'css!./searchBar.component.css', 'kno
                     type: "get",
                     contentType: "application/json",
                     success: function(data, status, req){
+                        let lastSearch = data;
                         self.queryParameter(createRecursiveNotNullObservable(data));
                     },
                     error: function(req, status, err){
