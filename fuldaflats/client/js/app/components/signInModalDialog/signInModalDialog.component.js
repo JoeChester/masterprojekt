@@ -5,14 +5,14 @@
  * Description:     JS Component Handler for sign in dialog.
  ************************************************************/
 define(['text!./signInModalDialog.component.html', 'css!./signInModalDialog.component.css', 'knockout', 'jquery', 'fuldaflatsApiClient'],
-    function(componentTemplate, componentCss, ko, $, api) {
+    function (componentTemplate, componentCss, ko, $, api) {
         function SignInModel($, ko, api) {
             var self = this;
 
             self.currentUser = ko.observable();
             self.eMail = ko.observable();
             self.password = ko.observable();
-            self.rememberMe = ko.observable(false); // todo: remember function
+            self.rememberMe = ko.observable(false);
             self.modalDialogContainer = ko.observable();
 
             self.internalError = ko.observable(false);
@@ -27,7 +27,7 @@ define(['text!./signInModalDialog.component.html', 'css!./signInModalDialog.comp
                 self.invalidCredentials(false);
             };
 
-            self.isValidPassword = ko.computed(function() {
+            self.isValidPassword = ko.computed(function () {
                 var isValidPassword = false;
 
                 if (self.password()) {
@@ -38,7 +38,7 @@ define(['text!./signInModalDialog.component.html', 'css!./signInModalDialog.comp
                 return isValidPassword;
             });
 
-            self.isValidEmail = ko.computed(function() {
+            self.isValidEmail = ko.computed(function () {
                 var isValidEmail = false;
                 var regEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -50,12 +50,12 @@ define(['text!./signInModalDialog.component.html', 'css!./signInModalDialog.comp
                 return isValidEmail;
             });
 
-            self.signIn = function(mode, event) {
+            self.signIn = function (mode, event) {
                 if (self.isValidEmail() && self.isValidPassword()) {
                     resetErrors();
 
-                    api.users.signIn(self.eMail(), self.password()).then(
-                        function(userResult) {
+                    api.users.signIn(self.eMail(), self.password(), self.rememberMe()).then(
+                        function (userResult) {
                             var userObject = ko.unwrap(userResult);
                             if (userObject) {
                                 self.currentUser(userObject);
@@ -66,7 +66,7 @@ define(['text!./signInModalDialog.component.html', 'css!./signInModalDialog.comp
                                 self.internalError(true);
                             }
                         },
-                        function(xhr) {
+                        function (xhr) {
                             if (xhr.status === 403 || xhr.status === 400) {
                                 self.invalidCredentials(true);
                             } else {
@@ -76,14 +76,14 @@ define(['text!./signInModalDialog.component.html', 'css!./signInModalDialog.comp
                 }
             };
 
-            self.resetDialog = function() {
+            self.resetDialog = function () {
                 self.eMail("");
                 self.password("");
                 self.rememberMe(false);
                 resetErrors();
             };
 
-            self.initialize = function(params, dialogContainer) {
+            self.initialize = function (params, dialogContainer) {
                 if (dialogContainer) {
                     dialogContainer.on('shown.bs.modal', focusInput);
                     dialogContainer.on('show.bs.modal', self.resetDialog)
@@ -101,7 +101,7 @@ define(['text!./signInModalDialog.component.html', 'css!./signInModalDialog.comp
 
         return {
             viewModel: {
-                createViewModel: function(params, componentInfo) {
+                createViewModel: function (params, componentInfo) {
                     // componentInfo contains for example the root element from the component template
                     var viewModel = null;
 

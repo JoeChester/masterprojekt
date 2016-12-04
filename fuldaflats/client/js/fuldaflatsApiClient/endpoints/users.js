@@ -45,11 +45,18 @@ define(["jquery", 'knockout'], function ($, ko) {
         }
 
         // user sign in
-        self.signIn = function (email, password) {
+        self.signIn = function (email, password, rememberMe) {
             var defer = $.Deferred();
+
+            var rememberMeValue = false;
+            if (ko.unwrap(rememberMe) === true) {
+                rememberMeValue = true;
+            }
+
             var userCredentials = {
                 email: email,
-                password: password
+                password: password,
+                rememberMe: rememberMeValue
             };
 
             $.ajax({

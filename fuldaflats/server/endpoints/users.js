@@ -1,6 +1,6 @@
 /************************************************************
  * File:            users.js
- * Author:          Jonas Kleinkauf
+ * Author:          Jonas Kleinkauf, Patrick Hasenauer
  * LastMod:         02.12.2016
  * Description:     REST endpoints for users and
  *                  authentication
@@ -21,27 +21,32 @@ const SALT = "fuldaflats#2016#";
 //Multi-Use Functions
 
 //Send back after resolving all relationships
-function finalize(req, res, user, _user){
+function finalize(req, res, user, _user) {
     res.json(_user);
 }
 
 //Authentication of a request session
 function authenticate(req, res, successStatus) {
-    if(!req.body.email || !req.body.password){
+    if (!req.body.email || !req.body.password) {
         return res.sendStatus(400);
     }
 
     let passwordHash = _hash.sha512(SALT + req.body.password, 'base64');
     req.body.email = req.body.email.toLowerCase();
-    
-    schema.models.User.findOne({where: {email: req.body.email}}, (err, user) => {
-        if(err || user == null){
+
+    schema.models.User.findOne({ where: { email: req.body.email } }, (err, user) => {
+        if (err || user == null) {
             res.status(400);
             return res.json(err);
         } else {
-            if(passwordHash == user.password){
+            if (passwordHash == user.password) {
                 req.session.auth = true;
                 req.session.user = user;
+
+                if (req.body.rememberMe === true) {
+                    var hour = 3600000;
+                    req.session.cookie.maxAge = hour * 24 * 7;
+                }
 
                 res.status(successStatus);
                 //Begin Relationship Pipe
@@ -53,9 +58,9 @@ function authenticate(req, res, successStatus) {
     });
 }
 
-function getUserOffers(req, res, user, _user){
-    schema.models.Offer.find({where:{landlord: user.id}}, (err, offers) =>{
-        if(!err && offers && offers.length > 0){
+function getUserOffers(req, res, user, _user) {
+    schema.models.Offer.find({ where: { landlord: user.id } }, (err, offers) => {
+        if (!err && offers && offers.length > 0) {
             let offer_joins = [];
             offers.forEach(offer => {
                 offer_joins.push(cb => {
@@ -68,7 +73,7 @@ function getUserOffers(req, res, user, _user){
                             return cb(err);
                         //Set additional Property    
                         _offer.mediaObjects = mediaObjects;
-                        if(mediaObjects[0]){
+                        if (mediaObjects[0]) {
                             _offer.thumbnailUrl = mediaObjects[0].thumbnailUrl;
                         }
                         offer.tags((err, tags) => {
@@ -95,22 +100,22 @@ function getUserOffers(req, res, user, _user){
         } else {
             finalize(req, res, user, _user);
         }
-        
+
     });
 }
 
 //get favorites of a user asynchronously
-function getFavorites(req, res, user, _user){
-    if(!_user) _user = user.toJSON();
-    user.favorites((err, favorites) =>{
+function getFavorites(req, res, user, _user) {
+    if (!_user) _user = user.toJSON();
+    user.favorites((err, favorites) => {
         let favoriteJoins = [];
         let offerIds = [];
-        if(!err && favorites && favorites.length > 0){
-            for(let i in favorites){
+        if (!err && favorites && favorites.length > 0) {
+            for (let i in favorites) {
                 offerIds.push(favorites[i].offerId);
             }
-            schema.models.Offer.find({where: {id : { in: offerIds}}}, (err, offers) => {
-                if(err){
+            schema.models.Offer.find({ where: { id: { in: offerIds } } }, (err, offers) => {
+                if (err) {
                     res.status(404);
                     return res.json(err);
                 }
@@ -129,7 +134,7 @@ function getFavorites(req, res, user, _user){
                                 return cb(err);
                             //Set additional Property    
                             _offer.mediaObjects = mediaObjects;
-                            if(mediaObjects[0]){
+                            if (mediaObjects[0]) {
                                 _offer.thumbnailUrl = mediaObjects[0].thumbnailUrl;
                             }
                             offer.tags((err, tags) => {
@@ -163,7 +168,7 @@ function getFavorites(req, res, user, _user){
     });
 }
 
-function getRelationships(req, res, user){
+function getRelationships(req, res, user) {
     let _user = user.toJSON_ME();
     getFavorites(req, res, user, _user);
 }
@@ -204,12 +209,15 @@ router.delete('/auth', function (req, res) {
     req.session.auth = false;
     req.session.user = undefined;
     req.session.search = undefined;
+    req.session.cookie.expires = false;
+    req.session.cookie.maxAge = false;
+
     res.sendStatus(204);
 });
 
 //own userdata
 router.get('/me', function (req, res) {
-    if(!req.session.auth){
+    if (!req.session.auth) {
         res.sendStatus(403);
     } else {
         //Fetch user from db to make sure latest data is available
@@ -227,7 +235,7 @@ router.get('/me', function (req, res) {
 
 //modify own userdata
 router.put('/me', function (req, res) {
-    if(!req.session.auth || !req.session.user.id){
+    if (!req.session.auth || !req.session.user.id) {
         res.sendStatus(403);
     } else {
         var _user = req.body;
@@ -240,24 +248,24 @@ router.put('/me', function (req, res) {
         delete _user.creationDate;
         delete _user.upgradeDate;
         //Fetch user from db to make sure latest data is available
-        schema.models.User.update({ where: {id: _userId}} ,
-         _user, 
-         (err, __user) => {
-            if (err) {
-                res.status(400);
-                res.json(err);
-            } else {
-                schema.models.User.findById(_userId, (err, ___user) => {
-                    if (err) {
-                        res.status(404);
-                        res.json(err);
-                    } else {
-                        //Begin Relationship Pipe
-                        getRelationships(req, res, ___user);
-                    }
-                });
-            }
-        });
+        schema.models.User.update({ where: { id: _userId } },
+            _user,
+            (err, __user) => {
+                if (err) {
+                    res.status(400);
+                    res.json(err);
+                } else {
+                    schema.models.User.findById(_userId, (err, ___user) => {
+                        if (err) {
+                            res.status(404);
+                            res.json(err);
+                        } else {
+                            //Begin Relationship Pipe
+                            getRelationships(req, res, ___user);
+                        }
+                    });
+                }
+            });
     }
 });
 
