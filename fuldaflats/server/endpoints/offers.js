@@ -48,50 +48,37 @@ router.post('/', function (req, res) {
 });
 
 //modify offer
-router.put('/:id', function (req, res) {
+router.put('/:offerId', function (req, res) {
     if (!req.session.auth) {
-        res.sendStatus(403);
+        return res.sendStatus(403);
     } else {
         var _offer = req.body;
-
         schema.models.Offer.update({
                 where: {
-                    id: req.session.offer.id
+                    id: req.params.offerId,
+                    landlord: req.session.user.id
                 }
             },
             _offer,
             (err, offer) => {
                 if (err) {
                     res.status(400);
-                    res.json(err);
+                    return res.json(err);
                 } else {
-                    schema.models.Offer.findById(req.session.offer.id, (err, offer) => {
-                        if (err) {
-                            res.status(404);
-                            res.json(err);
-                        } else {
-                            //Begin Relationship Pipe
-                            getRelationships(req, res, offer);
-                        }
-                    });
+                    if(offer.toString() != 1){
+                        return res.sendStatus(401);
+                    }
+                    return res.sendStatus(200);
                 }
             });
     }
 });
 
 //delete offer
-router.delete('/:id', function (req, res) {
-    if (!req.session.auth) {
-        res.sendStatus(403);
-    } else {
-        schema.models.offer.destroyById(req.param.offerId, err => {
-            if (err) {
-                res.status(400);
-                res.json(err);
-            } else
-                res.sendStatus(200);
-        });
-    }
+router.delete('/:offerId', function (req, res) {
+    // This implementation was really really sloppy, 
+    // deleted it for now to recreate it better later
+    return res.sendStatus(501);
 });
 
 
