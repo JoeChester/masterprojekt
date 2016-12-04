@@ -12,6 +12,7 @@ define(['text!./editOfferDetailsBar.component.html',
         function EditOfferDetailsModel(ko, $, api) {
             // your model functions and variables
             var self = this;
+            self.offerDetailsPageInfo = ko.observable();
             self.offer = ko.observable();
             self.currentUser = ko.observable(
                 {
@@ -56,7 +57,7 @@ define(['text!./editOfferDetailsBar.component.html',
                 return isLandlord;
             }
 
-            function loadRequestOffer() {
+            function loadRequestedOffer() {
                 if (!isCurrentUserALandlord()) {
                     self.currentUserIsNotALandlord(true);
                 } else {
@@ -92,21 +93,36 @@ define(['text!./editOfferDetailsBar.component.html',
             };
 
             self.updateOffer = function () {
-                // update logic with validation
+                // validation logik
+                api.offers.updatedOffer(self.offer).then(
+                    function () {
+                        if (self.offerDetailsPageInfo() && self.offerDetailsPageInfo().url) {
+                            window.location.href = self.offerDetailsPageInfo().url + "?offerId=" + self.offer().id;
+                        } else {
+                            window.location.href = "/";
+                        }
+                    },
+                    function () {
+                        // redponse validation logik
+                    }
+                )
+
             }
 
             self.initialize = function (params) {
                 if (params) {
+                    self.offerDetailsPageInfo(ko.unwrap(params.offerDetailsPageInfo || ''));
+
                     if (params.currentUser && ko.isObservable(params.currentUser)) {
                         self.currentUser = params.currentUser;
                     }
                 }
 
                 self.currentUser.subscribe(function (currentUser) {
-                    loadRequestOffer();
+                    loadRequestedOffer();
                 });
 
-                loadRequestOffer();
+                loadRequestedOffer();
             };
         }
 
