@@ -269,6 +269,82 @@ router.put('/me', function (req, res) {
     }
 });
 
+//become landlord
+router.put('/upgrade', function (req, res) {
+    if (!req.session.auth) {
+        return res.sendStatus(403);
+    } else {
+        //Fetch user from db to make sure latest data is available
+        schema.models.User.findById(req.session.user.id, (err, user) => {
+            if (err) {
+                res.status(404);
+                return res.json(err);
+            } else {
+                let upgradeError = {};
+                if(user.type != 1){
+                    upgradeError.upgrade = ["Unable to upgrade this user account."];
+                    res.status(400);
+                    return res.json(upgradeError);
+                }
+                let _upgrade = req.body;
+                let _userId = req.session.user.id;
+                //Invalidate some user inputs by default
+                delete _upgrade.averageRating;
+                delete _upgrade.profilePicture;
+                delete _upgrade.id;
+                delete _upgrade.creationDate;
+
+                if(!_upgrade.phoneNumber){
+                    upgradeError.phoneNumber = ["Please enter a phone number."];
+                    res.status(400);
+                    return res.json(upgradeError);
+                }
+                if(!_upgrade.zipCode){ 
+                    upgradeError.zipCode = ["Please enter a zip code."];
+                    res.status(400);
+                    return res.json(upgradeError);
+                }
+                if(!_upgrade.city){
+                    upgradeError.city = ["Please enter a city."];
+                    res.status(400);
+                    return res.json(upgradeError);
+                }
+                if(!_upgrade.street){
+                    upgradeError.street = ["Please enter a street."];
+                    res.status(400);
+                    return res.json(upgradeError);
+                }
+                if(!_upgrade.houseNumber){
+                    upgradeError.houseNumber = ["Please enter a house number."];
+                    res.status(400);
+                    return res.json(upgradeError);
+                }
+                _upgrade.type = 2;
+                _upgrade.upgradeDate = Date.now();
+
+                schema.models.User.update({ where: { id: _userId } },
+                    _upgrade,
+                    (err, __user) => {
+                        if (err) {
+                            res.status(400);
+                            res.json(err);
+                        } else {
+                            schema.models.User.findById(_userId, (err, ___user) => {
+                                if (err) {
+                                    res.status(404);
+                                    res.json(err);
+                                } else {
+                                    //Begin Relationship Pipe
+                                    getRelationships(req, res, ___user);
+                                }
+                            });
+                        }
+                    });
+            }
+        });
+    }
+});
+
 //userdata for user with :userId => public profiles, not implemented yet (Prio 2)
 router.get('/:userId', function (req, res) {
     res.sendStatus(501);
