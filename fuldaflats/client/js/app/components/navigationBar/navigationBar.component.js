@@ -30,7 +30,10 @@ define(['text!./navigationBar.component.html', 'css!./navigationBar.component.cs
             self.impressumPageInfo = ko.observable();
             self.termsOfUsePageInfo = ko.observable();
 
-            self.currentUser = ko.observable();
+            self.currentUser = ko.observable({
+                isAuthenticated: false,
+                userData: undefined
+            });
 
             self.signInDialogParameter = {
                 currentUser: self.currentUser
@@ -48,17 +51,17 @@ define(['text!./navigationBar.component.html', 'css!./navigationBar.component.cs
                 });
             };
 
-            self.newOffer = function(){
+            self.newOffer = function () {
                 $.ajax({
                     method: "POST",
                     url: "/api/offers",
                     contantType: "application/json",
-                    success: function(data, status, req){
+                    success: function (data, status, req) {
                         console.log("Created new offer!");
                         console.log(data);
                         window.location = "/pages/editOfferDetails?offerId=" + data.id;
                     },
-                    error: function(req, status, error){
+                    error: function (req, status, error) {
                         console.error("Failed to create offer:");
                         console.error(req);
                         errorCallback(error);

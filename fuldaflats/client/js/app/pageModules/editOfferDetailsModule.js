@@ -23,6 +23,10 @@ define([
                     homePageInfo: appModel.pages.home,
                     currentPageInfo: appModel.currentPage
                 }
+
+                appModel.editOfferDetailsBar = {
+                    currentUser: appModel.currentUser
+                }
             }
         };
     };
