@@ -28,6 +28,24 @@ input::-webkit-inner-spin-button {
     margin: 0;
 }
 
+/* set general background color to footer color to 
+prevent ugly whitespace on really large screens.
+make all sections and the id="all" div white background 
+to remain current style */
+.dark-bg{
+  background-color: #333333;
+}
+
+section{
+  background-color: #FFFFFF;
+}
+
+#all{
+  background-color: #FFFFFF;
+  -webkit-transition: all 0.5s ease-in;
+  transition: all 0.5s ease-in;
+}
+
 .background-gray {
   background: #eeeeee;
 }
@@ -134,4 +152,8 @@ padding-right: 17px;
   background-color: #eeeeee;
   border: 1px solid #dddddd;
   padding: 0.5rem;
+}
+
+.hidden{
+  display: none;
 }

@@ -167,6 +167,7 @@ define([
 
             loadPageModule().then(function() {
                 ko.applyBindings(self, document.getElementsByTagName("html")[0]);
+                $('body').addClass('dark-bg');
             }, function() {
                 throw "Failed to load page module";
             });

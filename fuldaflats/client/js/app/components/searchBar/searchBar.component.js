@@ -46,12 +46,14 @@ define(['text!./searchBar.component.html', 'css!./searchBar.component.css',
             api.offers.getTags().then(function(tags) {
                 self.availableTags(ko.unwrap(tags));
                 $('#tags1').multiselect({
-                    numberDisplayed: 1,
-                    nonSelectedText: 'Choose Tags'
+                    numberDisplayed: 0,
+                    nonSelectedText: 'Choose Tags',
+                    maxHeight: 200
                 });
                 $('#tags2').multiselect({
-                    numberDisplayed: 1,
-                    nonSelectedText: 'Choose Tags'
+                    numberDisplayed: 0,
+                    nonSelectedText: 'Choose Tags',
+                    maxHeight: 200
                 });
             });
 

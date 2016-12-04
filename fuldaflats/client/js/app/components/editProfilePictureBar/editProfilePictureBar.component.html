@@ -4,41 +4,48 @@
  * LastMod:         02.12.2016
  * Description:     Knockout Template for edit profile picture bar.
  ************************************************************-->
-<section style="min-height:700px; margin-top: 2rem">
+<section style="min-height:400px; margin-top: 2rem">
     <div class="container">
-    </div>
     <div class="row">
         <div class="col-sm-4">
             <div class="row">
-                <img src="../img/person-3.png" class="img-responsive img-circle" alt="Profilepicture">
+                <div class="profilePicture-container-big">
+                    <img src="../img/person-3.png" class="img-responsive profilePicture-img" alt="Profilepicture">
+                </div>
             </div>
         </div>
         <div class="col-sm-offset-1 col-sm-7">
             <form class="form-horizontal">
-                <div class="row">
-                    <h3>Choose from given Pictures</h3>
-                    <img src="../img/cat.png" class="img-responsive img-circle col-sm-2" alt="Cat">
-                    <img src="../img/dog.png" class="img-responsive img-circle col-sm-2" alt="Dog">
-                    <img src="../img/cupcake.png" class="img-responsive img-circle col-sm-2" alt="Cupcake">
-                    <img src="../img/meat.png" class="img-responsive img-circle col-sm-2" alt="Meat">
-                    <!--<select title="Select your Picture" class="selectpicker">
-                                    <option>Select...</option>
-                                    <option data-thumbnail="../img/cat.png">Cat</option>
-                                    <option data-thumbnail="../img/dog.png">Dog</option>
-                                    <option data-thumbnail="../img/cupcake.png">Cupcake</option>
-                                    <option data-thumbnail="../img/meat.png">Meat</option>
-                                </select> -->
+                <div class="row spacer">
+                    <legend>Choose from given Pictures</legend>
+                    <a href="javascript:void(0)" data-bind="click: function(data, event){standardPicture('/img/cat.png', data, event)}">
+                        <img src="../img/cat.png" class="img-responsive img-circle col-sm-2" alt="Cat">
+                    </a>
+                    <a href="javascript:void(0)" data-bind="click: function(data, event){standardPicture('/img/dog.png', data, event)}">
+                        <img src="../img/dog.png" class="img-responsive img-circle col-sm-2" alt="Dog">
+                    </a>
+                    <a href="javascript:void(0)" data-bind="click: function(data, event){standardPicture('/img/cupcake.png', data, event)}">
+                        <img src="../img/cupcake.png" class="img-responsive img-circle col-sm-2" alt="Cupcake">
+                    </a>
+                    <a href="javascript:void(0)" data-bind="click: function(data, event){standardPicture('/img/meat.png', data, event)}">
+                        <img src="../img/meat.png" class="img-responsive img-circle col-sm-2" alt="Meat">
+                    </a>
+                </div>
+                <div class="row spacer">
+                    <legend>Upload Picture</legend>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-info" role="progressbar" style="width: 0%">
+                        </div>
+                    </div>
+                    <input type="file" id="hiddenFileInput" name="file" class="hidden" accept="image/*" data-bind="event: {change: uploadPicture}">
+                    <a data-bind="click: openFileDialog" class="btn btn-template-main marginbottom">Choose Picture from Computer</a>
                 </div>
                 <div class="row">
-                    <h3>Upload Picture</h3>
-                    <button type="submit" class="btn btn-template-main marginbottom">Choose Picture from Computer</button>
-                </div>
-                <div class="row">
-                    <a href="/pages/myProfile" type="submit" class="btn btn-template-main">Save Changes</a>
                     <a href="/pages/myProfile" type="submit" class="btn btn-template-main btn-marginleft">Cancel</a>
                 </div>
             </form>
         </div>
+    </div>
     </div>
     </div>
 </section>
