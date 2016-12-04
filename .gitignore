@@ -43,3 +43,5 @@ fullStackExample/node_modules
 dist
 
 bower_components
+
+launch.json
