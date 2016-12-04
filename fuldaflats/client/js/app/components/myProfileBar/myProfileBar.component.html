@@ -113,19 +113,19 @@
 				<div class="tab-content clearfix">
 					<div class="tab-pane active" id="favorites">
 						<div data-bind="ifnot: favorites.length == 0">
-							<div class="col-md-12 resultColumn" data-bind="foreach: { data: favorites, as: 'favorites' }">
+							<div class="col-md-12 resultColumn" data-bind="foreach: { data: favorites, as: 'favorite' }">
 								<div class="panel panel-search-result">
 									<div class="panel-body">
 										<!-- Hoverable Image -->
 										<div class="offer-brief-detail-1 box-image-text col-md-5">
 											<div class="top">
-												<div class="image">
-													<img src="../img/portfolio-4.jpg" alt="" class="img-responsive">
+												<div class="image thumbnail-container">
+													<img data-bind="attr: { src: favorite.thumbnailUrl }" alt="" class="img-responsive thumbnail-img">
 												</div>
 												<div class="bg"></div>
 												<div class="text">
 													<p class="buttons">
-														<a href="/pages/offerDetails" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i>View Details</a>
+														<a data-bind="attr: { href: favorite.detailsUrl }" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i>View Details</a>
 													</p>
 												</div>
 											</div>
@@ -134,37 +134,40 @@
 										<div class="col-md-7">
 											<!-- Tags -->
 											<div class="row">
-												<h4 data-bind="foreach: { data: favorites.tags, as: 'tag' }">
+												<h4 data-bind="foreach: { data: favorite.tags, as: 'tag' }">
 													<span class="label label-default" data-bind="text: tag.title"></span>
 												</h4>
 											</div>
 											<div class="col-sm-8">
-												<h2 data-bind="text: favorites.title"></h2>
+												<h2 data-bind="text: favorite.title"></h2>
 											</div>
 											<div class="col-sm-4">
-												<a type="submit" class="btn btn-template-main ">Delete</a>
+												<span data-bind="if: favorite.isFavorite">
+													<span class="glyphicon glyphicon glyphicon-heart favorite-icon purpleblue-text" aria-hidden="true" 
+														title="Remove from Favorites"></span>
+												</span>
 											</div>
 											<div class="ellipsis">
-												<p data-bind="text: favorites.description"></p>
+												<p data-bind="text: favorite.description"></p>
 											</div>
 											<div class="ellipsis-dots">...</div>
 
 											<!-- Price -->
 											<div class="row">
 												<div class="col-md-4 offer-result-keyfigures">
-													<div class="offer-brief-detail-1-details-value"><strong data-bind="text: favorites.uniDistance"></strong><strong> km</strong></div>
+													<div class="offer-brief-detail-1-details-value"><strong data-bind="text: favorite.uniDistance"></strong><strong> km</strong></div>
 													<div class="offer-brief-detail-1-details-key"><small>to University Fulda</small></div>
 												</div>
 												<div class="col-md-4 offer-result-keyfigures">
-													<div class="offer-brief-detail-1-details-value"><strong data-bind="text: favorites.size"></strong><strong> m²</strong></div>
+													<div class="offer-brief-detail-1-details-value"><strong data-bind="text: favorite.size"></strong><strong> m²</strong></div>
 													<div class="offer-brief-detail-1-details-key"><small>Size</small></div>
 												</div>
 												<div class="col-md-4 offer-result-keyfigures">
 													<div class="offer-brief-detail-1-details-value price-wrapper">
-														<div class="price"><strong data-bind="text: favorites.rent"></strong><strong> €</strong></div>
-														<div class="rate"><strong>/ </strong><strong data-bind="text: favorites.rentType"></strong></div>
+														<div class="price"><strong data-bind="text: favorite.rent"></strong><strong> €</strong></div>
+														<div class="rate"><strong>/ </strong><strong data-bind="text: favorite.rentType"></strong></div>
 													</div>
-													<div class="offer-brief-detail-1-details-key"><small data-bind="text: favorites.offerType"></small></div>
+													<div class="offer-brief-detail-1-details-key"><small data-bind="text: favorite.offerType"></small></div>
 												</div>
 											</div>
 										</div>
