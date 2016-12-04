@@ -31,7 +31,14 @@ dist
 # Optional REPL history
 .node_repl_history
 
+
 # File Uploads
 # uploads
 
+# Node Modules in Sub Folder
+groupWebsite/node_modules
+fullStackExample/node_modules
+
+dist
+bower_components
 launch.json
