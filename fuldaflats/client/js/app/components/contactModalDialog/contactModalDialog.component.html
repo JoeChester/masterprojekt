@@ -19,20 +19,20 @@
 							<strong data-bind="text: organisationName"></strong><br />
 							<!-- /ko -->
 							<span>
-								<!-- ko if: city -->
-								<span  data-bind="text: city"></span>
-								<span>, </span>
-								<!-- /ko -->
-								<!-- ko if: zipCode -->
-								<span data-bind="text: zipCode"></span>
-								<!-- /ko -->
-							</span><br />
-							<span>
 								<!-- ko if: street -->
 								<span data-bind="text: street"></span>
 								<!-- /ko -->
 								<!-- ko if: housenumber -->
 								<span data-bind="text: housenumber"></span>
+								<!-- /ko -->
+							</span><br />
+							<span>
+								<!-- ko if: zipCode -->
+								<span data-bind="text: zipCode"></span>
+								<!-- /ko -->
+								<!-- ko if: city -->
+								<span> </span>
+								<span  data-bind="text: city"></span>
 								<!-- /ko -->
 							</span><br />
 							<!-- ko if: country -->

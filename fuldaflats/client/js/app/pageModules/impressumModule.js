@@ -23,6 +23,8 @@ define([
                     homePageInfo: appModel.pages.home,
                     currentPageInfo: appModel.currentPage
                 }
+
+                appModel.impressumBar = appModel.contactData;
             }
         };
     };

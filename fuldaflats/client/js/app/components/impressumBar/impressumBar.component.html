@@ -8,23 +8,47 @@
     <div class="container">
         <div class="col-md-12">
             <div class="row">
-                <h1>Legal Disclosure</h1>
-                Information in accordance with section 5 TMG<br/>
-                <br/>FuldaFlats
-                <br/>Leipziger Str. 123
-                <br/>36037 Fulda
-                <br/>
+                <h3>Legal Disclosure</h3>
+                <p>Information in accordance with section 5 TMG</p>
+                <p>
+                    <!-- ko if: organisationName -->
+                    <strong data-bind="text: organisationName"></strong><br />
+                    <!-- /ko -->
+                    <span>
+                    <!-- ko if: street -->
+                    <span data-bind="text: street"></span>
+                    <!-- /ko -->
+                    <!-- ko if: housenumber -->
+                    <span data-bind="text: housenumber"></span>
+                    <!-- /ko -->
+                    </span><br />
+                    <span>
+                    <!-- ko if: zipCode -->
+                    <span data-bind="text: zipCode"></span>
+                    <!-- /ko -->
+                    <!-- ko if: city -->
+                    <span> </span>
+                    <span data-bind="text: city"></span>
+                    <!-- /ko -->
+                    </span><br />
+                    <!-- ko if: country -->
+                    <span data-bind="text: country"></span>
+                    <!-- /ko -->
+                </p>
             </div>
             <div class="row">
-                <h2>Contact</h2>
+                <h3>Contact</h3>
                 <div>
-                    Telephone: <a href="tel:0000 - 0000000">0000 - 0000000</a>
-                    <br/>E-Mail: <a href="mailto:contact@fuldaflats.de">contact@fuldaflats.de</a>
-                    <br/>Internetadresse:<a href="https://fuldaflats.de" target="_blank">https://fuldaflats.de</a><br/>
+                    <!-- ko if: phone -->
+                    <span>Phone: <a data-bind="text: phone, attr: { href: 'tel:' + phone() }"></a></span><br />
+                    <!-- /ko -->
+                    <!-- ko if: email -->
+                    <span>Email: <a data-bind="text: email, attr: { href: 'mailto:' + email() }"></a></span>
+                    <!-- /ko -->
                 </div>
             </div>
             <div class="row">
-                <h2>Disclaimer</h2>
+                <h3>Disclaimer</h3>
                 <div>
                     <div>
                         <h5>Accountability for content</h5>
