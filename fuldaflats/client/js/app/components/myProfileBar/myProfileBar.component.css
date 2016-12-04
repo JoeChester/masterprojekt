@@ -30,3 +30,7 @@
 .spacer{
   margin-top: 1rem;
 }
+
+.label {
+  line-height: 2.5rem !important;
+}
