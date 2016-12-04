@@ -16,23 +16,27 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
                 return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
             };
 
-            self.currentUser = ko.observable({});
+            self.currentUser = ko.observable({
+                isAuthenticated: false,
+                userData: undefined
+            });
+            
             self.isAuthenticated = ko.observable(false);
             self.offerId = ko.observable();
             self.offer = ko.observable({});
             self.landlord = ko.observable({});
 
             //Check Login
-            self.checkLogin = function(){
+            self.checkLogin = function () {
                 $.ajax({
                     method: "GET",
                     url: "/api/users/me",
                     contentType: "application/json",
-                    success: function(data, status, req){
+                    success: function (data, status, req) {
                         self.currentUser(data);
                         self.isAuthenticated(true);
                     },
-                    error: function(req, status, error){
+                    error: function (req, status, error) {
                         self.currentUser({});
                         self.isAuthenticated(false);
                     }
@@ -48,15 +52,15 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
                 $.getJSON({
                     url: '/api/offers/' + self.offerId(),
                     success: function (offerData, status, req) {
-                        if(offerData){
-                            for(var i in offerData.mediaObjects){
+                        if (offerData) {
+                            for (var i in offerData.mediaObjects) {
                                 offerData.mediaObjects[i].carouselIndex = i;
                                 offerData.mediaObjects[i].carouselActive = false;
                             }
                             offerData.mediaObjects[0].carouselActive = true;
                             console.log(offerData);
                             self.offer(offerData);
-                            if(offerData.landlord){
+                            if (offerData.landlord) {
                                 self.landlord(offerData.landlord);
                             }
                         }

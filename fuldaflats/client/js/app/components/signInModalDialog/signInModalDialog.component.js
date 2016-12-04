@@ -9,7 +9,11 @@ define(['text!./signInModalDialog.component.html', 'css!./signInModalDialog.comp
         function SignInModel($, ko, api) {
             var self = this;
 
-            self.currentUser = ko.observable();
+            self.currentUser = ko.observable({
+                isAuthenticated: false,
+                userData: undefined
+            });
+
             self.eMail = ko.observable();
             self.password = ko.observable();
             self.rememberMe = ko.observable(false);
