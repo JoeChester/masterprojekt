@@ -11,7 +11,6 @@ define(['text!./becomeLandlordBar.component.html', 'css!./becomeLandlordBar.comp
             var self = this;
             self.currentUser = ko.observable();
             self.userChanges = ko.observable({});
-            self.testBinding = ko.observable('myBinding');
 
             $.getJSON({
                 url: '/api/users/me',
@@ -29,9 +28,36 @@ define(['text!./becomeLandlordBar.component.html', 'css!./becomeLandlordBar.comp
             }
 
             self.upgrade = function(){
-                var _userChanges = JSON.parse(ko.toJSON(self.userChanges));
-                _userChanges.gender = $("#gender").val();
-                console.log(_userChanges);
+                self.userChanges().gender = self.currentUser().gender;
+                var _userChanges = ko.toJSON(self.userChanges);
+
+                $("input").each(function(){
+                    $(this).removeClass("errorField");
+                })
+
+                $.ajax({
+                        method: "PUT",
+                        url: "/api/users/upgrade",
+                        dataType: "application/json",
+                        contentType: "application/json",
+                        data: _userChanges,
+                        success: function(data, status, req){
+                            window.location = "/pages/myProfile";
+                        },
+                        error: function(req, status, error){
+                            if(req.status == 200){
+                                window.location = "/pages/myProfile";
+                                return;
+                            }
+                            var errorBody = JSON.parse(req.responseText);
+
+                            for(var singleError in errorBody)
+                            {
+                                $("#"+singleError).addClass("errorField");
+                            }
+                            errorCallback(errorBody);
+                        }
+                    });
             }
         }
 

@@ -20,18 +20,18 @@
 					<div class="row">
 						<label class="control-label col-sm-6">Account:</label>
 						<div class="col-sm-6">
-							<div data-bind="if: $data.type==2">
+							<div data-bind="if: type==2">
 								<p id="accountStatus" class="form-control-static">Landlord</p>
 							</div>
-							<div data-bind="if: $data.type==1">
+							<div data-bind="if: type==1">
 								<p id="accountStatus" class="form-control-static">Standard User</p>
 							</div>
 						</div>
 					</div>
-					<div class="row" data-bind="if: $data.type==2">
+					<div class="row" data-bind="if: type == 2">
 						<label class="control-label col-sm-6">Rating:</label>
 						<div class="col-sm-6">
-							<p id="rating" class="form-control-staticdata-bind=" text: user.averageRating ""></p>
+							<p id="rating" class="form-control-static" data-bind=" text: averageRating"></p>
 						</div>
 					</div>
 				</form>
@@ -112,7 +112,7 @@
 				<!-- ______________ Favorites ______________ -->
 				<div class="tab-content clearfix">
 					<div class="tab-pane active" id="favorites">
-						<div data-bind="if: $data.favorites">
+						<div data-bind="ifnot: favorites.length == 0">
 							<div class="col-md-12 resultColumn" data-bind="foreach: { data: favorites, as: 'favorites' }">
 								<div class="panel panel-search-result">
 									<div class="panel-body">
@@ -172,7 +172,7 @@
 								</div>
 							</div>
 						</div>
-						<div data-bind="ifnot: $data.favorites">
+						<div data-bind="if: favorites.length == 0">
 							<div class="alert alert-info" role="alert">You have no favorites yet.</div>
 						</div>
 					</div>
@@ -238,11 +238,11 @@
 							</div>
 						</div>
 						<div data-bind="ifnot: $data.offers">
-							<div data-bind="if: $data.type==1">
+							<div data-bind="if: type==1">
 								<div class="alert alert-info" role="alert">To be able to create offers:</div>
 								<a href="/pages/becomeLandlord" type="submit" class="btn btn-template-main">Become Landlord</a>
 							</div>
-							<div data-bind="if: $data.type==2">
+							<div data-bind="if: type==2">
 								<div class="alert alert-info" role="alert">No Offers yet.</div>
 								<a href="/pages/newOffer" type="submit" class="btn btn-template-main">Create Offer</a>
 							</div>

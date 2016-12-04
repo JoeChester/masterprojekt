@@ -21,6 +21,7 @@ define(['text!./myProfileBar.component.html', 'css!./myProfileBar.component.css'
                     if(data.birthday){
                         data.birthday = moment(data.birthday).format('LL');
                     }
+                    console.log(data);
                     self.currentUser(data);
                 }
             });

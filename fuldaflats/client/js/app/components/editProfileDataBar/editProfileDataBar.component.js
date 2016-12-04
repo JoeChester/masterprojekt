@@ -11,7 +11,6 @@ define(['text!./editProfileDataBar.component.html', 'css!./editProfileDataBar.co
             var self = this;
             self.currentUser = ko.observable();
             self.userChanges = ko.observable({});
-            self.testBinding = ko.observable('myBinding');
 
             $.getJSON({
                 url: '/api/users/me',

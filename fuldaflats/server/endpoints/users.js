@@ -294,28 +294,28 @@ router.put('/upgrade', function (req, res) {
                 delete _upgrade.id;
                 delete _upgrade.creationDate;
 
+                let hasError = false;
                 if(!_upgrade.phoneNumber){
                     upgradeError.phoneNumber = ["Please enter a phone number."];
-                    res.status(400);
-                    return res.json(upgradeError);
+                    hasError = true;
                 }
                 if(!_upgrade.zipCode){ 
                     upgradeError.zipCode = ["Please enter a zip code."];
-                    res.status(400);
-                    return res.json(upgradeError);
+                    hasError = true;
                 }
                 if(!_upgrade.city){
                     upgradeError.city = ["Please enter a city."];
-                    res.status(400);
-                    return res.json(upgradeError);
+                    hasError = true;
                 }
                 if(!_upgrade.street){
                     upgradeError.street = ["Please enter a street."];
-                    res.status(400);
-                    return res.json(upgradeError);
+                    hasError = true;
                 }
                 if(!_upgrade.houseNumber){
                     upgradeError.houseNumber = ["Please enter a house number."];
+                    hasError = true;
+                }
+                if(hasError == true){
                     res.status(400);
                     return res.json(upgradeError);
                 }
