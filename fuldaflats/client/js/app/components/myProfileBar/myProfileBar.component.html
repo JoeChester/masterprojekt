@@ -188,13 +188,13 @@
 										<!-- Hoverable Image -->
 										<div class="offer-brief-detail-1 box-image-text col-md-5">
 											<div class="top">
-												<div class="image">
-													<img src="../img/portfolio-4.jpg" alt="" class="img-responsive">
+												<div class="image thumbnail-container">
+													<img data-bind="attr: { src: offer.thumbnailUrl }" alt="" class="img-responsive thumbnail-img">
 												</div>
 												<div class="bg"></div>
 												<div class="text">
 													<p class="buttons">
-														<a href="/pages/offerDetails" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i>View Details</a>
+														<a data-bind="attr: { href: offer.detailsUrl }" class="btn btn-template-transparent-primary"><i class="fa fa-link"></i>View Details</a>
 													</p>
 												</div>
 											</div>
@@ -210,7 +210,7 @@
 												<h2 data-bind="text: offer.title"></h2>
 											</div>
 											<div class="col-sm-4">
-												<a href="/pages/editOfferDetails" type="submit" class="btn btn-template-main ">Edit Offer</a>
+												<a data-bind="attr: { href: offer.editDetailsUrl }" class="btn btn-template-main"><i class="fa fa-link"></i>Edit Offer</a>
 											</div>
 											<div class="ellipsis">
 												<p data-bind="text: offer.description"></p>

@@ -13,7 +13,6 @@ define(['text!./myProfileBar.component.html', 'css!./myProfileBar.component.css'
             var self = this;
             // your model functions and variables
             self.currentUser = ko.observable();
-            self.favorites = ko.observable();
 
             $.getJSON({ 
                 url: '/api/users/me', 
@@ -24,6 +23,11 @@ define(['text!./myProfileBar.component.html', 'css!./myProfileBar.component.css'
                     for (var i in data.favorites) {
                             data.favorites[i].detailsUrl = '/pages/offerDetails?offerId=' + data.favorites[i].id;
                             data.favorites[i].creationDateFormat = moment(data.favorites[i].creationDate).format('L');
+                        }
+                     for (var i in data.offers) {
+                            data.offers[i].detailsUrl = '/pages/offerDetails?offerId=' + data.offers[i].id;
+                            data.offers[i].editDetailsUrl = '/pages/editOfferDetails?offerId=' + data.offers[i].id;
+                            data.offers[i].creationDateFormat = moment(data.offers[i].creationDate).format('L');
                         }
                     console.log(data);
                     self.currentUser(data);
