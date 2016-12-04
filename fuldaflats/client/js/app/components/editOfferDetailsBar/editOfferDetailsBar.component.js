@@ -87,6 +87,14 @@ define(['text!./editOfferDetailsBar.component.html',
                 }
             };
 
+            self.cancelEditOffer = function () {
+                window.history.back();
+            };
+
+            self.updateOffer = function () {
+                // update logic with validation
+            }
+
             self.initialize = function (params) {
                 if (params) {
                     if (params.currentUser && ko.isObservable(params.currentUser)) {
