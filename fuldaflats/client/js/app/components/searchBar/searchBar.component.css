@@ -50,3 +50,8 @@
 .col-form-label{
   margin-top: 7px;
 }
+
+#search-panel-section .dark-mask{
+  background-color: #467fbf;
+  opacity: 0.5;
+ }
