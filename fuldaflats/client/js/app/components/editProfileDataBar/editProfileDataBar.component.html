@@ -4,14 +4,16 @@
  * LastMod:         02.12.2016
  * Description:     Knockout Template for edit profile data bar.
  ************************************************************-->
-<section style="min-height:700px; margin-top: 2rem">
+<section style="min-height:550px; margin-top: 2rem">
 	<div class="container" data-bind="with: currentUser">
 		<div class="row">
 			<div class="col-sm-4 box-image-text">
 				<div class="row">
 					<div class="top">
 						<div class="image">
-							<img data-bind="attr:{src: profilePicture}" class="img-responsive img-circle" alt="Profilepicture">
+							<div class="profilePicture-container-big">
+								<img data-bind="attr:{src: profilePicture}" class="img-responsive profilePicture-img" alt="Profilepicture">
+							</div>
 						</div>
 						<div class="bg"></div>
 						<div class="text">
@@ -21,27 +23,10 @@
 						</div>
 					</div>
 				</div>
-				<form class="form-horizontal">
-					<div class="row">
-						<label class="control-label col-sm-6">Account:</label>
-						<div class="col-sm-6">
-							<div data-bind="if: $data.type==2">
-								<p id="accountStatus" class="form-control-static">Landlord</p>
-							</div>
-							<div data-bind="if: $data.type==1">
-								<p id="accountStatus" class="form-control-static">Standard User</p>
-							</div>
-						</div>
-					</div>
-					<div class="row" data-bind="if: $data.type==2">
-						<label class="control-label col-sm-6">Rating:</label>
-						<div class="col-sm-6">
-							<p id="rating" class="form-control-static" data-bind=" text: averageRating"></p>
-						</div>
-					</div>
-				</form>
 			</div>
+
 			<div class="col-sm-8">
+				<legend>Personal Information</legend>
 				<form class="form-horizontal">
 					<div class="row">
 						<label for="firstName" class="control-label col-sm-2">First Name:</label>

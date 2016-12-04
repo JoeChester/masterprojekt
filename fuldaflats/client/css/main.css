@@ -68,6 +68,10 @@ padding-right: 17px;
   color: #467fbf;
 }
 
+.gold-text{
+  color: #f8dc0c;
+}
+
 .thumbnail-container{
   height: 250px;
   overflow: hidden;
@@ -77,4 +81,51 @@ padding-right: 17px;
   height: 100%;
   max-width: initial;
   margin: auto;
+}
+
+.profilePicture-container-big{
+    height: 25rem;
+    width: 25rem;
+    overflow: hidden;
+    border-radius: 50%;
+    background-color: #eeeeee;
+    margin: auto;
+}
+
+@media only screen and (min-width : 992px) {
+  .profilePicture-container-big{
+    height: 35rem !important;
+    width: 35rem !important;
+  }
+}
+
+.profilePicture-container-medium{
+    height: 10rem;
+    width: 10rem;
+    overflow: hidden;
+    border-radius: 50%;
+    background-color: #eeeeee;
+    margin: auto;
+}
+
+@media only screen and (min-width : 992px) {
+  .profilePicture-container-medium{
+    height: 20rem;
+    width: 20rem;
+  }
+}
+
+.profilePicture-container-small{
+    height: 5rem;
+    width: 5rem;
+    overflow: hidden;
+    border-radius: 50%;
+    background-color: #eeeeee;
+    margin: auto;
+}
+
+.profilePicture-img{
+    height: 100%;
+    max-width: initial;
+    margin: auto;
 }

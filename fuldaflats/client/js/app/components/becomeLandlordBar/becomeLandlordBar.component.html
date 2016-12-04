@@ -9,13 +9,15 @@
         <div class="row">
             <div class="col-sm-4">
                 <div class="row">
-                    <img data-bind="attr:{src: profilePicture}" class="img-responsive img-circle" alt="Profilepicture">
+                    <div class="profilePicture-container-big">
+                        <img data-bind="attr:{src: profilePicture}" class="img-responsive profilePicture-img" alt="Profilepicture">
+                    </div>
                 </div>
             </div>
             <div class="col-sm-8">
                 <form class="form-horizontal">
                     <fieldset class="form-group">
-                        <legend>General Informations</legend>
+                        <legend>General Information</legend>
                         <div class="form-group">
                             <label for="accountStatus" class="control-label col-sm-4">Account:</label>
                             <div class="col-sm-5">
@@ -57,7 +59,7 @@
                         </div>
                     </fieldset>
                     <fieldset class="form-group">
-                        <legend>Contact Informations</legend>
+                        <legend>Contact Information</legend>
                         <div class="form-group">
                             <label for="zipCode" class="control-label col-sm-4">ZIP Code:</label>
                             <div class="col-sm-5">

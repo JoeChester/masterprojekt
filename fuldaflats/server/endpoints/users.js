@@ -345,6 +345,28 @@ router.put('/upgrade', function (req, res) {
     }
 });
 
+// Use a standard picture / url for the current user
+router.put('/standardPicture', function(req, res){
+     if (!req.session.auth) {
+        return res.sendStatus(403);
+    } else {
+        if(!req.body.img){
+            return res.sendStatus(400);
+        }
+        let pictureUrl = req.body.img;
+        schema.models.User.update(
+            { where: {id: req.session.user.id}} , 
+            { profilePicture: pictureUrl},
+            (err, user) =>{
+                if(err){
+                    res.status(500);
+                    return res.json(err);
+                }
+                return res.sendStatus(204);
+        });
+    }
+});
+
 //userdata for user with :userId => public profiles, not implemented yet (Prio 2)
 router.get('/:userId', function (req, res) {
     res.sendStatus(501);

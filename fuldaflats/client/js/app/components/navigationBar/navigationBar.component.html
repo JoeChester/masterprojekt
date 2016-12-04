@@ -25,7 +25,9 @@
 			<div class="navbar-collapse collapse" id="navigation">
 				<!-- ko if: currentUser().isAuthenticated && currentUser().userData && currentUser().userData.profilePicture-->
 				<div class="nav-profile-image-container navbar-right">
-					<img data-bind="attr: { src: currentUser().userData.profilePicture }" alt="profile image" class="img-responsive img-circle">
+					<div class="profilePicture-container-small">
+						<img data-bind="attr: { src: currentUser().userData.profilePicture }" alt="profile image" class="img-responsive profilePicture-img">
+					</div>
 				</div>
 				<!-- /ko -->
 				<ul class="nav navbar-nav navbar-right">
