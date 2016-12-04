@@ -15,7 +15,18 @@ define(['text!./myProfileBar.component.html', 'css!./myProfileBar.component.css'
             self.currentUser = ko.observable();
 
             function removeFavorite(offerId) {
-                console.log("Remove Favorite: " + offerId);
+                  $.ajax({
+                    url: "/api/offers/" + offerId + "/favorite",
+                    method: "DELETE",
+                    success: function(data, status, req){
+                        self.getUserdata();
+
+                    },
+                    error: function(req, status, err){
+                        console.error(req);
+                        errorCallback(err);
+                    } 
+                });
             }
 
             self.getUserdata = function () {

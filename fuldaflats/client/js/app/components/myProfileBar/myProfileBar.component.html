@@ -114,7 +114,7 @@
 					<div class="tab-pane active" id="favorites">
 						<div data-bind="if: favorites.length > 0">
 							<div class="col-md-12 resultColumn" data-bind="foreach: { data: favorites, as: 'favorite' }">
-								<div class="panel panel-search-result">
+								<div class="panel panel-offer-result">
 									<div class="panel-body">
 										<!-- Hoverable Image -->
 										<div class="offer-brief-detail-1 box-image-text col-md-5">
@@ -138,20 +138,22 @@
 													<span class="label label-default" data-bind="text: tag.title"></span>
 												</h4>
 											</div>
-											<div class="col-sm-8">
-												<h2 data-bind="text: favorite.title"></h2>
+											<div class= "row">
+												<div class="col-sm-8">
+													<h2 data-bind="text: favorite.title"></h2>
+												</div>
+												<div class="col-sm-4">
+													<span data-bind="if: favorite.isFavorite">
+														<span class="glyphicon glyphicon glyphicon-heart favorite-icon purpleblue-text" aria-hidden="true" 
+															title="Remove from Favorites" data-bind="click: removeFavorite"</span>
+													</span>
+												</div>
 											</div>
-											<div class="col-sm-4">
-												<span data-bind="if: favorite.isFavorite">
-													<span class="glyphicon glyphicon glyphicon-heart favorite-icon purpleblue-text" aria-hidden="true" 
-														title="Remove from Favorites" data-bind="click: removeFavorite"</span>
-												</span>
-											</div>
-											<div class="ellipsis">
-												<p data-bind="text: favorite.description"></p>
-											</div>
-											<div class="ellipsis-dots">...</div>
-
+												<div class="ellipsis">
+													<p data-bind="text: favorite.description"></p>
+												</div>
+												<div class="ellipsis-dots">...</div>
+											
 											<!-- Price -->
 											<div class="row">
 												<div class="col-md-4 offer-result-keyfigures">
@@ -170,6 +172,10 @@
 													<div class="offer-brief-detail-1-details-key"><small data-bind="text: favorite.offerType"></small></div>
 												</div>
 											</div>
+											<!-- Created on -->
+											<div class="row">
+												<span class="col-md-12 created-on">Created on <span data-bind="text: favorite.creationDateFormat"></span></span>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -183,7 +189,7 @@
 					<div class="tab-pane" id="offers">
 						<div data-bind="if: $data.offers">
 							<div class="col-md-12 resultColumn" data-bind="foreach: { data: offers, as: 'offer' }">
-								<div class="panel panel-search-result">
+								<div class="panel panel-offer-result">
 									<div class="panel-body">
 										<!-- Hoverable Image -->
 										<div class="offer-brief-detail-1 box-image-text col-md-5">
@@ -234,6 +240,10 @@
 													</div>
 													<div class="offer-brief-detail-1-details-key"><small data-bind="text: offer.offerType"></small></div>
 												</div>
+											</div>
+											<!-- Created on -->
+											<div class="row">
+												<span class="col-md-12 created-on">Created on <span data-bind="text: offer.creationDateFormat"></span></span>
 											</div>
 										</div>
 									</div>

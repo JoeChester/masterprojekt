@@ -1,1 +1,29 @@
+/************************************************************
+ * File:            myProfileBar.component.css
+ * Author:          Michelle Rothenbücher
+ * LastMod:         04.12.2016
+ * Description:     Custom CSS for myprofilebar.
+ ************************************************************/
 /* Special component css here and general css in main.css */
+
+.panel-offer-result {
+  margin-bottom: 20px;
+  background-color: #fff;
+  border: 1px solid #eeeeee;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+}
+
+.offer-result-keyfigures {
+  background-color: #eeeeee;
+  border: 1px solid #dddddd;
+  padding: 0.5rem;
+}
+
+.created-on {
+  padding: 0px;
+  margin-top: 5px;
+  color: #999999;
+}
+
