@@ -1,7 +1,7 @@
 /************************************************************
  * File:            offerDetailsBar.component.css
- * Author:          Jonas Kleinkauf
- * LastMod:         02.12.2016
+ * Author:          Jonas Kleinkauf, Martin Herbener
+ * LastMod:         05.12.2016
  * Description:     Custom CSS for offer details bar.
  ************************************************************/
 /* Special component css here and general css in main.css */
@@ -65,4 +65,8 @@
 .carousel-control.right{
     background-image: none;
     filter: none;
+}
+
+hr {
+    border:solid #ddd 1px;
 }

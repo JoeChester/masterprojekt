@@ -1,7 +1,7 @@
 <!--************************************************************
  * File:            offerDetailsBar.component.html
  * Author:          Martin Herbener, Jonas Kleinkauf, Patrick Hasenauer
- * LastMod:         02.12.2016
+ * LastMod:         05.12.2016
  * Description:     Knockout Template for offer details bar.
  ************************************************************-->
 <section style="min-height:700px; margin-top: 2rem">
@@ -36,7 +36,7 @@
                     <span class="sr-only">Next</span>
                 </a>
             </div>
-        </div>
+        </div><br>
         <div class="row" style="background-color: #ddd">
             <div class="col-sm-12"><br>
                 <div class="col-sm-4">
@@ -45,8 +45,8 @@
                 </div>
                 <div class="col-sm-4"></div>
                 <div class="col-sm-4">
-                    <label class="control-label col-sm-6">Rental(w):</label>
-                    <label class="control-label col-sm-6" data-bind="text: offer().rent"></label>
+                    <label class="control-label col-sm-6">Rental:</label>
+                    <label class="control-label col-sm-6" data-bind="text: offer().rent + ' EUR'"></label>
                 </div><br>
             </div><br>
         </div>
@@ -54,12 +54,12 @@
             <div class="col-sm-12">
                 <div class="col-sm-4">
                     <label class="control-label col-sm-6">Size:</label>
-                    <label class="control-label col-sm-6" data-bind="text: offer().size"></label>
+                    <label class="control-label col-sm-6" data-bind="text: offer().size + ' qm'"></label>
                 </div>
                 <div class="col-sm-4"></div>
                 <div class="col-sm-4">
                     <label class="control-label col-sm-6">Addition:</label>
-                    <label class="control-label col-sm-6" data-bind="text: offer().sideCosts"></label>
+                    <label class="control-label col-sm-6" data-bind="text: offer().sideCosts + ' EUR'"></label>
                 </div>
             </div><br>
         </div>
@@ -71,8 +71,34 @@
                 </div>
                 <div class="col-sm-4"></div>
                 <div class="col-sm-4">
-                    <label class="control-label col-sm-6">Rental:</label>
-                    <label class="control-label col-sm-6" data-bind="text: offer().rent"></label>
+                    <label class="control-label col-sm-6">Full Price:</label>
+                    <label class="control-label col-sm-6" data-bind="text: offer().fullPrice + ' EUR'"></label>
+                </div>
+            </div><br>
+        </div>
+        <div class="row" style="background-color: #ddd">
+            <div class="col-sm-12">
+                <div class="col-sm-4">
+                    <label class="control-label col-sm-6"></label>
+                    <label class="control-label col-sm-6"></label>
+                </div>
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                    <label class="control-label col-sm-6">Deposit:</label>
+                    <label class="control-label col-sm-6" data-bind="text: offer().deposit + ' EUR'"></label>
+                </div>
+            </div><br>
+        </div>
+        <div class="row" style="background-color: #ddd">
+            <div class="col-sm-12">
+                <div class="col-sm-4">
+                    <label class="control-label col-sm-6"></label>
+                    <label class="control-label col-sm-6"></label>
+                </div>
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                    <label class="control-label col-sm-6">Commission:</label>
+                    <label class="control-label col-sm-6" data-bind="text: offer().commission + ' EUR'"></label>
                 </div>
             </div><br><br>
         </div><br>
@@ -88,7 +114,7 @@
             <div class="row" style="background-color: #ddd">
                 <div class="col-sm-12">
                     <div class="col-sm-4">
-                        <img src="../img/person-3.png" class="img-responsive col-sm-6" alt="Profilepicture">
+                        <img data-bind="attr: {src: landlord().profilePicture}" class="img-responsive col-sm-6" alt="Profilepicture">
                     </div>
                 </div>
             </div>
@@ -109,7 +135,7 @@
                 <div class="col-sm-12">
                     <div class="col-sm-6">
                         <label class="control-label col-sm-4">Name:</label>
-                        <label class="control-label col-sm-8" data-bind="text: landlord().lastName"></label>
+                        <label class="control-label col-sm-8" data-bind="text: landlord().lastName + ', ' + landlord().firstName"></label>
                     </div>
                 </div>
             </div>
@@ -192,13 +218,13 @@
                     <div class="col-sm-4">
                         <label class="control-label col-sm-6">Description:</label>
                     </div>
-                </div>
+                </div><br>
             </div>
             <div class="row" style="background-color: #ddd">
                 <div class="col-sm-12">
                     <div class="col-sm-12">
-                        <label class="control-label col-sm-12" data-bind="text: offer().description"></label><br>
-                    </div>
+                        <label class="control-label col-sm-12" data-bind="text: offer().description"></label><br><br><br>
+                    </div><br>
                 </div><br>
             </div><br>
             <div class="row" style="background-color: #ddd">
@@ -223,7 +249,12 @@
                     <div class="col-sm-4"></div>
                     <div class="col-sm-4">
                         <label class="control-label col-sm-6">Washer:</label>
-                        <label class="control-label col-sm-6" data-bind="if: offer().washingMachine">Yes</label>
+                        <!-- ko if: offer().washingMachine -->
+                        <label class="control-label col-sm-6">Yes</label>
+                        <!-- /ko -->
+                        <!-- ko ifnot: offer().washingMachine --> 
+                        <label class="control-label col-sm-6">No</label>
+                        <!-- /ko --> 
                     </div>
                 </div><br>
             </div>
@@ -231,12 +262,22 @@
                 <div class="col-sm-12">
                     <div class="col-sm-4">
                         <label class="control-label col-sm-6">Cellar:</label>
-                        <label class="control-label col-sm-6" data-bind="if: offer().cellar">Yes</label>
+                        <!-- ko if: offer().cellar -->
+                        <label class="control-label col-sm-6">Yes</label>
+                        <!-- /ko -->
+                        <!-- ko ifnot: offer().cellar -->
+                        <label class="control-label col-sm-6">No</label>
+                        <!-- /ko -->
                     </div>
                     <div class="col-sm-4"></div>
                     <div class="col-sm-4">
                         <label class="control-label col-sm-6">Dryer:</label>
-                        <label class="control-label col-sm-6" data-bind="if: offer().dryer">Yes</label>
+                        <!-- ko if: offer().dryer -->
+                        <label class="control-label col-sm-6">Yes</label>
+                        <!-- /ko -->
+                        <!-- ko ifnot: offer().dryer --> 
+                        <label class="control-label col-sm-6">No</label>
+                        <!-- /ko -->
                     </div>
                 </div><br>
             </div>
@@ -244,12 +285,22 @@
                 <div class="col-sm-12">
                     <div class="col-sm-4">
                         <label class="control-label col-sm-6">Parking:</label>
-                        <label class="control-label col-sm-6" data-bind="if: offer().parking">Yes</label>
+                        <!-- ko if: offer().parking -->
+                        <label class="control-label col-sm-6">Yes</label>
+                        <!-- /ko -->
+                        <!-- ko ifnot: offer().parking -->
+                        <label class="control-label col-sm-6">No</label>
+                        <!-- /ko -->
                     </div>
                     <div class="col-sm-4"></div>
                     <div class="col-sm-4">
                         <label class="control-label col-sm-6">TV:</label>
-                        <label class="control-label col-sm-6" data-bind="if: offer().telephone">Yes</label>
+                        <!-- ko if: offer().telephone -->
+                        <label class="control-label col-sm-6">Yes</label>
+                        <!-- /ko -->
+                        <!-- ko ifnot: offer().telephone -->
+                        <label class="control-label col-sm-6">No</label>
+                        <!-- /ko -->
                     </div>
                 </div><br>
             </div>
@@ -257,12 +308,22 @@
                 <div class="col-sm-12">
                     <div class="col-sm-4">
                         <label class="control-label col-sm-6">Elevator:</label>
-                        <label class="control-label col-sm-6" data-bind="if: offer().elevator">Yes</label>
+                        <!-- ko if: offer().elevator -->
+                        <label class="control-label col-sm-6">Yes</label>
+                        <!-- /ko -->
+                        <!-- ko ifnot: offer().elevator -->
+                        <label class="control-label col-sm-6">No</label>
+                        <!-- /ko -->
                     </div>
                     <div class="col-sm-4"></div>
                     <div class="col-sm-4">
                         <label class="control-label col-sm-6">Phone:</label>
-                        <label class="control-label col-sm-6" data-bind="if: offer().telephone">Yes</label>
+                        <!-- ko if: offer().telephone -->
+                        <label class="control-label col-sm-6">Yes</label>
+                        <!-- /ko -->
+                        <!-- ko ifnot: offer().telephone -->
+                        <label class="control-label col-sm-6">No</label>
+                        <!-- /ko -->
                     </div>
                 </div><br>
             </div>
@@ -275,7 +336,7 @@
                     <div class="col-sm-4"></div>
                     <div class="col-sm-4">
                         <label class="control-label col-sm-6">Internet:</label>
-                        <label class="control-label col-sm-6">Yes</label>
+                        <label class="control-label col-sm-6" data-bind="text: offer().internetSpeed + ' MBit/s'">Yes</label>
                     </div>
                 </div><br><br>
             </div><br>
@@ -286,43 +347,65 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="col-sm-8">
-                        <span class="">&nbsp;&nbsp;&nbsp;</span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
+            <div data-bind="foreach: { data: offer().reviews, as: 'review'}">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="col-sm-8"  data-bind="value: review.rating">
+                            <span class="">&nbsp;&nbsp;&nbsp;</span>
+                            <!-- ko if: review.rating == 5 --> 
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <!-- /ko -->
+                            <!-- ko if: review.rating == 4 --> 
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <!-- /ko -->
+                            <!-- ko if: review.rating == 3 --> 
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <!-- /ko -->
+                            <!-- ko if: review.rating == 2 --> 
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <!-- /ko -->
+                            <!-- ko if: review.rating == 1 --> 
+                            <span class="glyphicon glyphicon-star"></span>
+                            <!-- /ko -->
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="col-sm-8">
-                        <label class="control-label col-sm-6">Very nice Apartement</label>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="col-sm-8">
+                            <label class="control-label col-sm-6" data-bind="text: review.title"></label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="col-sm-8">
-                        <label class="control-label col-sm-6"><small>By Paula on February 3, 2014</small></label>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="col-sm-8">
+                            <label class="control-label col-sm-6" data-bind="text: review.creationDate"><small></small></label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="col-sm-10">
-                        <label class="control-label col-sm-12" data-bind="foreach:{ data: offer().reviews, as: 'review'}">
-                                <label data-bind="text: review.description"></label>
-                        </label>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="col-sm-10">
+                            <label class="control-label col-sm-12">
+                                    <label data-bind="text: review.comment"></label>
+                            </label>
+                        </div>
+                        <div class="col-sm-2">
+                            <img src="../img/person-3.png" class="img-responsive" alt="Profilepicture">
+                        </div>
                     </div>
-                    <div class="col-sm-2">
-                        <img src="../img/person-3.png" class="img-responsive" alt="Profilepicture">
-                    </div>
-                </div>
+                </div><hr>
             </div>
             <div class="row">
                 <div class="col-sm-12">
