@@ -35,5 +35,8 @@
     "longitude": 50.1124,
     "latitude": 6.123,
     "uniDistance": 2.3,
-    "landlord": 2
+    "landlord": 2,
+    "fullPrice": 250.00,
+    "deposit": 125.00,
+    "commission": 0.00
 }

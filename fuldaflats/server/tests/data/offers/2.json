@@ -6,7 +6,7 @@
     "rent": 240.00,
     "rentType": "WARM",
     "rooms": 2,
-    "side_costs": 150.00,
+    "sideCosts": 150.00,
     "priceType": "MONTH",
     "street": "Henrich Straße",
     "houseNumber": 35,
@@ -35,5 +35,8 @@
     "longitude": 60.1124,
     "latitude": 16.123,
     "uniDistance": 0.7,
-    "landlord": 1
+    "landlord": 1,
+    "fullPrice": 390.00,
+    "deposit": 480.00,
+    "commission": 100.00
 }
