@@ -1,7 +1,7 @@
 /************************************************************
  * File:            Offer.js
- * Author:          Jonas Kleinkauf, Franz Weidmann, Plisam Ekpai-Laodema
- * LastMod:         02.12.2016
+ * Author:          Jonas Kleinkauf, Franz Weidmann, Plisam Ekpai-Laodema, Martin Herbener
+ * LastMod:         05.12.2016
  * Description:     Database module for offers
  ************************************************************/
 
@@ -29,6 +29,9 @@ module.exports = function (schema) {
         },
         rooms: schema.Number,
         sideCosts: schema.Number,
+        fullPrice: schema.Float,
+        deposit: schema.Float,
+        commission: schema.Float,
         //priveTypes = DAY, MONTH, SEMSETER
         priceType: {
             type: schema.String,
@@ -161,6 +164,9 @@ module.exports = function (schema) {
         _offer.rentType = this.rentType;
         _offer.rooms = this.rooms;
         _offer.sideCosts = this.sideCosts;
+        _offer.fullPrice = this.fullPrice;
+        _offer.deposit = this.deposit;
+        _offer.commission = this.commission;
         _offer.priceType = this.priceType;
         _offer.street = this.street;
         _offer.zipCode = this.zipCode;
