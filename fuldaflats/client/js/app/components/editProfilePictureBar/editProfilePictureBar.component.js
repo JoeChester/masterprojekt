@@ -31,7 +31,7 @@ define(['text!./editProfilePictureBar.component.html', 'css!./editProfilePicture
                 xhr.upload.addEventListener("progress", function (evt) {
                     if (evt.lengthComputable) {
                         var percentComplete = (evt.loaded / evt.total) * 100;
-                        percentComplete = percentageXhr + "%";
+                        percentComplete = percentComplete + "%";
                         $("#uploadProgressBar").css("width", percentComplete);
                     }
                 }, false);
