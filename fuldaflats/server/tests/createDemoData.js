@@ -136,3 +136,16 @@ var favs = require('./data/favorites.json');
 for(i in favs){
     createFavorite(favs[i]);
 }
+
+// Create Demo Reviews
+function createReview(rev){
+    schema.models.Review.create(rev, (err, _rev)=>{
+        if(err) console.log(err);
+        else console.log("Created Review " + _rev.id + "!");
+    });
+};
+
+var revs = require('./data/reviews.json');
+for(i in revs){
+    createReview(revs[i]);
+};
