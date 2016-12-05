@@ -5,12 +5,14 @@
  * Description:     Knockout Template for edit profile picture bar.
  ************************************************************-->
 <section style="min-height:400px; margin-top: 2rem">
-    <div class="container">
+    <div class="container" data-bind="with: currentUser">
     <div class="row">
         <div class="col-sm-4">
             <div class="row">
+                <div class="image">
                 <div class="profilePicture-container-big">
-                    <img src="../img/person-3.png" class="img-responsive profilePicture-img" alt="Profilepicture">
+                    <img data-bind="attr:{src: profilePicture}" class="img-responsive profilePicture-img" alt="Profilepicture">
+                </div>
                 </div>
             </div>
         </div>
@@ -18,16 +20,16 @@
             <form class="form-horizontal">
                 <div class="row spacer">
                     <legend>Choose from given Pictures</legend>
-                    <a href="javascript:void(0)" data-bind="click: function(data, event){standardPicture('/img/cat.png', data, event)}">
+                    <a href="javascript:void(0)" data-bind="click: function(data, event){$parent.standardPicture('/img/cat.png', data, event)}">
                         <img src="../img/cat.png" class="img-responsive img-circle col-sm-2" alt="Cat">
                     </a>
-                    <a href="javascript:void(0)" data-bind="click: function(data, event){standardPicture('/img/dog.png', data, event)}">
+                    <a href="javascript:void(0)" data-bind="click: function(data, event){$parent.standardPicture('/img/dog.png', data, event)}">
                         <img src="../img/dog.png" class="img-responsive img-circle col-sm-2" alt="Dog">
                     </a>
-                    <a href="javascript:void(0)" data-bind="click: function(data, event){standardPicture('/img/cupcake.png', data, event)}">
+                    <a href="javascript:void(0)" data-bind="click: function(data, event){$parent.standardPicture('/img/cupcake.png', data, event)}">
                         <img src="../img/cupcake.png" class="img-responsive img-circle col-sm-2" alt="Cupcake">
                     </a>
-                    <a href="javascript:void(0)" data-bind="click: function(data, event){standardPicture('/img/meat.png', data, event)}">
+                    <a href="javascript:void(0)" data-bind="click: function(data, event){$parent.standardPicture('/img/meat.png', data, event)}">
                         <img src="../img/meat.png" class="img-responsive img-circle col-sm-2" alt="Meat">
                     </a>
                 </div>
@@ -37,8 +39,8 @@
                         <div class="progress-bar progress-bar-info" role="progressbar" style="width: 0%">
                         </div>
                     </div>
-                    <input type="file" id="hiddenFileInput" name="file" class="hidden" accept="image/*" data-bind="event: {change: uploadPicture}">
-                    <a data-bind="click: openFileDialog" class="btn btn-template-main marginbottom">Choose Picture from Computer</a>
+                    <input type="file" id="hiddenFileInput" name="file" class="hidden" accept="image/*" data-bind="event: {change: $parent.uploadPicture}">
+                    <a data-bind="click: $parent.openFileDialog" class="btn btn-template-main marginbottom">Choose Picture from Computer</a>
                 </div>
                 <div class="row">
                     <a href="/pages/myProfile" type="submit" class="btn btn-template-main btn-marginleft">Cancel</a>

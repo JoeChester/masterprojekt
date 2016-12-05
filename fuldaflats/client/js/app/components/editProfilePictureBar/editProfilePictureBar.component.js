@@ -1,45 +1,105 @@
 /************************************************************
  * File:            editProfilePictureBar.component.js
- * Author:          Patrick Hasenauer
- * LastMod:         02.12.2016
+ * Author:          Michelle Rothenbücher, Patrick Hasenauer
+ * LastMod:         05.12.2016
  * Description:     JS Component Handler for edit profile picture bar.
  ************************************************************/
 define(['text!./editProfilePictureBar.component.html', 'css!./editProfilePictureBar.component.css', 'knockout', 'jquery'],
-    function(componentTemplate, componentCss, ko, $) {
+    function (componentTemplate, componentCss, ko, $) {
         function EditProfilePictureModel(params) {
             var self = this;
-            // your model functions and variables
+            self.currentUser = ko.observable();
 
-            self.openFileDialog = function(){
+            $.getJSON({
+                url: '/api/users/me',
+                success: function (data, status, req) {
+                    self.currentUser(data);
+                }
+            });
+
+            self.openFileDialog = function () {
                 var elem = document.getElementById("hiddenFileInput");
-                if(elem && document.createEvent) {
+                if (elem && document.createEvent) {
                     var evt = document.createEvent("MouseEvents");
                     evt.initEvent("click", true, false);
                     elem.dispatchEvent(evt);
                 }
             }
 
-            self.uploadPicture = function(){
-                console.log($("#hiddenFileInput")[0].files[0]);
+            var percentageXhr = function () {
+                var xhr = new window.XMLHttpRequest();
+                xhr.upload.addEventListener("progress", function (evt) {
+                    if (evt.lengthComputable) {
+                        var percentComplete = evt.loaded / evt.total;
+                        console.log("upload:" + percentComplete);
+                        //Do something with upload progress here
+                    }
+                }, false);
+
+                xhr.addEventListener("progress", function (evt) {
+                    if (evt.lengthComputable) {
+                        var percentComplete = evt.loaded / evt.total;
+                        //console.log(percentComplete);
+                        //Do something with download progress
+                    }
+                }, false);
+
+                return xhr;
+            };
+
+            self.uploadPicture = function () {
+                var form = new FormData();
+                form.append("file", $("#hiddenFileInput")[0].files[0]);
+                $.ajax({
+                    xhr: percentageXhr,
+                    async: true,
+                    url: "/api/files/profilePicture",
+                    method: "POST",
+                    processData: false,
+                    contentType: false,
+                    mimeType: "multipart/form-data",
+                    data: form,
+                    success: function (data, status, req) {
+                        console.log("SUCCESS!");
+                        //window.location = "/pages/myProfile";
+                        return;
+                    },
+                    error: function (req, status, error) {
+                        console.error(req);
+                    }
+                });
             }
 
-            self.standardPicture = function(pictureUrl, data, event){
-                console.log(pictureUrl);
-                var pictureData = {img: pictureUrl};
-                /* 
-                From here on: do ajax request like everywhere else
-                with:
-                method: PUT
-                url: /api/users/standardPicture
-                data: pictureData
-                */
+            self.standardPicture = function (pictureUrl, data, event) {
+
+                var pictureData = {};
+                pictureData.img = pictureUrl;
+                console.log(pictureData);
+                $.ajax({
+                    method: "PUT",
+                    url: "/api/users/standardPicture",
+                    dataType: "application/json",
+                    contentType: "application/json",
+                    data: JSON.stringify(pictureData),
+                    success: function (data, status, req) {
+                        window.location = "/pages/myProfile";
+                    },
+                    error: function (req, status, error) {
+                        if (req.status == 200) {
+                            window.location = "/pages/myProfile";
+                            return;
+                        }
+                        //errorCallback(error);
+                        console.log(req);
+                    }
+                });
             }
 
         }
 
         return {
             viewModel: {
-                createViewModel: function(params, componentInfo) {
+                createViewModel: function (params, componentInfo) {
                     // componentInfo contains for example the root element from the component template
                     return new EditProfilePictureModel(params);
                 }
