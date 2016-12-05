@@ -30,20 +30,11 @@ define(['text!./editProfilePictureBar.component.html', 'css!./editProfilePicture
                 var xhr = new window.XMLHttpRequest();
                 xhr.upload.addEventListener("progress", function (evt) {
                     if (evt.lengthComputable) {
-                        var percentComplete = evt.loaded / evt.total;
-                        console.log("upload:" + percentComplete);
-                        //Do something with upload progress here
+                        var percentComplete = (evt.loaded / evt.total) * 100;
+                        percentComplete = percentageXhr + "%";
+                        $("#uploadProgressBar").css("width", percentComplete);
                     }
                 }, false);
-
-                xhr.addEventListener("progress", function (evt) {
-                    if (evt.lengthComputable) {
-                        var percentComplete = evt.loaded / evt.total;
-                        //console.log(percentComplete);
-                        //Do something with download progress
-                    }
-                }, false);
-
                 return xhr;
             };
 
@@ -61,7 +52,7 @@ define(['text!./editProfilePictureBar.component.html', 'css!./editProfilePicture
                     data: form,
                     success: function (data, status, req) {
                         console.log("SUCCESS!");
-                        //window.location = "/pages/myProfile";
+                        window.location = "/pages/myProfile";
                         return;
                     },
                     error: function (req, status, error) {

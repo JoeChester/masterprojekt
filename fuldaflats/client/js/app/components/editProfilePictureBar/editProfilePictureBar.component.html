@@ -36,7 +36,7 @@
                 <div class="row spacer">
                     <legend>Upload Picture</legend>
                     <div class="progress">
-                        <div class="progress-bar progress-bar-info" role="progressbar" style="width: 0%">
+                        <div id="uploadProgressBar" class="progress-bar progress-bar-info" role="progressbar" style="width: 0%">
                         </div>
                     </div>
                     <input type="file" id="hiddenFileInput" name="file" class="hidden" accept="image/*" data-bind="event: {change: $parent.uploadPicture}">
