@@ -1,7 +1,7 @@
 /************************************************************
  * File:            fileUploaderModal.component.js
  * Author:          Franz Weidmann
- * LastMod:         3.12.2016
+ * LastMod:         4.12.2016
  * Description:     Logic for the fileUploader component
 ************************************************************/
 define(['text!./fileUploaderModal.component.html',
@@ -11,26 +11,25 @@ define(['text!./fileUploaderModal.component.html',
         function FileUploaderModalModel($, ko) {
             var self = this;
 
+            // MediaObjects which are already uploaded
             self.offerMediaObjectsOnline = ko.observableArray([]);
+            // MediaObjects which are selected and are uploadable
             self.offerMediaObjectsOffline = ko.observableArray([]);
             self.offerID = 1;// TODO - get current OfferID
             
-            // TODO: "just" remove the item from the observable array
             self.removeOfflineMediaObject = file => {
-                console.log("REMOVE MEDIA OBJECT");
-                
-                self.offerMediaObjectsOffline().remove(file);
+                self.offerMediaObjectsOffline.remove(file);
             }
 
-            // TODO
+            // TODO -  removie mediaObject Endpoint
             self.deleteOnlineMediaObject = file => {
                 console.log("DELETE ONLINE MEDIA");
+                //self.offerMediaObjectsOnline.remove(file);
             }
 
-            // TODO atm this error occurs: 400 - {"error":"File was not specified"}
             self.uploadMediaObject = file => {
-                console.log("UPLOAD MEDIA OBJECT");
-                console.log(file);
+                let form = new FormData();
+                form.append("file", file);
 
                 $.ajax({
                     url:"/api/files/offers/" + self.offerID,
@@ -39,44 +38,61 @@ define(['text!./fileUploaderModal.component.html',
                     processData: false,
                     contentType: false,
                     mimeType: "multipart/form-data",
-                    data: new FormData().append("file", file)
+                    data: form,
+                    xhr: newXHRObject.bind(null, file)
                 }).done( data => {
-                    console.log("UPLOAD SUCCEED");
-                    console.log(data);
-                    
-                    self.removeOfflineMediaObject(file);
-                    let newMediaObjects = api.mediaObjects.findMediaObjectsByOfferID(self.offerID);
-                    self.offerMediaObjectsOnline(newMediaObjects);
+                    self.offerMediaObjectsOffline.remove(file);
+                    updateMediaObjectsOnline();
+
                 }).fail( err => {
-                    
-                    console.log("UPLOAD FAILED");
-                    console.log(err.status + " - " +err.responseText);
-                }) 
+                    console.log(err);
+                })
+
+                let fileIndex = self.offerMediaObjectsOffline.indexOf(file);
+                $("#"+fileIndex+".removeFileBtn").hide();
+                $("#"+fileIndex+".uploadFileBtn").hide(); 
+                $("#"+fileIndex+".progressMediaObjectUpLoad").show(); 
             }
 
             self.initialize = () => {
+                updateMediaObjectsOnline();
 
-                console.log("INIT");
+                $("#mediaObjectFile").on("change", e => {
+                    for(var i=0; i<e.target.files.length; i++){
+                        self.offerMediaObjectsOffline.push(e.target.files[i]);
+                    }
+                })
+            }
+
+            function updateMediaObjectsOnline(){
                 let mediaObjectsPromise = api.mediaObjects.findMediaObjectsByOfferID(self.offerID);
                 
                 mediaObjectsPromise.then( data => {
-                    console.log("MEDIA READY");
-                    console.log(data);
                     self.offerMediaObjectsOnline(data);
                 })
+            }
 
-                $("#mediaObjectFile").on("change", e => {
-                    console.log(e.target.files);
-                    self.offerMediaObjectsOffline(e.target.files);
-                })
-            };
+            function newXHRObject(file) {
+                let xhr = new window.XMLHttpRequest();
+                xhr.upload.addEventListener("progress", progressUpLoad.bind(null, file), false);
+                return xhr;
+            }
+            function progressUpLoad(file, evt) {
+                if (evt.lengthComputable){
+                    let fileIndex = self.offerMediaObjectsOffline.indexOf(file);
+                    let percent = Math.round(evt.loaded / evt.total * 100, 2);
+                    $("#"+fileIndex+".progressMediaObjectUpLoad > div").attr("aria-valuenow", percent+"");
+                    $("#"+fileIndex+".progressMediaObjectUpLoad > div").width(percent + "%");
+                    $("#"+fileIndex+".progressMediaObjectUpLoad > div").html("Uploading: "+ percent +" % complete");
+                    console.log( percent + "% uploaded for "+fileIndex);
+                }
+            }
 
         }
-
         return {
             viewModel: {
                 createViewModel: function(params, componentInfo) {
-                  
+                    console.log(componentInfo);
                     let fileUploader = new FileUploaderModalModel($, ko);
                     fileUploader.initialize();
                     return fileUploader;

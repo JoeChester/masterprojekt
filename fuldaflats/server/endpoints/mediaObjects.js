@@ -14,19 +14,23 @@ var router = express.Router({mergeParams: true});
 
 //get mediaObjects by offerID
 router.get('/:offerID', (req, res) => {
-    schema.models.MediaObject.find({
-        where: {
-            offerId: req.params.offerID
-        }
-    }, (err, data) => {
-        if (err) {
-            res.status(400);
-            res.json(err);
-        } else {
-            res.status(200);
-            res.json(data);
-        }
-    });
+    if (!req.session.auth) {
+        return res.sendStatus(403);
+    } else {
+        schema.models.MediaObject.find({
+            where: {
+                offerId: req.params.offerID
+            }
+        }, (err, data) => {
+            if (err) {
+                res.status(400);
+                res.json(err);
+            } else {
+                res.status(200);
+                res.json(data);
+            }
+        });
+    }
 });
 
 module.exports = router;
