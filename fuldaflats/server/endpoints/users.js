@@ -1,7 +1,7 @@
 /************************************************************
  * File:            users.js
  * Author:          Jonas Kleinkauf, Patrick Hasenauer
- * LastMod:         02.12.2016
+ * LastMod:         06.12.2016
  * Description:     REST endpoints for users and
  *                  authentication
  ************************************************************/
@@ -353,6 +353,41 @@ router.put('/upgrade', function (req, res) {
         });
     }
 });
+
+//change password -> extra endpoint for additional checks
+router.put('/changePassword', function(req, res){
+    if (!req.session.auth) {
+        return res.sendStatus(403);
+    } else {
+        let textError = {};
+        if(!req.body.passwordNew || req.body.passwordNew.length < 6){
+            textError.password = ['Invalid Password (please use at least 6 characters).']
+            res.status(400);
+            return res.json(textError);
+        }
+
+        let passwordHashOld = _hash.sha512(SALT + req.body.passwordOld, 'base64');
+        let passwordHashNew = _hash.sha512(SALT + req.body.passwordNew, 'base64');
+
+        schema.models.User.findOne({ where: { id: req.session.user.id, password: passwordHashOld } }, (err, user) => {
+            if (err || user == null) {
+                textError.password = ['Invalid password.'];
+                res.status(404);
+                return res.json(textError);
+            }
+            user.password = passwordHashNew;
+            user.save((err, user) =>{
+                if(err){
+                    res.status(500);
+                    return res.json(err);
+                }
+                req.session.user = user;
+                return res.sendStatus(204);
+            });
+        });
+    }
+});
+
 
 // Use a standard picture / url for the current user
 router.put('/standardPicture', function(req, res){
