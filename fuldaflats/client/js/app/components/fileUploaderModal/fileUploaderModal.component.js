@@ -9,19 +9,20 @@ define(['text!./fileUploaderModal.component.html',
 'fuldaflatsApiClient', 'knockout', 'jquery'],
     function(componentTemplate, componentCss, api, ko, $) {
         function FileUploaderModalModel($, ko) {
+
             var self = this;
 
             // MediaObjects which are already uploaded
             self.offerMediaObjectsOnline = ko.observableArray([]);
             // MediaObjects which are selected and are uploadable
             self.offerMediaObjectsOffline = ko.observableArray([]);
-            self.offerID = 1;// TODO - get current OfferID
+            self.offerID = getURLParameter("offerId");
             
             self.removeOfflineMediaObject = file => {
                 self.offerMediaObjectsOffline.remove(file);
             }
 
-            // TODO -  removie mediaObject Endpoint
+            // TODO -> remove mediaObject Endpoint
             self.deleteOnlineMediaObject = file => {
                 console.log("DELETE ONLINE MEDIA");
                 //self.offerMediaObjectsOnline.remove(file);
@@ -88,11 +89,15 @@ define(['text!./fileUploaderModal.component.html',
                 }
             }
 
+
+            function getURLParameter(name) {
+                return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
+            };
+
         }
         return {
             viewModel: {
                 createViewModel: function(params, componentInfo) {
-                    console.log(componentInfo);
                     let fileUploader = new FileUploaderModalModel($, ko);
                     fileUploader.initialize();
                     return fileUploader;
