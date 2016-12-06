@@ -315,6 +315,15 @@ router.put('/upgrade', function (req, res) {
                     upgradeError.houseNumber = ["Please enter a house number."];
                     hasError = true;
                 }
+                if(!_upgrade.email){
+                    upgradeError.email = ["Please enter an eMail."];
+                    hasError = true;
+                }
+                var regEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                if(_upgrade.email && !regEmail.test(_upgrade.email )){
+                    upgradeError.email = ["Please enter a valid eMail."];
+                    hasError = true;
+                }
                 if(hasError == true){
                     res.status(400);
                     return res.json(upgradeError);
