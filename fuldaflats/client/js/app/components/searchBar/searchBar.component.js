@@ -103,7 +103,7 @@ define(['text!./searchBar.component.html', 'css!./searchBar.component.css',
                     type: "get",
                     contentType: "application/json",
                     success: function(data, status, req){
-                        let lastSearch = data;
+                        var lastSearch = data;
                         self.queryParameter(createRecursiveNotNullObservable(data));
                     },
                     error: function(req, status, err){

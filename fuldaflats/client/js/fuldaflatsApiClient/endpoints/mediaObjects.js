@@ -4,13 +4,13 @@
  * LastMod:         3.12.2016
  * Description:     API to recieve data from the mediaObject Model
 ************************************************************/
-define(["jquery", 'knockout'], ($, ko) => {
+define(["jquery", 'knockout'], function($, ko){
 
     function MediaObjectEndpoint(mediaObjectEndpointUrls){
-        let self = this;
+        var self = this;
 
         self.findMediaObjectsByOfferID = offerID => {
-            let defer = $.Deferred();
+            var defer = $.Deferred();
 
             $.ajax({
                 url: mediaObjectEndpointUrls.getMediaObjectsByUserID + "/" + offerID,
