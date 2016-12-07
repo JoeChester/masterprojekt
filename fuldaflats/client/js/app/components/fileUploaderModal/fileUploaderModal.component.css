@@ -1,4 +1,22 @@
-@charset "UTF-8";
+/************************************************************
+ * File:            fileUploaderModal.component.css
+ * Author:          Franz Weidmann
+ * LastMod:         7.12.2016
+ * Description:     Stylesheet for the fileUploader component
+ ************************************************************/
+
+.progressMediaObjectUpLoad,
+.alertFileUpload{
+  text-align: center;
+  display:none;
+}
+
+.progress-bar{
+  width: 0%;
+}
+
+/* external Part for the file select button*/
+
 /*
  * jQuery File Upload Plugin CSS
  * https://github.com/blueimp/jQuery-File-Upload

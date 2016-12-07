@@ -1,7 +1,7 @@
 /************************************************************
  * File:            fileUploaderModal.component.js
  * Author:          Franz Weidmann
- * LastMod:         4.12.2016
+ * LastMod:         7.12.2016
  * Description:     Logic for the fileUploader component
 ************************************************************/
 define(['text!./fileUploaderModal.component.html',
@@ -18,41 +18,50 @@ define(['text!./fileUploaderModal.component.html',
             self.offerMediaObjectsOffline = ko.observableArray([]);
             self.offerID = getURLParameter("offerId");
             
-            self.removeOfflineMediaObject = file => {
+            self.removeOfflineMediaObject = function(file){
                 self.offerMediaObjectsOffline.remove(file);
             }
 
             // TODO -> remove mediaObject Endpoint
-            self.deleteOnlineMediaObject = file => {
+            self.deleteOnlineMediaObject = function(file){
                 console.log("DELETE ONLINE MEDIA");
-                //self.offerMediaObjectsOnline.remove(file);
+                self.offerMediaObjectsOnline.remove(file);
             }
 
-            self.uploadMediaObject = file => {
-                let form = new FormData();
+            self.uploadMediaObject = function(file){
+                var fileIndex = self.offerMediaObjectsOffline.indexOf(file);
+                var form = new FormData();
                 form.append("file", file);
 
-                $.ajax({
-                    url:"/api/files/offers/" + self.offerID,
-                    method: "POST",
-                    async: true,
-                    processData: false,
-                    contentType: false,
-                    mimeType: "multipart/form-data",
-                    data: form,
-                    xhr: newXHRObject.bind(null, file)
-                }).done( data => {
-                    self.offerMediaObjectsOffline.remove(file);
-                    updateMediaObjectsOnline();
+                if(self.offerMediaObjectsOnline().length > 6)
+                    newError(fileIndex, "You reached the upload limit of 7 images!");
+                else if(file.size > 5000000)
+                    newError(fileIndex, "This image exceeds the size limit of 5 MB!");
+                else if(file.type.split("/")[0] != "image")
+                    newError(fileIndex, "This is not an image!");
+                else {
+                    $.ajax({
+                        url:"/api/files/offers/" + self.offerID,
+                        method: "POST",
+                        async: true,
+                        processData: false,
+                        contentType: false,
+                        mimeType: "multipart/form-data",
+                        data: form,
+                        xhr: newXHRObject.bind(null, file)
+                    }).done( function(data){
+                        self.offerMediaObjectsOffline.remove(file);
+                        updateMediaObjectsOnline();
 
-                }).fail( err => {
-                    console.log(err);
-                })
+                    }).fail( function(err){
+                        newError(err.responseText);
+                    })
 
-                let fileIndex = self.offerMediaObjectsOffline.indexOf(file);
-                $("#"+fileIndex+".removeFileBtn").hide();
-                $("#"+fileIndex+".uploadFileBtn").hide(); 
-                $("#"+fileIndex+".progressMediaObjectUpLoad").show(); 
+                    $("#"+fileIndex+".removeFileBtn").hide();
+                    $("#"+fileIndex+".uploadFileBtn").hide(); 
+                    $("#"+fileIndex+".progressMediaObjectUpLoad").show(); 
+
+                }
             }
 
             self.initialize = () => {
@@ -64,28 +73,32 @@ define(['text!./fileUploaderModal.component.html',
                     }
                 })
             }
+            
+            function newError(fileIndex, errMsg){
+                $("#"+fileIndex+".alertFileUpload").show();
+                $("#"+fileIndex+".alertFileUpload").html(errMsg);  
+            }
 
             function updateMediaObjectsOnline(){
-                let mediaObjectsPromise = api.mediaObjects.findMediaObjectsByOfferID(self.offerID);
+                var mediaObjectsPromise = api.mediaObjects.findMediaObjectsByOfferID(self.offerID);
                 
-                mediaObjectsPromise.then( data => {
+                mediaObjectsPromise.then( function(data){
                     self.offerMediaObjectsOnline(data);
                 })
             }
 
             function newXHRObject(file) {
-                let xhr = new window.XMLHttpRequest();
+                var xhr = new window.XMLHttpRequest();
                 xhr.upload.addEventListener("progress", progressUpLoad.bind(null, file), false);
                 return xhr;
             }
             function progressUpLoad(file, evt) {
                 if (evt.lengthComputable){
-                    let fileIndex = self.offerMediaObjectsOffline.indexOf(file);
-                    let percent = Math.round(evt.loaded / evt.total * 100, 2);
+                    var fileIndex = self.offerMediaObjectsOffline.indexOf(file);
+                    var percent = Math.round(evt.loaded / evt.total * 100, 2);
                     $("#"+fileIndex+".progressMediaObjectUpLoad > div").attr("aria-valuenow", percent+"");
                     $("#"+fileIndex+".progressMediaObjectUpLoad > div").width(percent + "%");
                     $("#"+fileIndex+".progressMediaObjectUpLoad > div").html("Uploading: "+ percent +" % complete");
-                    console.log( percent + "% uploaded for "+fileIndex);
                 }
             }
 
@@ -98,7 +111,7 @@ define(['text!./fileUploaderModal.component.html',
         return {
             viewModel: {
                 createViewModel: function(params, componentInfo) {
-                    let fileUploader = new FileUploaderModalModel($, ko);
+                    var fileUploader = new FileUploaderModalModel($, ko);
                     fileUploader.initialize();
                     return fileUploader;
                 }

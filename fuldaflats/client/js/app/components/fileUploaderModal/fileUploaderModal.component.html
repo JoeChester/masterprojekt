@@ -1,7 +1,7 @@
 <!-- ************************************************************
  * File:            fileUploaderModal.component.html
  * Author:          Franz Weidmann
- * LastMod:         2.12.2016
+ * LastMod:         7.12.2016
  * Description:     HTML file for the fileUploader component
 ************************************************************ -->
 <div class="modal fade modal-md" id="fileUploaderModal" role="dialog">
@@ -9,7 +9,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">File Uploader - Manage your pictures and videos for your offer!</h4>
+				<h4 class="modal-title">File Uploader - Manage your images for your offer!</h4>
 			</div>
 			<div class="modal-body">
 				<div class="row">
@@ -58,9 +58,12 @@
 										</button>
 									</div>
 									</div>
+									<div class="alert alert-danger alertFileUpload" data-bind="attr: {id:$index}" role="alert">
+										<!-- ErrorMsg -->
+									</div>
 									<div class="row">
-										<div class="progress col-xs-10 progressMediaObjectUpLoad" data-bind="attr: {id:$index}" style="display:none;">
-											<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+										<div class="progress col-xs-10 progressMediaObjectUpLoad" data-bind="attr: {id:$index}">
+											<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
 												Uploading: 0% complete
 											</div>
 										</div>
