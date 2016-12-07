@@ -1,7 +1,7 @@
 /************************************************************
  * File:            signupModalDialog.component.js
  * Author:          Patrick Hasenauer
- * LastMod:         02.12.2016
+ * LastMod:         07.12.2016
  * Description:     JS Component Handler for sign up dialog.
  ************************************************************/
 define(['text!./signUpModalDialog.component.html', 'css!./signUpModalDialog.component.css',
@@ -13,6 +13,7 @@ define(['text!./signUpModalDialog.component.html', 'css!./signUpModalDialog.comp
 
             self.domain = ko.observable("FuldaFlats.de");
             self.termsOfUsePageInfo = ko.observable({});
+            self.myProfilePageInfo = ko.observable();
 
             self.modalDialogContainer = ko.observable();
 
@@ -118,9 +119,13 @@ define(['text!./signUpModalDialog.component.html', 'css!./signUpModalDialog.comp
                         function (userResult) {
                             var userObject = ko.unwrap(userResult);
                             if (userObject) {
-                                self.currentUser(userObject);
-                                if (self.modalDialogContainer()) {
-                                    self.modalDialogContainer().modal("hide");
+                                if (self.myProfilePageInfo() && self.myProfilePageInfo().url) {
+                                    window.location.href = self.myProfilePageInfo().url;
+                                } else {
+                                    self.currentUser(userObject);
+                                    if (self.modalDialogContainer()) {
+                                        self.modalDialogContainer().modal("hide");
+                                    }
                                 }
                             } else {
                                 self.internalError(true);
@@ -222,6 +227,7 @@ define(['text!./signUpModalDialog.component.html', 'css!./signUpModalDialog.comp
                 if (params) {
                     self.domain(ko.unwrap(params.domain) || 'FuldaFlats.de');
                     self.termsOfUsePageInfo(ko.unwrap(params.termsOfUsePageInfo) || {});
+                    self.myProfilePageInfo(ko.unwrap(params.myProfilePageInfo) || {});
 
                     if (params.currentUser && ko.isObservable(params.currentUser)) {
                         self.currentUser = params.currentUser;
@@ -241,7 +247,7 @@ define(['text!./signUpModalDialog.component.html', 'css!./signUpModalDialog.comp
                         var signUpDialog = templateRoot.find("#signUpModalDialog");
                         if (signUpDialog.length > 0) {
                             viewModel = new SignUpModel($, ko, api);
-                              window.signUpDialog = viewModel;
+                            window.signUpDialog = viewModel;
                             viewModel.initialize(params, signUpDialog);
                         }
                     }

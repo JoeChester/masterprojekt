@@ -92,7 +92,8 @@ define(['text!./navigationBar.component.html', 'css!./navigationBar.component.cs
                         self.signUpDialogParameter = {
                             currentUser: self.currentUser,
                             domain: self.domain,
-                            termsOfUsePageInfo: self.termsOfUsePageInfo
+                            termsOfUsePageInfo: self.termsOfUsePageInfo,
+                            myProfilePageInfo: params.myProfilePageInfo
                         }
                     }
 
