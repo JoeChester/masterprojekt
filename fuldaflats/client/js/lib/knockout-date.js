@@ -16,15 +16,18 @@
             var dateConverter = ko.computed({
                 read: function () {
                     var returnValue = "";
-                    var currentValue = ko.unwrap(valueAccessor);
+                    var currentValue = ko.unwrap(valueAccessor());
                     if (currentValue instanceof Date) {
-                        return moment(currentValue).format("YYYY-MM-DD");
+                        return moment(currentValue).format("YYYY-MM-DD"); // date input required format
                     }
                     return returnValue;
                 },
                 write: function (newValue) {
-                    if (newValue) {
-                        valueAccessor()(new Date(newValue));
+                    var newDate = moment(newValue, 'YYYY-MM-DD', true);
+                    if (newDate.isValid()) {
+                        valueAccessor()(newDate.toDate());
+                    }else{
+                        valueAccessor()(undefined);
                     }
                 }
             });

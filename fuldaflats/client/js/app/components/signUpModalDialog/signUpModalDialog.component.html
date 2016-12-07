@@ -42,8 +42,8 @@
                         <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
                     </div>
                     <div class="input-group">
-                        <input data-bind="date: birthDay, css: { valid: birthDay() && !invalidBirthday(), inValid: invalidBirthday() && signUpDataErrorMessage() }"
-                            type="date" class="form-control">
+                        <input data-bind="date: birthDay, css: { valid: isValidBirthday() && !invalidBirthday(), inValid: invalidBirthday() && signUpDataErrorMessage() }"
+                            type="date" class="form-control" placeholder="YYYY-MM-DD">
                         <div class="input-group-addon">Birthday</div>
                     </div>
                     <select data-bind="options: genders,
