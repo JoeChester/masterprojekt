@@ -64,12 +64,12 @@ define(['text!./fileUploaderModal.component.html',
                 }
             }
 
-            self.initialize = () => {
+            self.initialize = function() {
                 updateMediaObjectsOnline();
 
-                $("#mediaObjectFile").on("change", e => {
-                    for(var i=0; i<e.target.files.length; i++){
-                        self.offerMediaObjectsOffline.push(e.target.files[i]);
+                $("#mediaObjectFile").on("change", function(event) {
+                    for(var i=0; i<event.target.files.length; i++){
+                        self.offerMediaObjectsOffline.push(event.target.files[i]);
                     }
                 })
             }
