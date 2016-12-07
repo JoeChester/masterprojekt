@@ -1,14 +1,14 @@
 /************************************************************
  * File:            copyrightBar.component.js
  * Author:          Patrick Hasenauer
- * LastMod:         02.12.2016
+ * LastMod:         07.12.2016
  * Description:     JS Component Handler for copyright bar.
  ************************************************************/
 define(['text!./copyrightBar.component.html', 'knockout'], function (componentTemplate, ko) {
     function CopyrightModel(params) {
         var self = this;
 
-        self.impressumPageInfo = ko.observable();
+        self.legalDisclosurePageInfo = ko.observable();
         self.termsOfUsePageInfo = ko.observable();
         self.copyrightDate = ko.observable();
         self.copyrightName = ko.observable();
@@ -17,7 +17,7 @@ define(['text!./copyrightBar.component.html', 'knockout'], function (componentTe
 
         self.initialize = function (params) {
             if (params) {
-                self.impressumPageInfo(ko.unwrap(params.impressumPageInfo) || '');
+                self.legalDisclosurePageInfo(ko.unwrap(params.legalDisclosurePageInfo) || '');
                 self.termsOfUsePageInfo(ko.unwrap(params.termsOfUsePageInfo) || '');
                 self.copyrightDate(ko.unwrap(params.copyrightDate) || '');
                 self.copyrightName(ko.unwrap(params.copyrightName) || '');

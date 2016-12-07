@@ -1,7 +1,7 @@
 /************************************************************
  * File:            navigationBar.component.js
  * Author:          Patrick Hasenauer
- * LastMod:         02.12.2016
+ * LastMod:         07.12.2016
  * Description:     JS Component Handler for navigation bar.
  ************************************************************/
 define(['text!./navigationBar.component.html', 'css!./navigationBar.component.css',
@@ -27,7 +27,7 @@ define(['text!./navigationBar.component.html', 'css!./navigationBar.component.cs
             self.myProfilePageInfo = ko.observable();
             self.becomeLandlordPageInfo = ko.observable();
             self.newOfferPageInfo = ko.observable();
-            self.impressumPageInfo = ko.observable();
+            self.legalDisclosurePageInfo = ko.observable();
             self.termsOfUsePageInfo = ko.observable();
 
             self.currentUser = ko.observable({
@@ -79,7 +79,7 @@ define(['text!./navigationBar.component.html', 'css!./navigationBar.component.cs
                     self.myProfilePageInfo(ko.unwrap(params.myProfilePageInfo) || '');
                     self.becomeLandlordPageInfo(ko.unwrap(params.becomeLandlordPageInfo) || '');
                     self.newOfferPageInfo(ko.unwrap(params.newOfferPageInfo) || '');
-                    self.impressumPageInfo(ko.unwrap(params.impressumPageInfo) || '');
+                    self.legalDisclosurePageInfo(ko.unwrap(params.legalDisclosurePageInfo) || '');
                     self.termsOfUsePageInfo(ko.unwrap(params.termsOfUsePageInfo) || '');
 
                     if (params.currentUser && ko.isObservable(params.currentUser)) {

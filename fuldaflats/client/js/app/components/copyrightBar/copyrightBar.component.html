@@ -1,17 +1,17 @@
 <!--************************************************************
  * File:            copyrightBar.component.html
  * Author:          Patrick Hasenauer
- * LastMod:         02.12.2016
+ * LastMod:         07.12.2016
  * Description:     Knockout Template for copyright bar.
  ************************************************************-->
 <div id="copyright">
     <div class="container">
         <div class="row hidden-xs">
             <div class="col-md-12 text-center">
-                <!-- ko if: impressumPageInfo -->
-                <span><a data-bind="attr: { href: impressumPageInfo().url }, text: impressumPageInfo().title"></a></span>
+                <!-- ko if: legalDisclosurePageInfo -->
+                <span><a data-bind="attr: { href: legalDisclosurePageInfo().url }, text: legalDisclosurePageInfo().title"></a></span>
                 <!-- /ko -->
-                <!-- ko if: impressumPageInfo -->
+                <!-- ko if: legalDisclosurePageInfo -->
                 <span>|</span>
                 <!-- /ko -->
                 <a type="button" href="javascript: void(0)" data-toggle="modal" data-target="#contactModalDialog">Contact</a>

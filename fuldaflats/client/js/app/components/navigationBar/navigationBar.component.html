@@ -1,7 +1,7 @@
 <!-- ************************************************************
  * File:            navigationBar.component.html
  * Author:          Patrick Hasenauer, Jonas Kleinlauf
- * LastMod:         02.12.2016
+ * LastMod:         07.12.2016
  * Description:     Knockout Template for navigation bar.
  ************************************************************ -->
 <div class="navbar-affixed-top" data-spy="affix" data-offset-top="200">
@@ -59,9 +59,9 @@
 						<a type="button" href="javascript: void(0)" data-toggle="modal" data-target="#signUpModalDialog">Sign Up</a>
 					</li>
 					<!-- /ko -->
-					<!-- ko if: impressumPageInfo -->
+					<!-- ko if: legalDisclosurePageInfo -->
 					<li class="inactive visible-xs navmenuentry">
-						<a data-bind="attr: { href: impressumPageInfo().url }, text: impressumPageInfo().title"></a>
+						<a data-bind="attr: { href: legalDisclosurePageInfo().url }, text: legalDisclosurePageInfo().title"></a>
 					</li>
 					<!-- /ko -->
 					<li class="inactive visible-xs navmenuentry">

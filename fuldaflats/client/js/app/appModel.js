@@ -1,7 +1,7 @@
 /************************************************************
  * File:            appModel.js
  * Author:          Patrick Hasenauer, Jonas Kleinkauf
- * LastMod:         02.12.2016
+ * LastMod:         07.12.2016
  * Description:     App Model, page module loading and binding, primary app data.
  ************************************************************/
 define([
@@ -69,7 +69,7 @@ define([
             editProfileData: ko.observable({ url: "/pages/editProfileData", title: "Edit Profile Data" }),
             editProfilePicture: ko.observable({ url: "/pages/editProfilePicture", title: "Edit Profile Picture" }),
             home: ko.observable({ url: "/", title: "Home" }),
-            impressum: ko.observable({ url: "/pages/impressum", title: "Impressum" }),
+            legalDisclosure: ko.observable({ url: "/pages/legalDisclosure", title: "Legal Disclosure" }),
             myProfile: ko.observable({ url: "/pages/myProfile", title: "My Profile" }),
             newOffer: ko.observable({ url: "/pages/newOffer", title: "New Offer" }),
             offerDetails: ko.observable({ url: "/pages/offerDetails", title: "Offer Details" }),
@@ -85,7 +85,7 @@ define([
             "/pages/editprofilepicture": "app/pageModules/editProfilePictureModule",
             '/': "app/pageModules/homeModule",
             '/index': "app/pageModules/homeModule",
-            '/pages/impressum': "app/pageModules/impressumModule",
+            '/pages/legaldisclosure': "app/pageModules/legalDisclosureModule",
             "/pages/myprofile": "app/pageModules/myProfileModule",
             "/pages/newoffer": "app/pageModules/newOfferModule",
             "/pages/offerdetails": "app/pageModules/offerDetailsModule",
@@ -103,14 +103,14 @@ define([
             myProfilePageInfo: self.pages.myProfile,
             becomeLandlordPageInfo: self.pages.becomeLandlord,
             newOfferPageInfo: self.pages.newOffer,
-            impressumPageInfo: self.pages.impressum,
+            legalDisclosurePageInfo: self.pages.legalDisclosure,
             termsOfUsePageInfo: self.pages.termsOfUse,
             currentUser: self.currentUser,
             contactData: self.contactData
         }
 
         self.copyrightBar = {
-            impressumPageInfo: self.pages.impressum,
+            legalDisclosurePageInfo: self.pages.legalDisclosure,
             termsOfUsePageInfo: self.pages.termsOfUse,
             copyrightDate: self.CreationDate,
             copyrightName: self.domain,

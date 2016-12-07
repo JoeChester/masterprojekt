@@ -1,12 +1,12 @@
 /************************************************************
- * File:            impressumBar.component.js
+ * File:            legalDisclosureBar.component.js
  * Author:          Patrick Hasenauer
- * LastMod:         02.12.2016
- * Description:     JS Component Handler for impressum bar.
+ * LastMod:         07.12.2016
+ * Description:     JS Component Handler for legal disclosure bar.
  ************************************************************/
-define(['text!./impressumBar.component.html', 'css!./impressumBar.component.css', 'knockout', 'jquery'],
+define(['text!./legalDisclosureBar.component.html', 'css!./legalDisclosureBar.component.css', 'knockout', 'jquery'],
     function (componentTemplate, componentCss, ko, $) {
-        function ImpressumModel(ko, $) {
+        function LegalDisclosureModel(ko, $) {
             var self = this;
             // your model functions and variables
 
@@ -37,9 +37,9 @@ define(['text!./impressumBar.component.html', 'css!./impressumBar.component.css'
             viewModel: {
                 createViewModel: function (params, componentInfo) {
                     // componentInfo contains for example the root element from the component template
-                    var impressum = new ImpressumModel(ko, $);
-                    impressum.initialize(params);
-                    return impressum;
+                    var legalDisclosure = new LegalDisclosureModel(ko, $);
+                    legalDisclosure.initialize(params);
+                    return legalDisclosure;
                 }
             },
             template: componentTemplate
