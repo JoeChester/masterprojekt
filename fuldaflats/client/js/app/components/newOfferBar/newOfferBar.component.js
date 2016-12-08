@@ -11,7 +11,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
             var self = this;
             // your model functions and variables
             self.tabsContainer = ko.observable();
-            self.offer = ko.observable({});
+            self.offer = api.offers.getOfferModel();
             self.offerDetailsPageInfo = ko.observable();
             self.currentUser = ko.observable(
                 {
@@ -59,11 +59,11 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                 return isLandlord;
             };
 
-            function loadRequestedOffer() {
+            function reloadOffer() {
                 if (!isCurrentUserALandlord()) {
                     self.currentUserIsNotALandlord(true);
-                } else if (self.offer() && !isNaN(self.offer().id)) {
-                    api.offers.getOfferById(self.offer().id).then(
+                } else if (self.offer() && !isNaN(self.offer().id())) {
+                    api.offers.getOfferById(self.offer().id()).then(
                         function(requestedOffer) {
                             var requestOfferValue = ko.unwrap(requestedOffer);
                             if (requestOfferValue) {
@@ -108,7 +108,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                     var dialogId = event.currentTarget.getAttribute("data-target");
                     var dialogContainer = $(dialogId);
                     if (dialogContainer.length > 0) {
-                        dialogContainer.on('hide.bs.modal', loadRequestedOffer);
+                        dialogContainer.on('hide.bs.modal', reloadOffer);
                     } else {
                         console.error("Failed to bind file upload dialog events.");
                     }
@@ -141,7 +141,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                 api.offers.updatedOffer(self.offer).then(
                     function() {
                         if (self.offerDetailsPageInfo() && self.offerDetailsPageInfo().url) {
-                            window.location.href = self.offerDetailsPageInfo().url + "?offerId=" + self.offer().id;
+                            window.location.href = self.offerDetailsPageInfo().url + "?offerId=" + self.offer().id();
                         } else {
                             window.location.href = "/";
                         }
