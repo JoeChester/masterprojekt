@@ -1,7 +1,7 @@
 /************************************************************
  * File:            newOfferModule.js
  * Author:          Patrick Hasenauer
- * LastMod:         02.12.2016
+ * LastMod:         08.12.2016
  * Description:     New Offer page module.
  ************************************************************/
 define([
@@ -22,7 +22,12 @@ define([
                 appModel.breadcrumbBar = {
                     homePageInfo: appModel.pages.home,
                     currentPageInfo: appModel.currentPage
-                }
+                };
+
+                appModel.newOfferBar = {
+                    currentUser: appModel.currentUser,
+                    offerDetailsPageInfo: appModel.pages.offerDetails
+                };
             }
         };
     };

@@ -1,7 +1,7 @@
 /************************************************************
  * File:            navigationBar.component.js
  * Author:          Patrick Hasenauer
- * LastMod:         07.12.2016
+ * LastMod:         08.12.2016
  * Description:     JS Component Handler for navigation bar.
  ************************************************************/
 define(['text!./navigationBar.component.html', 'css!./navigationBar.component.css',
@@ -50,24 +50,6 @@ define(['text!./navigationBar.component.html', 'css!./navigationBar.component.cs
                     console.log("User signed out");
                 });
             };
-
-            self.newOffer = function () {
-                $.ajax({
-                    method: "POST",
-                    url: "/api/offers",
-                    contantType: "application/json",
-                    success: function (data, status, req) {
-                        console.log("Created new offer!");
-                        console.log(data);
-                        window.location = "/pages/editOfferDetails?offerId=" + data.id;
-                    },
-                    error: function (req, status, error) {
-                        console.error("Failed to create offer:");
-                        console.error(req);
-                        errorCallback(error);
-                    }
-                });
-            }
 
             self.initialize = function (params) {
                 if (params) {

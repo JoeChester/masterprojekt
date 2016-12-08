@@ -1,7 +1,7 @@
 <!-- ************************************************************
  * File:            navigationBar.component.html
  * Author:          Patrick Hasenauer, Jonas Kleinlauf
- * LastMod:         07.12.2016
+ * LastMod:         08.12.2016
  * Description:     Knockout Template for navigation bar.
  ************************************************************ -->
 <div class="navbar-affixed-top" data-spy="affix" data-offset-top="200">
@@ -44,7 +44,7 @@
 					<!-- /ko -->
 					<!-- ko if: newOfferPageInfo && currentUser().userData && currentUser().userData.type === userTypes.landlord-->
 					<li class="inactive navmenuentry">
-						<a href="javascript:void(0)" data-bind="click: newOffer, attr: { href: newOfferPageInfo().url }, text: newOfferPageInfo().title"></a>
+						<a href="javascript:void(0)" data-bind="attr: { href: newOfferPageInfo().url }, text: newOfferPageInfo().title"></a>
 					</li>
 					<!-- /ko -->
 					<li class="inactive navmenuentry">

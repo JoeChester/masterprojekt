@@ -1,7 +1,7 @@
 <!--************************************************************
  * File:            newOfferBar.component.html
  * Author:          Patrick Hasenauer
- * LastMod:         02.12.2016
+ * LastMod:         08.12.2016
  * Description:     Knockout Template for new offer bar.
  ************************************************************-->
 <section id="new-offer-wizard" style="min-height:700px; margin-top: 2rem">
@@ -364,7 +364,7 @@
                             <div class="row">
                                 <label class="control-label col-sm-11">Add Pictures and/or Videos:</label>
                                 <div class="col-sm-1">
-                                    <button type="button" class="btn btn-default" aria-label="Right Align">
+                                    <button data-bind="click: bindFileUploadModalEvents" data-toggle="modal" data-target="#fileUploaderModal" type="button" class="btn btn-default" aria-label="Right Align">
 												<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 											</button>
                                 </div>
@@ -434,3 +434,4 @@
         </div>
     </div>
 </section>
+<div data-bind='component: { name: "file-uploader"}'></div>
