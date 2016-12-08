@@ -37,11 +37,11 @@ router.post('/', function (req, res) {
         let offer = new schema.models.Offer();
         offer.landlord = req.session.user.id;
         offer.status = 0;
-        offer.save((err, _offer) =>{
+        offer.save((err, offer) =>{
             if (err != null) {
                     res.json(err);
                 } else {
-                    res.json(_offer);
+                    res.json(offer);
                 }
         });
     }
