@@ -4,7 +4,7 @@
     margin-top: 5px;
 }
 
-#new-offer-wizard #offerFileUploadButton {
+#new-offer-wizard fieldset legend > * {
     margin-bottom: 10px;
 }
 

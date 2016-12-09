@@ -15,6 +15,7 @@
                         <li class="disabled"><a href="#tab2">Step 2</a></li>
                         <li class="disabled"><a href="#tab3">Step 3</a></li>
                         <li class="disabled"><a href="#tab4">Step 4</a></li>
+                        <li class="disabled"><a href="#tab5">Step 5</a></li>
                     </ul>
                     <div class="tab-content tab-content-inverse">
                         <!-- tab 1 -->
@@ -149,7 +150,7 @@
                                     </div>
                                 </div>
                             </form>
-                            <br /><br />
+                            <br />
                             <div class="row">
                                 <div class="col-xs-2">
                                     <a data-bind="click: cancelCreation" type="button" class="btn btn-danger" aria-label="Left Align">
@@ -158,8 +159,8 @@
                                 </div>
                                 <div class="col-xs-8">
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
-                                            25%
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%;">
+                                            20%
                                         </div>
                                     </div>
                                 </div>
@@ -293,8 +294,8 @@
                                 </div>
                                 <div class="col-xs-8">
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">
-                                            50%
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">
+                                            40%
                                         </div>
                                     </div>
                                 </div>
@@ -405,8 +406,8 @@
                                 </div>
                                 <div class="col-xs-8">
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;">
-                                            75%
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                                            60%
                                         </div>
                                     </div>
                                 </div>
@@ -418,9 +419,48 @@
                             </div>
                             <!-- /row -->
                         </div>
-                        <!-- tab 4 -->
                         <!-- /.tab -->
+                        <!-- tab 4 -->
                         <div class="tab-pane text-center" id="tab4">
+                            <form class="form-horizontal">
+                                <fieldset>
+                                    <legend class="clearfix">
+                                        <div class="col-xs-12 text-left">
+                                            Description
+                                        </div>
+                                    </legend>
+                                    <div class="col-sm-12 center-block">
+                                        <div class="form-group">
+                                            <textarea data-bind="textInput: offer().description" class="form-control" rows="18" id="offerDescription"></textarea>
+                                        </div>
+                                    </div>
+                                </fieldset
+                            </form>
+                            <br />
+                            <div class="row">
+                                <div class="col-xs-2">
+                                    <a data-bind="click: goNextStep" next-tab="#tab3" type="button" data-toggle="tab" class="btn btn-template-main" aria-label="Right Align">
+                                        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+                                    </a>
+                                </div>
+                                <div class="col-xs-8">
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;">
+                                            80%
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-2">
+                                    <a data-bind="click: goNextStep" next-tab="#tab5" type="button" data-toggle="tab" class="btn btn-template-main" aria-label="Right Align">
+                                        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- /row -->
+                        </div>
+                        <!-- /.tab -->
+                        <!-- tab 5 -->
+                        <div class="tab-pane text-center" id="tab5">
                             <fieldset>
                                 <legend class="clearfix">
                                     <div class="col-xs-6 text-left">
@@ -435,17 +475,17 @@
                                 </legend>
                                 <div id="uploaded-files" data-bind="foreach: { data: offer().mediaObjects(), as: 'media' }" class="row">
                                     <div class="col-sm-3">
-                                        <a class="image" data-bind="attr: { href: media.thumbnailUrl }"data-lightbox="mediaObjectsLightbox">
+                                        <a class="image" data-bind="attr: { href: media.thumbnailUrl }" data-lightbox="mediaObjectsLightbox">
                                             <img data-bind="attr: { src: media.thumbnailUrl, alt: 'Uploaded Image ' + (parseInt($index()) + 1) }, css: { 'img-row-2': parseInt($index()) > 3 }"
                                                 class="mediaObject-img img-responsive">
                                         </a>
                                     </div>
                                 </div>
                             </fieldset>
-                            <br><br>
+                            <br>
                             <div class="row">
                                 <div class="col-xs-2">
-                                    <a data-bind="click: goNextStep" next-tab="#tab3" type="button" data-toggle="tab" class="btn btn-template-main" aria-label="Right Align">
+                                    <a data-bind="click: goNextStep" next-tab="#tab4" type="button" data-toggle="tab" class="btn btn-template-main" aria-label="Right Align">
                                         <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
                                     </a>
                                 </div>
