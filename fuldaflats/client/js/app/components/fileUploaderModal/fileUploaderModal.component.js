@@ -1,7 +1,7 @@
 /************************************************************
  * File:            fileUploaderModal.component.js
  * Author:          Franz Weidmann
- * LastMod:         7.12.2016
+ * LastMod:         9.12.2016
  * Description:     Logic for the fileUploader component
 ************************************************************/
 define(['text!./fileUploaderModal.component.html',
@@ -12,6 +12,9 @@ define(['text!./fileUploaderModal.component.html',
 
             var self = this;
 
+            var UPLOAD_LIMIT = 6;
+            var UPLOAD_FILESIZE_LIMIT = 5000000; //bytes
+
             // MediaObjects which are already uploaded
             self.offerMediaObjectsOnline = ko.observableArray([]);
             // MediaObjects which are selected and are uploadable
@@ -20,6 +23,9 @@ define(['text!./fileUploaderModal.component.html',
             
             self.removeOfflineMediaObject = function(file){
                 self.offerMediaObjectsOffline.remove(file);
+
+                if(self.offerMediaObjectsOffline().length == 1)
+                    $(".uploadAllBtn").hide();
             }
 
             // TODO -> remove mediaObject Endpoint
@@ -33,9 +39,9 @@ define(['text!./fileUploaderModal.component.html',
                 var form = new FormData();
                 form.append("file", file);
 
-                if(self.offerMediaObjectsOnline().length > 6)
+                if(self.offerMediaObjectsOnline().length > UPLOAD_LIMIT)
                     newError(fileIndex, "You reached the upload limit of 7 images!");
-                else if(file.size > 5000000)
+                else if(file.size > UPLOAD_FILESIZE_LIMIT)
                     newError(fileIndex, "This image exceeds the size limit of 5 MB!");
                 else if(file.type.split("/")[0] != "image")
                     newError(fileIndex, "This is not an image!");
@@ -48,20 +54,30 @@ define(['text!./fileUploaderModal.component.html',
                         contentType: false,
                         mimeType: "multipart/form-data",
                         data: form,
-                        xhr: newXHRObject.bind(null, file)
+                        xhr: newXHRObject.bind(null, file),
                     }).done( function(data){
                         self.offerMediaObjectsOffline.remove(file);
                         updateMediaObjectsOnline();
 
                     }).fail( function(err){
-                        newError(err.responseText);
+                        $("#"+fileIndex+".removeFileBtn").show();
+                        $("#"+fileIndex+".uploadFileBtn").show(); 
+                        $("#"+fileIndex+".progressMediaObjectUpLoad").hide();
+                        $("#"+fileIndex+".progressMediaObjectUpLoad").css("width", "0");                       
+                        
+                        newError(fileIndex, JSON.parse(err.responseText).error);
                     })
 
                     $("#"+fileIndex+".removeFileBtn").hide();
                     $("#"+fileIndex+".uploadFileBtn").hide(); 
                     $("#"+fileIndex+".progressMediaObjectUpLoad").show(); 
-
                 }
+            }
+
+            self.uploadAll = () => {
+                self.offerMediaObjectsOffline().forEach( (file) => {
+                    self.uploadMediaObject(file);
+                })
             }
 
             self.initialize = function() {
@@ -71,18 +87,26 @@ define(['text!./fileUploaderModal.component.html',
                     for(var i=0; i<event.target.files.length; i++){
                         self.offerMediaObjectsOffline.push(event.target.files[i]);
                     }
+
+                     if(self.offerMediaObjectsOffline().length > 1)
+                            $(".uploadAllBtn").show();
+                })
+
+                // "data-bind = click" doesnt work...
+                $(".uploadAllBtn").click( (btn) => {
+                    self.uploadAll();
                 })
             }
             
             function newError(fileIndex, errMsg){
                 $("#"+fileIndex+".alertFileUpload").show();
-                $("#"+fileIndex+".alertFileUpload").html(errMsg);  
+                $("#"+fileIndex+".alertFileUpload").text(errMsg);  
             }
 
             function updateMediaObjectsOnline(){
                 var mediaObjectsPromise = api.mediaObjects.findMediaObjectsByOfferID(self.offerID);
                 
-                mediaObjectsPromise.then( function(data){
+                mediaObjectsPromise.then( (data) => {
                     self.offerMediaObjectsOnline(data);
                 })
             }
@@ -96,12 +120,16 @@ define(['text!./fileUploaderModal.component.html',
                 if (evt.lengthComputable){
                     var fileIndex = self.offerMediaObjectsOffline.indexOf(file);
                     var percent = Math.round(evt.loaded / evt.total * 100, 2);
+
+                    if(percent >= 53)
+                        $("#"+fileIndex+".progressMediaObjectUpLoad > span").css("color", "white");
+
                     $("#"+fileIndex+".progressMediaObjectUpLoad > div").attr("aria-valuenow", percent+"");
                     $("#"+fileIndex+".progressMediaObjectUpLoad > div").width(percent + "%");
-                    $("#"+fileIndex+".progressMediaObjectUpLoad > div").html("Uploading: "+ percent +" % complete");
+                    $("#"+fileIndex+".progressMediaObjectUpLoad > span").text(percent + " %");
+
                 }
             }
-
 
             function getURLParameter(name) {
                 return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;

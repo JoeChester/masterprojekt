@@ -3,3 +3,11 @@
     margin-bottom: 0px;
     margin-top: 5px;
 }
+
+#new-offer-wizard fieldset legend > * {
+    margin-bottom: 10px;
+}
+
+#new-offer-wizard #uploaded-files .img-row-2 {
+    margin-top: 20px;
+}
