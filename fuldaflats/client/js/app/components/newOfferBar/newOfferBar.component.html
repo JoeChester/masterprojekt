@@ -21,134 +21,141 @@
                         <!-- tab 1 -->
                         <div class="tab-pane active text-center" id="tab1">
                             <form class="form-horizontal">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <label for="offerType" class="control-label col-sm-2">Offer Type:</label>
-                                            <div class="col-sm-10">
-                                                <select data-bind="options: offerTypes, value: offer().offerType, optionsCaption: 'Choose Offer Type'" class="form-control"
-                                                    id="offerType"></select>
-                                            </div>
+                                <fieldset>
+                                    <legend class="clearfix">
+                                        <div class="col-xs-12 text-left">
+                                            Basic Information
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <label for="offerTitle" class="control-label col-sm-2">Offer Title:</label>
-                                            <div class="col-sm-10">
-                                                <input data-bind="textInput: offer().title" type="text" class="form-control" id="offerTitle" placeholder="Offer Title">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br />
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label for="offerSize" class="control-label col-sm-4">Size:</label>
-                                            <div class="col-sm-8">
-                                                <div class="input-group">
-                                                    <input data-bind="textInput: offer().size" type="number" class="form-control" id="offerSize" placeholder="Size">
-                                                    <div class="input-group-addon">m²</div>
+                                    </legend>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label for="offerType" class="control-label col-sm-2">Offer Type:</label>
+                                                <div class="col-sm-10">
+                                                    <select data-bind="options: offerTypes, value: offer().offerType, optionsCaption: 'Choose Offer Type'" class="form-control"
+                                                        id="offerType"></select>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label for="offerRooms" class="control-label col-sm-4">Rooms:</label>
-                                            <div class="col-sm-8">
-                                                <input data-bind="textInput: offer().rooms" type="number" class="form-control" id="offerRooms" placeholder="Rooms">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br />
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label for="offerRent" class="control-label col-sm-4">Rent:</label>
-                                            <div class="col-sm-8">
-                                                <div class="input-group">
-                                                    <input data-bind="textInput: offer().rent" type="number" class="form-control" id="offerRent" placeholder="Rent">
-                                                    <div class="input-group-addon">€</div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label for="offerTitle" class="control-label col-sm-2">Offer Title:</label>
+                                                <div class="col-sm-10">
+                                                    <input data-bind="textInput: offer().title" type="text" class="form-control" id="offerTitle" placeholder="Offer Title">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label for="offerRentType" class="control-label col-sm-4">Rent Type:</label>
-                                            <div class="col-sm-8">
-                                                <select data-bind="options: offerRentTypes, value: offer().rentType, optionsCaption: 'Choose Rent Type', optionsAfterRender: optionsAfterRender"
-                                                    class="form-control" id="offerRentType"></select>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="offerSize" class="control-label col-sm-4">Size:</label>
+                                                <div class="col-sm-8">
+                                                    <div class="input-group">
+                                                        <input data-bind="textInput: offer().size" type="number" class="form-control" id="offerSize" placeholder="Size">
+                                                        <div class="input-group-addon">m²</div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label for="offerSideCosts" class="control-label col-sm-4">Side Costs:</label>
-                                            <div class="col-sm-8">
-                                                <div class="input-group">
-                                                    <input data-bind="textInput: offer().sideCosts" type="number" class="form-control" id="offerSideCosts" placeholder="Side Costs">
-                                                    <div class="input-group-addon">€</div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="offerRooms" class="control-label col-sm-4">Rooms:</label>
+                                                <div class="col-sm-8">
+                                                    <input data-bind="textInput: offer().rooms" type="number" class="form-control" id="offerRooms" placeholder="Rooms">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label for="offerPriceType" class="control-label col-sm-4">Price Type:</label>
-                                            <div class="col-sm-8">
-                                                <select data-bind="options: offerPriceTypes, value: offer().priceType, optionsCaption: 'Choose Price Type', optionsAfterRender: optionsAfterRender"
-                                                    class="form-control" id="offerPriceType"></select>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="offerRent" class="control-label col-sm-4">Rent:</label>
+                                                <div class="col-sm-8">
+                                                    <div class="input-group">
+                                                        <input data-bind="textInput: offer().rent" type="number" class="form-control" id="offerRent" placeholder="Rent">
+                                                        <div class="input-group-addon">€</div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label for="offerFullPrice" class="control-label col-sm-4">Full Price:</label>
-                                            <div class="col-sm-8">
-                                                <div class="input-group">
-                                                    <input disabled data-bind="value: offerFullPrice" type="number" class="form-control" id="offerFullPrice" placeholder="0">
-                                                    <div class="input-group-addon">€</div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="offerRentType" class="control-label col-sm-4">Rent Type:</label>
+                                                <div class="col-sm-8">
+                                                    <select data-bind="options: offerRentTypes, value: offer().rentType, optionsCaption: 'Choose Rent Type', optionsAfterRender: optionsAfterRender"
+                                                        class="form-control" id="offerRentType"></select>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <br />
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label for="offerDeposit" class="control-label col-sm-4">Deposit:</label>
-                                            <div class="col-sm-8">
-                                                <div class="input-group">
-                                                    <input data-bind="textInput: offer().deposit" type="number" class="form-control" id="offerDeposit" placeholder="Deposit">
-                                                    <div class="input-group-addon">€</div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="offerSideCosts" class="control-label col-sm-4">Side Costs:</label>
+                                                <div class="col-sm-8">
+                                                    <div class="input-group">
+                                                        <input data-bind="textInput: offer().sideCosts" type="number" class="form-control" id="offerSideCosts" placeholder="Side Costs">
+                                                        <div class="input-group-addon">€</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="offerPriceType" class="control-label col-sm-4">Price Type:</label>
+                                                <div class="col-sm-8">
+                                                    <select data-bind="options: offerPriceTypes, value: offer().priceType, optionsCaption: 'Choose Price Type', optionsAfterRender: optionsAfterRender"
+                                                        class="form-control" id="offerPriceType"></select>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label for="offerCommission" class="control-label col-sm-4">Commission:</label>
-                                            <div class="col-sm-8">
-                                                <div class="input-group">
-                                                    <input data-bind="textInput: offer().commission" type="number" class="form-control" id="offerCommission" placeholder="Commission">
-                                                    <div class="input-group-addon">€</div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="offerFullPrice" class="control-label col-sm-4">Full Price:</label>
+                                                <div class="col-sm-8">
+                                                    <div class="input-group">
+                                                        <input disabled data-bind="value: offerFullPrice" type="number" class="form-control" id="offerFullPrice" placeholder="0">
+                                                        <div class="input-group-addon">€</div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="offerDeposit" class="control-label col-sm-4">Deposit:</label>
+                                                <div class="col-sm-8">
+                                                    <div class="input-group">
+                                                        <input data-bind="textInput: offer().deposit" type="number" class="form-control" id="offerDeposit" placeholder="Deposit">
+                                                        <div class="input-group-addon">€</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="offerCommission" class="control-label col-sm-4">Commission:</label>
+                                                <div class="col-sm-8">
+                                                    <div class="input-group">
+                                                        <input data-bind="textInput: offer().commission" type="number" class="form-control" id="offerCommission" placeholder="Commission">
+                                                        <div class="input-group-addon">€</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
                             </form>
                             <br />
                             <div class="row">
@@ -176,114 +183,16 @@
                         <!-- tab 2 -->
                         <div class="tab-pane text-center" id="tab2">
                             <form class="form-horizontal">
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <label for="size" class="control-label col-sm-4">Size:</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="size" placeholder="25 qm">
+                                <fieldset>
+                                    <legend class="clearfix">
+                                        <div class="col-xs-12 text-left">
+                                            Additional Information
                                         </div>
+                                    </legend>
+                                    <div class="col-sm-12 center-block">
+
                                     </div>
-                                    <div class="col-sm-6">
-                                        <label for="bathroom" class="control-label col-sm-4">Bath:</label>
-                                        <div class="col-sm-8">
-                                            <div class="btn-group">
-                                                <button type="button" class="btn btn-default">Shower/WC</button>
-                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-															<span class="caret"></span>
-															<span class="sr-only">Toggle Dropdown</span>
-													  	</button>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="#">Shower/WC</a></li>
-                                                    <li><a href="#">Shower/Tub/WC</a></li>
-                                                    <li><a href="#">Tub/WC</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <label for="rooms" class="control-label col-sm-4">Rooms:</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="rooms" placeholder="3">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label for="kitchen" class="control-label col-sm-4">Kitchen:</label>
-                                        <div class="col-sm-8">
-                                            <div class="btn-group">
-                                                <button type="button" class="btn btn-default">Fridge/Oven</button>
-                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-															<span class="caret"></span>
-															<span class="sr-only">Toggle Dropdown</span>
-													  	</button>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="#">Fridge/Oven</a></li>
-                                                    <li><a href="#">Fridge/Stove</a></li>
-                                                    <li><a href="#">Fridge/Stove/Oven</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <label for="rentalw" class="control-label col-sm-4">Rental(w):</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="rentalw" placeholder="270 EUR">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label for="cellar" class="control-label col-sm-4">Cellar:</label>
-                                        <div class="col-sm-8">
-                                            <div class="col-sm-4">
-                                                <div class="checkbox">
-                                                    <input type="checkbox" name="cellar" value="" checked>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <label for="addition" class="control-label col-sm-4">Addition:</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="addition" placeholder="50 EUR">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label for="parking" class="control-label col-sm-4">Parking:</label>
-                                        <div class="col-sm-8">
-                                            <div class="col-sm-4">
-                                                <div class="checkbox">
-                                                    <input type="checkbox" name="parking" value="" checked>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <label for="rental" class="control-label col-sm-4">Rental:</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="rental" placeholder="320 EUR">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label for="elevator" class="control-label col-sm-4">Elevator:</label>
-                                        <div class="col-sm-8">
-                                            <div class="col-sm-4">
-                                                <div class="checkbox">
-                                                    <input type="checkbox" name="elevator" value="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                </fieldset>
                             </form>
                             <br><br>
                             <div class="row">
@@ -311,91 +220,16 @@
                         <!-- tab 3 -->
                         <div class="tab-pane text-center" id="tab3">
                             <form class="form-horizontal">
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <label for="heating" class="control-label col-sm-4">Heating:</label>
-                                        <div class="col-sm-8">
-                                            <div class="btn-group">
-                                                <button type="button" class="btn btn-default">Gas</button>
-                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-															<span class="caret"></span>
-															<span class="sr-only">Toggle Dropdown</span>
-													  	</button>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="#">Gas</a></li>
-                                                    <li><a href="#">Oil</a></li>
-                                                    <li><a href="#">Electricity</a></li>
-                                                </ul>
-                                            </div>
+                                <fieldset>
+                                    <legend class="clearfix">
+                                        <div class="col-xs-12 text-left">
+                                            Offer Address
                                         </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label for="tv" class="control-label col-sm-4">TV:</label>
-                                        <div class="col-sm-8">
-                                            <div class="btn-group">
-                                                <button type="button" class="btn btn-default">Cable</button>
-                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-															<span class="caret"></span>
-															<span class="sr-only">Toggle Dropdown</span>
-													  	</button>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="#">Cable</a></li>
-                                                    <li><a href="#">DSL</a></li>
-                                                    <li><a href="#">SAT</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <label for="washer" class="control-label col-sm-4">Washer:</label>
-                                        <div class="col-sm-8">
-                                            <div class="col-sm-4">
-                                                <div class="checkbox">
-                                                    <input type="checkbox" name="washing" value="" checked>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label for="phone" class="control-label col-sm-4">Phone:</label>
-                                        <div class="col-sm-8">
-                                            <div class="col-sm-4">
-                                                <div class="checkbox">
-                                                    <input type="checkbox" name="phone" value="" checked>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <label for="dryer" class="control-label col-sm-4">Dryer:</label>
-                                        <div class="col-sm-8">
-                                            <div class="col-sm-4">
-                                                <div class="checkbox">
-                                                    <input type="checkbox" name="dryer" value="" checked>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label for="internet" class="control-label col-sm-4">Internet:</label>
-                                        <div class="col-sm-8">
-                                            <div class="col-sm-4">
-                                                <div class="checkbox">
-                                                    <input type="checkbox" name="internet" value="" checked>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br><br>
+                                    </legend>
+                                    <div class="col-sm-12 center-block">
 
-
+                                    </div>
+                                </fieldset>
                             </form>
                             <br><br>
                             <div class="row">
@@ -426,7 +260,7 @@
                                 <fieldset>
                                     <legend class="clearfix">
                                         <div class="col-xs-12 text-left">
-                                            Description
+                                            Offer Description
                                         </div>
                                     </legend>
                                     <div class="col-sm-12 center-block">
@@ -434,7 +268,7 @@
                                             <textarea data-bind="textInput: offer().description" class="form-control" rows="18" id="offerDescription"></textarea>
                                         </div>
                                     </div>
-                                </fieldset
+                                </fieldset>
                             </form>
                             <br />
                             <div class="row">
