@@ -5,14 +5,16 @@
  * Description:     JS Component Handler for new offer bar.
  ************************************************************/
 define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 'app/components/fileUploaderModal/fileUploaderModal.component',
-    'knockout', 'jquery', 'fuldaflatsApiClient','lightbox'],
+    'knockout', 'jquery', 'fuldaflatsApiClient', 'lightbox'],
     function(componentTemplate, componentCss, fileUploaderModalComponent, ko, $, api, lightbox) {
         function NewOfferModel(ko, $, api) {
             var self = this;
             // your model functions and variables
             self.tabsContainer = ko.observable();
+            self.defaultSwitchOptions = { onText: 'Yes', onColor: 'primary', offColor: 'danger', offText: 'No', animate: true, size: 'small' };
             self.offerPriceTypes = ko.observableArray(["DAY", "MONTH", "QUARTER", "HALF YEAR", "SEMESTER", "YEAR"]);
             self.offerRentTypes = ko.observableArray(["COLD", "WARM"]);
+            self.kitchenDescriptions = ko.observableArray(["Fridge/Oven", "Fridge/Stove", "Fridge/Stove/Oven"]);
             self.offerTypes = ko.observable();
             self.offer = api.offers.getOfferModel();
             self.offerDetailsPageInfo = ko.observable();
