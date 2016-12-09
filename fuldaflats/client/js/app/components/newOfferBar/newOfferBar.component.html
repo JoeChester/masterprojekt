@@ -421,50 +421,27 @@
                         <!-- tab 4 -->
                         <!-- /.tab -->
                         <div class="tab-pane text-center" id="tab4">
-                            <div class="row">
-                                <label class="control-label col-sm-11">Add Pictures and/or Videos:</label>
-                                <div class="col-sm-1">
-                                    <button data-bind="click: bindFileUploadModalEvents" data-toggle="modal" data-target="#fileUploaderModal" type="button" class="btn btn-default"
-                                        aria-label="Right Align">
+                            <fieldset>
+                                <legend class="clearfix">
+                                    <div class="col-xs-6 text-left">
+                                        Add Pictures and Video
+                                    </div>
+                                    <div class="col-xs-6 text-right">
+                                        <button id="offerFileUploadButton" data-bind="click: bindFileUploadModalEvents" data-toggle="modal" data-target="#fileUploaderModal"
+                                            type="button" class="btn btn-sm btn-template-primary" aria-label="Right Align">
 												<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-											</button>
-                                </div>
-                            </div><br>
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <div class="image">
-                                        <img src="../img/person-3.png" alt="" class="img-responsive">
+                                        </button>
+                                    </div>
+                                </legend>
+                                <div id="uploaded-files" data-bind="foreach: { data: offer().mediaObjects(), as: 'media' }" class="row">
+                                    <div class="col-sm-3">
+                                        <div class="image">
+                                            <img data-bind="attr: { src: media.thumbnailUrl, alt: 'Uploaded Image ' + (parseInt($index()) + 1) }, css: { 'img-row-2': parseInt($index()) > 3 }"
+                                                class="img-responsive">
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
-                                    <div class="image">
-                                        <img src="../img/person-3.png" alt="" class="img-responsive">
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="image">
-                                        <img src="../img/person-3.png" alt="" class="img-responsive">
-                                    </div>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <div class="image">
-                                        <img src="../img/person-3.png" alt="" class="img-responsive">
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="image">
-                                        <img src="../img/person-3.png" alt="" class="img-responsive">
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="image">
-                                        <img src="../img/person-3.png" alt="" class="img-responsive">
-                                    </div>
-                                </div>
-                            </div>
+                            </fieldset>
                             <br><br>
                             <div class="row">
                                 <div class="col-xs-2">

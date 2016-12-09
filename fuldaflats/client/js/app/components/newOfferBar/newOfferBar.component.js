@@ -6,7 +6,7 @@
  ************************************************************/
 define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 'app/components/fileUploaderModal/fileUploaderModal.component',
     'knockout', 'jquery', 'fuldaflatsApiClient'],
-    function (componentTemplate, componentCss, fileUploaderModalComponent, ko, $, api) {
+    function(componentTemplate, componentCss, fileUploaderModalComponent, ko, $, api) {
         function NewOfferModel(ko, $, api) {
             var self = this;
             // your model functions and variables
@@ -50,6 +50,21 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                 }
             };
 
+            function isCurrentUserEqualsLandlord(landlord) {
+                var areEquals = false;
+
+                var localLandlord = ko.unwrap(landlord);
+                var localCurrentUser = ko.unwrap(self.currentUser);
+
+                if (localLandlord && localCurrentUser &&
+                    localCurrentUser.isAuthenticated && localCurrentUser.userData
+                    && localLandlord.id === localCurrentUser.userData.id) {
+                    areEquals = true;
+                }
+
+                return areEquals;
+            };
+
             function isCurrentUserALandlord() {
                 var isLandlord = false;
 
@@ -68,7 +83,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                     self.currentUserIsNotALandlord(true);
                 } else if (self.offer() && !isNaN(self.offer().id())) {
                     api.offers.getOfferById(self.offer().id()).then(
-                        function (requestedOffer) {
+                        function(requestedOffer) {
                             if (requestedOffer) {
                                 if (!isCurrentUserALandlord()) {
                                     self.currentUserIsNotALandlord(true);
@@ -76,7 +91,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                                     self.offerLandlordIsNotCurrentUser(true);
                                 }
                                 else {
-                                    var mappedResult = api.offers.mapOfferResultToModel(newOffer);
+                                    var mappedResult = api.offers.mapOfferResultToModel(requestedOffer);
                                     self.offer(mappedResult);
                                     resetErrors();
                                 }
@@ -84,7 +99,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                                 self.offerLoadingError(true);
                             }
                         },
-                        function (xhr) {
+                        function(xhr) {
                             self.offerLoadingError(true);
                         }
                     );
@@ -96,11 +111,11 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                     self.currentUserIsNotALandlord(true);
                 } else {
                     api.offers.createOffer().then(
-                        function (newOffer) {
+                        function(newOffer) {
                             var mappedResult = api.offers.mapOfferResultToModel(newOffer);
                             self.offer(mappedResult);
                         },
-                        function (xhr) {
+                        function(xhr) {
                             self.offerCreationError(true);
                         }
                     );
@@ -109,16 +124,16 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
 
             function loadOfferTypes() {
                 api.offers.getOfferTypes().then(
-                    function (offerTypes) {
+                    function(offerTypes) {
                         self.offerTypes(offerTypes);
                     },
-                    function (xhr) {
+                    function(xhr) {
                         self.offerTypesLoadingError(true);
                     }
                 );
             };
 
-            self.offerFullPrice = ko.computed(function () {
+            self.offerFullPrice = ko.computed(function() {
                 var fullPrice = 0;
 
                 if (self.offer().rent() && !isNaN(self.offer().rent())) {
@@ -133,7 +148,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                 return fullPrice;
             });
 
-            self.bindFileUploadModalEvents = function (model, event) {
+            self.bindFileUploadModalEvents = function(model, event) {
                 if (event && event.currentTarget) {
                     var dialogId = event.currentTarget.getAttribute("data-target");
                     var dialogContainer = $(dialogId);
@@ -145,7 +160,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                 }
             };
 
-            self.goNextStep = function (model, event) {
+            self.goNextStep = function(model, event) {
                 // pre Validation
                 if (self.tabsContainer() && event.currentTarget) {
                     var nextTabId = event.currentTarget.getAttribute("next-tab");
@@ -163,33 +178,33 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                 // return true -> next tab
             };
 
-            self.cancelCreation = function () {
+            self.cancelCreation = function() {
                 window.history.back();
             };
 
-            self.updateOffer = function () {
+            self.updateOffer = function() {
                 // validation logik
                 api.offers.updatedOffer(self.offer).then(
-                    function () {
+                    function() {
                         if (self.offerDetailsPageInfo() && self.offerDetailsPageInfo().url) {
                             window.location.href = self.offerDetailsPageInfo().url + "?offerId=" + self.offer().id();
                         } else {
                             window.location.href = "/";
                         }
                     },
-                    function () {
+                    function() {
                         // redponse validation logik
                     }
                 );
             };
 
-            self.optionsAfterRender = function (option, item) {
+            self.optionsAfterRender = function(option, item) {
                 ko.applyBindingsToNode(option, {
                     disable: !item
                 }, item);
             };
 
-            self.initialize = function (params, tabsContainer) {
+            self.initialize = function(params, tabsContainer) {
                 self.tabsContainer(tabsContainer || "");
 
                 if (params) {
@@ -200,18 +215,24 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                     }
                 }
 
-                self.currentUser.subscribe(function (currentUser) {
+                self.currentUser.subscribe(function(currentUser) {
                     reloadOffer();
+
+                    if (isCurrentUserALandlord() && isNaN(self.offer().id())) {
+                        createOffer();
+                    }
                 });
 
                 loadOfferTypes();
-                createOffer();
+                if (isCurrentUserALandlord()) {
+                    createOffer();
+                }
             };
         }
 
         return {
             viewModel: {
-                createViewModel: function (params, componentInfo) {
+                createViewModel: function(params, componentInfo) {
                     // componentInfo contains for example the root element from the component template
                     ko.components.register("file-uploader", fileUploaderModalComponent);
 
