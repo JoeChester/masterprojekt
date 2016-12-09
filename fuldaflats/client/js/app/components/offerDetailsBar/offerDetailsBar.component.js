@@ -5,8 +5,8 @@
  * Description:     JS Component Handler offer Details Bar
  ************************************************************/
 
-define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.component.css', 'knockout', 'jquery', 'lightbox'],
-    function (componentTemplate, componentCss, ko, $, lightbox) {
+define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.component.css', 'knockout', 'jquery', 'lightbox', 'moment'],
+    function (componentTemplate, componentCss, ko, $, lightbox, moment) {
 
         function OfferDetailsModel(params) {
             var self = this;
@@ -58,6 +58,9 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
                                 offerData.mediaObjects[i].carouselActive = false;
                             }
                             offerData.mediaObjects[0].carouselActive = true;
+                            for (var j in offerData.reviews) {
+                                offerData.reviews[j].creationDate = moment(offerData.reviews[j].creationDate).format('L');
+                            }
                             console.log(offerData);
                             self.offer(offerData);
                             if (offerData.landlord) {

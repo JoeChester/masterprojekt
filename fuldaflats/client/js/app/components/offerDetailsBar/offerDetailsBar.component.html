@@ -14,7 +14,7 @@
                 <ol class="carousel-indicators" data-bind="foreach: { data: offer().mediaObjects, as: 'mediaObject'}">
                     <li data-target="#mediaObjectsCarousel" data-bind="attr:{'data-slide-to': mediaObject.carouselIndex}, css: { active: mediaObject.carouselActive }"></li>
                 </ol>
-            
+
 
                 <div class="carousel-inner" role="listbox" data-bind="foreach: { data: offer().mediaObjects, as: 'mediaObject'}">
                     <div class="item" data-bind="css: { active: mediaObject.carouselActive }">
@@ -252,9 +252,9 @@
                         <!-- ko if: offer().washingMachine -->
                         <label class="control-label col-sm-6">Yes</label>
                         <!-- /ko -->
-                        <!-- ko ifnot: offer().washingMachine --> 
+                        <!-- ko ifnot: offer().washingMachine -->
                         <label class="control-label col-sm-6">No</label>
-                        <!-- /ko --> 
+                        <!-- /ko -->
                     </div>
                 </div><br>
             </div>
@@ -275,7 +275,7 @@
                         <!-- ko if: offer().dryer -->
                         <label class="control-label col-sm-6">Yes</label>
                         <!-- /ko -->
-                        <!-- ko ifnot: offer().dryer --> 
+                        <!-- ko ifnot: offer().dryer -->
                         <label class="control-label col-sm-6">No</label>
                         <!-- /ko -->
                     </div>
@@ -295,12 +295,7 @@
                     <div class="col-sm-4"></div>
                     <div class="col-sm-4">
                         <label class="control-label col-sm-6">TV:</label>
-                        <!-- ko if: offer().telephone -->
-                        <label class="control-label col-sm-6">Yes</label>
-                        <!-- /ko -->
-                        <!-- ko ifnot: offer().telephone -->
-                        <label class="control-label col-sm-6">No</label>
-                        <!-- /ko -->
+                        <label class="control-label col-sm-6" data-bind="text: offer().television"></label>
                     </div>
                 </div><br>
             </div>
@@ -330,8 +325,59 @@
             <div class="row" style="background-color: #ddd">
                 <div class="col-sm-12">
                     <div class="col-sm-4">
-                        <label class="control-label col-sm-6"></label>
-                        <label class="control-label col-sm-6"></label>
+                        <label class="control-label col-sm-6">Pets:</label>
+                        <!-- ko if: offer().pets -->
+                        <label class="control-label col-sm-6">Yes</label>
+                        <!-- /ko -->
+                        <!-- ko ifnot: offer().pets -->
+                        <label class="control-label col-sm-6">No</label>
+                        <!-- /ko -->
+                    </div>
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4">
+                        <label class="control-label col-sm-6">WLAN:</label>
+                        <!-- ko if: offer().wlan -->
+                        <label class="control-label col-sm-6">Yes</label>
+                        <!-- /ko -->
+                        <!-- ko ifnot: offer().wlan -->
+                        <label class="control-label col-sm-6">No</label>
+                        <!-- /ko -->
+                    </div>
+                </div><br>
+            </div>
+            <div class="row" style="background-color: #ddd">
+                <div class="col-sm-12">
+                    <div class="col-sm-4">
+                        <label class="control-label col-sm-6">Furnished:</label>
+                        <!-- ko if: offer().furnished -->
+                        <label class="control-label col-sm-6">Yes</label>
+                        <!-- /ko -->
+                        <!-- ko ifnot: offer().furnished -->
+                        <label class="control-label col-sm-6">No</label>
+                        <!-- /ko -->
+                    </div>
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4">
+                        <label class="control-label col-sm-6">LAN:</label>
+                        <!-- ko if: offer().lan -->
+                        <label class="control-label col-sm-6">Yes</label>
+                        <!-- /ko -->
+                        <!-- ko ifnot: offer().lan -->
+                        <label class="control-label col-sm-6">No</label>
+                        <!-- /ko -->
+                    </div>
+                </div><br>
+            </div>
+            <div class="row" style="background-color: #ddd">
+                <div class="col-sm-12">
+                    <div class="col-sm-4">
+                        <label class="control-label col-sm-6">Accessability:</label>
+                        <!-- ko if: offer().accessability -->
+                        <label class="control-label col-sm-6">Yes</label>
+                        <!-- /ko -->
+                        <!-- ko ifnot: offer().accessability -->
+                        <label class="control-label col-sm-6">No</label>
+                        <!-- /ko -->
                     </div>
                     <div class="col-sm-4"></div>
                     <div class="col-sm-4">
@@ -350,31 +396,31 @@
             <div data-bind="foreach: { data: offer().reviews, as: 'review'}">
                 <div class="row">
                     <div class="col-sm-12">
-                        <div class="col-sm-8"  data-bind="value: review.rating">
+                        <div class="col-sm-8" data-bind="value: review.rating">
                             <span class="">&nbsp;&nbsp;&nbsp;</span>
-                            <!-- ko if: review.rating == 5 --> 
+                            <!-- ko if: review.rating == 5 -->
                             <span class="glyphicon glyphicon-star"></span>
                             <span class="glyphicon glyphicon-star"></span>
                             <span class="glyphicon glyphicon-star"></span>
                             <span class="glyphicon glyphicon-star"></span>
                             <span class="glyphicon glyphicon-star"></span>
                             <!-- /ko -->
-                            <!-- ko if: review.rating == 4 --> 
+                            <!-- ko if: review.rating == 4 -->
                             <span class="glyphicon glyphicon-star"></span>
                             <span class="glyphicon glyphicon-star"></span>
                             <span class="glyphicon glyphicon-star"></span>
                             <span class="glyphicon glyphicon-star"></span>
                             <!-- /ko -->
-                            <!-- ko if: review.rating == 3 --> 
+                            <!-- ko if: review.rating == 3 -->
                             <span class="glyphicon glyphicon-star"></span>
                             <span class="glyphicon glyphicon-star"></span>
                             <span class="glyphicon glyphicon-star"></span>
                             <!-- /ko -->
-                            <!-- ko if: review.rating == 2 --> 
+                            <!-- ko if: review.rating == 2 -->
                             <span class="glyphicon glyphicon-star"></span>
                             <span class="glyphicon glyphicon-star"></span>
                             <!-- /ko -->
-                            <!-- ko if: review.rating == 1 --> 
+                            <!-- ko if: review.rating == 1 -->
                             <span class="glyphicon glyphicon-star"></span>
                             <!-- /ko -->
                         </div>
@@ -405,7 +451,8 @@
                             <img src="../img/person-3.png" class="img-responsive" alt="Profilepicture">
                         </div>
                     </div>
-                </div><hr>
+                </div>
+                <hr>
             </div>
             <div class="row">
                 <div class="col-sm-12">
