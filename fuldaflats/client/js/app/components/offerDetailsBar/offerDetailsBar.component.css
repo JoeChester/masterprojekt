@@ -70,3 +70,17 @@
 hr {
     border:solid #ddd 1px;
 }
+
+.centric{
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.review-name{
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.top-spacing{
+    margin-top: 5px;
+}

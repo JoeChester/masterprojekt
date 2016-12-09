@@ -28,7 +28,9 @@
     "express-session": "^1.14.2",
     "github-webhook-handler": "^0.6.0",
     "multer": "^1.2.0",
-    "mysql": "^2.12.0"
+    "mysql": "^2.12.0",
+    "request": "^2.79.0",
+    "utf8": "^2.1.2"
   },
   "devDependencies": {}
 }

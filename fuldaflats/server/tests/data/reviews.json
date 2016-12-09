@@ -4,20 +4,23 @@
         "rating": 5,
         "comment": "This is a really nice Flat. The Pictures describe the Flat not enough!",
         "creationDate": "10.10.2010",
-        "offerId": 1
+        "offerId": 1,
+        "userId": 5
     },
     {
         "title": "Really nice, but ...",
         "rating": 4,
         "comment": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
         "creationDate": "04.07.2003",
-        "offerId": 1
+        "offerId": 1,
+        "userId": 2
     },
     {
         "title": "No as Expected",
         "rating": 2,
         "comment": "This was not the ... i expected. Dust everywhere and not a single roo cleaned!",
         "creationDate": "12.03.1999",
-        "offerId": 2
+        "offerId": 2,
+        "userId": 1
     }
 ]

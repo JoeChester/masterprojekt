@@ -37,12 +37,12 @@ router.post('/', function (req, res) {
         let offer = new schema.models.Offer();
         offer.landlord = req.session.user.id;
         offer.status = 0;
-        offer.save((err, offer) =>{
+        offer.save((err, offer) => {
             if (err != null) {
-                    res.json(err);
-                } else {
-                    res.json(offer);
-                }
+                res.json(err);
+            } else {
+                res.json(offer);
+            }
         });
     }
 });
@@ -61,11 +61,11 @@ router.put('/:offerId', function (req, res) {
             },
             _offer,
             (err, offer) => {
-                if (err) {
+                if (err || !offer) {
                     res.status(400);
                     return res.json(err);
                 } else {
-                    if(offer.toString() != 1){
+                    if (offer.toString() != 1) {
                         return res.sendStatus(401);
                     }
                     return res.sendStatus(200);
@@ -126,7 +126,7 @@ router.get('/search', function (req, res) {
     searchQuery.where.status = 1;
 
     schema.models.Offer.find(searchQuery, (err, offers) => {
-        if (err) {
+        if (err || !offers) {
             res.status(404);
             return res.json(err);
         }
@@ -199,7 +199,7 @@ router.get('/search/last', function (req, res) {
         var _noParameters = [];
         return res.json(_noParameters);
     } else {
-        if(req.session.search.id){
+        if (req.session.search.id) {
             delete req.session.search.id;
         }
         res.json(req.session.search);
@@ -210,12 +210,12 @@ router.get('/search/last', function (req, res) {
 router.get('/recent', function (req, res) {
     schema.models.Offer.find({
         where: {
-            status : 1 //only find active offers
+            status: 1 //only find active offers
         },
         order: 'creationDate DESC',
         limit: 10
     }, (err, offers) => {
-        if (err) {
+        if (err || !offers) {
             res.status(404);
             return res.json(err);
         }
@@ -262,12 +262,12 @@ router.get('/recent', function (req, res) {
 //offer details
 router.get('/:offerId', function (req, res) {
     schema.models.Offer.findById(req.params.offerId, (err, offer) => {
-        if (err) {
+        if (err || !offer) {
             return res.sendStatus(404);
         }
         //Only Owners can see inactive offers
-        if(req.session.auth){
-            if(offer.status != 1 && offer.landlord != req.session.user.id){
+        if (req.session.auth) {
+            if (offer.status != 1 && offer.landlord != req.session.user.id) {
                 return res.sendStatus(401);
             }
         }
@@ -315,6 +315,63 @@ router.get('/:offerId', function (req, res) {
     });
 });
 
+//get all offer reviews with user details
+router.get('/:offerId/review', function (req, res) {
+    if (!req.session.auth) {
+        return res.sendStatus(404);
+    }
+    schema.models.Offer.findById(req.params.offerId, (err1, offer) => {
+        if (err1 || !offer) {
+            return res.sendStatus(404);
+        }
+        //Only Owners can see inactive offers
+        if (req.session.auth) {
+            if (offer.status != 1 && offer.landlord != req.session.user.id) {
+                return res.sendStatus(401);
+            }
+        }
+        schema.models.Review.find({
+            where: {
+                offerId: req.params.offerId
+            }
+        }, (err2, reviews) => {
+            if(err2 || !reviews){
+                return res.sendStatus(404);
+            }
+
+            let reviews_join = [];
+            reviews.forEach(review => {
+                reviews_join.push(cb => {
+                    //Plain JSON object
+                    let _review = review.toJSON();
+                    //Execute to Seach User Detail STUBS
+                    schema.models.User.find({
+                        where: {id: _review.userId}
+                    }, (err3, user) =>{
+                        if(!err3 && user){
+                            //implicit toJSON_STUB because parallel runtime...
+                            _review.user = user[0];
+                        }
+                        cb(null, _review);
+                    });
+
+                });
+            });
+
+            //Execute Joins in Parallel
+            async.parallel(reviews_join, (err, _reviews) => {
+                if (err) {
+                    res.status(500);
+                    res.json(err);
+                }
+                res.status(200);
+                //_offers contains a list of all Async Callback
+                //results of offer_joins
+                res.json(_reviews);
+            });
+        })
+    });
+});
 
 //create review
 router.post('/:offerId/review', function (req, res) {

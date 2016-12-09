@@ -9,6 +9,9 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
     function (componentTemplate, componentCss, ko, $, lightbox, moment) {
 
         function OfferDetailsModel(params) {
+
+            moment.locale('de');
+
             var self = this;
 
             // your model functions and variables
@@ -25,6 +28,8 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
             self.offerId = ko.observable();
             self.offer = ko.observable({});
             self.landlord = ko.observable({});
+
+            self.reviews = ko.observableArray([]);
 
             //Check Login
             self.checkLogin = function () {
@@ -49,6 +54,7 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
             //Get Offer Data
             self.offerId(getURLParameter("offerId") || "");
             if (self.offerId()) {
+                //Get offer Details
                 $.getJSON({
                     url: '/api/offers/' + self.offerId(),
                     success: function (offerData, status, req) {
@@ -67,6 +73,21 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
                                 self.landlord(offerData.landlord);
                             }
                         }
+                    }
+                });
+                //Get Offer Reviews as seperate model for better handling
+                $.getJSON({
+                    url: '/api/offers/' + self.offerId() + '/review',
+                    success: function(reviewsData, status, req){
+                        self.reviews.removeAll();
+                        for(var i in reviewsData){
+                            reviewsData[i].creationDate = moment(reviewsData[i].creationDate).format('L');
+                            self.reviews.push(reviewsData[i]);
+                        }
+                        console.log(self.reviews());
+                    },
+                    error: function(req, status, error){
+                        self.reviews.removeAll();
                     }
                 });
             }
