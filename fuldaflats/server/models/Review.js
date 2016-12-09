@@ -12,10 +12,21 @@ module.exports = function(schema){
         rating: {type: schema.Integer},
         comment: {type: schema.Text}, 
         creationDate: {type: schema.Date, default: Date.now },
-        offerId: {type: schema.Number}
+        offerId: {type: schema.Number},
+        userId: {type: schema.Number}
     },{});
 
     //Validators
+    Review.prototype.toJSON = function(){
+        var _review = {};
+        _review.title = this.title;
+        _review.rating = this.rating;
+        _review.comment = this.comment;
+        _review.creationDate = this.creationDate;
+        _review.offerId = this.offerId;
+        _review.userId = this.userId;
+        return _review;
+    }
 
     return Review;
 };

@@ -90,6 +90,10 @@ padding-right: 17px;
   color: #f8dc0c;
 }
 
+.grey-text{
+  color: #999999;
+}
+
 .thumbnail-container{
   height: 250px;
   overflow: hidden;

@@ -97,5 +97,9 @@ module.exports = function(schema){
         return _user;
     }
 
+    User.prototype.toJSON = function(){
+        return this.toJSON_STUB();
+    }
+
     return User;
 };

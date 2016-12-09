@@ -387,78 +387,93 @@
                 </div><br><br>
             </div><br>
             <div class="row">
-                <div class="col-sm-12">
-                    <div class="col-sm-8">
-                        <label class="control-label col-sm-6"><h4>Customer Reviews</h4></label>
-                    </div>
-                </div>
+                <h4>Customer Reviews</h4>
             </div>
-            <div data-bind="foreach: { data: offer().reviews, as: 'review'}">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="col-sm-8" data-bind="value: review.rating">
-                            <span class="">&nbsp;&nbsp;&nbsp;</span>
-                            <!-- ko if: review.rating == 5 -->
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <!-- /ko -->
-                            <!-- ko if: review.rating == 4 -->
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <!-- /ko -->
-                            <!-- ko if: review.rating == 3 -->
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <!-- /ko -->
-                            <!-- ko if: review.rating == 2 -->
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <!-- /ko -->
-                            <!-- ko if: review.rating == 1 -->
-                            <span class="glyphicon glyphicon-star"></span>
-                            <!-- /ko -->
-                        </div>
-                    </div>
+            <div data-bind="foreach: { data: reviews, as: 'review'}">
+                <div class="row" data-bind="value: review.rating">
+                    <!-- ko if: review.rating == 5 -->
+                    <span class="glyphicon glyphicon-star gold-text"></span>
+                    <span class="glyphicon glyphicon-star gold-text"></span>
+                    <span class="glyphicon glyphicon-star gold-text"></span>
+                    <span class="glyphicon glyphicon-star gold-text"></span>
+                    <span class="glyphicon glyphicon-star gold-text"></span>
+                    <!-- /ko -->
+                    <!-- ko if: review.rating == 4 -->
+                    <span class="glyphicon glyphicon-star gold-text"></span>
+                    <span class="glyphicon glyphicon-star gold-text"></span>
+                    <span class="glyphicon glyphicon-star gold-text"></span>
+                    <span class="glyphicon glyphicon-star gold-text"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <!-- /ko -->
+                    <!-- ko if: review.rating == 3 -->
+                    <span class="glyphicon glyphicon-star gold-text"></span>
+                    <span class="glyphicon glyphicon-star gold-text"></span>
+                    <span class="glyphicon glyphicon-star gold-text"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <!-- /ko -->
+                    <!-- ko if: review.rating == 2 -->
+                    <span class="glyphicon glyphicon-star gold-text"></span>
+                    <span class="glyphicon glyphicon-star gold-text"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <!-- /ko -->
+                    <!-- ko if: review.rating == 1 -->
+                    <span class="glyphicon glyphicon-star gold-text"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <!-- /ko -->
                 </div>
                 <div class="row">
-                    <div class="col-sm-12">
-                        <div class="col-sm-8">
-                            <label class="control-label col-sm-6" data-bind="text: review.title"></label>
+                    <div class="col-sm-8">
+                        <div class="row">
+                            <label class="control-label review-name" data-bind="text: review.title"></label>
+                        </div>
+                        <div class="row">
+                            <label class="control-label grey-text" data-bind="text: review.creationDate"><small></small></label>
+                        </div>
+                        <div class="row">
+                            <label data-bind="text: review.comment"></label>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="col-sm-8">
-                            <label class="control-label col-sm-6" data-bind="text: review.creationDate"><small></small></label>
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="profilePicture-container-medium">    
+                                <img data-bind="attr:{ src: review.user.profilePicture}" class="img-responsive profilePicture-img" alt="Profilepicture">
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="col-sm-10">
-                            <label class="control-label col-sm-12">
-                                    <label data-bind="text: review.comment"></label>
-                            </label>
-                        </div>
-                        <div class="col-sm-2">
-                            <img src="../img/person-3.png" class="img-responsive" alt="Profilepicture">
+                        <div class="row centric">
+                            <span class="review-name" data-bind="text: review.user.firstName"></span>
                         </div>
                     </div>
                 </div>
                 <hr>
             </div>
             <div class="row">
-                <div class="col-sm-12">
-                    <div class="col-sm-4"></div>
-                    <button type="button" class="btn btn-primary col-sm-4">Write A Customer Review</button>
-                    <div class="col-sm-4"></div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <select id="ratingSelect" class="gold-text form-control">
+                            <option value="5" selected>&#9733;&#9733;&#9733;&#9733;&#9733;</option>
+                            <option value="4">&#9733;&#9733;&#9733;&#9733;</option>
+                            <option value="3">&#9733;&#9733;&#9733;</option>
+                            <option value="2">&#9733;&#9733;</option>
+                            <option value="1">&#9733;</option>
+                        </select>
+                    </div>
+                    <div class="col-md-8">
+                        <input id="ratingInput" class="form-control" placeholder="Review Title"/>
+                    </div>
+                </div>
+                <div class="row top-spacing">
+                    <div class="col-md-12">
+                        <textarea class="form-control" rows="3" placeholder="Review content"></textarea>
+                    </div>
+                </div>
+                <div class="row centric">
+                    <button type="button" class="btn btn-primary">Send Review</button>
                 </div>
             </div>
         </div>
