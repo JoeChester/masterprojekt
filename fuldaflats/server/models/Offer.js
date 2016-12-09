@@ -54,14 +54,8 @@ module.exports = function (schema) {
         //pets allowed => false: no, true: yes
         pets: schema.Boolean,
         bathroomNumber: schema.Number,
-        bathroomDescription: {
-            type: schema.Text,
-            limit: 4000
-        },
-        kitchenDescription: {
-            type: schema.Text,
-            limit: 4000
-        },
+        bathroomDescription: schema.String,
+        kitchenDescription: schema.String,
         //cellar available => false: no, true: yes
         cellar: schema.Boolean,
         //parking slot available => false: no, true: yes
@@ -76,12 +70,9 @@ module.exports = function (schema) {
         lan: schema.Boolean,
         //max internet speed in kbit/s available
         internetSpeed: schema.Number,
-        heatingDescription: {
-            type: schema.Text,
-            limit: 4000
-        },
+        heatingDescription: schema.String,
         //television access available => false: no, true: yes
-        television: schema.Boolean,
+        television: schema.String,
         //dryer available => false: no, true: yes
         dryer: schema.Boolean,
         //washing machine available => false: no, true: yes
@@ -89,10 +80,7 @@ module.exports = function (schema) {
         //telephone access available => false: no, true: yes
         telephone: schema.Boolean,
         //0:hidden, 1:public, 2:closed
-        status: {
-            type: schema.Number,
-            limit: 2
-        },
+        status: schema.Boolean,
         creationDate: {
             type: schema.Date,
             default: Date.now
