@@ -1,14 +1,14 @@
 /************************************************************
  * File:            editOfferDetailsBar.component.js
  * Author:          Patrick Hasenauer
- * LastMod:         02.12.2016
+ * LastMod:         09.12.2016
  * Description:     JS Component Handler for edit offer details bar.
  ************************************************************/
 define(['text!./editOfferDetailsBar.component.html',
     'css!./editOfferDetailsBar.component.css',
     'app/components/fileUploaderModal/fileUploaderModal.component',
     'knockout', 'jquery', 'fuldaflatsApiClient'],
-    function(componentTemplate, componentCss, fileUploaderModalComponent, ko, $, api) {
+    function (componentTemplate, componentCss, fileUploaderModalComponent, ko, $, api) {
         function EditOfferDetailsModel(ko, $, api) {
             // your model functions and variables
             var self = this;
@@ -63,16 +63,15 @@ define(['text!./editOfferDetailsBar.component.html',
                 } else {
                     var offerId = getURLParameter("offerId");
                     api.offers.getOfferById(offerId).then(
-                        function(requestedOffer) {
-                            var requestOfferValue = ko.unwrap(requestedOffer);
-                            if (requestOfferValue) {
+                        function (requestedOffer) {
+                            if (requestedOffer) {
                                 if (!isCurrentUserALandlord()) {
                                     self.currentUserIsNotALandlord(true);
-                                } else if (!isCurrentUserEqualsLandlord(requestOfferValue.landlord)) {
+                                } else if (!isCurrentUserEqualsLandlord(requestedOffer.landlord)) {
                                     self.offerLandlordIsNotCurrentUser(true);
                                 }
                                 else {
-                                    self.offer(requestOfferValue);
+                                    self.offer(requestedOffer);
                                     self.offerLoadingError(false);
                                     self.currentUserIsNotALandlord(false);
                                     self.offerLandlordIsNotCurrentUser(false);
@@ -81,14 +80,14 @@ define(['text!./editOfferDetailsBar.component.html',
                                 self.offerLoadingError(true);
                             }
                         },
-                        function(xhr) {
+                        function (xhr) {
                             self.offerLoadingError(true);
                         }
                     );
                 }
             };
 
-            self.bindFileUploadModalEvents = function(model, event) {
+            self.bindFileUploadModalEvents = function (model, event) {
                 if (event && event.currentTarget) {
                     var dialogId = event.currentTarget.getAttribute("data-target");
                     var dialogContainer = $(dialogId);
@@ -100,28 +99,28 @@ define(['text!./editOfferDetailsBar.component.html',
                 }
             };
 
-            self.cancelEditOffer = function() {
+            self.cancelEditOffer = function () {
                 window.history.back();
             };
 
-            self.updateOffer = function() {
+            self.updateOffer = function () {
                 // validation logik
                 api.offers.updatedOffer(self.offer).then(
-                    function() {
+                    function () {
                         if (self.offerDetailsPageInfo() && self.offerDetailsPageInfo().url) {
                             window.location.href = self.offerDetailsPageInfo().url + "?offerId=" + self.offer().id;
                         } else {
                             window.location.href = "/";
                         }
                     },
-                    function() {
+                    function () {
                         // redponse validation logik
                     }
                 )
 
             }
 
-            self.initialize = function(params) {
+            self.initialize = function (params) {
                 if (params) {
                     self.offerDetailsPageInfo(ko.unwrap(params.offerDetailsPageInfo || ''));
 
@@ -130,7 +129,7 @@ define(['text!./editOfferDetailsBar.component.html',
                     }
                 }
 
-                self.currentUser.subscribe(function(currentUser) {
+                self.currentUser.subscribe(function (currentUser) {
                     loadRequestedOffer();
                 });
 
@@ -140,7 +139,7 @@ define(['text!./editOfferDetailsBar.component.html',
 
         return {
             viewModel: {
-                createViewModel: function(params, componentInfo) {
+                createViewModel: function (params, componentInfo) {
                     // componentInfo contains for example the root element from the component template
 
                     ko.components.register("file-uploader", fileUploaderModalComponent);

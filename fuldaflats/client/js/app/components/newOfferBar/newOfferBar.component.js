@@ -1,7 +1,7 @@
 /************************************************************
  * File:            newOfferBar.component.js
  * Author:          Patrick Hasenauer
- * LastMod:         08.12.2016
+ * LastMod:         09.12.2016
  * Description:     JS Component Handler for new offer bar.
  ************************************************************/
 define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 'app/components/fileUploaderModal/fileUploaderModal.component',
@@ -65,15 +65,14 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                 } else if (self.offer() && !isNaN(self.offer().id())) {
                     api.offers.getOfferById(self.offer().id()).then(
                         function(requestedOffer) {
-                            var requestOfferValue = ko.unwrap(requestedOffer);
-                            if (requestOfferValue) {
+                            if (requestedOffer) {
                                 if (!isCurrentUserALandlord()) {
                                     self.currentUserIsNotALandlord(true);
-                                } else if (!isCurrentUserEqualsLandlord(requestOfferValue.landlord)) {
+                                } else if (!isCurrentUserEqualsLandlord(requestedOffer.landlord)) {
                                     self.offerLandlordIsNotCurrentUser(true);
                                 }
                                 else {
-                                    self.offer(requestOfferValue);
+                                    self.offer(requestedOffer);
                                     resetErrors();
                                 }
                             } else {
@@ -93,8 +92,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                 } else {
                     api.offers.createOffer().then(
                         function(newOffer) {
-                            var newOfferValue = ko.unwrap(newOffer);
-                            self.offer(newOfferValue);
+                            self.offer(newOffer);
                         },
                         function(xhr) {
                             self.offerCreationError(true);

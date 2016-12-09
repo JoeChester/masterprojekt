@@ -1,7 +1,7 @@
 /************************************************************
  * File:            navigationBar.component.js
  * Author:          Patrick Hasenauer
- * LastMod:         08.12.2016
+ * LastMod:         09.12.2016
  * Description:     JS Component Handler for navigation bar.
  ************************************************************/
 define(['text!./navigationBar.component.html', 'css!./navigationBar.component.css',
@@ -46,7 +46,7 @@ define(['text!./navigationBar.component.html', 'css!./navigationBar.component.cs
             self.contactDialogParamter = undefined;
 
             self.signOut = function () {
-                api.users.signOut().then(function (currentUser) {
+                api.users.signOut().then(function () {
                     console.log("User signed out");
                 });
             };
