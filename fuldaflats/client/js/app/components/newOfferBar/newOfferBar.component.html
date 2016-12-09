@@ -435,10 +435,10 @@
                                 </legend>
                                 <div id="uploaded-files" data-bind="foreach: { data: offer().mediaObjects(), as: 'media' }" class="row">
                                     <div class="col-sm-3">
-                                        <div class="image">
+                                        <a class="image" data-bind="attr: { href: media.thumbnailUrl }"data-lightbox="mediaObjectsLightbox">
                                             <img data-bind="attr: { src: media.thumbnailUrl, alt: 'Uploaded Image ' + (parseInt($index()) + 1) }, css: { 'img-row-2': parseInt($index()) > 3 }"
-                                                class="img-responsive">
-                                        </div>
+                                                class="mediaObject-img img-responsive">
+                                        </a>
                                     </div>
                                 </div>
                             </fieldset>

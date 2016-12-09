@@ -5,8 +5,8 @@
  * Description:     JS Component Handler for new offer bar.
  ************************************************************/
 define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 'app/components/fileUploaderModal/fileUploaderModal.component',
-    'knockout', 'jquery', 'fuldaflatsApiClient'],
-    function(componentTemplate, componentCss, fileUploaderModalComponent, ko, $, api) {
+    'knockout', 'jquery', 'fuldaflatsApiClient','lightbox'],
+    function(componentTemplate, componentCss, fileUploaderModalComponent, ko, $, api, lightbox) {
         function NewOfferModel(ko, $, api) {
             var self = this;
             // your model functions and variables
