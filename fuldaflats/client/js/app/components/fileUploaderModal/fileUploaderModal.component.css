@@ -6,13 +6,19 @@
  ************************************************************/
 
 .progressMediaObjectUpLoad,
-.alertFileUpload{
+.alertFileUpload,
+.uploadAllBtn{
   text-align: center;
   display:none;
 }
 
 .progress-bar{
   width: 0%;
+  color: black;
+}
+
+.progressText{
+  position:absolute;
 }
 
 /* external Part for the file select button*/
