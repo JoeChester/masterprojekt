@@ -84,3 +84,16 @@ hr {
 .top-spacing{
     margin-top: 5px;
 }
+
+.star-spacing{
+    margin-top: 7px;
+}
+
+.location-description{
+    font-size: 2rem;
+}
+
+.detailsMap-container{
+    height: 200px;
+    background-color: #999999;
+}

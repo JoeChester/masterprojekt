@@ -91,6 +91,14 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
                     }
                 });
             }
+
+            self.sendReview = function(){
+                var _review = {};
+                _review.rating = parseInt($('#newReviewRating').val());
+                _review.title = $('#newReviewTitle').val();
+                _review.comment = $('#newReviewComment').val();
+                console.log(_review);
+            }
         }
 
         return {
