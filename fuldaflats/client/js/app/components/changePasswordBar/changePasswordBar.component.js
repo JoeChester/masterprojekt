@@ -34,7 +34,7 @@ define(['text!./changePasswordBar.component.html', 'css!./changePasswordBar.comp
                             window.location ="/pages/changePassword";
                             return;
                         }
-                        errorCallback(error);
+                        errorCallback(JSON.parse(req.responseText));
                     }
                 });
             }

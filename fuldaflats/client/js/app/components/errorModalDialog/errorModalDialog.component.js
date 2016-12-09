@@ -14,6 +14,14 @@ define(['text!./errorModalDialog.component.html', 'css!./errorModalDialog.compon
             self.showErrors = function(_errors){
                 self.errors.removeAll();
                 for(var i in _errors){
+                    if(typeof _errors == "string"){
+                        self.errors.push(_errors);
+                        break;;
+                    }
+                    if(typeof _errors[i] == "string"){
+                        self.errors.push(_errors);
+                        continue;
+                    }
                     for(var k in _errors[i]){
                         self.errors.push(_errors[i][k]);
                     }
