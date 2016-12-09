@@ -226,8 +226,40 @@
                                             Offer Address
                                         </div>
                                     </legend>
-                                    <div class="col-sm-12 center-block">
-
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="offerStreet" class="control-label col-sm-5">Street:</label>
+                                            <div class="col-sm-7">
+                                                <input data-bind="textInput: offer().street" type="text" class="form-control" id="offerStreet" placeholder="Steet">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="offerHouseNumber" class="control-label col-sm-5">House Number:</label>
+                                            <div class="col-sm-7">
+                                                <input data-bind="textInput: offer().houseNumber" type="text" class="form-control" id="offerHouseNumber" placeholder="House Number">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="offerFloor" class="control-label col-sm-5">Floor:</label>
+                                            <div class="col-sm-7">
+                                                <input data-bind="textInput: offer().floor" type="number" class="form-control" id="offerFloor" placeholder="Floor">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="offerZipCode" class="control-label col-sm-5">Zip Code:</label>
+                                            <div class="col-sm-7">
+                                                <input data-bind="textInput: offer().zipCode" type="number" class="form-control" id="offerZipCode" placeholder="Zip Code">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="offerCity" class="control-label col-sm-5">City:</label>
+                                            <div class="col-sm-7">
+                                                <input data-bind="textInput: offer().city" type="text" class="form-control" id="offerCity" placeholder="City">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 center-block">
+                                        <!-- map -->
                                     </div>
                                 </fieldset>
                             </form>
