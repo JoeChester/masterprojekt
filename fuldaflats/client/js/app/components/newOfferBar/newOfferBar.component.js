@@ -6,11 +6,14 @@
  ************************************************************/
 define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 'app/components/fileUploaderModal/fileUploaderModal.component',
     'knockout', 'jquery', 'fuldaflatsApiClient'],
-    function(componentTemplate, componentCss, fileUploaderModalComponent, ko, $, api) {
+    function (componentTemplate, componentCss, fileUploaderModalComponent, ko, $, api) {
         function NewOfferModel(ko, $, api) {
             var self = this;
             // your model functions and variables
             self.tabsContainer = ko.observable();
+            self.offerPriceTypes = ko.observableArray(["DAY", "MONTH", "QUARTER", "HALF YEAR", "SEMESTER", "YEAR"]);
+            self.offerRentTypes = ko.observableArray(["COLD", "WARM"]);
+            self.offerTypes = ko.observable();
             self.offer = api.offers.getOfferModel();
             self.offerDetailsPageInfo = ko.observable();
             self.currentUser = ko.observable(
@@ -24,6 +27,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
             self.offerLandlordIsNotCurrentUser = ko.observable(false);
             self.currentUserIsNotALandlord = ko.observable(false);
             self.offerLoadingError = ko.observable(false);
+            self.offerTypesLoadingError = ko.observable(false);
 
             function resetErrors() {
                 self.offerCreationError(false);
@@ -64,7 +68,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                     self.currentUserIsNotALandlord(true);
                 } else if (self.offer() && !isNaN(self.offer().id())) {
                     api.offers.getOfferById(self.offer().id()).then(
-                        function(requestedOffer) {
+                        function (requestedOffer) {
                             if (requestedOffer) {
                                 if (!isCurrentUserALandlord()) {
                                     self.currentUserIsNotALandlord(true);
@@ -72,14 +76,15 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                                     self.offerLandlordIsNotCurrentUser(true);
                                 }
                                 else {
-                                    self.offer(requestedOffer);
+                                    var mappedResult = api.offers.mapOfferResultToModel(newOffer);
+                                    self.offer(mappedResult);
                                     resetErrors();
                                 }
                             } else {
                                 self.offerLoadingError(true);
                             }
                         },
-                        function(xhr) {
+                        function (xhr) {
                             self.offerLoadingError(true);
                         }
                     );
@@ -91,17 +96,44 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                     self.currentUserIsNotALandlord(true);
                 } else {
                     api.offers.createOffer().then(
-                        function(newOffer) {
-                            self.offer(newOffer);
+                        function (newOffer) {
+                            var mappedResult = api.offers.mapOfferResultToModel(newOffer);
+                            self.offer(mappedResult);
                         },
-                        function(xhr) {
+                        function (xhr) {
                             self.offerCreationError(true);
                         }
                     );
                 }
             };
 
-            self.bindFileUploadModalEvents = function(model, event) {
+            function loadOfferTypes() {
+                api.offers.getOfferTypes().then(
+                    function (offerTypes) {
+                        self.offerTypes(offerTypes);
+                    },
+                    function (xhr) {
+                        self.offerTypesLoadingError(true);
+                    }
+                );
+            };
+
+            self.offerFullPrice = ko.computed(function () {
+                var fullPrice = 0;
+
+                if (self.offer().rent() && !isNaN(self.offer().rent())) {
+                    fullPrice += parseFloat(self.offer().rent());
+                }
+                if (self.offer().sideCosts() && !isNaN(self.offer().sideCosts())) {
+                    fullPrice += parseFloat(self.offer().sideCosts());
+                }
+
+                self.offer().fullPrice(fullPrice);
+
+                return fullPrice;
+            });
+
+            self.bindFileUploadModalEvents = function (model, event) {
                 if (event && event.currentTarget) {
                     var dialogId = event.currentTarget.getAttribute("data-target");
                     var dialogContainer = $(dialogId);
@@ -113,7 +145,8 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                 }
             };
 
-            self.goNextStep = function(model, event) {
+            self.goNextStep = function (model, event) {
+                // pre Validation
                 if (self.tabsContainer() && event.currentTarget) {
                     var nextTabId = event.currentTarget.getAttribute("next-tab");
                     var nextTabNav = self.tabsContainer().find('.nav a[href="' + nextTabId + '"]');
@@ -122,7 +155,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                         activateTabNav(nextTabNav);
                     }
                 }
-                // pre Validation
+
                 // update offer
                 // response validation / handling
                 // go next or show error
@@ -130,27 +163,33 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                 // return true -> next tab
             };
 
-            self.cancelCreation = function() {
+            self.cancelCreation = function () {
                 window.history.back();
             };
 
-            self.updateOffer = function() {
+            self.updateOffer = function () {
                 // validation logik
                 api.offers.updatedOffer(self.offer).then(
-                    function() {
+                    function () {
                         if (self.offerDetailsPageInfo() && self.offerDetailsPageInfo().url) {
                             window.location.href = self.offerDetailsPageInfo().url + "?offerId=" + self.offer().id();
                         } else {
                             window.location.href = "/";
                         }
                     },
-                    function() {
+                    function () {
                         // redponse validation logik
                     }
                 );
             };
 
-            self.initialize = function(params, tabsContainer) {
+            self.optionsAfterRender = function (option, item) {
+                ko.applyBindingsToNode(option, {
+                    disable: !item
+                }, item);
+            };
+
+            self.initialize = function (params, tabsContainer) {
                 self.tabsContainer(tabsContainer || "");
 
                 if (params) {
@@ -161,17 +200,18 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                     }
                 }
 
-                self.currentUser.subscribe(function(currentUser) {
+                self.currentUser.subscribe(function (currentUser) {
                     reloadOffer();
                 });
 
+                loadOfferTypes();
                 createOffer();
             };
         }
 
         return {
             viewModel: {
-                createViewModel: function(params, componentInfo) {
+                createViewModel: function (params, componentInfo) {
                     // componentInfo contains for example the root element from the component template
                     ko.components.register("file-uploader", fileUploaderModalComponent);
 

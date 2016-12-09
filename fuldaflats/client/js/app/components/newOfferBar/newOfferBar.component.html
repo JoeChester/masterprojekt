@@ -7,8 +7,7 @@
 <section id="new-offer-wizard" style="min-height:700px; margin-top: 2rem">
     <div class="container">
         <div class="row">
-            <div class="col-sm-2">
-            </div>
+            <div class="col-sm-2"></div>
             <div class="col-sm-8">
                 <div class="tabs">
                     <ul class="nav nav-pills nav-justified">
@@ -22,64 +21,135 @@
                         <div class="tab-pane active text-center" id="tab1">
                             <form class="form-horizontal">
                                 <div class="row">
-                                    <label for="offerTitle" class="control-label col-sm-2">Offer Title:</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="offerTitle" placeholder="Nice Apartment near Fulda">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="offerType" class="control-label col-sm-2">Offer Type:</label>
+                                            <div class="col-sm-10">
+                                                <select data-bind="options: offerTypes, value: offer().offerType, optionsCaption: 'Choose Offer Type'" class="form-control"
+                                                    id="offerType"></select>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <br>
                                 <div class="row">
-                                    <label for="offerType" class="control-label col-sm-2">Offer Type:</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="offerType" placeholder="Apartment">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="offerTitle" class="control-label col-sm-2">Offer Title:</label>
+                                            <div class="col-sm-10">
+                                                <input data-bind="textInput: offer().title" type="text" class="form-control" id="offerTitle" placeholder="Offer Title">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <br><br>
+                                <br />
                                 <div class="row">
-                                    <div class="col-sm-2">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="offerSize" class="control-label col-sm-4">Size:</label>
+                                            <div class="col-sm-8">
+                                                <div class="input-group">
+                                                    <input data-bind="textInput: offer().size" type="number" class="form-control" id="offerSize" placeholder="Size">
+                                                    <div class="input-group-addon">m²</div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <label for="street" class="control-label col-sm-2">Street:</label>
-                                    <div class="col-sm-5">
-                                        <input type="text" class="form-control" id="street" placeholder="Musterstraße">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="offerRooms" class="control-label col-sm-4">Rooms:</label>
+                                            <div class="col-sm-8">
+                                                <input data-bind="textInput: offer().rooms" type="number" class="form-control" id="offerRooms" placeholder="Rooms">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <br>
+                                <br />
                                 <div class="row">
-                                    <div class="col-sm-2">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="offerRent" class="control-label col-sm-4">Rent:</label>
+                                            <div class="col-sm-8">
+                                                <div class="input-group">
+                                                    <input data-bind="textInput: offer().rent" type="number" class="form-control" id="offerRent" placeholder="Rent">
+                                                    <div class="input-group-addon">€</div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <label for="number" class="control-label col-sm-2">Nr:</label>
-                                    <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="number" placeholder="12a">
-                                    </div>
-                                </div><br>
-                                <div class="row">
-                                    <div class="col-sm-2">
-                                    </div>
-                                    <label for="floor" class="control-label col-sm-2">Floor:</label>
-                                    <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="floor" placeholder="3">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="offerRentType" class="control-label col-sm-4">Rent Type:</label>
+                                            <div class="col-sm-8">
+                                                <select data-bind="options: offerRentTypes, value: offer().rentType, optionsCaption: 'Choose Rent Type', optionsAfterRender: optionsAfterRender"
+                                                    class="form-control" id="offerRentType"></select>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <br>
                                 <div class="row">
-                                    <div class="col-sm-2">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="offerSideCosts" class="control-label col-sm-4">Side Costs:</label>
+                                            <div class="col-sm-8">
+                                                <div class="input-group">
+                                                    <input data-bind="textInput: offer().sideCosts" type="number" class="form-control" id="offerSideCosts" placeholder="Side Costs">
+                                                    <div class="input-group-addon">€</div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <label for="postCode" class="control-label col-sm-2">Post Code:</label>
-                                    <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="postCode" placeholder="34567">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="offerPriceType" class="control-label col-sm-4">Price Type:</label>
+                                            <div class="col-sm-8">
+                                                <select data-bind="options: offerPriceTypes, value: offer().priceType, optionsCaption: 'Choose Price Type', optionsAfterRender: optionsAfterRender"
+                                                    class="form-control" id="offerPriceType"></select>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <br>
                                 <div class="row">
-                                    <div class="col-sm-2">
+                                    <div class="col-sm-6">
                                     </div>
-                                    <label for="city" class="control-label col-sm-2">City:</label>
-                                    <div class="col-sm-5">
-                                        <input type="text" class="form-control" id="city" placeholder="Musterstadt">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="offerFullPrice" class="control-label col-sm-4">Full Price:</label>
+                                            <div class="col-sm-8">
+                                                <div class="input-group">
+                                                    <input disabled data-bind="value: offerFullPrice" type="number" class="form-control" id="offerFullPrice" placeholder="0">
+                                                    <div class="input-group-addon">€</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="offerDeposit" class="control-label col-sm-4">Deposit:</label>
+                                            <div class="col-sm-8">
+                                                <div class="input-group">
+                                                    <input data-bind="textInput: offer().deposit" type="number" class="form-control" id="offerDeposit" placeholder="Deposit">
+                                                    <div class="input-group-addon">€</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="offerCommission" class="control-label col-sm-4">Commission:</label>
+                                            <div class="col-sm-8">
+                                                <div class="input-group">
+                                                    <input data-bind="textInput: offer().commission" type="number" class="form-control" id="offerCommission" placeholder="Commission">
+                                                    <div class="input-group-addon">€</div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </form>
-                            <br><br>
+                            <br /><br />
                             <div class="row">
                                 <div class="col-xs-2">
                                     <a data-bind="click: cancelCreation" type="button" class="btn btn-danger" aria-label="Left Align">
@@ -324,16 +394,6 @@
                                 </div>
                                 <br><br>
 
-                                <div class="row">
-                                    <div class="col-sm-1"></div>
-                                    <div class="col-sm-10">
-                                        <div class="form-group">
-                                            <label for="comment">Description:</label>
-                                            <textarea class="form-control" rows="6" id="comment"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-1"></div>
-                                </div>
 
                             </form>
                             <br><br>
@@ -364,7 +424,8 @@
                             <div class="row">
                                 <label class="control-label col-sm-11">Add Pictures and/or Videos:</label>
                                 <div class="col-sm-1">
-                                    <button data-bind="click: bindFileUploadModalEvents" data-toggle="modal" data-target="#fileUploaderModal" type="button" class="btn btn-default" aria-label="Right Align">
+                                    <button data-bind="click: bindFileUploadModalEvents" data-toggle="modal" data-target="#fileUploaderModal" type="button" class="btn btn-default"
+                                        aria-label="Right Align">
 												<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 											</button>
                                 </div>
@@ -431,6 +492,7 @@
                 </div>
                 <!-- /.tabs -->
             </div>
+            <div class="col-sm-2"></div>
         </div>
     </div>
 </section>
