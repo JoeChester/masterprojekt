@@ -267,11 +267,8 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
 
                 loadOfferTypes();
                 loadOfferTags();
-
-                if (isCurrentUserALandlord()) {
-                    createOffer();
-                }
-
+                createOffer();
+                
                 window.onbeforeunload = onBeforeUnloadWindow;
             };
         }
