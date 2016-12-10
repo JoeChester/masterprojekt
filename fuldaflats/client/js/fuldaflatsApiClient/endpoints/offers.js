@@ -264,7 +264,7 @@ define(["jquery", 'knockout'], function($, ko) {
             var localOffer = ko.unwrap(offer);
 
             $.getJSON({
-                url: endpointUrls.offers + "/" + localOffer.id,
+                url: endpointUrls.offers + "/" + ko.unwrap(localOffer.id),
                 method: "PUT",
                 contentType: "application/json",
                 dataType: "text",

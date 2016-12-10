@@ -6,7 +6,7 @@
  ************************************************************/
 define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 'app/components/fileUploaderModal/fileUploaderModal.component',
     'knockout', 'jquery', 'fuldaflatsApiClient', 'lightbox'],
-    function (componentTemplate, componentCss, fileUploaderModalComponent, ko, $, api, lightbox) {
+    function(componentTemplate, componentCss, fileUploaderModalComponent, ko, $, api, lightbox) {
         function NewOfferModel(ko, $, api) {
             var self = this;
             // your model functions and variables
@@ -91,7 +91,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                     self.currentUserIsNotALandlord(true);
                 } else if (self.offer() && !isNaN(self.offer().id())) {
                     api.offers.getOfferById(self.offer().id()).then(
-                        function (requestedOffer) {
+                        function(requestedOffer) {
                             if (requestedOffer) {
                                 if (!isCurrentUserALandlord()) {
                                     self.currentUserIsNotALandlord(true);
@@ -107,7 +107,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                                 self.offerLoadingError(true);
                             }
                         },
-                        function (xhr) {
+                        function(xhr) {
                             self.offerLoadingError(true);
                         }
                     );
@@ -119,11 +119,11 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                     self.currentUserIsNotALandlord(true);
                 } else {
                     api.offers.createOffer().then(
-                        function (newOffer) {
+                        function(newOffer) {
                             var mappedResult = api.offers.mapOfferResultToModel(newOffer);
                             self.offer(mappedResult);
                         },
-                        function (xhr) {
+                        function(xhr) {
                             self.offerCreationError(true);
                         }
                     );
@@ -132,10 +132,10 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
 
             function loadOfferTypes() {
                 api.offers.getOfferTypes().then(
-                    function (offerTypes) {
+                    function(offerTypes) {
                         self.offerTypes(offerTypes);
                     },
-                    function (xhr) {
+                    function(xhr) {
                         self.offerTypesLoadingError(true);
                     }
                 );
@@ -143,27 +143,11 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
 
             function loadOfferTags() {
                 api.offers.getTags().then(
-                    function (offerTags) {
+                    function(offerTags) {
                         self.offerTags(offerTags)
                     },
-                    function (xhr) {
+                    function(xhr) {
                         self.offerTagsLoadingError(true);
-                    }
-                );
-            };
-
-            function updateOffer() {
-                // validation logik
-                api.offers.updatedOffer(self.offer).then(
-                    function () {
-                        if (self.offerDetailsPageInfo() && self.offerDetailsPageInfo().url) {
-                            window.location.href = self.offerDetailsPageInfo().url + "?offerId=" + self.offer().id();
-                        } else {
-                            window.location.href = "/";
-                        }
-                    },
-                    function () {
-                        // redponse validation logik
                     }
                 );
             };
@@ -172,7 +156,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                 // delete offer 
             };
 
-            self.offerFullPrice = ko.computed(function () {
+            self.offerFullPrice = ko.computed(function() {
                 var fullPrice = 0;
 
                 if (self.offer().rent() && !isNaN(self.offer().rent())) {
@@ -187,7 +171,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                 return fullPrice;
             });
 
-            self.bindFileUploadModalEvents = function (model, event) {
+            self.bindFileUploadModalEvents = function(model, event) {
                 if (event && event.currentTarget) {
                     var dialogId = event.currentTarget.getAttribute("data-target");
                     var dialogContainer = $(dialogId);
@@ -199,41 +183,51 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                 }
             };
 
-            self.goNextStep = function (model, event) {
-                // pre Validation
-                if (self.tabsContainer() && event.currentTarget) {
-                    var nextTabId = event.currentTarget.getAttribute("next-tab");
-                    var nextTabNav = self.tabsContainer().find('.nav a[href="' + nextTabId + '"]');
-                    if (nextTabNav.length > 0) {
-                        nextTabNav.tab('show');
-                        activateTabNav(nextTabNav);
+            self.goNextStep = function(model, event) {
+                api.offers.updatedOffer(self.offer).then(
+                    function() {
+                        if (self.tabsContainer() && event.currentTarget) {
+                            var nextTabId = event.currentTarget.getAttribute("next-tab");
+                            var nextTabNav = self.tabsContainer().find('.nav a[href="' + nextTabId + '"]');
+                            if (nextTabNav.length > 0) {
+                                nextTabNav.tab('show');
+                                activateTabNav(nextTabNav);
+                            }
+                        }
+                    },
+                    function(xhr) {
+                        // redponse validation logik
                     }
-                }
-
-                // update offer
-                // response validation / handling
-                // go next or show error
-                // when go next create browser history
-                // return true -> next tab
+                );
             };
 
-            self.finishOfferCreation = function () {
-                //update offer
-                // go to details page
+            self.finishOfferCreation = function() {
+                api.offers.updatedOffer(self.offer).then(
+                    function() {
+                        if (self.offerDetailsPageInfo() && self.offerDetailsPageInfo().url) {
+                            window.location.href = self.offerDetailsPageInfo().url + "?offerId=" + self.offer().id();
+                        } else {
+                            window.location.href = "/";
+                        }
+                    },
+                    function(xhr) {
+                        // redponse validation logik
+                    }
+                );
             };
 
-            self.cancelOfferCreation = function () {
+            self.cancelOfferCreation = function() {
                 deletOffer();
                 window.history.back();
             };
 
-            self.optionsAfterRender = function (option, item) {
+            self.optionsAfterRender = function(option, item) {
                 ko.applyBindingsToNode(option, {
                     disable: !item
                 }, item);
             };
 
-            self.initialize = function (params, tabsContainer) {
+            self.initialize = function(params, tabsContainer) {
                 self.tabsContainer(tabsContainer || "");
 
                 if (params) {
@@ -244,7 +238,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                     }
                 }
 
-                self.currentUser.subscribe(function (currentUser) {
+                self.currentUser.subscribe(function(currentUser) {
                     reloadOffer();
 
                     if (isCurrentUserALandlord() && isNaN(self.offer().id())) {
@@ -263,7 +257,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
 
         return {
             viewModel: {
-                createViewModel: function (params, componentInfo) {
+                createViewModel: function(params, componentInfo) {
                     // componentInfo contains for example the root element from the component template
                     ko.components.register("file-uploader", fileUploaderModalComponent);
 
