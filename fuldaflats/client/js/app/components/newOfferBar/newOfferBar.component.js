@@ -137,6 +137,26 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                 );
             };
 
+            function updateOffer() {
+                // validation logik
+                api.offers.updatedOffer(self.offer).then(
+                    function() {
+                        if (self.offerDetailsPageInfo() && self.offerDetailsPageInfo().url) {
+                            window.location.href = self.offerDetailsPageInfo().url + "?offerId=" + self.offer().id();
+                        } else {
+                            window.location.href = "/";
+                        }
+                    },
+                    function() {
+                        // redponse validation logik
+                    }
+                );
+            };
+
+            function deletOffer() {
+                // delete offer 
+            };
+
             self.offerFullPrice = ko.computed(function() {
                 var fullPrice = 0;
 
@@ -182,24 +202,14 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                 // return true -> next tab
             };
 
-            self.cancelCreation = function() {
-                window.history.back();
+            self.finishOfferCreation = function() {
+                //update offer
+                // go to details page
             };
 
-            self.updateOffer = function() {
-                // validation logik
-                api.offers.updatedOffer(self.offer).then(
-                    function() {
-                        if (self.offerDetailsPageInfo() && self.offerDetailsPageInfo().url) {
-                            window.location.href = self.offerDetailsPageInfo().url + "?offerId=" + self.offer().id();
-                        } else {
-                            window.location.href = "/";
-                        }
-                    },
-                    function() {
-                        // redponse validation logik
-                    }
-                );
+            self.cancelOfferCreation = function() {
+                deletOffer();
+                window.history.back();
             };
 
             self.optionsAfterRender = function(option, item) {
