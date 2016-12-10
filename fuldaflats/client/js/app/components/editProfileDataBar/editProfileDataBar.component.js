@@ -6,19 +6,23 @@
  ************************************************************/
 define(['text!./editProfileDataBar.component.html', 'css!./editProfileDataBar.component.css', 'knockout', 'jquery', 'moment'],
     function (componentTemplate, componentCss, ko, $, moment) {
-         moment.locale('de');
+
         function EditProfileDataModel(params) {
             var self = this;
             self.currentUser = ko.observable();
-            self.userChanges = ko.observable({});
+            self.userChanges = ko.observable({
+                birthday: ko.observable(new Date())
+            });
 
             $.getJSON({
                 url: '/api/users/me',
                 success: function (data, status, req) {
-                                        if(data.birthday){
+                    if (data.birthday) {
                         data.birthday = moment(data.birthday).format('L');
                     }
                     self.currentUser(data);
+                    console.log(data);
+                    self.userChanges().birthday(new Date(data.birthday));
                 }
             });
 
@@ -27,27 +31,34 @@ define(['text!./editProfileDataBar.component.html', 'css!./editProfileDataBar.co
                 $(event.currentTarget).tab('show')
             }
 
-                self.accept = function(){
-                    self.userChanges().gender = self.currentUser().gender;
-                    var _userChanges = ko.toJSON(self.userChanges);
+            self.accept = function () {
+                self.userChanges().gender = self.currentUser().gender;
+                var birthDayValue = ko.unwrap(self.userChanges().birthday);
+                if (birthDayValue instanceof Date) {
+                    birthDayValue = moment(birthDayValue).format();
+                } else {
+                    birthDayValue = "";
+                }
+                self.userChanges().birthday(birthDayValue);
 
-                    $.ajax({
-                        method: "PUT",
-                        url: "/api/users/me",
-                        dataType: "application/json",
-                        contentType: "application/json",
-                        data: _userChanges,
-                        success: function(data, status, req){
+                var _userChanges = ko.toJSON(self.userChanges);
+                $.ajax({
+                    method: "PUT",
+                    url: "/api/users/me",
+                    dataType: "application/json",
+                    contentType: "application/json",
+                    data: _userChanges,
+                    success: function (data, status, req) {
+                        window.location = "/pages/myProfile";
+                    },
+                    error: function (req, status, error) {
+                        if (req.status == 200) {
                             window.location = "/pages/myProfile";
-                        },
-                        error: function(req, status, error){
-                            if(req.status == 200){
-                                window.location = "/pages/myProfile";
-                                return;
-                            }
-                            errorCallback(error);
+                            return;
                         }
-                    });
+                        errorCallback(error);
+                    }
+                });
             }
         }
 

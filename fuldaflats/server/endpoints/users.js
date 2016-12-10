@@ -20,6 +20,10 @@ const SALT = "fuldaflats#2016#";
 
 //Multi-Use Functions
 
+//RegEx for Email Validation
+const regEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+
 //Send back after resolving all relationships
 function finalize(req, res, user, _user) {
     res.json(_user);
@@ -247,6 +251,22 @@ router.put('/me', function (req, res) {
         delete _user.type;
         delete _user.creationDate;
         delete _user.upgradeDate;
+
+        //validation
+        let hasError = false;
+        let editError = {};
+
+        if (_user.email) {
+            if (_user.email && !regEmail.test(_user.email)) {
+                editError.email = ["Please enter a valid eMail."];
+                hasError = true;
+            }
+        }
+        if (hasError == true) {
+            res.status(400);
+            return res.json(editError);
+        }
+
         //Fetch user from db to make sure latest data is available
         schema.models.User.update({ where: { id: _userId } },
             _user,
@@ -281,7 +301,7 @@ router.put('/upgrade', function (req, res) {
                 return res.json(err);
             } else {
                 let upgradeError = {};
-                if(user.type != 1){
+                if (user.type != 1) {
                     upgradeError.upgrade = ["Unable to upgrade this user account."];
                     res.status(400);
                     return res.json(upgradeError);
@@ -295,36 +315,35 @@ router.put('/upgrade', function (req, res) {
                 delete _upgrade.creationDate;
 
                 let hasError = false;
-                if(!_upgrade.phoneNumber){
+                if (!_upgrade.phoneNumber) {
                     upgradeError.phoneNumber = ["Please enter a phone number."];
                     hasError = true;
                 }
-                if(!_upgrade.zipCode){ 
+                if (!_upgrade.zipCode) {
                     upgradeError.zipCode = ["Please enter a zip code."];
                     hasError = true;
                 }
-                if(!_upgrade.city){
+                if (!_upgrade.city) {
                     upgradeError.city = ["Please enter a city."];
                     hasError = true;
                 }
-                if(!_upgrade.street){
+                if (!_upgrade.street) {
                     upgradeError.street = ["Please enter a street."];
                     hasError = true;
                 }
-                if(!_upgrade.houseNumber){
+                if (!_upgrade.houseNumber) {
                     upgradeError.houseNumber = ["Please enter a house number."];
                     hasError = true;
                 }
-                if(!_upgrade.email){
+                if (!_upgrade.email) {
                     upgradeError.email = ["Please enter an eMail."];
                     hasError = true;
                 }
-                var regEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                if(_upgrade.email && !regEmail.test(_upgrade.email )){
+                if (_upgrade.email && !regEmail.test(_upgrade.email)) {
                     upgradeError.email = ["Please enter a valid eMail."];
                     hasError = true;
                 }
-                if(hasError == true){
+                if (hasError == true) {
                     res.status(400);
                     return res.json(upgradeError);
                 }
@@ -355,12 +374,12 @@ router.put('/upgrade', function (req, res) {
 });
 
 //change password -> extra endpoint for additional checks
-router.put('/changePassword', function(req, res){
+router.put('/changePassword', function (req, res) {
     if (!req.session.auth) {
         return res.sendStatus(403);
     } else {
         let textError = {};
-        if(!req.body.passwordNew || req.body.passwordNew.length < 6){
+        if (!req.body.passwordNew || req.body.passwordNew.length < 6) {
             textError.password = ['Invalid Password (please use at least 6 characters).']
             res.status(400);
             return res.json(textError);
@@ -376,8 +395,8 @@ router.put('/changePassword', function(req, res){
                 return res.json(textError);
             }
             user.password = passwordHashNew;
-            user.save((err, user) =>{
-                if(err){
+            user.save((err, user) => {
+                if (err) {
                     res.status(500);
                     return res.json(err);
                 }
@@ -390,24 +409,24 @@ router.put('/changePassword', function(req, res){
 
 
 // Use a standard picture / url for the current user
-router.put('/standardPicture', function(req, res){
-     if (!req.session.auth) {
+router.put('/standardPicture', function (req, res) {
+    if (!req.session.auth) {
         return res.sendStatus(403);
     } else {
-        if(!req.body.img){
+        if (!req.body.img) {
             return res.sendStatus(400);
         }
         let pictureUrl = req.body.img;
         schema.models.User.update(
-            { where: {id: req.session.user.id}} , 
-            { profilePicture: pictureUrl},
-            (err, user) =>{
-                if(err){
+            { where: { id: req.session.user.id } },
+            { profilePicture: pictureUrl },
+            (err, user) => {
+                if (err) {
                     res.status(500);
                     return res.json(err);
                 }
                 return res.sendStatus(204);
-        });
+            });
     }
 });
 

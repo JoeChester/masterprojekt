@@ -34,7 +34,7 @@ define(['text!./myProfileBar.component.html', 'css!./myProfileBar.component.css'
                     url: '/api/users/me',
                     success: function (data, status, req) {
                         if (data.birthday) {
-                            data.birthday = moment(data.birthday).format('LL');
+                            data.birthday = moment(data.birthday).format('L');
                         }
                         if (data.favorites) {
                             if (data.favorites.length > 0) {
