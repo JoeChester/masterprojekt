@@ -1,7 +1,8 @@
 /************************************************************
  * File:            users.js
- * Author:          Jonas Kleinkauf, Patrick Hasenauer
- * LastMod:         06.12.2016
+ * Author:          Jonas Kleinkauf, Patrick Hasenauer, 
+ *                  Michelle Rothenbücher
+ * LastMod:         10.12.2016
  * Description:     REST endpoints for users and
  *                  authentication
  ************************************************************/
@@ -333,10 +334,6 @@ router.put('/upgrade', function (req, res) {
                 }
                 if (!_upgrade.houseNumber) {
                     upgradeError.houseNumber = ["Please enter a house number."];
-                    hasError = true;
-                }
-                if (!_upgrade.email) {
-                    upgradeError.email = ["Please enter an eMail."];
                     hasError = true;
                 }
                 if (_upgrade.email && !regEmail.test(_upgrade.email)) {

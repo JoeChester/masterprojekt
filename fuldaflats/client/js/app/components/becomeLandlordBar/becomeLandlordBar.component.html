@@ -48,7 +48,7 @@
                         <div class="form-group">
                             <label for="birthday" class="control-label col-sm-4">Birthday:</label>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" id="birthday" data-bind="attr:{placeholder:birthday}, value: $parent.userChanges().birthday">
+                                <input type="date" class="form-control" id="birthday" data-bind="date: $parent.userChanges().birthday" placeholder="YYYY-MM-DD">
                             </div>
                         </div>
                         <div class="form-group">
@@ -63,7 +63,7 @@
                         <div class="form-group">
                             <label for="zipCode" class="control-label col-sm-4">ZIP Code:</label>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" id="zipCode" data-bind="value: $parent.userChanges().zipCode">
+                                <input type="number" class="form-control" id="zipCode" data-bind="value: $parent.userChanges().zipCode">
                             </div>
                         </div>
                         <div class="form-group">
@@ -81,13 +81,13 @@
                         <div class="form-group">
                             <label for="housenumber" class="control-label col-sm-4">Housenumber:</label>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" id="houseNumber" data-bind="value: $parent.userChanges().houseNumber">
+                                <input type="number" class="form-control" id="houseNumber" data-bind="value: $parent.userChanges().houseNumber">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="phoneNumber" class="control-label col-sm-4">Phone Number:</label>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" id="phoneNumber" data-bind="value: $parent.userChanges().phoneNumber">
+                                <input type="number" class="form-control" id="phoneNumber" data-bind="value: $parent.userChanges().phoneNumber">
                             </div>
                         </div>
                     </fieldset>
