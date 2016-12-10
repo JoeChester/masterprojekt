@@ -351,6 +351,11 @@ router.get('/:offerId/review', function (req, res) {
                         if(!err3 && user){
                             //implicit toJSON_STUB because parallel runtime...
                             _review.user = user[0];
+                            if(_review.user.id == req.session.user.id){
+                                _review.canDelete = true;
+                            } else {
+                                _review.canDelete = false;
+                            }
                         }
                         cb(null, _review);
                     });
