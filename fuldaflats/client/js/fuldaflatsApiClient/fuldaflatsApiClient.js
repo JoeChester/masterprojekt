@@ -26,7 +26,8 @@ define(["jquery", 'knockout',
                     me: relativeApiUrl + "users/me",
                 },
                 mediaObjects: {
-                    getMediaObjectsByUserID: relativeApiUrl + "mediaObjects"
+                    getMediaObjectsByUserID: relativeApiUrl + "mediaObjects",
+                    deleteMediaObjectById : relativeApiUrl + "mediaObjects"
                 }
 
             }

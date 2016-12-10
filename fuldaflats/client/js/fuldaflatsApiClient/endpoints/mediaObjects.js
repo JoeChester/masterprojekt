@@ -24,6 +24,22 @@ define(["jquery", 'knockout'], function ($, ko) {
 
             return defer.promise();
         }
+
+       self.deleteMediaObjectById = function (mediaId){
+           var defer = $.Deferred();
+
+            $.ajax({
+                url: mediaObjectEndpointUrls.deleteMediaObjectById + "/" + mediaId,
+                method: "DELETE",
+                contentType: "application/json",
+            }).done(function () {
+                defer.resolve();
+            }).fail(function () {
+                defer.reject("Failed to delete mediaObject.");
+            });
+
+            return defer.promise();
+       }
     }
     return MediaObjectEndpoint;
 });

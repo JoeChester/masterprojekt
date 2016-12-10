@@ -28,10 +28,9 @@ define(['text!./fileUploaderModal.component.html',
                     $(".uploadAllBtn").hide();
             }
 
-            // TODO -> remove mediaObject Endpoint
-            self.deleteOnlineMediaObject = function(file) {
-                console.log("DELETE ONLINE MEDIA");
+            self.deleteOnlineMediaObject = function(file) {                                
                 self.offerMediaObjectsOnline.remove(file);
+                api.mediaObjects.deleteMediaObjectById(file.id);
             }
 
             self.uploadMediaObject = function(file) {
