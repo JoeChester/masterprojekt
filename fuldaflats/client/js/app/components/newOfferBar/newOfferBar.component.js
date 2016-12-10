@@ -14,7 +14,9 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
             self.defaultSwitchOptions = { onText: 'Yes', onColor: 'primary', offColor: 'danger', offText: 'No', animate: true, size: 'small' };
             self.offerPriceTypes = ko.observableArray(["DAY", "MONTH", "QUARTER", "HALF YEAR", "SEMESTER", "YEAR"]);
             self.offerRentTypes = ko.observableArray(["COLD", "WARM"]);
-            self.kitchenDescriptions = ko.observableArray(["Fridge/Oven", "Fridge/Stove", "Fridge/Stove/Oven"]);
+            self.kitchenDescriptions = ko.observableArray(["Fridge & Oven", "Fridge & Stove", "Fridge & Stove & Oven"]);
+            self.bathroomDescriptions = ko.observableArray(["Shower & WC", "Shower & Tub & WC", "Tub & WC"]);
+            self.offerHeatingDescriptions = ko.observableArray(["Gas", "Oil", "Electricity"]);
             self.offerTypes = ko.observable();
             self.offer = api.offers.getOfferModel();
             self.offerDetailsPageInfo = ko.observable();
