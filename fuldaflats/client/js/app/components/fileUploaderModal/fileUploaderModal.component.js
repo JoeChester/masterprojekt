@@ -76,8 +76,8 @@ define(['text!./fileUploaderModal.component.html',
                 }
             }
 
-            self.uploadAll = () => {
-                self.offerMediaObjectsOffline().forEach((file) => {
+            self.uploadAll = function() {
+                self.offerMediaObjectsOffline().forEach(function(file) {
                     self.uploadMediaObject(file);
                 })
             }
@@ -102,7 +102,7 @@ define(['text!./fileUploaderModal.component.html',
                 });
 
                 // "data-bind = click" doesnt work...
-                $(".uploadAllBtn").click((btn) => {
+                $(".uploadAllBtn").click(function(btn) {
                     self.uploadAll();
                 });
             };
@@ -116,7 +116,7 @@ define(['text!./fileUploaderModal.component.html',
                 var offerId = ko.unwrap(self.offerId);
                 if (!isNaN(offerId)) {
                     var mediaObjectsPromise = api.mediaObjects.findMediaObjectsByOfferID(offerId);
-                    mediaObjectsPromise.then((data) => {
+                    mediaObjectsPromise.then(function(data) {
                         self.offerMediaObjectsOnline(data);
                     })
                 }
