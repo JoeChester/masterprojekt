@@ -35,6 +35,8 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
             self.offerTypesLoadingError = ko.observable(false);
             self.offerTagsLoadingError = ko.observable(false);
 
+            self.finishedCreation = ko.observable(false);
+
             function resetErrors() {
                 self.offerCreationError(false);
                 self.offerLandlordIsNotCurrentUser(false);
@@ -152,8 +154,12 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                 );
             };
 
-            function deletOffer() {
-                // delete offer 
+            function onBeforeUnloadWindow() {
+                if (!self.finishedCreation()) {
+                    if (self.offer() && !isNaN(self.offer().id())) {
+                        api.offers.deleteOffer(self.offer().id(), true);
+                    }
+                }
             };
 
             self.offerFullPrice = ko.computed(function() {
@@ -205,6 +211,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                 api.offers.updatedOffer(self.offer).then(
                     function() {
                         if (self.offerDetailsPageInfo() && self.offerDetailsPageInfo().url) {
+                            self.finishedCreation(true);
                             window.location.href = self.offerDetailsPageInfo().url + "?offerId=" + self.offer().id();
                         } else {
                             window.location.href = "/";
@@ -217,8 +224,14 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
             };
 
             self.cancelOfferCreation = function() {
-                deletOffer();
-                window.history.back();
+                if (self.offer() && !isNaN(self.offer().id())) {
+                    api.offers.deleteOffer(self.offer().id()).then(function() {
+                        self.offer().id(undefined)
+                        window.history.back();
+                    }, function() {
+                        window.history.back();
+                    });;
+                }
             };
 
             self.optionsAfterRender = function(option, item) {
@@ -252,6 +265,8 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                 if (isCurrentUserALandlord()) {
                     createOffer();
                 }
+
+                window.onbeforeunload = onBeforeUnloadWindow;
             };
         }
 
