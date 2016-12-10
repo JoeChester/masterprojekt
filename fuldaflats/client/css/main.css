@@ -104,6 +104,10 @@ padding-right: 17px;
   font-weight: bold;
 }
 
+.tag-line {
+    line-height: 2.5rem !important;
+}
+
 .thumbnail-container{
   height: 250px;
   overflow: hidden;

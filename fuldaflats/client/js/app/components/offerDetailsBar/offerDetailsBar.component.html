@@ -7,8 +7,18 @@
 <section style="min-height:700px; margin-top: 2rem">
     <div class="container">
         <div class="row">
-            <div class="col-md-12 text-center">
+            <div class="col-md-11 text-center">
                 <h1 data-bind="text: offer().title"></h1>
+            </div>
+            <div class="col-md-1">
+                <span data-bind="ifnot: isFavorite">
+                    <h1><span class="glyphicon glyphicon glyphicon-heart-empty favorite-icon" aria-hidden="true" 
+                        title="Set Favorite" data-bind="click: setFavorite"></span></h1>
+                </span>
+                <span data-bind="if: isFavorite">
+                    <h1><span class="glyphicon glyphicon glyphicon-heart favorite-icon purpleblue-text" aria-hidden="true" 
+                        title="Remove from Favorites" data-bind="click: unsetFavorite"></span></h1>
+                </span>
             </div>
         </div>
         <div class="row">
@@ -96,6 +106,18 @@
             </div>
         </div>
         <br>
+
+        <!-- ko if: showTags -->
+        <legend class="spacing-top">Tags</legend>
+        <div class="row">
+            <div class="col-md-12">
+                <h4 data-bind="foreach: { data: offer().tags, as: 'tag' }">
+                    <span class="label label-default tag-line" data-bind="text: tag.title"></span>
+                </h4>
+            </div>
+        </div><br>
+        <!-- /ko -->
+
         <div data-bind="if: isAuthenticated">
             <legend class="spacing-top">Landlord</legend>
             <div class="row">
@@ -367,7 +389,7 @@
                     </form>
                 </div>
             </div><br>
-            
+
             <div data-bind="if: showReviews">
                 <div class="row">
                     <div class="col-md-12">

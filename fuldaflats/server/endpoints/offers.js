@@ -423,14 +423,14 @@ router.post('/:offerId/review', function (req, res) {
         if (err || !offer || offer.status == 0) {
             return res.sendStatus(404);
         }
-        /*
+        
         if (offer.type == "FLAT" || offer.type == "SHARE") {
             res.status(401);
             return res.json({
                 offerType: ["You can not post reviews for offer with type FLAT or SHARE"]
             });
         }
-        */
+        
         if (offer.landlord == req.session.user.id) {
             res.status(401);
             return res.json({

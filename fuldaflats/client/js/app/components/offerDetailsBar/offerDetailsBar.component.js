@@ -31,6 +31,9 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
 
             self.reviews = ko.observableArray([]);
             self.showReviews = ko.observable(true);
+            self.isFavorite = ko.observable(false);
+
+            self.showTags = ko.observable(false);
 
             //Check Login
             self.checkLogin = function () {
@@ -87,6 +90,17 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
                             if(offerData.offerType == "FLAT" || offerData.offerType == "SHARE"){
                                 self.showReviews(false);
                             }
+                            if(offerData.favorite){
+                                if(offerData.favorite.length > 0){
+                                    self.isFavorite(true); 
+                                }
+                            }
+                            if(offerData.tags){
+                                if(offerData.tags.length > 0){
+                                    self.showTags(true); 
+                                }
+                            }
+                            console.log(offerData);
                             self.offer(offerData);
                             if (offerData.landlord) {
                                 self.landlord(offerData.landlord);
@@ -105,6 +119,39 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
             }
 
             loginCallbacks.push(self.getReviews);
+
+
+            //Favorite Functions
+            self.setFavorite = function(){
+                self.isFavorite(true);
+                $.ajax({
+                    url: "/api/offers/" + self.offerId() + "/favorite",
+                    method: "PUT",
+                    success: function(data, status, req){
+                        console.log("Favorite Added!");
+                    },
+                    error: function(req, status, err){
+                        errorCallback(JSON.parse(req.responseText));
+                        self.isFavorite(false);
+                    } 
+                });
+            }
+
+            self.unsetFavorite = function(){
+                self.isFavorite(false);
+                $.ajax({
+                    url: "/api/offers/" + self.offerId() + "/favorite",
+                    method: "DELETE",
+                    success: function(data, status, req){
+                        console.log("Favorite Removed!");
+                    },
+                    error: function(req, status, err){
+                        console.error(req);
+                        errorCallback(err);
+                        self.isFavorite(true);
+                    } 
+                });
+            }
 
             self.sendReview = function(){
                 var _review = {};
