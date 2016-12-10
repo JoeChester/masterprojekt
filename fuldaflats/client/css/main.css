@@ -96,6 +96,14 @@ padding-right: 17px;
   color: #999999;
 }
 
+.error-text{
+  color: #a94442;
+}
+
+.bold-text{
+  font-weight: bold;
+}
+
 .thumbnail-container{
   height: 250px;
   overflow: hidden;
