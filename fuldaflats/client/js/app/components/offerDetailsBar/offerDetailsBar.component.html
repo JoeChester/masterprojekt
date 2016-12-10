@@ -47,53 +47,53 @@
                     <div class="row">
                         <label class="control-label col-sm-6">Offer Type:</label>
                         <div class="col-sm-6">
-                            <p class="form-control-static" data-bind="text: offer().offerType"></p>
+                            <p class="form-control-static bold-text" data-bind="text: offer().offerType"></p>
                         </div>
                     </div>
                     <div class="row">
                         <label class="control-label col-sm-6">Size:</label>
                         <div class="col-sm-6">
-                            <p class="form-control-static" data-bind="text: offer().size + ' m²'"></p>
+                            <p class="form-control-static bold-text" data-bind="text: offer().size + ' m²'"></p>
                         </div>
                     </div>
                     <div class="row">
                         <label class="control-label col-sm-6">Rooms:</label>
                         <div class="col-sm-6">
-                            <p class="form-control-static" data-bind="text: offer().rooms"></p>
+                            <p class="form-control-static bold-text" data-bind="text: offer().rooms"></p>
                         </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
             <div class="col-xs-6">
                 <form class="form-horizontal">
                     <div class="row">
                         <label class="control-label col-sm-6">Rent:</label>
                         <div class="col-sm-6">
-                            <p class="form-control-static" data-bind="text: offer().rent + ' €'"></p>
+                            <p class="form-control-static bold-text" data-bind="text: offer().rent + ' €'"></p>
                         </div>
                     </div>
                     <div class="row">
                         <label class="control-label col-sm-6">Addition:</label>
                         <div class="col-sm-6">
-                            <p class="form-control-static" data-bind="text: offer().sideCosts + ' €'"></p>
+                            <p class="form-control-static bold-text" data-bind="text: offer().sideCosts + ' €'"></p>
                         </div>
                     </div>
                     <div class="row">
                         <label class="control-label col-sm-6">Full Price:</label>
                         <div class="col-sm-6">
-                            <p class="form-control-static" data-bind="text: offer().fullPrice + ' €'"></p>
+                            <p class="form-control-static bold-text" data-bind="text: offer().fullPrice + ' €'"></p>
                         </div>
                     </div>
                     <div class="row">
                         <label class="control-label col-sm-6">Deposit:</label>
                         <div class="col-sm-6">
-                            <p class="form-control-static" data-bind="text: offer().deposit + ' €'"></p>
+                            <p class="form-control-static bold-text" data-bind="text: offer().deposit + ' €'"></p>
                         </div>
                     </div>
                     <div class="row">
                         <label class="control-label col-sm-6">Commission:</label>
                         <div class="col-sm-6">
-                            <p class="form-control-static" data-bind="text: offer().commission + ' €'"></p>
+                            <p class="form-control-static bold-text" data-bind="text: offer().commission + ' €'"></p>
                         </div>
                     </div>
                 </form>
@@ -153,25 +153,25 @@
                         <div class="row">
                             <label class="control-label col-sm-6">Name:</label>
                             <div class="col-sm-6">
-                                <p class="form-control-static" data-bind="text: landlord().lastName + ', ' + landlord().firstName"></p>
+                                <p class="form-control-static bold-text" data-bind="text: landlord().lastName + ', ' + landlord().firstName"></p>
                             </div>
                         </div>
                         <div class="row">
                             <label class="control-label col-sm-6">Phone:</label>
                             <div class="col-sm-6">
-                                <p class="form-control-static" data-bind="text: landlord().phoneNumber"></p>
+                                <a data-bind="attr: { href: 'tel:' + landlord().phoneNumber }" ><p class="form-control-static bold-text" data-bind="text: landlord().phoneNumber"></p></a>
                             </div>
                         </div>
                         <div class="row">
                             <label class="control-label col-sm-6">E-Mail:</label>
                             <div class="col-sm-6">
-                                <p class="form-control-static" data-bind="text: landlord().email"></p>
+                                <a data-bind="attr: { href: 'mailto:' + landlord().email }" ><p class="form-control-static bold-text" data-bind="text: landlord().email"></p></a>
                             </div>
                         </div>
                         <div class="row">
                             <label class="control-label col-sm-6">Office:</label>
                             <div class="col-sm-6">
-                                <p class="form-control-static" data-bind="text: landlord().officeAddress"></p>
+                                <p class="form-control-static bold-text" data-bind="text: landlord().officeAddress"></p>
                             </div>
                         </div>
                     </form>
@@ -208,7 +208,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <p data-bind="text: offer().description"></p>
-                <div>
+                </div>
             </div><br>
 
             <legend>Detail Information</legend>
@@ -218,23 +218,23 @@
                         <div class="row">
                             <label class="control-label col-sm-6">Bathroom:</label>
                             <div class="col-sm-6">
-                                <p class="form-control-static" data-bind="text: offer().bathroomDescription"></p>
+                                <p class="form-control-static bold-text" data-bind="text: offer().bathroomDescription"></p>
                             </div>
                         </div>
                         <div class="row">
                             <label class="control-label col-sm-6">Kitchen:</label>
                             <div class="col-sm-6">
-                                <p class="form-control-static" data-bind="text: offer().kitchenDescription"></p>
+                                <p class="form-control-static bold-text" data-bind="text: offer().kitchenDescription"></p>
                             </div>
                         </div>
                         <div class="row">
                             <label class="control-label col-sm-6">Cellar:</label>
                             <div class="col-sm-6">
                                 <!-- ko if: offer().cellar -->
-                                <p class="form-control-static">Yes</p>
+                                <p class="form-control-static"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></p>
                                 <!-- /ko -->
                                 <!-- ko ifnot: offer().cellar -->
-                                <p class="form-control-static">No</p>
+                                <p class="form-control-static"><span class="glyphicon glyphicon-remove error-text" aria-hidden="true"></span></p>
                                 <!-- /ko -->
                             </div>
                         </div>
@@ -242,10 +242,10 @@
                             <label class="control-label col-sm-6">Parking:</label>
                             <div class="col-sm-6">
                                 <!-- ko if: offer().parking -->
-                                <p class="form-control-static">Yes</p>
+                                <p class="form-control-static"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></p>
                                 <!-- /ko -->
                                 <!-- ko ifnot: offer().parking -->
-                                <p class="form-control-static">No</p>
+                                <p class="form-control-static"><span class="glyphicon glyphicon-remove error-text" aria-hidden="true"></span></p>
                                 <!-- /ko -->
                             </div>
                         </div>
@@ -253,10 +253,10 @@
                             <label class="control-label col-sm-6">Elevator:</label>
                             <div class="col-sm-6">
                                 <!-- ko if: offer().elevator -->
-                                <p class="form-control-static">Yes</p>
+                                <p class="form-control-static"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></p>
                                 <!-- /ko -->
                                 <!-- ko ifnot: offer().elevator -->
-                                <p class="form-control-static">No</p>
+                                <p class="form-control-static"><span class="glyphicon glyphicon-remove error-text" aria-hidden="true"></span></p>
                                 <!-- /ko -->
                             </div>
                         </div>
@@ -264,10 +264,10 @@
                             <label class="control-label col-sm-6">Pets:</label>
                             <div class="col-sm-6">
                                 <!-- ko if: offer().pets -->
-                                <p class="form-control-static">Yes</p>
+                                <p class="form-control-static"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></p>
                                 <!-- /ko -->
                                 <!-- ko ifnot: offer().pets -->
-                                <p class="form-control-static">No</p>
+                                <p class="form-control-static"><span class="glyphicon glyphicon-remove error-text" aria-hidden="true"></span></p>
                                 <!-- /ko -->
                             </div>
                         </div>
@@ -275,10 +275,10 @@
                             <label class="control-label col-sm-6">Furnished:</label>
                             <div class="col-sm-6">
                                 <!-- ko if: offer().furnished -->
-                                <p class="form-control-static">Yes</p>
+                                <p class="form-control-static"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></p>
                                 <!-- /ko -->
                                 <!-- ko ifnot: offer().furnished -->
-                                <p class="form-control-static">No</p>
+                                <p class="form-control-static"><span class="glyphicon glyphicon-remove error-text" aria-hidden="true"></span></p>
                                 <!-- /ko -->
                             </div>
                         </div>
@@ -286,10 +286,10 @@
                             <label class="control-label col-sm-6">Accessability:</label>
                             <div class="col-sm-6">
                                 <!-- ko if: offer().accessability -->
-                                <p class="form-control-static">Yes</p>
+                                <p class="form-control-static"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></p>
                                 <!-- /ko -->
                                 <!-- ko ifnot: offer().accessability -->
-                                <p class="form-control-static">No</p>
+                                <p class="form-control-static"><span class="glyphicon glyphicon-remove error-text" aria-hidden="true"></span></p>
                                 <!-- /ko -->
                             </div>
                         </div>
@@ -301,17 +301,17 @@
                         <div class="row">
                             <label class="control-label col-sm-6">Heating:</label>
                             <div class="col-sm-6">
-                                <p class="form-control-static" data-bind="text: offer().heatingDescription"></p>
+                                <p class="form-control-static bold-text" data-bind="text: offer().heatingDescription"></p>
                             </div>
                         </div>
                         <div class="row">
                             <label class="control-label col-sm-6">Washing machine:</label>
                             <div class="col-sm-6">
                                 <!-- ko if: offer().washingMachine -->
-                                <p class="form-control-static">Yes</p>
+                                <p class="form-control-static"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></p>
                                 <!-- /ko -->
                                 <!-- ko ifnot: offer().washingMachine -->
-                                <p class="form-control-static">No</p>
+                                <p class="form-control-static"><span class="glyphicon glyphicon-remove error-text" aria-hidden="true"></span></p>
                                 <!-- /ko -->
                             </div>
                         </div>
@@ -319,27 +319,27 @@
                             <label class="control-label col-sm-6">Dryer:</label>
                             <div class="col-sm-6">
                                 <!-- ko if: offer().dryer -->
-                                <p class="form-control-static">Yes</p>
+                                <p class="form-control-static"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></p>
                                 <!-- /ko -->
                                 <!-- ko ifnot: offer().dryer -->
-                                <p class="form-control-static">No</p>
+                                <p class="form-control-static"><span class="glyphicon glyphicon-remove error-text" aria-hidden="true"></span></p>
                                 <!-- /ko -->
                             </div>
                         </div>
                         <div class="row">
                             <label class="control-label col-sm-6">TV:</label>
                             <div class="col-sm-6">
-                                <p class="form-control-static" data-bind="text: offer().television"></p>
+                                <p class="form-control-static bold-text" data-bind="text: offer().television"></p>
                             </div>
                         </div>
                         <div class="row">
                             <label class="control-label col-sm-6">Phone:</label>
                             <div class="col-sm-6">
                                 <!-- ko if: offer().telephone -->
-                                <p class="form-control-static">Yes</p>
+                                <p class="form-control-static"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></p>
                                 <!-- /ko -->
                                 <!-- ko ifnot: offer().telephone -->
-                                <p class="form-control-static">No</p>
+                                <p class="form-control-static"><span class="glyphicon glyphicon-remove error-text" aria-hidden="true"></span></p>
                                 <!-- /ko -->
                             </div>
                         </div>
@@ -347,10 +347,10 @@
                             <label class="control-label col-sm-6">WiFi:</label>
                             <div class="col-sm-6">
                                 <!-- ko if: offer().wlan -->
-                                <p class="form-control-static">Yes</p>
+                                <p class="form-control-static"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></p>
                                 <!-- /ko -->
                                 <!-- ko ifnot: offer().wlan -->
-                                <p class="form-control-static">No</p>
+                                <p class="form-control-static"><span class="glyphicon glyphicon-remove error-text" aria-hidden="true"></span></p>
                                 <!-- /ko -->
                             </div>
                         </div>
@@ -358,17 +358,17 @@
                             <label class="control-label col-sm-6">LAN:</label>
                             <div class="col-sm-6">
                                 <!-- ko if: offer().lan -->
-                                <p class="form-control-static">Yes</p>
+                                <p class="form-control-static"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></p>
                                 <!-- /ko -->
                                 <!-- ko ifnot: offer().lan -->
-                                <p class="form-control-static">No</p>
+                                <p class="form-control-static"><span class="glyphicon glyphicon-remove error-text" aria-hidden="true"></span></p>
                                 <!-- /ko -->
                             </div>
                         </div>
                         <div class="row">
                             <label class="control-label col-sm-6">Internet:</label>
                             <div class="col-sm-6">
-                                <p class="form-control-static" data-bind="text: offer().internetSpeed + ' MBit/s'"></p>
+                                <p class="form-control-static bold-text" data-bind="text: offer().internetSpeed + ' MBit/s'"></p>
                             </div>
                         </div>
                     </form>
@@ -378,7 +378,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <legend>Customer Reviews</legend>
-                </div class="col-md-12">
+                </div>
             </div>
             <div class="col-md-12" data-bind="foreach: { data: reviews, as: 'review'}">
                 <div class="row" data-bind="value: review.rating">
@@ -473,31 +473,18 @@
 
         <div data-bind="ifnot: isAuthenticated">
             <div class="row">
-                <div class="col-sm-12"><br><br><br><br>
-                    <div class="col-sm-4"></div>
-                    <div class="col-sm-4">
-                        <label class="control-label col-sm-12">To See All Details ...</label>
-                    </div>
-                    <div class="col-sm-4"></div>
-                </div><br>
+                <div class="col-md-12">
+                    <legend>To See All Details ...</legend>
+                </div>
             </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="col-sm-4"></div>
-                    <div class="col-sm-4">
-                        <a type="button" href="javascript: void(0)" data-toggle="modal" data-target="#signUpModalDialog" class="col-sm-offset-1 btn btn-template-main">Sign Up</a>
-                        <a type="button" href="javascript: void(0)" data-toggle="modal" data-target="#signInModalDialog" class="col-sm-offset-1 btn btn-template-main">Sign In</a>
-                    </div>
-                    <div class="col-sm-4"></div>
-                    <br><br><br><br><br>
-                </div><br>
+            <div class="row centric top-spacing">
+                <div class="col-md-12">
+                    <a type="button" href="javascript: void(0)" data-toggle="modal" data-target="#signUpModalDialog" class="btn btn-template-main">Sign Up</a>
+                    <a type="button" href="javascript: void(0)" data-toggle="modal" data-target="#signInModalDialog" class="btn btn-template-main">Sign In</a>
+                </div>
             </div>
         </div>
 
-
-    </div>
-    <div class="col-sm-1"></div>
-    </div>
     </div>
     <!-- /container -->
 </section>
