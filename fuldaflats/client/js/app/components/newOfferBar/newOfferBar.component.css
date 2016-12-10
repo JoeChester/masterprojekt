@@ -11,3 +11,11 @@
 #new-offer-wizard #uploaded-files .img-row-2 {
     margin-top: 20px;
 }
+
+#new-offer-wizard #uploaded-files {
+    min-height: 150px;
+}
+
+#new-offer-wizard .multiselect-container {
+    width: 100%;
+}

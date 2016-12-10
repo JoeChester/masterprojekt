@@ -30,7 +30,7 @@ requirejs.config({
             exports: 'L'
         },
         'bootstrap': { 'deps': ['jquery'] },
-        'bootstrapMultiselect': { 'deps': ['jquery', 'bootstrap'] },
+        'bootstrapMultiselect': { 'deps': ['jquery', 'bootstrap', 'knockout'] },
         'lightbox': { 'deps': ['jquery'] },
         'jqueryCookie': { 'deps': ['jquery'] },
         'waypoints': { 'deps': ['jquery'] },
@@ -82,7 +82,7 @@ window.onerror = function(messageOrEvent, source, lineno, colno, error) {
 requirejs(['app/appModel',
     'jquery', 'bootstrap', 'knockout', 'jqueryCookie', 'waypoints', 'jqueryConterup', 'leaflet',
     'jqueryParallax', /* 'front', */ 'bootstrapSwitch', 'owlCarousel', 'knockoutOwlCarousel', 'jqcloud', 'fuldaflatsApiClient',
-    'moment', 'knockoutDate', 'customEventPolyfill', 'knockoutBootstrapSwitch'
+    'moment', 'knockoutDate', 'customEventPolyfill', 'knockoutBootstrapSwitch', 'bootstrapMultiselect'
 ], function (app, $) {
     var event = new CustomEvent('scripts-loaded');
     document.dispatchEvent(event);
