@@ -65,6 +65,7 @@ define(['text!./editProfileDataBar.component.html', 'css!./editProfileDataBar.co
                         for (var singleError in errorBody) {
                             $("#" + singleError).addClass("errorField");
                         }
+                        self.userChanges().birthday(new Date(self.userChanges().birthday()));
                         errorCallback(errorBody);
                     }
                 });
