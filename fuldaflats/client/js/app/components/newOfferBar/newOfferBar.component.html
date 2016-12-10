@@ -30,12 +30,24 @@
                                         <div class="form-group">
                                             <label for="offerType" class="control-label col-sm-2">Offer Type:</label>
                                             <div class="col-sm-10">
-                                                <select data-bind="options: offerTypes, value: offer().offerType, optionsCaption: 'Choose Offer Type'" class="form-control"
+                                                <select data-bind="options: offerTypes, value: offer().offerType, optionsCaption: 'Choose Offer Type', optionsAfterRender: optionsAfterRender" class="form-control"
                                                     id="offerType"></select>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="offerTags" class="control-label col-sm-2">Offer Tags:</label>
+                                            <div class="col-sm-10">
+                                                <select data-bind="options: offerTags, selectedOptions: offer().tags, multiselect: { includeSelectAllOption: true, disableIfEmpty: true, buttonWidth: '100%', numberDisplayed: 20, nonSelectedText: 'Choose Offer Tags' }" multiple="multiple" class="form-control"
+                                                    id="offerTags"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
