@@ -16,8 +16,6 @@
                 <ol class="carousel-indicators" data-bind="foreach: { data: offer().mediaObjects, as: 'mediaObject'}">
                     <li data-target="#mediaObjectsCarousel" data-bind="attr:{'data-slide-to': mediaObject.carouselIndex}, css: { active: mediaObject.carouselActive }"></li>
                 </ol>
-
-
                 <div class="carousel-inner" role="listbox" data-bind="foreach: { data: offer().mediaObjects, as: 'mediaObject'}">
                     <div class="item" data-bind="css: { active: mediaObject.carouselActive }">
                         <div class="mediaObject-container">
@@ -27,7 +25,6 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- Controls -->
                 <a class="left carousel-control" href="#mediaObjectsCarousel" role="button" data-slide="prev">
                     <span class="glyphicon glyphicon-chevron-left blue-text" aria-hidden="true"></span>
@@ -39,7 +36,6 @@
                 </a>
             </div>
         </div><br>
-
         <legend class="spacing-top">General Information</legend>
         <div class="row">
             <div class="col-xs-6">
@@ -98,12 +94,9 @@
                     </div>
                 </form>
             </div>
-            
         </div>
         <br>
-
         <div data-bind="if: isAuthenticated">
-
             <legend class="spacing-top">Landlord</legend>
             <div class="row">
                 <div class="col-md-6">
@@ -112,41 +105,41 @@
                             <label class="control-label col-sm-6">Rating:</label>
                             <div class="col-sm-6 star-spacing">
                                 <p>
-                                <!-- ko if: landlord().averageRating >= 4.5 -->
-                                <span class="glyphicon glyphicon-star gold-text"></span>
-                                <span class="glyphicon glyphicon-star gold-text"></span>
-                                <span class="glyphicon glyphicon-star gold-text"></span>
-                                <span class="glyphicon glyphicon-star gold-text"></span>
-                                <span class="glyphicon glyphicon-star gold-text"></span>
-                                <!-- /ko -->
-                                <!-- ko if: landlord().averageRating >= 3.5 && landlord().averageRating < 4.5 -->
-                                <span class="glyphicon glyphicon-star gold-text"></span>
-                                <span class="glyphicon glyphicon-star gold-text"></span>
-                                <span class="glyphicon glyphicon-star gold-text"></span>
-                                <span class="glyphicon glyphicon-star gold-text"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <!-- /ko -->
-                                <!-- ko if: landlord().averageRating >= 2.5 && landlord().averageRating < 3.5 -->
-                                <span class="glyphicon glyphicon-star gold-text"></span>
-                                <span class="glyphicon glyphicon-star gold-text"></span>
-                                <span class="glyphicon glyphicon-star gold-text"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <!-- /ko -->
-                                <!-- ko if: landlord().averageRating >= 1.5 && landlord().averageRating < 2.5 -->
-                                <span class="glyphicon glyphicon-star gold-text"></span>
-                                <span class="glyphicon glyphicon-star gold-text"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <!-- /ko -->
-                                <!-- ko if: landlord().averageRating < 1.5 -->
-                                <span class="glyphicon glyphicon-star gold-text"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <!-- /ko -->
+                                    <!-- ko if: landlord().averageRating >= 4.5 -->
+                                    <span class="glyphicon glyphicon-star gold-text"></span>
+                                    <span class="glyphicon glyphicon-star gold-text"></span>
+                                    <span class="glyphicon glyphicon-star gold-text"></span>
+                                    <span class="glyphicon glyphicon-star gold-text"></span>
+                                    <span class="glyphicon glyphicon-star gold-text"></span>
+                                    <!-- /ko -->
+                                    <!-- ko if: landlord().averageRating >= 3.5 && landlord().averageRating < 4.5 -->
+                                    <span class="glyphicon glyphicon-star gold-text"></span>
+                                    <span class="glyphicon glyphicon-star gold-text"></span>
+                                    <span class="glyphicon glyphicon-star gold-text"></span>
+                                    <span class="glyphicon glyphicon-star gold-text"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <!-- /ko -->
+                                    <!-- ko if: landlord().averageRating >= 2.5 && landlord().averageRating < 3.5 -->
+                                    <span class="glyphicon glyphicon-star gold-text"></span>
+                                    <span class="glyphicon glyphicon-star gold-text"></span>
+                                    <span class="glyphicon glyphicon-star gold-text"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <!-- /ko -->
+                                    <!-- ko if: landlord().averageRating >= 1.5 && landlord().averageRating < 2.5 -->
+                                    <span class="glyphicon glyphicon-star gold-text"></span>
+                                    <span class="glyphicon glyphicon-star gold-text"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <!-- /ko -->
+                                    <!-- ko if: landlord().averageRating < 1.5 -->
+                                    <span class="glyphicon glyphicon-star gold-text"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <!-- /ko -->
                                 </p>
                             </div>
                         </div>
@@ -159,13 +152,17 @@
                         <div class="row">
                             <label class="control-label col-sm-6">Phone:</label>
                             <div class="col-sm-6">
-                                <a data-bind="attr: { href: 'tel:' + landlord().phoneNumber }" ><p class="form-control-static bold-text" data-bind="text: landlord().phoneNumber"></p></a>
+                                <a data-bind="attr: { href: 'tel:' + landlord().phoneNumber }">
+                                    <p class="form-control-static bold-text" data-bind="text: landlord().phoneNumber"></p>
+                                </a>
                             </div>
                         </div>
                         <div class="row">
                             <label class="control-label col-sm-6">E-Mail:</label>
                             <div class="col-sm-6">
-                                <a data-bind="attr: { href: 'mailto:' + landlord().email }" ><p class="form-control-static bold-text" data-bind="text: landlord().email"></p></a>
+                                <a data-bind="attr: { href: 'mailto:' + landlord().email }">
+                                    <p class="form-control-static bold-text" data-bind="text: landlord().email"></p>
+                                </a>
                             </div>
                         </div>
                         <div class="row">
@@ -178,14 +175,13 @@
                 </div>
                 <div class="col-md-6">
                     <div class="row">
-                        <div class="profilePicture-container-medium left">    
+                        <div class="profilePicture-container-medium left">
                             <img data-bind="attr: {src: landlord().profilePicture}" class="img-responsive profilePicture-img" alt="Profilepicture">
                         </div>
                     </div>
                 </div>
             </div>
             <br>
-
             <legend>Location</legend>
             <div class="row centric">
                 <div class="col-md-12 location-description">
@@ -203,14 +199,12 @@
                 </div>
             </div>
             <br>
-
             <legend>Description</legend>
             <div class="row">
                 <div class="col-sm-12">
                     <p data-bind="text: offer().description"></p>
                 </div>
             </div><br>
-
             <legend>Detail Information</legend>
             <div class="row">
                 <div class="col-xs-6">
@@ -295,7 +289,6 @@
                         </div>
                     </form>
                 </div>
-
                 <div class="col-xs-6">
                     <form class="form-horizontal">
                         <div class="row">
@@ -375,102 +368,105 @@
                 </div>
             </div><br>
             
-            <div class="row">
-                <div class="col-md-12">
-                    <legend>Customer Reviews</legend>
-                </div>
-            </div>
-            <div class="col-md-12" data-bind="foreach: { data: reviews, as: 'review'}">
-                <div class="row" data-bind="value: review.rating">
-                    <!-- ko if: review.rating == 5 -->
-                    <span class="glyphicon glyphicon-star gold-text"></span>
-                    <span class="glyphicon glyphicon-star gold-text"></span>
-                    <span class="glyphicon glyphicon-star gold-text"></span>
-                    <span class="glyphicon glyphicon-star gold-text"></span>
-                    <span class="glyphicon glyphicon-star gold-text"></span>
-                    <!-- /ko -->
-                    <!-- ko if: review.rating == 4 -->
-                    <span class="glyphicon glyphicon-star gold-text"></span>
-                    <span class="glyphicon glyphicon-star gold-text"></span>
-                    <span class="glyphicon glyphicon-star gold-text"></span>
-                    <span class="glyphicon glyphicon-star gold-text"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <!-- /ko -->
-                    <!-- ko if: review.rating == 3 -->
-                    <span class="glyphicon glyphicon-star gold-text"></span>
-                    <span class="glyphicon glyphicon-star gold-text"></span>
-                    <span class="glyphicon glyphicon-star gold-text"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <!-- /ko -->
-                    <!-- ko if: review.rating == 2 -->
-                    <span class="glyphicon glyphicon-star gold-text"></span>
-                    <span class="glyphicon glyphicon-star gold-text"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <!-- /ko -->
-                    <!-- ko if: review.rating == 1 -->
-                    <span class="glyphicon glyphicon-star gold-text"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <!-- /ko -->
-                </div>
+            <div data-bind="if: showReviews">
                 <div class="row">
-                    <div class="col-sm-8">
-                        <div class="row">
-                            <label class="control-label review-name" data-bind="text: review.title"></label>
-                        </div>
-                        <div class="row">
-                            <label class="control-label grey-text" data-bind="text: review.creationDate"><small></small></label>
-                        </div>
-                        <div class="row">
-                            <label data-bind="text: review.comment"></label>
-                        </div>
+                    <div class="col-md-12">
+                        <legend>Customer Reviews</legend>
                     </div>
-                    <div class="col-md-4">
-                        <div class="row">
-                            <div class="profilePicture-container-medium">    
-                                <img data-bind="attr:{ src: review.user.profilePicture}" class="img-responsive profilePicture-img" alt="Profilepicture">
+                </div>
+                <div class="col-md-12" data-bind="foreach: { data: reviews, as: 'review'}">
+                    <div class="row" data-bind="value: review.rating">
+                        <!-- ko if: review.rating == 5 -->
+                        <span class="glyphicon glyphicon-star gold-text"></span>
+                        <span class="glyphicon glyphicon-star gold-text"></span>
+                        <span class="glyphicon glyphicon-star gold-text"></span>
+                        <span class="glyphicon glyphicon-star gold-text"></span>
+                        <span class="glyphicon glyphicon-star gold-text"></span>
+                        <!-- /ko -->
+                        <!-- ko if: review.rating == 4 -->
+                        <span class="glyphicon glyphicon-star gold-text"></span>
+                        <span class="glyphicon glyphicon-star gold-text"></span>
+                        <span class="glyphicon glyphicon-star gold-text"></span>
+                        <span class="glyphicon glyphicon-star gold-text"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <!-- /ko -->
+                        <!-- ko if: review.rating == 3 -->
+                        <span class="glyphicon glyphicon-star gold-text"></span>
+                        <span class="glyphicon glyphicon-star gold-text"></span>
+                        <span class="glyphicon glyphicon-star gold-text"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <!-- /ko -->
+                        <!-- ko if: review.rating == 2 -->
+                        <span class="glyphicon glyphicon-star gold-text"></span>
+                        <span class="glyphicon glyphicon-star gold-text"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <!-- /ko -->
+                        <!-- ko if: review.rating == 1 -->
+                        <span class="glyphicon glyphicon-star gold-text"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <!-- /ko -->
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <label class="control-label review-name" data-bind="text: review.title"></label>
+                            </div>
+                            <div class="row">
+                                <label class="control-label grey-text" data-bind="text: review.creationDate"><small></small></label>
+                            </div>
+                            <div class="row">
+                                <label data-bind="text: review.comment"></label>
                             </div>
                         </div>
-                        <div class="row centric">
-                            <span class="review-name" data-bind="text: review.user.firstName"></span>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="profilePicture-container-medium">
+                                    <img data-bind="attr:{ src: review.user.profilePicture}" class="img-responsive profilePicture-img" alt="Profilepicture">
+                                </div>
+                            </div>
+                            <div class="row centric">
+                                <span class="review-name" data-bind="text: review.user.firstName"></span>
+                            </div>
                         </div>
                     </div>
+                    <hr>
                 </div>
-                <hr>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <select id="newReviewRating" class="gold-text form-control">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <select id="newReviewRating" class="gold-text form-control">
                                 <option value="5" selected>&#9733;&#9733;&#9733;&#9733;&#9733;</option>
                                 <option value="4">&#9733;&#9733;&#9733;&#9733;</option>
                                 <option value="3">&#9733;&#9733;&#9733;</option>
                                 <option value="2">&#9733;&#9733;</option>
                                 <option value="1">&#9733;</option>
                             </select>
+                            </div>
+                            <div class="col-md-8">
+                                <input id="newReviewTitle" class="form-control" placeholder="Review Title" />
+                            </div>
                         </div>
-                        <div class="col-md-8">
-                            <input id="newReviewTitle" class="form-control" placeholder="Review Title"/>
+                        <div class="row top-spacing">
+                            <div class="col-md-12">
+                                <textarea id="newReviewComment" class="form-control" rows="3" placeholder="Review comment"></textarea>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row top-spacing">
-                        <div class="col-md-12">
-                            <textarea id="newReviewComment" class="form-control" rows="3" placeholder="Review comment"></textarea>
+                        <div class="row centric">
+                            <button data-bind="click: sendReview" type="button" class="btn btn-primary">Send Review</button>
                         </div>
-                    </div>
-                    <div class="row centric">
-                        <button data-bind="click: sendReview" type="button" class="btn btn-primary">Send Review</button>
                     </div>
                 </div>
             </div>
-        </div> <!-- END is authenticated -->
-
+            <!-- END showReviews -->
+        </div>
+        <!-- END is authenticated -->
         <div data-bind="ifnot: isAuthenticated">
             <div class="row">
                 <div class="col-md-12">
@@ -484,7 +480,6 @@
                 </div>
             </div>
         </div>
-
     </div>
     <!-- /container -->
 </section>

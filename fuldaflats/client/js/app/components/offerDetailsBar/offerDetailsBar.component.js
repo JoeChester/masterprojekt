@@ -30,6 +30,7 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
             self.landlord = ko.observable({});
 
             self.reviews = ko.observableArray([]);
+            self.showReviews = ko.observable(true);
 
             //Check Login
             self.checkLogin = function () {
@@ -83,7 +84,9 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
                             for (var j in offerData.reviews) {
                                 offerData.reviews[j].creationDate = moment(offerData.reviews[j].creationDate).format('L');
                             }
-                            console.log(offerData);
+                            if(offerData.offerType == "FLAT" || offerData.offerType == "SHARE"){
+                                self.showReviews(false);
+                            }
                             self.offer(offerData);
                             if (offerData.landlord) {
                                 self.landlord(offerData.landlord);
@@ -108,7 +111,27 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
                 _review.rating = parseInt($('#newReviewRating').val());
                 _review.title = $('#newReviewTitle').val();
                 _review.comment = $('#newReviewComment').val();
-                console.log(_review);
+                $.ajax({
+                    method: "POST",
+                    url: "/api/offers/" + self.offerId() + '/review',
+                    dataType: "application/json",
+                    contentType: "application/json",
+                    data: JSON.stringify(_review),
+                    success: function(data, status, req){
+                        self.getOfferDetails();
+                    },
+                    error: function(req, status, err){
+                        console.error(req);
+                        if(req.status == 201){
+                            return self.getOfferDetails();
+                        }
+                        try {
+                            errorCallback(JSON.parse(req.responseText));
+                        } catch(e) {
+                            errorCallback(req.statusText);
+                        }
+                    }
+                });
             }
         }
 
