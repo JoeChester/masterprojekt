@@ -21,19 +21,9 @@
                             </div>
                         </div><br>
                         <div class="row">
-                            <div class="col-sm-4">
-                                <div class="image">
-                                    <img src="../../../../../uploads/sampleA.jpg" alt="" class="img-responsive">
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="image">
-                                    <img src="../../../../../uploads/sampleB.jpg" alt="" class="img-responsive">
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="image">
-                                    <img src="../../../../../uploads/sampleC.jpg" alt="" class="img-responsive">
+                            <div class="col-sm-12" data-bind="foreach: { data: offer().mediaObjects, as: 'mediaObject'}">
+                                <div class="image col-sm-4">
+                                    <img data-bind="attr: {src: mediaObject.mainUrl}" alt="" class="img-responsive">
                                 </div>
                             </div>
                         </div><br>

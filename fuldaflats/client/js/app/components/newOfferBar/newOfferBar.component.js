@@ -6,17 +6,18 @@
  ************************************************************/
 define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 'app/components/fileUploaderModal/fileUploaderModal.component',
     'knockout', 'jquery', 'fuldaflatsApiClient', 'lightbox'],
-    function (componentTemplate, componentCss, fileUploaderModalComponent, ko, $, api, lightbox) {
+    function(componentTemplate, componentCss, fileUploaderModalComponent, ko, $, api, lightbox) {
         function NewOfferModel(ko, $, api) {
             var self = this;
             // your model functions and variables
             self.tabsContainer = ko.observable();
             self.defaultSwitchOptions = { onText: 'Yes', onColor: 'primary', offColor: 'danger', offText: 'No', animate: true, size: 'small' };
-            self.offerPriceTypes = ko.observableArray(["DAY", "MONTH", "QUARTER", "HALF YEAR", "SEMESTER", "YEAR"]);
-            self.offerRentTypes = ko.observableArray(["COLD", "WARM"]);
+            self.offerPriceTypes = ko.observableArray(["Day", "Month", "Quarter", "Half Year", "Semester", "Year"]);
+            self.offerRentTypes = ko.observableArray(["Cold", "Warm"]);
             self.kitchenDescriptions = ko.observableArray(["Fridge & Oven", "Fridge & Stove", "Fridge & Stove & Oven"]);
             self.bathroomDescriptions = ko.observableArray(["Shower & WC", "Shower & Tub & WC", "Tub & WC"]);
             self.offerHeatingDescriptions = ko.observableArray(["Gas", "Oil", "Electricity"]);
+            self.televisionDescriptions = ko.observableArray(["No", "Cable", "DSL", "SAT"])
             self.offerTypes = ko.observable();
             self.offerTags = ko.observableArray()
             self.offer = api.offers.getOfferModel();
@@ -28,12 +29,14 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                 }
             );
 
-            self.offerCreationError = ko.observable(true);
+            self.offerCreationError = ko.observable(false);
             self.offerLandlordIsNotCurrentUser = ko.observable(false);
             self.currentUserIsNotALandlord = ko.observable(false);
             self.offerLoadingError = ko.observable(false);
             self.offerTypesLoadingError = ko.observable(false);
             self.offerTagsLoadingError = ko.observable(false);
+
+            self.finishedCreation = ko.observable(false);
 
             function resetErrors() {
                 self.offerCreationError(false);
@@ -91,7 +94,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                     self.currentUserIsNotALandlord(true);
                 } else if (self.offer() && !isNaN(self.offer().id())) {
                     api.offers.getOfferById(self.offer().id()).then(
-                        function (requestedOffer) {
+                        function(requestedOffer) {
                             if (requestedOffer) {
                                 if (!isCurrentUserALandlord()) {
                                     self.currentUserIsNotALandlord(true);
@@ -107,7 +110,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                                 self.offerLoadingError(true);
                             }
                         },
-                        function (xhr) {
+                        function(xhr) {
                             self.offerLoadingError(true);
                         }
                     );
@@ -115,15 +118,20 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
             };
 
             function createOffer() {
+                resetErrors();
                 if (!isCurrentUserALandlord()) {
                     self.currentUserIsNotALandlord(true);
                 } else {
                     api.offers.createOffer().then(
-                        function (newOffer) {
-                            var mappedResult = api.offers.mapOfferResultToModel(newOffer);
-                            self.offer(mappedResult);
+                        function(newOffer) {
+                            if (!isCurrentUserEqualsLandlord(newOffer.landlord)) {
+                                self.offerLandlordIsNotCurrentUser(true);
+                            } else {
+                                var mappedResult = api.offers.mapOfferResultToModel(newOffer);
+                                self.offer(mappedResult);
+                            }
                         },
-                        function (xhr) {
+                        function(xhr) {
                             self.offerCreationError(true);
                         }
                     );
@@ -132,10 +140,10 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
 
             function loadOfferTypes() {
                 api.offers.getOfferTypes().then(
-                    function (offerTypes) {
+                    function(offerTypes) {
                         self.offerTypes(offerTypes);
                     },
-                    function (xhr) {
+                    function(xhr) {
                         self.offerTypesLoadingError(true);
                     }
                 );
@@ -143,36 +151,24 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
 
             function loadOfferTags() {
                 api.offers.getTags().then(
-                    function (offerTags) {
+                    function(offerTags) {
                         self.offerTags(offerTags)
                     },
-                    function (xhr) {
+                    function(xhr) {
                         self.offerTagsLoadingError(true);
                     }
                 );
             };
 
-            function updateOffer() {
-                // validation logik
-                api.offers.updatedOffer(self.offer).then(
-                    function () {
-                        if (self.offerDetailsPageInfo() && self.offerDetailsPageInfo().url) {
-                            window.location.href = self.offerDetailsPageInfo().url + "?offerId=" + self.offer().id();
-                        } else {
-                            window.location.href = "/";
-                        }
-                    },
-                    function () {
-                        // redponse validation logik
+            function onBeforeUnloadWindow() {
+                if (!self.finishedCreation()) {
+                    if (self.offer() && !isNaN(self.offer().id())) {
+                        api.offers.deleteOffer(self.offer().id(), true);
                     }
-                );
+                }
             };
 
-            function deletOffer() {
-                // delete offer 
-            };
-
-            self.offerFullPrice = ko.computed(function () {
+            self.offerFullPrice = ko.computed(function() {
                 var fullPrice = 0;
 
                 if (self.offer().rent() && !isNaN(self.offer().rent())) {
@@ -187,53 +183,70 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                 return fullPrice;
             });
 
-            self.bindFileUploadModalEvents = function (model, event) {
+            self.bindFileUploadModalEvents = function(model, event) {
                 if (event && event.currentTarget) {
                     var dialogId = event.currentTarget.getAttribute("data-target");
                     var dialogContainer = $(dialogId);
                     if (dialogContainer.length > 0) {
-                        dialogContainer.on('hide.bs.modal', reloadOffer);
+                        dialogContainer.on('hidden.bs.modal', reloadOffer);
                     } else {
                         console.error("Failed to bind file upload dialog events.");
                     }
                 }
             };
 
-            self.goNextStep = function (model, event) {
-                // pre Validation
-                if (self.tabsContainer() && event.currentTarget) {
-                    var nextTabId = event.currentTarget.getAttribute("next-tab");
-                    var nextTabNav = self.tabsContainer().find('.nav a[href="' + nextTabId + '"]');
-                    if (nextTabNav.length > 0) {
-                        nextTabNav.tab('show');
-                        activateTabNav(nextTabNav);
+            self.goNextStep = function(model, event) {
+                api.offers.updatedOffer(self.offer).then(
+                    function() {
+                        if (self.tabsContainer() && event.currentTarget) {
+                            var nextTabId = event.currentTarget.getAttribute("next-tab");
+                            var nextTabNav = self.tabsContainer().find('.nav a[href="' + nextTabId + '"]');
+                            if (nextTabNav.length > 0) {
+                                nextTabNav.tab('show');
+                                activateTabNav(nextTabNav);
+                            }
+                        }
+                    },
+                    function(xhr) {
+                        // redponse validation logik
                     }
+                );
+            };
+
+            self.finishOfferCreation = function() {
+                api.offers.updatedOffer(self.offer).then(
+                    function() {
+                        if (self.offerDetailsPageInfo() && self.offerDetailsPageInfo().url) {
+                            self.finishedCreation(true);
+                            window.location.href = self.offerDetailsPageInfo().url + "?offerId=" + self.offer().id();
+                        } else {
+                            window.location.href = "/";
+                        }
+                    },
+                    function(xhr) {
+                        // redponse validation logik
+                    }
+                );
+            };
+
+            self.cancelOfferCreation = function() {
+                if (self.offer() && !isNaN(self.offer().id())) {
+                    api.offers.deleteOffer(self.offer().id()).then(function() {
+                        self.offer().id(undefined)
+                        window.history.back();
+                    }, function() {
+                        window.history.back();
+                    });;
                 }
-
-                // update offer
-                // response validation / handling
-                // go next or show error
-                // when go next create browser history
-                // return true -> next tab
             };
 
-            self.finishOfferCreation = function () {
-                //update offer
-                // go to details page
-            };
-
-            self.cancelOfferCreation = function () {
-                deletOffer();
-                window.history.back();
-            };
-
-            self.optionsAfterRender = function (option, item) {
+            self.optionsAfterRender = function(option, item) {
                 ko.applyBindingsToNode(option, {
                     disable: !item
                 }, item);
             };
 
-            self.initialize = function (params, tabsContainer) {
+            self.initialize = function(params, tabsContainer) {
                 self.tabsContainer(tabsContainer || "");
 
                 if (params) {
@@ -244,7 +257,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                     }
                 }
 
-                self.currentUser.subscribe(function (currentUser) {
+                self.currentUser.subscribe(function(currentUser) {
                     reloadOffer();
 
                     if (isCurrentUserALandlord() && isNaN(self.offer().id())) {
@@ -254,16 +267,15 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
 
                 loadOfferTypes();
                 loadOfferTags();
-
-                if (isCurrentUserALandlord()) {
-                    createOffer();
-                }
+                createOffer();
+                
+                window.onbeforeunload = onBeforeUnloadWindow;
             };
         }
 
         return {
             viewModel: {
-                createViewModel: function (params, componentInfo) {
+                createViewModel: function(params, componentInfo) {
                     // componentInfo contains for example the root element from the component template
                     ko.components.register("file-uploader", fileUploaderModalComponent);
 

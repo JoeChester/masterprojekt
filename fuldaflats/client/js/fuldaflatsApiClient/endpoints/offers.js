@@ -238,7 +238,7 @@ define(["jquery", 'knockout'], function($, ko) {
         self.getOfferById = function(offerId) {
             var defer = $.Deferred();
 
-            $.getJSON({
+            $.ajax({
                 url: endpointUrls.offers + "/" + offerId,
                 method: "GET",
                 dataType: "json"
@@ -263,8 +263,8 @@ define(["jquery", 'knockout'], function($, ko) {
 
             var localOffer = ko.unwrap(offer);
 
-            $.getJSON({
-                url: endpointUrls.offers + "/" + localOffer.id,
+            $.ajax({
+                url: endpointUrls.offers + "/" + ko.unwrap(localOffer.id),
                 method: "PUT",
                 contentType: "application/json",
                 dataType: "text",
@@ -278,13 +278,13 @@ define(["jquery", 'knockout'], function($, ko) {
             });
 
             return defer.promise();
-        }
+        };
 
         // Create Offer
         self.createOffer = function() {
             var defer = $.Deferred();
 
-            $.getJSON({
+            $.ajax({
                 url: endpointUrls.offers,
                 method: "POST",
                 dataType: "json",
@@ -296,12 +296,39 @@ define(["jquery", 'knockout'], function($, ko) {
                     defer.reject(jqXHR);
                 }
             }).fail(function(jqXHR, textStatus) {
-                console.error("Failed to create offer:");
+                console.error("Failed to create offer");
                 defer.reject(jqXHR);
             });
 
             return defer.promise();
-        }
+        };
+
+        // Delete offer
+        self.deleteOffer = function(offerId, synchron) {
+            var defer = $.Deferred();
+
+            var localOfferId = ko.unwrap(offerId)
+
+            if (!isNaN(localOfferId)) {
+                $.ajax({
+                    url: endpointUrls.offers + "/" + localOfferId,
+                    method: "DELETE",
+                    async: synchron !== true
+                }).done(function(deletedOffer) {
+                    console.log("Delete Offer with id: " + localOfferId)
+                    defer.resolve();
+                }).fail(function(jqXHR, textStatus) {
+                    console.error("Failed to delete offer with id:" + localOfferId);
+                    defer.reject(jqXHR);
+                });
+            } else {
+                defer.resolve();
+            }
+
+            return defer.promise();
+        };
+
+        window.deleteOffer = self.deleteOffer;
     }
 
     return OffersEndpoint;

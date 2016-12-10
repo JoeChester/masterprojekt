@@ -7,6 +7,27 @@
 <section id="new-offer-wizard" style="min-height:700px; margin-top: 2rem">
     <div class="container">
         <div class="col-sm-12">
+            <!-- ko if: offerCreationError -->
+            <div class="alert alert-danger">
+                <strong>Internal Error:</strong> Failed to create a new offer. Please try it again later.
+            </div>
+            <!-- /ko -->
+            <!-- ko if: offerLandlordIsNotCurrentUser -->
+            <div class="alert alert-danger">
+                <strong>Internal Error:</strong> Current user and offer landlord are not the same. Please try it again later.
+            </div>
+            <!-- /ko -->
+            <!-- ko if: currentUserIsNotALandlord -->
+            <div class="alert alert-danger">
+                <strong>Access Denied:</strong> Your are not a landlord.
+            </div>
+            <!-- /ko -->
+            <!-- ko if: offerLoadingError() || offerTypesLoadingError() || offerTagsLoadingError() -->
+            <div class="alert alert-danger">
+                <strong>Internal Error:</strong> Please try it again later.
+            </div>
+            <!-- /ko -->
+            <!-- ko if: !(offerLoadingError() || offerTypesLoadingError() || offerTagsLoadingError() || currentUserIsNotALandlord() || offerLandlordIsNotCurrentUser() || offerCreationError()) -->
             <div class="tabs">
                 <ul class="nav nav-pills nav-justified">
                     <li class="active"><a href="#tab1" data-toggle="tab">Step 1</a></li>
@@ -30,8 +51,8 @@
                                         <div class="form-group">
                                             <label for="offerType" class="control-label col-sm-2">Offer Type:</label>
                                             <div class="col-sm-10">
-                                                <select data-bind="options: offerTypes, value: offer().offerType, optionsCaption: 'Choose Offer Type', optionsAfterRender: optionsAfterRender" class="form-control"
-                                                    id="offerType"></select>
+                                                <select data-bind="options: offerTypes, value: offer().offerType, optionsCaption: 'Choose Offer Type', optionsAfterRender: optionsAfterRender"
+                                                    class="form-control" id="offerType"></select>
                                             </div>
                                         </div>
                                     </div>
@@ -41,8 +62,8 @@
                                         <div class="form-group">
                                             <label for="offerTags" class="control-label col-sm-2">Offer Tags:</label>
                                             <div class="col-sm-10">
-                                                <select data-bind="options: offerTags, selectedOptions: offer().tags, multiselect: { includeSelectAllOption: true, disableIfEmpty: true, buttonWidth: '100%', numberDisplayed: 20, nonSelectedText: 'Choose Offer Tags' }" multiple="multiple" class="form-control"
-                                                    id="offerTags"></select>
+                                                <select data-bind="options: offerTags, selectedOptions: offer().tags, multiselect: { includeSelectAllOption: true, disableIfEmpty: true, buttonWidth: '100%', numberDisplayed: 20, nonSelectedText: 'Choose Offer Tags' }"
+                                                    multiple="multiple" class="form-control" id="offerTags"></select>
                                             </div>
                                         </div>
                                     </div>
@@ -166,28 +187,27 @@
                                     </div>
                                 </div>
                             </fieldset>
-                        </form>
-                        <br />
-                        <div class="row">
-                            <div class="col-xs-2">
-                                <a data-bind="click: cancelOfferCreation" type="button" class="btn btn-danger" aria-label="Left Align">
-                                    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
-                                </a>
-                            </div>
-                            <div class="col-xs-8">
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%;">
-                                        20%
+                            <br />
+                            <div class="row">
+                                <div class="col-xs-2">
+                                    <a data-bind="click: cancelOfferCreation" type="button" class="btn btn-danger" aria-label="Left Align">
+                                        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+                                    </a>
+                                </div>
+                                <div class="col-xs-8">
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%;">
+                                            20%
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="col-xs-2">
+                                    <a data-bind="click: goNextStep" next-tab="#tab2" type="button" data-toggle="tab" class="btn btn-template-main" aria-label="Right Align">
+                                        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+                                    </a>
+                                </div>
                             </div>
-                            <div class="col-xs-2">
-                                <a data-bind="click: goNextStep" next-tab="#tab2" type="button" data-toggle="tab" class="btn btn-template-main" aria-label="Right Align">
-                                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
-                                </a>
-                            </div>
-                        </div>
-                        <!-- /row -->
+                        </form>
                     </div>
                     <!-- /.tab -->
                     <!-- tab 2 -->
@@ -326,8 +346,8 @@
                                             <div class="form-group">
                                                 <label for="offerTelevision" class="control-label col-sm-4">Television:</label>
                                                 <div class="col-sm-8">
-                                                    <input data-bind="bootstrapSwitch: offer().television, bootstrapSwitchOptions: defaultSwitchOptions" type="checkbox" id="offerTelevision"
-                                                        placeholder="Television">
+                                                    <select data-bind="options: televisionDescriptions, value: offer().television, optionsCaption: 'Choose Description', optionsAfterRender: optionsAfterRender"
+                                                        class="form-control" id="offerTelevision"></select>
                                                 </div>
                                             </div>
                                         </div>
@@ -374,77 +394,76 @@
                                         <div class="col-sm-6">
                                         </div>
                                     </div>
+                                </div>
                             </fieldset>
-                        </form>
-                        <br><br>
-                        <div class="row">
-                            <div class="col-xs-2">
-                                <a data-bind="click: goNextStep" next-tab="#tab1" type="button" data-toggle="tab" class="btn btn-template-main" aria-label="Right Align">
-                                    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
-                                </a>
-                            </div>
-                            <div class="col-xs-8">
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">
-                                        40%
+                            <br /><br />
+                            <div class="row">
+                                <div class="col-xs-2">
+                                    <a data-bind="click: goNextStep" next-tab="#tab1" type="button" data-toggle="tab" class="btn btn-template-main" aria-label="Right Align">
+                                        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+                                    </a>
+                                </div>
+                                <div class="col-xs-8">
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">
+                                            40%
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="col-xs-2">
+                                    <a data-bind="click: goNextStep" next-tab="#tab3" type="button" data-toggle="tab" class="btn btn-template-main" aria-label="Right Align">
+                                        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+                                    </a>
+                                </div>
                             </div>
-                            <div class="col-xs-2">
-                                <a data-bind="click: goNextStep" next-tab="#tab3" type="button" data-toggle="tab" class="btn btn-template-main" aria-label="Right Align">
-                                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
-                                </a>
-                            </div>
-                        </div>
-                        <!-- /row -->
-                        </div>
-                        <!-- /.tab -->
-                        <!-- tab 3 -->
-                        <div class="tab-pane text-center" id="tab3">
-                            <form class="form-horizontal">
-                                <fieldset>
-                                    <legend class="clearfix">
-                                        <div class="col-xs-12 text-left">
-                                            Location
-                                        </div>
-                                    </legend>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label for="offerStreet" class="control-label col-sm-5">Street:</label>
-                                            <div class="col-sm-7">
-                                                <input data-bind="textInput: offer().street" type="text" class="form-control" id="offerStreet" placeholder="Steet">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="offerHouseNumber" class="control-label col-sm-5">House Number:</label>
-                                            <div class="col-sm-7">
-                                                <input data-bind="textInput: offer().houseNumber" type="text" class="form-control" id="offerHouseNumber" placeholder="House Number">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="offerFloor" class="control-label col-sm-5">Floor:</label>
-                                            <div class="col-sm-7">
-                                                <input data-bind="textInput: offer().floor" type="number" class="form-control" id="offerFloor" placeholder="Floor">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="offerZipCode" class="control-label col-sm-5">Zip Code:</label>
-                                            <div class="col-sm-7">
-                                                <input data-bind="textInput: offer().zipCode" type="number" class="form-control" id="offerZipCode" placeholder="Zip Code">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="offerCity" class="control-label col-sm-5">City:</label>
-                                            <div class="col-sm-7">
-                                                <input data-bind="textInput: offer().city" type="text" class="form-control" id="offerCity" placeholder="City">
-                                            </div>
+                        </form>
+                    </div>
+                    <!-- /.tab -->
+                    <!-- tab 3 -->
+                    <div class="tab-pane text-center" id="tab3">
+                        <form class="form-horizontal">
+                            <fieldset>
+                                <legend class="clearfix">
+                                    <div class="col-xs-12 text-left">
+                                        Location
+                                    </div>
+                                </legend>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="offerStreet" class="control-label col-sm-5">Street:</label>
+                                        <div class="col-sm-7">
+                                            <input data-bind="textInput: offer().street" type="text" class="form-control" id="offerStreet" placeholder="Steet">
                                         </div>
                                     </div>
-                                    <div class="col-sm-6 center-block">
-                                        <!-- map -->
+                                    <div class="form-group">
+                                        <label for="offerHouseNumber" class="control-label col-sm-5">House Number:</label>
+                                        <div class="col-sm-7">
+                                            <input data-bind="textInput: offer().houseNumber" type="text" class="form-control" id="offerHouseNumber" placeholder="House Number">
+                                        </div>
                                     </div>
-                                </fieldset>
-                            </form>
+                                    <div class="form-group">
+                                        <label for="offerFloor" class="control-label col-sm-5">Floor:</label>
+                                        <div class="col-sm-7">
+                                            <input data-bind="textInput: offer().floor" type="number" class="form-control" id="offerFloor" placeholder="Floor">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="offerZipCode" class="control-label col-sm-5">Zip Code:</label>
+                                        <div class="col-sm-7">
+                                            <input data-bind="textInput: offer().zipCode" type="number" class="form-control" id="offerZipCode" placeholder="Zip Code">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="offerCity" class="control-label col-sm-5">City:</label>
+                                        <div class="col-sm-7">
+                                            <input data-bind="textInput: offer().city" type="text" class="form-control" id="offerCity" placeholder="City">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 center-block">
+                                    <!-- map -->
+                                </div>
+                            </fieldset>
                             <br><br>
                             <div class="row">
                                 <div class="col-xs-2">
@@ -465,25 +484,24 @@
                                     </a>
                                 </div>
                             </div>
-                            <!-- /row -->
-                        </div>
-                        <!-- /.tab -->
-                        <!-- tab 4 -->
-                        <div class="tab-pane text-center" id="tab4">
-                            <form class="form-horizontal">
-                                <fieldset>
-                                    <legend class="clearfix">
-                                        <div class="col-xs-12 text-left">
-                                            Description
-                                        </div>
-                                    </legend>
-                                    <div class="col-sm-12 center-block">
-                                        <div class="form-group">
-                                            <textarea data-bind="textInput: offer().description" class="form-control" rows="18" id="offerDescription"></textarea>
-                                        </div>
+                        </form>
+                    </div>
+                    <!-- /.tab -->
+                    <!-- tab 4 -->
+                    <div class="tab-pane text-center" id="tab4">
+                        <form class="form-horizontal">
+                            <fieldset>
+                                <legend class="clearfix">
+                                    <div class="col-xs-12 text-left">
+                                        Description
                                     </div>
-                                </fieldset>
-                            </form>
+                                </legend>
+                                <div class="col-sm-12 center-block">
+                                    <div class="form-group">
+                                        <textarea data-bind="textInput: offer().description" class="form-control" rows="18" id="offerDescription"></textarea>
+                                    </div>
+                                </div>
+                            </fieldset>
                             <br />
                             <div class="row">
                                 <div class="col-xs-2">
@@ -504,32 +522,31 @@
                                     </a>
                                 </div>
                             </div>
-                            <!-- /row -->
-                        </div>
-                        <!-- /.tab -->
-                        <!-- tab 5 -->
-                        <div class="tab-pane text-center" id="tab5">
-                            <fieldset>
-                                <legend class="clearfix">
-                                    <div class="col-xs-6 text-left">
-                                        Add Pictures and Video
-                                    </div>
-                                    <div class="col-xs-6 text-right">
-                                        <button id="offerFileUploadButton" data-bind="click: bindFileUploadModalEvents" data-toggle="modal" data-target="#fileUploaderModal"
-                                            type="button" class="btn btn-sm btn-template-primary" aria-label="Right Align">
+                        </form>
+                    </div>
+                    <!-- /.tab -->
+                    <!-- tab 5 -->
+                    <div class="tab-pane text-center" id="tab5">
+                        <fieldset>
+                            <legend class="clearfix">
+                                <div class="col-xs-6 text-left">
+                                    Add Pictures and Video
+                                </div>
+                                <div class="col-xs-6 text-right">
+                                    <button id="offerFileUploadButton" data-bind="click: bindFileUploadModalEvents" data-toggle="modal" data-target="#fileUploaderModal"
+                                        type="button" class="btn btn-sm btn-template-primary" aria-label="Right Align">
 												<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                         </button>
-                                    </div>
-                                </legend>
-                                <div id="uploaded-files" data-bind="foreach: { data: offer().mediaObjects(), as: 'media' }" class="row">
-                                    <div class="col-sm-3">
-                                        <a class="image" data-bind="attr: { href: media.thumbnailUrl }" data-lightbox="mediaObjectsLightbox">
+                                </div>
+                            </legend>
+                            <div id="uploaded-files" data-bind="foreach: { data: offer().mediaObjects(), as: 'media' }" class="row">
+                                <div data-bind="css: {'hidden': media.thumbnailUrl && media.thumbnailUrl.indexOf('dummy.png') === (media.thumbnailUrl.length - 9) }" class="col-sm-3">
+                                    <a class="image" data-bind="attr: { href: media.thumbnailUrl }" data-lightbox="mediaObjectsLightbox">
                                             <img data-bind="attr: { src: media.thumbnailUrl, alt: 'Uploaded Image ' + (parseInt($index()) + 1) }, css: { 'img-row-2': parseInt($index()) > 3 }"
                                                 class="mediaObject-img img-responsive">
                                         </a>
-                                    </div>
                                 </div>
-                            </fieldset>
+                            </div>
                             <br>
                             <div class="row">
                                 <div class="col-xs-2">
@@ -550,14 +567,15 @@
                                     </a>
                                 </div>
                             </div>
-                            <!-- /row -->
-                        </div>
-                        <!-- /.tab -->
+                        </fieldset>
                     </div>
+                    <!-- /.tab -->
                 </div>
-                <!-- /.tabs -->
             </div>
-            <div class="col-sm-2"></div>
+            <!-- /ko -->
+            <!-- /.tabs -->
         </div>
+        <div class="col-sm-2"></div>
+    </div>
 </section>
-<div data-bind='component: { name: "file-uploader"}'></div>
+<div data-bind='component: { name: "file-uploader", params: { offerId: $data.offer().id } }'></div>
