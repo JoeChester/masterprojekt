@@ -7,28 +7,20 @@
 <section id="new-offer-wizard" style="min-height:700px; margin-top: 2rem">
     <div class="container">
         <div class="col-sm-12">
-            <!-- ko if: offerCreationError -->
-            <div class="alert alert-danger">
+            <div data-bind="css: { 'hidden': !offerCreationError() }" class="hidden alert alert-danger">
                 <strong>Internal Error:</strong> Failed to create a new offer. Please try it again later.
             </div>
-            <!-- /ko -->
-            <!-- ko if: offerLandlordIsNotCurrentUser -->
-            <div class="alert alert-danger">
+            <div data-bind="css: { 'hidden': !offerLandlordIsNotCurrentUser() }" class="hidden alert alert-danger">
                 <strong>Internal Error:</strong> Current user and offer landlord are not the same. Please try it again later.
             </div>
-            <!-- /ko -->
-            <!-- ko if: currentUserIsNotALandlord -->
-            <div class="alert alert-danger">
+            <div data-bind="css: { 'hidden': !currentUserIsNotALandlord() }" class="hidden alert alert-danger">
                 <strong>Access Denied:</strong> Your are not a landlord.
             </div>
-            <!-- /ko -->
-            <!-- ko if: offerLoadingError() || offerTypesLoadingError() || offerTagsLoadingError() -->
-            <div class="alert alert-danger">
+            <div data-bind="css: { 'hidden': !(offerLoadingError() || offerTypesLoadingError() || offerTagsLoadingError()) }" class="hidden alert alert-danger">
                 <strong>Internal Error:</strong> Please try it again later.
             </div>
-            <!-- /ko -->
-            <!-- ko if: !(offerLoadingError() || offerTypesLoadingError() || offerTagsLoadingError() || currentUserIsNotALandlord() || offerLandlordIsNotCurrentUser() || offerCreationError()) -->
-            <div class="tabs">
+
+            <div data-bind="css: { 'hidden': (offerLoadingError() || offerTypesLoadingError() || offerTagsLoadingError() || currentUserIsNotALandlord() || offerLandlordIsNotCurrentUser() || offerCreationError()) }" class="hidden tabs">
                 <ul class="nav nav-pills nav-justified">
                     <li class="active"><a href="#tab1" data-toggle="tab">Step 1</a></li>
                     <li class="disabled"><a href="#tab2">Step 2</a></li>
@@ -540,7 +532,8 @@
                                 </div>
                             </legend>
                             <div id="uploaded-files" data-bind="foreach: { data: offer().mediaObjects(), as: 'media' }" class="row">
-                                <div data-bind="css: {'hidden': media.thumbnailUrl && media.thumbnailUrl.indexOf('dummy.png') === (media.thumbnailUrl.length - 9) }" class="col-sm-3">
+                                <div data-bind="css: {'hidden': media.thumbnailUrl && media.thumbnailUrl.indexOf('dummy.png') === (media.thumbnailUrl.length - 9) }"
+                                    class="col-sm-3">
                                     <a class="image" data-bind="attr: { href: media.thumbnailUrl }" data-lightbox="mediaObjectsLightbox">
                                             <img data-bind="attr: { src: media.thumbnailUrl, alt: 'Uploaded Image ' + (parseInt($index()) + 1) }, css: { 'img-row-2': parseInt($index()) > 3 }"
                                                 class="mediaObject-img img-responsive">
@@ -572,7 +565,6 @@
                     <!-- /.tab -->
                 </div>
             </div>
-            <!-- /ko -->
             <!-- /.tabs -->
         </div>
         <div class="col-sm-2"></div>

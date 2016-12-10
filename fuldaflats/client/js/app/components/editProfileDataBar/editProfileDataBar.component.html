@@ -52,11 +52,11 @@
 					<div class="row">
 						<label for="birthday" class="control-label col-sm-2">Birthday:</label>
 						<div class="col-sm-5">
-							<input type="text" class="form-control" id="bithday" data-bind="attr:{placeholder:birthday}, value: $parent.userChanges().birthday">
+							<input type="date" class="form-control" id="birthday" data-bind="date: $parent.userChanges().birthday" placeholder="YYYY-MM-DD">
 						</div>
 					</div>
 					<div class="row">
-						<label for="eMail" class="control-label col-sm-2">E-Mail:</label>
+						<label for="email" class="control-label col-sm-2">E-Mail:</label>
 						<div class="col-sm-5">
 							<input type="email" class="form-control" id="email" data-bind="attr:{placeholder:email} , value: $parent.userChanges().email">
 						</div>
@@ -65,13 +65,13 @@
 						<div class="row">
 							<label for="phoneNumber" class="control-label col-sm-2">Phone Number:</label>
 							<div class="col-sm-5">
-								<input type="text" class="form-control" id="phoneNumber" data-bind="attr:{placeholder:phoneNumber}, value: $parent.userChanges().phoneNumber">
+								<input type="number" class="form-control" id="phoneNumber" data-bind="attr:{placeholder:phoneNumber}, value: $parent.userChanges().phoneNumber">
 							</div>
 						</div>
 						<div class="row">
 							<label for="zipCode" class="control-label col-sm-2">ZIP Code:</label>
 							<div class="col-sm-5">
-								<input type="text" class="form-control" id="zipCode" data-bind="attr:{placeholder:zipCode} , value: $parent.userChanges().zipCode">
+								<input type="number" class="form-control" id="zipCode" data-bind="attr:{placeholder:zipCode} , value: $parent.userChanges().zipCode">
 							</div>
 						</div>
 						<div class="row">
@@ -89,7 +89,7 @@
 						<div class="row marginbottom">
 							<label for="housenumber" class="control-label col-sm-2">Housenumber:</label>
 							<div class="col-sm-5">
-								<input type="text" class="form-control" id="housenumber" data-bind="attr:{placeholder:houseNumber}, value: $parent.userChanges().houseNumber">
+								<input type="number" class="form-control" id="housenumber" data-bind="attr:{placeholder:houseNumber}, value: $parent.userChanges().houseNumber">
 							</div>
 						</div>
 					</div>

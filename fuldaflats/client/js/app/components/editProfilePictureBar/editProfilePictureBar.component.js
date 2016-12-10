@@ -10,10 +10,15 @@ define(['text!./editProfilePictureBar.component.html', 'css!./editProfilePicture
             var self = this;
             self.currentUser = ko.observable();
 
-            $.getJSON({
-                url: '/api/users/me',
+            $.ajax({
+                method: "GET",
+                url: "/api/users/me",
+                contentType: "application/json",
                 success: function (data, status, req) {
                     self.currentUser(data);
+                },
+                error: function (req, status, err) {
+                    window.location = "/";
                 }
             });
 

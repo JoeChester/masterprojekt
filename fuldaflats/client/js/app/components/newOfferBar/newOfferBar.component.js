@@ -29,6 +29,8 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                 }
             );
 
+            self.createdOffer = ko.observable(false);
+
             self.offerCreationError = ko.observable(false);
             self.offerLandlordIsNotCurrentUser = ko.observable(false);
             self.currentUserIsNotALandlord = ko.observable(false);
@@ -120,7 +122,9 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
             function createOffer() {
                 resetErrors();
                 if (!isCurrentUserALandlord()) {
-                    self.currentUserIsNotALandlord(true);
+                    setTimeout(function() {
+                        self.currentUserIsNotALandlord(true);
+                    }, 300 );
                 } else {
                     api.offers.createOffer().then(
                         function(newOffer) {
@@ -129,6 +133,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                             } else {
                                 var mappedResult = api.offers.mapOfferResultToModel(newOffer);
                                 self.offer(mappedResult);
+                                self.createdOffer(true);
                             }
                         },
                         function(xhr) {
@@ -268,7 +273,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                 loadOfferTypes();
                 loadOfferTags();
                 createOffer();
-                
+
                 window.onbeforeunload = onBeforeUnloadWindow;
             };
         }

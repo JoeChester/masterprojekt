@@ -39,15 +39,15 @@ router.post('/', function (req, res) {
         offer.status = 0;
         offer.save((err, offer) => {
             if (err != null) {
-                res.json(err);
+                return res.json(err);
             } else {
                 var _offer = offer.toJSON_STUB();
                 schema.models.User.findById(offer.landlord, (err, _user) => {
                     if (err != null) {
-                        res.json(err);
+                        return res.json(err);
                     } else {
                         _offer.landlord = _user.toJSON_STUB();
-                        res.json(_offer);
+                        return res.json(_offer);
                     }
                 });
             }
@@ -62,11 +62,11 @@ router.put('/:offerId', function (req, res) {
     } else {
         var _offer = req.body;
         schema.models.Offer.update({
-            where: {
-                id: req.params.offerId,
-                landlord: req.session.user.id
-            }
-        },
+                where: {
+                    id: req.params.offerId,
+                    landlord: req.session.user.id
+                }
+            },
             _offer,
             (err, offer) => {
                 if (err || !offer) {
@@ -103,8 +103,7 @@ router.post('/search', function (req, res) {
     if (req.session.search.tags) {
         schema.models.Tag.find({
             where: {
-                title: {
-                    in: req.session.search.tags
+                title: { in: req.session.search.tags
                 }
             }
         }, (err, tags) => {
@@ -355,12 +354,14 @@ router.get('/:offerId/review', function (req, res) {
                     let _review = review.toJSON();
                     //Execute to Seach User Detail STUBS
                     schema.models.User.find({
-                        where: { id: _review.userId }
+                        where: {
+                            id: _review.userId
+                        }
                     }, (err3, user) => {
                         if (!err3 && user) {
                             //implicit toJSON_STUB because parallel runtime...
                             _review.user = user[0];
-                            if(_review.user.id == req.session.user.id){
+                            if (_review.user.id == req.session.user.id) {
                                 _review.canDelete = true;
                             } else {
                                 _review.canDelete = false;
@@ -389,46 +390,129 @@ router.get('/:offerId/review', function (req, res) {
 
 //create review
 router.post('/:offerId/review', function (req, res) {
-    //check wether the offer exists at all
-    schema.models.Offer.exists(req.param.offerId, err => {
-        if (err) {
-            res.status(400);
-            res.json(err);
-        } else {
-            var newReview = new schema.models.Review(req.body);
+    if (!req.session.auth) {
+        res.status(403);
+        return res.json({
+            signin: ["You have to sign in before you can post reviews."]
+        });
+    }
 
-            newReview.userId = req.param.session.user.id,
-                newReview.offerId = req.param.offerId;
-            newReview.save(err => {
-                if (err) {
-                    res.status(400);
-                    res.json(err);
-                } else
-                    res.sendStatus(201);
+    let _review = req.body;
+
+    let reviewError = {};
+    let hasError = false;
+
+    if (!_review.rating || isNaN(_review.rating)) {
+        editError.rating = ["Please enter a valid rating."];
+        hasError = true;
+    }
+    if (!_review.title) {
+        editError.rating = ["Please enter a valid title."];
+        hasError = true;
+    }
+    if (!_review.comment) {
+        _review.comment = "";
+    }
+
+    if (hasError == true) {
+        res.status(400);
+        return res.json(editError);
+    }
+
+    schema.models.Offer.findById(req.params.offerId, (err, offer) => {
+        if (err || !offer || offer.status == 0) {
+            return res.sendStatus(404);
+        }
+        /*
+        if (offer.type == "FLAT" || offer.type == "SHARE") {
+            res.status(401);
+            return res.json({
+                offerType: ["You can not post reviews for offer with type FLAT or SHARE"]
             });
         }
+        */
+        if (offer.landlord == req.session.user.id) {
+            res.status(401);
+            return res.json({
+                ownOffer: ["You can not post reviews your own offer."]
+            });
+        }
+
+        //Save rating Landlord for later
+        let _ratingLandlord = offer.landlord;
+
+        //Check if user allready created a review for the offer
+        schema.models.Review.findOne({
+            where: {
+                offerId: offer.id,
+                userId: req.session.user.id
+            }
+        }, function (err2, existingReview) {
+            if (existingReview) {
+                res.status(401);
+                return res.json({
+                    review: ["You can only post one review per offer"]
+                });
+            }
+
+            //Everything set up, create new review and save!
+            let newReview = new schema.models.Review(_review);
+            newReview.creationDate = Date.now();
+            newReview.offerId = offer.id;
+            newReview.userId = req.session.user.id;
+            newReview.save((err3, createdReview) => {
+                if (err3 || !createdReview) {
+                    res.status(500);
+                    return res.json(err3);
+                }
+
+                //Review Saved! Calulate new average rating for landlord!
+                schema.models.Offer.find({
+                    where: {
+                        landlord: _ratingLandlord
+                    }
+                }, (err4, offers) => {
+                    let _offerIds = [];
+                    for (let i in offers) {
+                        _offerIds.push(offers[i].id);
+                    }
+                    if (_offerIds.length == 0) {
+                        return res.sendStatus(500);
+                    }
+                    schema.models.Review.find({
+                        where: {
+                            offerId: { in: _offerIds }
+                        }
+                    }, (err5, allReviews) => {
+                        let _newAverageRating = 0;
+                        for (let i in allReviews) {
+                            _newAverageRating += allReviews[i].rating;
+                        }
+                        _newAverageRating = _newAverageRating / allReviews.length;
+                        //Calculation finished! Save for Landlord...
+                        schema.models.User.update({
+                            where: {
+                                id: _ratingLandlord
+                            }
+                        }, {
+                            averageRating: _newAverageRating
+                        }, (err6, updatedLandlord) => {
+                            if(err6){
+                                return res.sendStatus(500)
+                            }
+                            //Finally finished!
+                            return res.sendStatus(201);
+                        });
+                    });
+                });
+            });
+        });
     });
 });
 
 //delete review
 router.delete('/:offerId/review/:reviewId', function (req, res) {
-
-    schema.models.Review.find({
-        where: {
-            userId: req.param.session.user.id,
-            offerId: req.param.offerId,
-            id: req.param.reviewId
-        }
-    }, (err, review) => {
-        review.destroy(err => {
-            if (err) {
-                res.status(400);
-                res.json(err);
-            } else
-                res.sendStatus(200);
-        });
-    });
-
+    res.sendStatus(501);
 });
 
 //set offer as favorite

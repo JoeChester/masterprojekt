@@ -28,10 +28,9 @@ define(['text!./fileUploaderModal.component.html',
                     $(".uploadAllBtn").hide();
             }
 
-            // TODO -> remove mediaObject Endpoint
-            self.deleteOnlineMediaObject = function(file) {
-                console.log("DELETE ONLINE MEDIA");
+            self.deleteOnlineMediaObject = function(file) {                                
                 self.offerMediaObjectsOnline.remove(file);
+                api.mediaObjects.deleteMediaObjectById(file.id);
             }
 
             self.uploadMediaObject = function(file) {
@@ -76,8 +75,8 @@ define(['text!./fileUploaderModal.component.html',
                 }
             }
 
-            self.uploadAll = () => {
-                self.offerMediaObjectsOffline().forEach((file) => {
+            self.uploadAll = function() {
+                self.offerMediaObjectsOffline().forEach(function(file) {
                     self.uploadMediaObject(file);
                 })
             }
@@ -102,7 +101,7 @@ define(['text!./fileUploaderModal.component.html',
                 });
 
                 // "data-bind = click" doesnt work...
-                $(".uploadAllBtn").click((btn) => {
+                $(".uploadAllBtn").click(function(btn) {
                     self.uploadAll();
                 });
             };
@@ -116,7 +115,7 @@ define(['text!./fileUploaderModal.component.html',
                 var offerId = ko.unwrap(self.offerId);
                 if (!isNaN(offerId)) {
                     var mediaObjectsPromise = api.mediaObjects.findMediaObjectsByOfferID(offerId);
-                    mediaObjectsPromise.then((data) => {
+                    mediaObjectsPromise.then(function(data) {
                         self.offerMediaObjectsOnline(data);
                     })
                 }

@@ -100,11 +100,10 @@ define(['text!./signUpModalDialog.component.html', 'css!./signUpModalDialog.comp
 
                     var birthDayValue = ko.unwrap(self.birthDay);
                     if (birthDayValue instanceof Date) {
-                        birthDayValue = self.birthDay().toISOString();
+                        birthDayValue = moment(birthDayValue).format();
                     } else {
                         birthDayValue = "";
                     }
-
                     var signUpData = {
                         firstName: self.firstName,
                         lastName: self.lastName,
