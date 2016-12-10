@@ -38,13 +38,22 @@
         update: function (element, valueAccessor, allBindingsAccessor) {
             var value = ko.utils.unwrapObservable(valueAccessor());
 
+            $(element).bootstrapSwitch("destroy");
+            $(element).bootstrapSwitch();
+
+             //handle the field changing
+            $(element).on('switchChange.bootstrapSwitch', function (event, state) {
+                var observable = valueAccessor();
+                observable(state);
+            });
+
             // Adding component options
             var options = allBindingsAccessor().bootstrapSwitchOptions || {};
             for (var property in options) {
                 $(element).bootstrapSwitch(property, ko.utils.unwrapObservable(options[property]));
             }
-
-            $(element).bootstrapSwitch("state", value);
+            
+           $(element).bootstrapSwitch("state", value);
         }
     };
 });
