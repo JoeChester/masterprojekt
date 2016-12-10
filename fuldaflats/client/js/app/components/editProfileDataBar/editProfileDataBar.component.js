@@ -21,7 +21,6 @@ define(['text!./editProfileDataBar.component.html', 'css!./editProfileDataBar.co
                         data.birthday = moment(data.birthday).format('L');
                     }
                     self.currentUser(data);
-                    console.log(data);
                     self.userChanges().birthday(new Date(data.birthday));
                 }
             });
