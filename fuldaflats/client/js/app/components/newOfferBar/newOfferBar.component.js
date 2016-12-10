@@ -29,7 +29,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                 }
             );
 
-            self.offerCreationError = ko.observable(true);
+            self.offerCreationError = ko.observable(false);
             self.offerLandlordIsNotCurrentUser = ko.observable(false);
             self.currentUserIsNotALandlord = ko.observable(false);
             self.offerLoadingError = ko.observable(false);
@@ -118,13 +118,18 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
             };
 
             function createOffer() {
+                resetErrors();
                 if (!isCurrentUserALandlord()) {
                     self.currentUserIsNotALandlord(true);
                 } else {
                     api.offers.createOffer().then(
                         function(newOffer) {
-                            var mappedResult = api.offers.mapOfferResultToModel(newOffer);
-                            self.offer(mappedResult);
+                            if (!isCurrentUserEqualsLandlord(newOffer.landlord)) {
+                                self.offerLandlordIsNotCurrentUser(true);
+                            } else {
+                                var mappedResult = api.offers.mapOfferResultToModel(newOffer);
+                                self.offer(mappedResult);
+                            }
                         },
                         function(xhr) {
                             self.offerCreationError(true);

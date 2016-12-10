@@ -41,7 +41,15 @@ router.post('/', function (req, res) {
             if (err != null) {
                 res.json(err);
             } else {
-                res.json(offer);
+                var _offer = offer.toJSON_STUB();
+                schema.models.User.findById(offer.landlord, (err, _user) => {
+                    if (err != null) {
+                        res.json(err);
+                    } else {
+                        _offer.landlord = _user.toJSON_STUB();
+                        res.json(_offer);
+                    }
+                });
             }
         });
     }
@@ -54,11 +62,11 @@ router.put('/:offerId', function (req, res) {
     } else {
         var _offer = req.body;
         schema.models.Offer.update({
-                where: {
-                    id: req.params.offerId,
-                    landlord: req.session.user.id
-                }
-            },
+            where: {
+                id: req.params.offerId,
+                landlord: req.session.user.id
+            }
+        },
             _offer,
             (err, offer) => {
                 if (err || !offer) {
@@ -95,7 +103,8 @@ router.post('/search', function (req, res) {
     if (req.session.search.tags) {
         schema.models.Tag.find({
             where: {
-                title: { in: req.session.search.tags
+                title: {
+                    in: req.session.search.tags
                 }
             }
         }, (err, tags) => {
@@ -335,7 +344,7 @@ router.get('/:offerId/review', function (req, res) {
                 offerId: req.params.offerId
             }
         }, (err2, reviews) => {
-            if(err2 || !reviews){
+            if (err2 || !reviews) {
                 return res.sendStatus(404);
             }
 
@@ -346,9 +355,9 @@ router.get('/:offerId/review', function (req, res) {
                     let _review = review.toJSON();
                     //Execute to Seach User Detail STUBS
                     schema.models.User.find({
-                        where: {id: _review.userId}
-                    }, (err3, user) =>{
-                        if(!err3 && user){
+                        where: { id: _review.userId }
+                    }, (err3, user) => {
+                        if (!err3 && user) {
                             //implicit toJSON_STUB because parallel runtime...
                             _review.user = user[0];
                         }
