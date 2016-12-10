@@ -1,413 +1,549 @@
 <!--************************************************************
  * File:            newOfferBar.component.html
  * Author:          Patrick Hasenauer
- * LastMod:         02.12.2016
+ * LastMod:         08.12.2016
  * Description:     Knockout Template for new offer bar.
  ************************************************************-->
 <section id="new-offer-wizard" style="min-height:700px; margin-top: 2rem">
     <div class="container">
-        <div class="row">
-            <div class="col-sm-2">
+        <div class="col-sm-12">
+            <div data-bind="css: { 'hidden': !offerCreationError() }" class="hidden alert alert-danger">
+                <strong>Internal Error:</strong> Failed to create a new offer. Please try it again later.
             </div>
-            <div class="col-sm-8">
-                <div class="tabs">
-                    <ul class="nav nav-pills nav-justified">
-                        <li class="active"><a href="#tab1" data-toggle="tab">Step 1</a></li>
-                        <li class=""><a href="#tab2" data-toggle="tab">Step 2</a></li>
-                        <li class=""><a href="#tab3" data-toggle="tab">Step 3</a></li>
-                        <li class=""><a href="#tab4" data-toggle="tab">Step 4</a></li>
-                    </ul>
-                    <div class="tab-content tab-content-inverse">
-                        <!-- tab 1 -->
-                        <div class="tab-pane active text-center" id="tab1">
-                            <form class="form-horizontal">
-                                <div class="row">
-                                    <label for="offerTitle" class="control-label col-sm-2">Offer Title:</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="offerTitle" placeholder="Nice Apartment near Fulda">
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <label for="offerType" class="control-label col-sm-2">Offer Type:</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="offerType" placeholder="Apartment">
-                                    </div>
-                                </div>
-                                <br><br>
-                                <div class="row">
-                                    <div class="col-sm-2">
-                                    </div>
-                                    <label for="street" class="control-label col-sm-2">Street:</label>
-                                    <div class="col-sm-5">
-                                        <input type="text" class="form-control" id="street" placeholder="Musterstraße">
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-sm-2">
-                                    </div>
-                                    <label for="number" class="control-label col-sm-2">Nr:</label>
-                                    <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="number" placeholder="12a">
-                                    </div>
-                                </div><br>
-                                <div class="row">
-                                    <div class="col-sm-2">
-                                    </div>
-                                    <label for="floor" class="control-label col-sm-2">Floor:</label>
-                                    <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="floor" placeholder="3">
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-sm-2">
-                                    </div>
-                                    <label for="postCode" class="control-label col-sm-2">Post Code:</label>
-                                    <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="postCode" placeholder="34567">
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-sm-2">
-                                    </div>
-                                    <label for="city" class="control-label col-sm-2">City:</label>
-                                    <div class="col-sm-5">
-                                        <input type="text" class="form-control" id="city" placeholder="Musterstadt">
-                                    </div>
-                                </div>
-                            </form>
-                            <br><br>
-                            <div class="row">
-                                <div class="col-xs-2">
-                                    <a data-bind="click: cancelCreation" type="button" class="btn btn-danger" aria-label="Left Align">
-                                        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
-                                    </a>
-                                </div>
-                                <div class="col-xs-8">
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
-                                            25%
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-2">
-                                    <a data-bind="click: goNextStep" next-tab="tab2" type="button" data-toggle="tab" class="btn btn-template-main" aria-label="Right Align">
-                                        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
-                                    </a>
-                                </div>
-                            </div>
-                            <!-- /row -->
-                        </div>
-                        <!-- /.tab -->
-                        <!-- tab 2 -->
-                        <div class="tab-pane text-center" id="tab2">
-                            <form class="form-horizontal">
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <label for="size" class="control-label col-sm-4">Size:</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="size" placeholder="25 qm">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label for="bathroom" class="control-label col-sm-4">Bath:</label>
-                                        <div class="col-sm-8">
-                                            <div class="btn-group">
-                                                <button type="button" class="btn btn-default">Shower/WC</button>
-                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-															<span class="caret"></span>
-															<span class="sr-only">Toggle Dropdown</span>
-													  	</button>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="#">Shower/WC</a></li>
-                                                    <li><a href="#">Shower/Tub/WC</a></li>
-                                                    <li><a href="#">Tub/WC</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <label for="rooms" class="control-label col-sm-4">Rooms:</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="rooms" placeholder="3">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label for="kitchen" class="control-label col-sm-4">Kitchen:</label>
-                                        <div class="col-sm-8">
-                                            <div class="btn-group">
-                                                <button type="button" class="btn btn-default">Fridge/Oven</button>
-                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-															<span class="caret"></span>
-															<span class="sr-only">Toggle Dropdown</span>
-													  	</button>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="#">Fridge/Oven</a></li>
-                                                    <li><a href="#">Fridge/Stove</a></li>
-                                                    <li><a href="#">Fridge/Stove/Oven</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <label for="rentalw" class="control-label col-sm-4">Rental(w):</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="rentalw" placeholder="270 EUR">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label for="cellar" class="control-label col-sm-4">Cellar:</label>
-                                        <div class="col-sm-8">
-                                            <div class="col-sm-4">
-                                                <div class="checkbox">
-                                                    <input type="checkbox" name="cellar" value="" checked>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <label for="addition" class="control-label col-sm-4">Addition:</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="addition" placeholder="50 EUR">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label for="parking" class="control-label col-sm-4">Parking:</label>
-                                        <div class="col-sm-8">
-                                            <div class="col-sm-4">
-                                                <div class="checkbox">
-                                                    <input type="checkbox" name="parking" value="" checked>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <label for="rental" class="control-label col-sm-4">Rental:</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="rental" placeholder="320 EUR">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label for="elevator" class="control-label col-sm-4">Elevator:</label>
-                                        <div class="col-sm-8">
-                                            <div class="col-sm-4">
-                                                <div class="checkbox">
-                                                    <input type="checkbox" name="elevator" value="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                            <br><br>
-                            <div class="row">
-                                <div class="col-xs-2">
-                                    <a data-bind="click: goNextStep" next-tab="tab1" type="button" data-toggle="tab" class="btn btn-template-main" aria-label="Right Align">
-                                        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
-                                    </a>
-                                </div>
-                                <div class="col-xs-8">
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">
-                                            50%
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-2">
-                                    <a data-bind="click: goNextStep" next-tab="tab3" type="button" data-toggle="tab" class="btn btn-template-main" aria-label="Right Align">
-                                        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
-                                    </a>
-                                </div>
-                            </div>
-                            <!-- /row -->
-                        </div>
-                        <!-- /.tab -->
-                        <!-- tab 3 -->
-                        <div class="tab-pane text-center" id="tab3">
-                            <form class="form-horizontal">
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <label for="heating" class="control-label col-sm-4">Heating:</label>
-                                        <div class="col-sm-8">
-                                            <div class="btn-group">
-                                                <button type="button" class="btn btn-default">Gas</button>
-                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-															<span class="caret"></span>
-															<span class="sr-only">Toggle Dropdown</span>
-													  	</button>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="#">Gas</a></li>
-                                                    <li><a href="#">Oil</a></li>
-                                                    <li><a href="#">Electricity</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label for="tv" class="control-label col-sm-4">TV:</label>
-                                        <div class="col-sm-8">
-                                            <div class="btn-group">
-                                                <button type="button" class="btn btn-default">Cable</button>
-                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-															<span class="caret"></span>
-															<span class="sr-only">Toggle Dropdown</span>
-													  	</button>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="#">Cable</a></li>
-                                                    <li><a href="#">DSL</a></li>
-                                                    <li><a href="#">SAT</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <label for="washer" class="control-label col-sm-4">Washer:</label>
-                                        <div class="col-sm-8">
-                                            <div class="col-sm-4">
-                                                <div class="checkbox">
-                                                    <input type="checkbox" name="washing" value="" checked>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label for="phone" class="control-label col-sm-4">Phone:</label>
-                                        <div class="col-sm-8">
-                                            <div class="col-sm-4">
-                                                <div class="checkbox">
-                                                    <input type="checkbox" name="phone" value="" checked>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <label for="dryer" class="control-label col-sm-4">Dryer:</label>
-                                        <div class="col-sm-8">
-                                            <div class="col-sm-4">
-                                                <div class="checkbox">
-                                                    <input type="checkbox" name="dryer" value="" checked>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label for="internet" class="control-label col-sm-4">Internet:</label>
-                                        <div class="col-sm-8">
-                                            <div class="col-sm-4">
-                                                <div class="checkbox">
-                                                    <input type="checkbox" name="internet" value="" checked>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br><br>
+            <div data-bind="css: { 'hidden': !offerLandlordIsNotCurrentUser() }" class="hidden alert alert-danger">
+                <strong>Internal Error:</strong> Current user and offer landlord are not the same. Please try it again later.
+            </div>
+            <div data-bind="css: { 'hidden': !currentUserIsNotALandlord() }" class="hidden alert alert-danger">
+                <strong>Access Denied:</strong> Your are not a landlord.
+            </div>
+            <div data-bind="css: { 'hidden': !(offerLoadingError() || offerTypesLoadingError() || offerTagsLoadingError()) }" class="hidden alert alert-danger">
+                <strong>Internal Error:</strong> Please try it again later.
+            </div>
 
+            <div data-bind="css: { 'hidden': (offerLoadingError() || offerTypesLoadingError() || offerTagsLoadingError() || currentUserIsNotALandlord() || offerLandlordIsNotCurrentUser() || offerCreationError()) }" class="hidden tabs">
+                <ul class="nav nav-pills nav-justified">
+                    <li class="active"><a href="#tab1" data-toggle="tab">Step 1</a></li>
+                    <li class="disabled"><a href="#tab2">Step 2</a></li>
+                    <li class="disabled"><a href="#tab3">Step 3</a></li>
+                    <li class="disabled"><a href="#tab4">Step 4</a></li>
+                    <li class="disabled"><a href="#tab5">Step 5</a></li>
+                </ul>
+                <div class="tab-content tab-content-inverse">
+                    <!-- tab 1 -->
+                    <div class="tab-pane active text-center" id="tab1">
+                        <form class="form-horizontal">
+                            <fieldset>
+                                <legend class="clearfix">
+                                    <div class="col-xs-12 text-left">
+                                        General Information
+                                    </div>
+                                </legend>
                                 <div class="row">
-                                    <div class="col-sm-1"></div>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label for="comment">Description:</label>
-                                            <textarea class="form-control" rows="6" id="comment"></textarea>
+                                            <label for="offerType" class="control-label col-sm-2">Offer Type:</label>
+                                            <div class="col-sm-10">
+                                                <select data-bind="options: offerTypes, value: offer().offerType, optionsCaption: 'Choose Offer Type', optionsAfterRender: optionsAfterRender"
+                                                    class="form-control" id="offerType"></select>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-1"></div>
                                 </div>
-
-                            </form>
-                            <br><br>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="offerTags" class="control-label col-sm-2">Offer Tags:</label>
+                                            <div class="col-sm-10">
+                                                <select data-bind="options: offerTags, selectedOptions: offer().tags, multiselect: { includeSelectAllOption: true, disableIfEmpty: true, buttonWidth: '100%', numberDisplayed: 20, nonSelectedText: 'Choose Offer Tags' }"
+                                                    multiple="multiple" class="form-control" id="offerTags"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="offerTitle" class="control-label col-sm-2">Offer Title:</label>
+                                            <div class="col-sm-10">
+                                                <input data-bind="textInput: offer().title" type="text" class="form-control" id="offerTitle" placeholder="Offer Title">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="offerSize" class="control-label col-sm-4">Size:</label>
+                                            <div class="col-sm-8">
+                                                <div class="input-group">
+                                                    <input data-bind="textInput: offer().size" type="number" class="form-control" id="offerSize" placeholder="Size">
+                                                    <div class="input-group-addon">m²</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="offerRooms" class="control-label col-sm-4">Rooms:</label>
+                                            <div class="col-sm-8">
+                                                <input data-bind="textInput: offer().rooms" type="number" class="form-control" id="offerRooms" placeholder="Rooms">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="offerRent" class="control-label col-sm-4">Rent:</label>
+                                            <div class="col-sm-8">
+                                                <div class="input-group">
+                                                    <input data-bind="textInput: offer().rent" type="number" class="form-control" id="offerRent" placeholder="Rent">
+                                                    <div class="input-group-addon">€</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="offerRentType" class="control-label col-sm-4">Rent Type:</label>
+                                            <div class="col-sm-8">
+                                                <select data-bind="options: offerRentTypes, value: offer().rentType, optionsCaption: 'Choose Rent Type', optionsAfterRender: optionsAfterRender"
+                                                    class="form-control" id="offerRentType"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="offerSideCosts" class="control-label col-sm-4">Side Costs:</label>
+                                            <div class="col-sm-8">
+                                                <div class="input-group">
+                                                    <input data-bind="textInput: offer().sideCosts" type="number" class="form-control" id="offerSideCosts" placeholder="Side Costs">
+                                                    <div class="input-group-addon">€</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="offerPriceType" class="control-label col-sm-4">Price Type:</label>
+                                            <div class="col-sm-8">
+                                                <select data-bind="options: offerPriceTypes, value: offer().priceType, optionsCaption: 'Choose Price Type', optionsAfterRender: optionsAfterRender"
+                                                    class="form-control" id="offerPriceType"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="offerFullPrice" class="control-label col-sm-4">Full Price:</label>
+                                            <div class="col-sm-8">
+                                                <div class="input-group">
+                                                    <input disabled data-bind="value: offerFullPrice" type="number" class="form-control" id="offerFullPrice" placeholder="0">
+                                                    <div class="input-group-addon">€</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="offerDeposit" class="control-label col-sm-4">Deposit:</label>
+                                            <div class="col-sm-8">
+                                                <div class="input-group">
+                                                    <input data-bind="textInput: offer().deposit" type="number" class="form-control" id="offerDeposit" placeholder="Deposit">
+                                                    <div class="input-group-addon">€</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="offerCommission" class="control-label col-sm-4">Commission:</label>
+                                            <div class="col-sm-8">
+                                                <div class="input-group">
+                                                    <input data-bind="textInput: offer().commission" type="number" class="form-control" id="offerCommission" placeholder="Commission">
+                                                    <div class="input-group-addon">€</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <br />
                             <div class="row">
                                 <div class="col-xs-2">
-                                    <a data-bind="click: goNextStep" next-tab="tab2" type="button" data-toggle="tab" class="btn btn-template-main" aria-label="Right Align">
+                                    <a data-bind="click: cancelOfferCreation" type="button" class="btn btn-danger" aria-label="Left Align">
                                         <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
                                     </a>
                                 </div>
                                 <div class="col-xs-8">
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;">
-                                            75%
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%;">
+                                            20%
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-xs-2">
-                                    <a data-bind="click: goNextStep" next-tab="tab4" type="button" data-toggle="tab" class="btn btn-template-main" aria-label="Right Align">
+                                    <a data-bind="click: goNextStep" next-tab="#tab2" type="button" data-toggle="tab" class="btn btn-template-main" aria-label="Right Align">
                                         <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
                                     </a>
                                 </div>
                             </div>
-                            <!-- /row -->
-                        </div>
-                        <!-- tab 4 -->
-                        <!-- /.tab -->
-                        <div class="tab-pane text-center" id="tab4">
+                        </form>
+                    </div>
+                    <!-- /.tab -->
+                    <!-- tab 2 -->
+                    <div class="tab-pane text-center" id="tab2">
+                        <form class="form-horizontal">
+                            <fieldset>
+                                <legend class="clearfix">
+                                    <div class="col-xs-12 text-left">
+                                        Detail Information
+                                    </div>
+                                </legend>
+                                <div class="col-sm-12 center-block">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="offerFurnished" class="control-label col-sm-4">Furnished:</label>
+                                                <div class="col-sm-8">
+                                                    <input data-bind="bootstrapSwitch: offer().furnished, bootstrapSwitchOptions: defaultSwitchOptions" type="checkbox" id="offerFurnished"
+                                                        placeholder="Furnished">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="offerKitchenDescription" class="control-label col-sm-4">Kitchen:</label>
+                                                <div class="col-sm-8">
+                                                    <select data-bind="options: kitchenDescriptions, value: offer().kitchenDescription, optionsCaption: 'Choose Description', optionsAfterRender: optionsAfterRender"
+                                                        class="form-control" id="offerKitchenDescription"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="offerBathroomNumber" class="control-label col-sm-4">Bathroom Numbers:</label>
+                                                <div class="col-sm-8">
+                                                    <input data-bind="value: offer().bathroomNumber" type="number" class="form-control" id="offerBathroomNumber" placeholder="Bathroom Numbers">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="offerBathroomDescription" class="control-label col-sm-4">Bathroom:</label>
+                                                <div class="col-sm-8">
+                                                    <select data-bind="options: bathroomDescriptions, value: offer().bathroomDescription, optionsCaption: 'Choose Description', optionsAfterRender: optionsAfterRender"
+                                                        class="form-control" id="offerBathroomDescription"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="offerCellar" class="control-label col-sm-4">Cellar:</label>
+                                                <div class="col-sm-8">
+                                                    <input data-bind="bootstrapSwitch: offer().cellar, bootstrapSwitchOptions: defaultSwitchOptions" type="checkbox" id="offerCellar"
+                                                        placeholder="Cellar">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="offerParking" class="control-label col-sm-4">Parking:</label>
+                                                <div class="col-sm-8">
+                                                    <input data-bind="bootstrapSwitch: offer().parking, bootstrapSwitchOptions: defaultSwitchOptions" type="checkbox" id="offerParking"
+                                                        placeholder="Parking">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="offerElevator" class="control-label col-sm-4">Elevator:</label>
+                                                <div class="col-sm-8">
+                                                    <input data-bind="bootstrapSwitch: offer().elevator, bootstrapSwitchOptions: defaultSwitchOptions" type="checkbox" id="offerElevator"
+                                                        placeholder="Elevator">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="offerAccessability" class="control-label col-sm-4">Accessability:</label>
+                                                <div class="col-sm-8">
+                                                    <input data-bind="bootstrapSwitch: offer().accessability, bootstrapSwitchOptions: defaultSwitchOptions" type="checkbox" id="offerAccessability"
+                                                        placeholder="Accessability">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="offerWlan" class="control-label col-sm-4">Wlan:</label>
+                                                <div class="col-sm-8">
+                                                    <input data-bind="bootstrapSwitch: offer().wlan, bootstrapSwitchOptions: defaultSwitchOptions" type="checkbox" id="offerWlan"
+                                                        placeholder="Wlan">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="offerLan" class="control-label col-sm-4">Lan:</label>
+                                                <div class="col-sm-8">
+                                                    <input data-bind="bootstrapSwitch: offer().lan, bootstrapSwitchOptions: defaultSwitchOptions" type="checkbox" id="offerLan"
+                                                        placeholder="Lan">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="offerInternetSpeed" class="control-label col-sm-4">Internet Speed:</label>
+                                                <div class="col-sm-8">
+                                                    <div class="input-group">
+                                                        <input data-bind="textInput: offer().internetSpeed" type="number" class="form-control" id="offerInternetSpeed" placeholder="Internet Speed">
+                                                        <div class="input-group-addon">MBit/s</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="offerHeatingDescription" class="control-label col-sm-4">Heating:</label>
+                                                <div class="col-sm-8">
+                                                    <select data-bind="options: offerHeatingDescriptions, value: offer().heatingDescription, optionsCaption: 'Choose Description', optionsAfterRender: optionsAfterRender"
+                                                        class="form-control" id="offerHeatingDescription"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="offerTelevision" class="control-label col-sm-4">Television:</label>
+                                                <div class="col-sm-8">
+                                                    <select data-bind="options: televisionDescriptions, value: offer().television, optionsCaption: 'Choose Description', optionsAfterRender: optionsAfterRender"
+                                                        class="form-control" id="offerTelevision"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="offerTelephone" class="control-label col-sm-4">Telephone:</label>
+                                                <div class="col-sm-8">
+                                                    <input data-bind="bootstrapSwitch: offer().telephone, bootstrapSwitchOptions: defaultSwitchOptions" type="checkbox" id="offerTelephone"
+                                                        placeholder="Telephone">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="offerDryer" class="control-label col-sm-4">Dryer:</label>
+                                                <div class="col-sm-8">
+                                                    <input data-bind="bootstrapSwitch: offer().dryer, bootstrapSwitchOptions: defaultSwitchOptions" type="checkbox" id="offerDryer"
+                                                        placeholder="Dryer">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="offerWashingMachine" class="control-label col-sm-4">Washing Machine:</label>
+                                                <div class="col-sm-8">
+                                                    <input data-bind="bootstrapSwitch: offer().washingMachine, bootstrapSwitchOptions: defaultSwitchOptions" type="checkbox"
+                                                        id="offerWashingMachine" placeholder="WashingMachine">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="offerPets" class="control-label col-sm-4">Pets:</label>
+                                                <div class="col-sm-8">
+                                                    <input data-bind="bootstrapSwitch: offer().pets, bootstrapSwitchOptions: defaultSwitchOptions" type="checkbox" id="offerPets"
+                                                        placeholder="Pets">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <br /><br />
                             <div class="row">
-                                <label class="control-label col-sm-11">Add Pictures and/or Videos:</label>
-                                <div class="col-sm-1">
-                                    <button type="button" class="btn btn-default" aria-label="Right Align">
+                                <div class="col-xs-2">
+                                    <a data-bind="click: goNextStep" next-tab="#tab1" type="button" data-toggle="tab" class="btn btn-template-main" aria-label="Right Align">
+                                        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+                                    </a>
+                                </div>
+                                <div class="col-xs-8">
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">
+                                            40%
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-2">
+                                    <a data-bind="click: goNextStep" next-tab="#tab3" type="button" data-toggle="tab" class="btn btn-template-main" aria-label="Right Align">
+                                        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.tab -->
+                    <!-- tab 3 -->
+                    <div class="tab-pane text-center" id="tab3">
+                        <form class="form-horizontal">
+                            <fieldset>
+                                <legend class="clearfix">
+                                    <div class="col-xs-12 text-left">
+                                        Location
+                                    </div>
+                                </legend>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="offerStreet" class="control-label col-sm-5">Street:</label>
+                                        <div class="col-sm-7">
+                                            <input data-bind="textInput: offer().street" type="text" class="form-control" id="offerStreet" placeholder="Steet">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="offerHouseNumber" class="control-label col-sm-5">House Number:</label>
+                                        <div class="col-sm-7">
+                                            <input data-bind="textInput: offer().houseNumber" type="text" class="form-control" id="offerHouseNumber" placeholder="House Number">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="offerFloor" class="control-label col-sm-5">Floor:</label>
+                                        <div class="col-sm-7">
+                                            <input data-bind="textInput: offer().floor" type="number" class="form-control" id="offerFloor" placeholder="Floor">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="offerZipCode" class="control-label col-sm-5">Zip Code:</label>
+                                        <div class="col-sm-7">
+                                            <input data-bind="textInput: offer().zipCode" type="number" class="form-control" id="offerZipCode" placeholder="Zip Code">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="offerCity" class="control-label col-sm-5">City:</label>
+                                        <div class="col-sm-7">
+                                            <input data-bind="textInput: offer().city" type="text" class="form-control" id="offerCity" placeholder="City">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 center-block">
+                                    <!-- map -->
+                                </div>
+                            </fieldset>
+                            <br><br>
+                            <div class="row">
+                                <div class="col-xs-2">
+                                    <a data-bind="click: goNextStep" next-tab="#tab2" type="button" data-toggle="tab" class="btn btn-template-main" aria-label="Right Align">
+                                        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+                                    </a>
+                                </div>
+                                <div class="col-xs-8">
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                                            60%
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-2">
+                                    <a data-bind="click: goNextStep" next-tab="#tab4" type="button" data-toggle="tab" class="btn btn-template-main" aria-label="Right Align">
+                                        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.tab -->
+                    <!-- tab 4 -->
+                    <div class="tab-pane text-center" id="tab4">
+                        <form class="form-horizontal">
+                            <fieldset>
+                                <legend class="clearfix">
+                                    <div class="col-xs-12 text-left">
+                                        Description
+                                    </div>
+                                </legend>
+                                <div class="col-sm-12 center-block">
+                                    <div class="form-group">
+                                        <textarea data-bind="textInput: offer().description" class="form-control" rows="18" id="offerDescription"></textarea>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <br />
+                            <div class="row">
+                                <div class="col-xs-2">
+                                    <a data-bind="click: goNextStep" next-tab="#tab3" type="button" data-toggle="tab" class="btn btn-template-main" aria-label="Right Align">
+                                        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+                                    </a>
+                                </div>
+                                <div class="col-xs-8">
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;">
+                                            80%
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-2">
+                                    <a data-bind="click: goNextStep" next-tab="#tab5" type="button" data-toggle="tab" class="btn btn-template-main" aria-label="Right Align">
+                                        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.tab -->
+                    <!-- tab 5 -->
+                    <div class="tab-pane text-center" id="tab5">
+                        <fieldset>
+                            <legend class="clearfix">
+                                <div class="col-xs-6 text-left">
+                                    Add Pictures and Video
+                                </div>
+                                <div class="col-xs-6 text-right">
+                                    <button id="offerFileUploadButton" data-bind="click: bindFileUploadModalEvents" data-toggle="modal" data-target="#fileUploaderModal"
+                                        type="button" class="btn btn-sm btn-template-primary" aria-label="Right Align">
 												<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-											</button>
+                                        </button>
                                 </div>
-                            </div><br>
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <div class="image">
-                                        <img src="../img/person-3.png" alt="" class="img-responsive">
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="image">
-                                        <img src="../img/person-3.png" alt="" class="img-responsive">
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="image">
-                                        <img src="../img/person-3.png" alt="" class="img-responsive">
-                                    </div>
+                            </legend>
+                            <div id="uploaded-files" data-bind="foreach: { data: offer().mediaObjects(), as: 'media' }" class="row">
+                                <div data-bind="css: {'hidden': media.thumbnailUrl && media.thumbnailUrl.indexOf('dummy.png') === (media.thumbnailUrl.length - 9) }"
+                                    class="col-sm-3">
+                                    <a class="image" data-bind="attr: { href: media.thumbnailUrl }" data-lightbox="mediaObjectsLightbox">
+                                            <img data-bind="attr: { src: media.thumbnailUrl, alt: 'Uploaded Image ' + (parseInt($index()) + 1) }, css: { 'img-row-2': parseInt($index()) > 3 }"
+                                                class="mediaObject-img img-responsive">
+                                        </a>
                                 </div>
                             </div>
                             <br>
                             <div class="row">
-                                <div class="col-sm-4">
-                                    <div class="image">
-                                        <img src="../img/person-3.png" alt="" class="img-responsive">
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="image">
-                                        <img src="../img/person-3.png" alt="" class="img-responsive">
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="image">
-                                        <img src="../img/person-3.png" alt="" class="img-responsive">
-                                    </div>
-                                </div>
-                            </div>
-                            <br><br>
-                            <div class="row">
                                 <div class="col-xs-2">
-                                    <a data-bind="click: goNextStep" next-tab="tab3" type="button" data-toggle="tab" class="btn btn-template-main" aria-label="Right Align">
+                                    <a data-bind="click: goNextStep" next-tab="#tab4" type="button" data-toggle="tab" class="btn btn-template-main" aria-label="Right Align">
                                         <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
                                     </a>
                                 </div>
@@ -419,18 +555,19 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-2">
-                                    <a type="button" data-toggle="tab" class="btn btn-success" aria-label="Right Align">
+                                    <a data-bind="click: finishOfferCreation" type="button" data-toggle="tab" class="btn btn-success" aria-label="Right Align">
                                         <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
                                     </a>
                                 </div>
                             </div>
-                            <!-- /row -->
-                        </div>
-                        <!-- /.tab -->
+                        </fieldset>
                     </div>
+                    <!-- /.tab -->
                 </div>
-                <!-- /.tabs -->
             </div>
+            <!-- /.tabs -->
         </div>
+        <div class="col-sm-2"></div>
     </div>
 </section>
+<div data-bind='component: { name: "file-uploader", params: { offerId: $data.offer().id } }'></div>

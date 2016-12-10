@@ -1,7 +1,7 @@
 /************************************************************
  * File:            tagCloudBar.component.js
  * Author:          Patrick Hasenauer
- * LastMod:         02.12.2016
+ * LastMod:         09.12.2016
  * Description:     JS Component Handler for tag cloud bar.
  ************************************************************/
 define(['text!./tagCloudBar.component.html', "css!./tagCloudBar.component.css", "knockout", 'jqcloud', 'fuldaflatsApiClient'],
@@ -58,7 +58,7 @@ define(['text!./tagCloudBar.component.html', "css!./tagCloudBar.component.css", 
                 api.offers.getTags().then(function(tagsResult) {
                     cloudTags.removeAll()
 
-                    $.each(ko.unwrap(tagsResult), function(index, tag) {
+                    $.each(tagsResult, function(index, tag) {
                         var tagTitle = "";
 
                         if (tag && typeof tag === "string") {

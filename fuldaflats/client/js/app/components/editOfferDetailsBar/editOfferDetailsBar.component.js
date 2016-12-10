@@ -1,156 +1,173 @@
 /************************************************************
  * File:            editOfferDetailsBar.component.js
- * Author:          Patrick Hasenauer
- * LastMod:         02.12.2016
+ * Author:          Martin Herbener, Patrick Hasenauer
+ * LastMod:         09.12.2016
  * Description:     JS Component Handler for edit offer details bar.
  ************************************************************/
 define(['text!./editOfferDetailsBar.component.html',
     'css!./editOfferDetailsBar.component.css',
     'app/components/fileUploaderModal/fileUploaderModal.component',
     'knockout', 'jquery', 'fuldaflatsApiClient'],
-    function(componentTemplate, componentCss, fileUploaderModalComponent, ko, $, api) {
-        function EditOfferDetailsModel(ko, $, api) {
+    function (componentTemplate, componentCss, fileUploaderModalComponent, ko, $, api) {
+        function EditOfferDetailsModel(params) {
+
             // your model functions and variables
             var self = this;
-            self.offerDetailsPageInfo = ko.observable();
-            self.offer = ko.observable();
+
+            self.offer = ko.observable({});
+            self.offerId = ko.observable();
+            self.offerChanges = ko.observable({});
+            self.isAuthenticated = ko.observable(false);
+            self.landlord = ko.observable({});
             self.currentUser = ko.observable(
                 {
                     isAuthenticated: false,
                     userData: undefined
                 }
             );
+            // Checkbox Observables
+            self.status = ko.observable(0);
+            self.cellar = ko.observable(0);
+            self.parking = ko.observable(0);
+            self.elevator = ko.observable(0);
+            self.dryer = ko.observable(0);
+            self.washingMachine = ko.observable(0);
+            self.telephone = ko.observable(0);
+            self.furnished = ko.observable(0);
+            self.pets = ko.observable(0);
+            self.wlan = ko.observable(0);
+            self.lan = ko.observable(0);
+            self.accessability = ko.observable(0);
+            // Select Observables
+            self.television = ko.observable();
+            self.heatingDescription = ko.observable();
+            self.bathroomDescription = ko.observable();
+            self.kitchenDescription = ko.observable();
 
-            self.offerLoadingError = ko.observable(false);
-            self.offerLandlordIsNotCurrentUser = ko.observable(false);
-            self.currentUserIsNotALandlord = ko.observable(false);
 
+            // Get URL Data
             function getURLParameter(name) {
                 return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
             };
 
-            function isCurrentUserEqualsLandlord(landlord) {
-                var areEquals = false;
-
-                var localLandlord = ko.unwrap(landlord);
-                var localCurrentUser = ko.unwrap(self.currentUser);
-
-                if (localLandlord && localCurrentUser &&
-                    localCurrentUser.isAuthenticated && localCurrentUser.userData
-                    && localLandlord.id === localCurrentUser.userData.id) {
-                    areEquals = true;
-                }
-
-                return areEquals;
-            }
-
-            function isCurrentUserALandlord() {
-                var isLandlord = false;
-
-                var localCurrentUser = ko.unwrap(self.currentUser);
-
-                if (localCurrentUser && localCurrentUser.isAuthenticated &&
-                    localCurrentUser.userData && localCurrentUser.userData.type === 2) {
-                    isLandlord = true;
-                }
-
-                return isLandlord;
-            }
-
-            function loadRequestedOffer() {
-                if (!isCurrentUserALandlord()) {
-                    self.currentUserIsNotALandlord(true);
-                } else {
-                    var offerId = getURLParameter("offerId");
-                    api.offers.getOfferById(offerId).then(
-                        function(requestedOffer) {
-                            var requestOfferValue = ko.unwrap(requestedOffer);
-                            if (requestOfferValue) {
-                                if (!isCurrentUserALandlord()) {
-                                    self.currentUserIsNotALandlord(true);
-                                } else if (!isCurrentUserEqualsLandlord(requestOfferValue.landlord)) {
-                                    self.offerLandlordIsNotCurrentUser(true);
-                                }
-                                else {
-                                    self.offer(requestOfferValue);
-                                    self.offerLoadingError(false);
-                                    self.currentUserIsNotALandlord(false);
-                                    self.offerLandlordIsNotCurrentUser(false);
-                                }
-                            } else {
-                                self.offerLoadingError(true);
-                            }
-                        },
-                        function(xhr) {
-                            self.offerLoadingError(true);
-                        }
-                    );
-                }
-            };
-
-            self.bindFileUploadModalEvents = function(model, event) {
-                if (event && event.currentTarget) {
-                    var dialogId = event.currentTarget.getAttribute("data-target");
-                    var dialogContainer = $(dialogId);
-                    if (dialogContainer.length > 0) {
-                        dialogContainer.on('hide.bs.modal', loadRequestedOffer);
-                    } else {
-                        console.error("Failed to bind file upload dialog events.");
+            //Check Login
+            self.checkLogin = function () {
+                $.ajax({
+                    method: "GET",
+                    url: "/api/users/me",
+                    contentType: "application/json",
+                    success: function (data, status, req) {
+                        console.log("User-Data:");
+                        console.log(data);
+                        self.currentUser(data);
+                        self.isAuthenticated(true);
+                    },
+                    error: function (req, status, error) {
+                        self.currentUser({});
+                        self.isAuthenticated(false);
                     }
-                }
-            };
+                });
+            }
+            loginCallbacks.push(self.checkLogin);
+            self.checkLogin();
 
-            self.cancelEditOffer = function() {
+            //Get Offer Data
+            self.offerId(getURLParameter("offerId") || "");
+            if (self.offerId()) {
+                $.getJSON({
+                    url: '/api/offers/' + self.offerId(),
+                    success: function (offerData, status, req) {
+                        if (offerData) {
+                            for (var i in offerData.mediaObjects) {
+                                offerData.mediaObjects[i].carouselIndex = i;
+                                offerData.mediaObjects[i].carouselActive = false;
+                            }
+                            offerData.mediaObjects[0].carouselActive = true;
+                            console.log("Offer-Data:");
+                            console.log(offerData);
+                            self.offer(offerData);
+                            self.status(offerData.status);
+                            self.cellar(offerData.cellar);
+                            self.parking(offerData.parking);
+                            self.elevator(offerData.elevator);
+                            self.dryer(offerData.dryer);
+                            self.washingMachine(offerData.washingMachine);
+                            self.telephone(offerData.telephone);
+                            self.furnished(offerData.furnished);
+                            self.pets(offerData.pets);
+                            self.wlan(offerData.wlan);
+                            self.lan(offerData.lan);
+                            self.accessability(offerData.accessability);
+                            self.television(offerData.television);
+                            self.heatingDescription(offerData.heatingDescription);
+                            self.bathroomDescription(offerData.bathroomDescription);
+                            self.kitchenDescription(offerData.kitchenDescription);
+                            if (offerData.landlord) {
+                                self.landlord(offerData.landlord);
+                            }
+                        }
+                    }
+                });
+
+            }
+
+            // Cancel Button
+            self.cancelEditOffer = function () {
+                console.log("Cancel gedrückt");
                 window.history.back();
             };
 
-            self.updateOffer = function() {
-                // validation logik
-                api.offers.updatedOffer(self.offer).then(
-                    function() {
-                        if (self.offerDetailsPageInfo() && self.offerDetailsPageInfo().url) {
-                            window.location.href = self.offerDetailsPageInfo().url + "?offerId=" + self.offer().id;
-                        } else {
-                            window.location.href = "/";
-                        }
+            // Accept Button
+            self.updateOffer = function () {
+                self.offerChanges().status = self.status();
+                self.offerChanges().cellar = self.cellar();
+                self.offerChanges().parking = self.parking();
+                self.offerChanges().elevator = self.elevator();
+                self.offerChanges().dryer = self.dryer();
+                self.offerChanges().washingMachine = self.washingMachine();
+                self.offerChanges().telephone = self.telephone();
+                self.offerChanges().furnished = self.furnished();
+                self.offerChanges().pets = self.pets();
+                self.offerChanges().wlan = self.wlan();
+                self.offerChanges().lan = self.lan();
+                self.offerChanges().accessability = self.accessability();
+                self.offerChanges().television = self.television();
+                self.offerChanges().heatingDescription = self.heatingDescription();
+                self.offerChanges().bathroomDescription = self.bathroomDescription();
+                self.offerChanges().kitchenDescription = self.kitchenDescription();
+
+                var _offerChanges = ko.toJSON(self.offerChanges);
+
+                $.ajax({
+                    method: "PUT",
+                    url: '/api/offers/' + self.offerId(),
+                    dataType: "application/json",
+                    contentType: "application/json",
+                    data: _offerChanges,
+                    success: function (data, status, req) {
+                        window.location = "/pages/myProfile";
                     },
-                    function() {
-                        // redponse validation logik
+                    error: function (req, status, error) {
+                        if (req.status == 200) {
+                            window.location = "/pages/myProfile";
+                            return;
+                        }
+                        errorCallback(error);
                     }
-                )
-
-            }
-
-            self.initialize = function(params) {
-                if (params) {
-                    self.offerDetailsPageInfo(ko.unwrap(params.offerDetailsPageInfo || ''));
-
-                    if (params.currentUser && ko.isObservable(params.currentUser)) {
-                        self.currentUser = params.currentUser;
-                    }
-                }
-
-                self.currentUser.subscribe(function(currentUser) {
-                    loadRequestedOffer();
                 });
 
-                loadRequestedOffer();
-            };
+                console.log("Update gedrückt");
+            }
         }
 
         return {
             viewModel: {
-                createViewModel: function(params, componentInfo) {
+                createViewModel: function (params, componentInfo) {
                     // componentInfo contains for example the root element from the component template
-
                     ko.components.register("file-uploader", fileUploaderModalComponent);
-
-                    var editOfferDetails = new EditOfferDetailsModel(ko, $, api);
-                    editOfferDetails.initialize(params);
-
-                    window.editOffer = editOfferDetails;
-
-                    return editOfferDetails;
+                    var viewModel = new EditOfferDetailsModel(params);
+                    window.model = viewModel;
+                    return viewModel;
                 }
             },
             template: componentTemplate

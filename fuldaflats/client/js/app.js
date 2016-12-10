@@ -17,7 +17,7 @@ function executeLoginCallbacks() {
 
 //Standard errorCallback, 
 //to be overwritten by error module;
-var errorCallback = function(errors) {
+var errorCallback = function (errors) {
     for (var i in errors) {
         console.error(errors[i]);
     }
@@ -30,8 +30,8 @@ requirejs.config({
             exports: 'L'
         },
         'bootstrap': { 'deps': ['jquery'] },
-        'bootstrapMultiselect': {'deps':['jquery','bootstrap']},
-        'lightbox': {'deps': ['jquery']},
+        'bootstrapMultiselect': { 'deps': ['jquery', 'bootstrap', 'knockout'] },
+        'lightbox': { 'deps': ['jquery'] },
         'jqueryCookie': { 'deps': ['jquery'] },
         'waypoints': { 'deps': ['jquery'] },
         'jqueryConterup': { 'deps': ['jquery'] },
@@ -44,6 +44,7 @@ requirejs.config({
         'jqcloud': { 'deps': ['jquery'] },
         'bootstrapSwitch': { 'deps': ['jquery'] },
         'knockoutDate': { 'deps': ['knockout', 'moment'] },
+        'knockoutBootstrapSwitch': { 'deps': ['bootstrap', 'knockout'] }
     },
     paths: {
         css: '../bower_components/require-css/css.min',
@@ -51,7 +52,7 @@ requirejs.config({
         jquery: '../bower_components/jquery/dist/jquery.min',
         bootstrap: '../bower_components/bootstrap/dist/js/bootstrap.min',
         bootstrapMultiselect: './lib/bootstrap-multiselect',
-        lightbox : './lib/lightbox.min',
+        lightbox: './lib/lightbox.min',
         knockout: '../bower_components/knockout/dist/knockout',
         jqueryCookie: './lib/jquery.cookie',
         waypoints: './lib/waypoints.min',
@@ -59,6 +60,7 @@ requirejs.config({
         jqueryParallax: './lib/jquery.parallax-1.1.3',
         //front: './lib/front',
         bootstrapSwitch: '../bower_components/bootstrap-switch/dist/js/bootstrap-switch.min',
+        knockoutBootstrapSwitch: './lib/knockout-bootstrap-switch',
         owlCarousel: './lib/owl.carousel.min',
         knockoutOwlCarousel: './lib/knockout-owlCarousel',
         knockoutMapping: './lib/knockout.mapping-latest',
@@ -80,8 +82,8 @@ window.onerror = function(messageOrEvent, source, lineno, colno, error) {
 requirejs(['app/appModel',
     'jquery', 'bootstrap', 'knockout', 'jqueryCookie', 'waypoints', 'jqueryConterup', 'leaflet',
     'jqueryParallax', /* 'front', */ 'bootstrapSwitch', 'owlCarousel', 'knockoutOwlCarousel', 'jqcloud', 'fuldaflatsApiClient',
-    'moment', 'knockoutDate', 'customEventPolyfill'
-], function(app, $) {
+    'moment', 'knockoutDate', 'customEventPolyfill', 'knockoutBootstrapSwitch', 'bootstrapMultiselect'
+], function (app, $) {
     var event = new CustomEvent('scripts-loaded');
     document.dispatchEvent(event);
     console.log("Loaded default libraries, plugins and initilized app.");

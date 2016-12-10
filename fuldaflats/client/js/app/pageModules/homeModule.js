@@ -1,7 +1,7 @@
 /************************************************************
  * File:            homeModule.js
  * Author:          Patrick Hasenauer
- * LastMod:         02.12.2016
+ * LastMod:         09.12.2016
  * Description:     Home page module.
  ************************************************************/
 define([
@@ -23,10 +23,13 @@ define([
         ko.components.register("tag-cloud", tagCloudBarComponent);
 
         function tryToSetFavoritesOffers(currentUser) {
+            favoritesOffers.removeAll();
             var currentUserObject = ko.unwrap(currentUser);
             if (currentUserObject && currentUserObject.isAuthenticated && currentUserObject.userData
                 && currentUserObject.userData.favorites && currentUserObject.userData.favorites.length > 0) {
-                favoritesOffers(currentUserObject.userData.favorites);
+                $.each(currentUserObject.userData.favorites, function(index, favorite) {
+                    favoritesOffers.push(favorite);
+                });
             }
         };
 
@@ -59,12 +62,12 @@ define([
         self.initialize = function(appModel) {
             if (appModel) {
                 api.offers.getRecentOffers().then(function(recentOffersResult) {
-                    recentOffers(ko.unwrap(recentOffersResult) || [])
+                    recentOffers(recentOffersResult || [])
                 });
 
                 // Living International Offers 
                 self.searchByTags(["english"]).then(function(offerSearchResult) {
-                    internationalOffers(ko.unwrap(offerSearchResult) || []);
+                    internationalOffers(offerSearchResult || []);
                 });
 
                 appModel.currentPage = appModel.pages.home;

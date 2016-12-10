@@ -28,6 +28,8 @@ input::-webkit-inner-spin-button {
     margin: 0;
 }
 
+input[type=number] {-moz-appearance: textfield;}
+
 /* set general background color to footer color to 
 prevent ugly whitespace on really large screens.
 make all sections and the id="all" div white background 
@@ -88,6 +90,18 @@ padding-right: 17px;
 
 .gold-text{
   color: #f8dc0c;
+}
+
+.grey-text{
+  color: #999999;
+}
+
+.error-text{
+  color: #a94442;
+}
+
+.bold-text{
+  font-weight: bold;
 }
 
 .thumbnail-container{

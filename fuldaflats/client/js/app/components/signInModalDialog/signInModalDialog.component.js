@@ -1,7 +1,7 @@
 /************************************************************
  * File:            signinModalDialog.component.js
  * Author:          Patrick Hasenauer
- * LastMod:         02.12.2016
+ * LastMod:         09.12.2016
  * Description:     JS Component Handler for sign in dialog.
  ************************************************************/
 define(['text!./signInModalDialog.component.html', 'css!./signInModalDialog.component.css', 'knockout', 'jquery', 'fuldaflatsApiClient'],
@@ -59,8 +59,7 @@ define(['text!./signInModalDialog.component.html', 'css!./signInModalDialog.comp
                     resetErrors();
 
                     api.users.signIn(self.eMail(), self.password(), self.rememberMe()).then(
-                        function (userResult) {
-                            var userObject = ko.unwrap(userResult);
+                        function (userObject) {
                             if (userObject) {
                                 self.currentUser(userObject);
                                 if (self.modalDialogContainer()) {

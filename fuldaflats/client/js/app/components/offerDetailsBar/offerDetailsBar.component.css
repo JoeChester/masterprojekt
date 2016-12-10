@@ -70,3 +70,30 @@
 hr {
     border:solid #ddd 1px;
 }
+
+.centric{
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.review-name{
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.top-spacing{
+    margin-top: 5px;
+}
+
+.star-spacing{
+    margin-top: 7px;
+}
+
+.location-description{
+    font-size: 2rem;
+}
+
+.detailsMap-container{
+    height: 200px;
+    background-color: #999999;
+}

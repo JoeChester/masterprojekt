@@ -1,7 +1,7 @@
 /************************************************************
  * File:            signupModalDialog.component.js
  * Author:          Patrick Hasenauer
- * LastMod:         07.12.2016
+ * LastMod:         09.12.2016
  * Description:     JS Component Handler for sign up dialog.
  ************************************************************/
 define(['text!./signUpModalDialog.component.html', 'css!./signUpModalDialog.component.css',
@@ -115,8 +115,7 @@ define(['text!./signUpModalDialog.component.html', 'css!./signUpModalDialog.comp
                     }
 
                     api.users.signUp(signUpData).then(
-                        function (userResult) {
-                            var userObject = ko.unwrap(userResult);
+                        function (userObject) {
                             if (userObject) {
                                 if (self.myProfilePageInfo() && self.myProfilePageInfo().url) {
                                     window.location.href = self.myProfilePageInfo().url;

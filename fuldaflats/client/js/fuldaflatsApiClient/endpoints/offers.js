@@ -1,14 +1,88 @@
 /************************************************************
  * File:            offer.js
  * Author:          Patrick Hasenauer, Jonas Kleinkauf
- * LastMod:         02.12.2016
+ * LastMod:         09.12.2016
  * Description:     Javascript api client endpoints for offers.
  ************************************************************/
 define(["jquery", 'knockout'], function($, ko) {
 
-    function OffersEndpoint(offersEndpointUrls, offerTypes) {
+    function OffersEndpoint(offersEndpointUrls, availableOfferTypes) {
         var self = this;
         var endpointUrls = offersEndpointUrls;
+
+        self.mapOfferResultToModel = function(offerResult) {
+            var offer = ko.unwrap(self.getOfferModel());
+            var offerResultValue = ko.unwrap(offerResult);
+            $.each(Object.keys(offerResultValue), function(index, propertyName) {
+                if (offer.hasOwnProperty(propertyName)) {
+                    var property = offer[propertyName];
+                    var propertyValue = ko.unwrap(offerResultValue[propertyName]);
+                    if (property && propertyValue) {
+                        if (ko.isObservable(property) && typeof property.remove === "function" && Array.isArray(propertyValue)) {
+                            property(propertyValue)
+                        } else if (ko.isObservable(property)) {
+                            property(propertyValue);
+                        } else {
+                            property = propertyValue;
+                        }
+                    }
+                }
+            });
+
+            return offer;
+        }
+
+        self.getOfferModel = function() {
+            return ko.observable({
+                id: ko.observable(),
+                title: ko.observable(),
+                offerType: ko.observable(),
+                description: ko.observable(),
+                rent: ko.observable(),
+                rentType: ko.observable(),
+                rooms: ko.observable(),
+                sideCosts: ko.observable(),
+                fullPrice: ko.observable(),
+                deposit: ko.observable(),
+                commission: ko.observable(),
+                priceType: ko.observable(),
+                street: ko.observable(),
+                zipCode: ko.observable(),
+                houseNumber: ko.observable(),
+                city: ko.observable(),
+                floor: ko.observable(),
+                size: ko.observable(),
+                furnished: ko.observable(),
+                pets: ko.observable(),
+                bathroomNumber: ko.observable(),
+                bathroomDescription: ko.observable(),
+                kitchenDescription: ko.observable(),
+                cellar: ko.observable(),
+                parking: ko.observable(),
+                elevator: ko.observable(),
+                accessability: ko.observable(),
+                wlan: ko.observable(),
+                lan: ko.observable(),
+                internetSpeed: ko.observable(),
+                heatingDescription: ko.observable(),
+                television: ko.observable(),
+                dryer: ko.observable(),
+                washingMachine: ko.observable(),
+                telephone: ko.observable(),
+                status: ko.observable(),
+                creationDate: ko.observable(),
+                lastModified: ko.observable(),
+                longitude: ko.observable(),
+                latitude: ko.observable(),
+                uniDistance: ko.observable(),
+                landlord: ko.observable(),
+                thumbnailUrl: ko.observable(),
+                mediaObjects: ko.observableArray(),
+                reviews: ko.observableArray(),
+                tags: ko.observableArray(),
+                favorite: ko.observableArray()
+            });
+        };
 
         // Offer Serach
         var forceNullObservable = function() {
@@ -76,13 +150,11 @@ define(["jquery", 'knockout'], function($, ko) {
                 method: "GET",
                 dataType: "json"
             }).done(function(requestSearchResults) {
-                var searchResults = ko.observableArray();
-                if (requestSearchResults && requestSearchResults.length > 0) {
-                    $.each(requestSearchResults, function(index, searchResult) {
-                        searchResults.push(searchResult);
-                    });
+                if (Array.isArray(requestSearchResults)) {
+                    defer.resolve(requestSearchResults);
+                } else {
+                    defer.resolve([]);
                 }
-                defer.resolve(searchResults);
             }).fail(function(jqXHR, textStatus) {
                 console.error("Failed to get offer search result.");
                 defer.reject(jqXHR);
@@ -92,10 +164,12 @@ define(["jquery", 'knockout'], function($, ko) {
         }
 
         // Get Offer Types
-        var offerTypes = ko.observableArray([]);
-        var unwrapOfferTypes = ko.unwrap(offerTypes);
-        if (unwrapOfferTypes && unwrapOfferTypes.length > 0) {
-            offerTypes(unwrapOfferTypes);
+        var offerTypes = [];
+        var unwrapOfferTypes = ko.unwrap(availableOfferTypes);
+        if (Array.isArray(unwrapOfferTypes)) {
+            $.each(unwrapOfferTypes, function(index, offerType) {
+                offerTypes.push(offerType)
+            });
         }
 
         self.getOfferTypes = function() {
@@ -106,20 +180,20 @@ define(["jquery", 'knockout'], function($, ko) {
 
         // Get Tags
         var getTagsDefer = undefined;
-        var cachedTags = ko.observableArray();
+        var cachedTags = [];
 
         self.getTags = function(force) {
             if (getTagsDefer == undefined) {
                 getTagsDefer = $.Deferred();
 
-                if (force || cachedTags().length == 0) {
+                if (force || cachedTags.length == 0) {
                     $.ajax({
                         url: endpointUrls.tags,
                         method: "GET",
                         dataType: "json"
                     }).done(function(tags) {
-                        if (tags && tags.length > 0) {
-                            cachedTags(tags);
+                        if (Array.isArray(tags) && tags.length > 0) {
+                            cachedTags = tags;
                         }
 
                         getTagsDefer.resolve(cachedTags);
@@ -147,14 +221,11 @@ define(["jquery", 'knockout'], function($, ko) {
                 method: "GET",
                 dataType: "json"
             }).done(function(requestedOfferResults) {
-                var offerResults = ko.observableArray();
-                if (requestedOfferResults && requestedOfferResults.length > 0) {
-                    $.each(requestedOfferResults, function(index, searchResult) {
-                        offerResults.push(searchResult);
-                    });
+                if (Array.isArray(requestedOfferResults) && requestedOfferResults.length > 0) {
+                    defer.resolve(requestedOfferResults);
+                } else {
+                    defer.resolve([]);
                 }
-
-                defer.resolve(offerResults);
             }).fail(function(jqXHR, textStatus) {
                 console.error("Failed to get recent offers.");
                 defer.reject(jqXHR);
@@ -167,14 +238,13 @@ define(["jquery", 'knockout'], function($, ko) {
         self.getOfferById = function(offerId) {
             var defer = $.Deferred();
 
-            $.getJSON({
+            $.ajax({
                 url: endpointUrls.offers + "/" + offerId,
                 method: "GET",
                 dataType: "json"
             }).done(function(requestedOffer) {
                 if (requestedOffer) {
-                    var offer = ko.observable(requestedOffer);
-                    defer.resolve(offer);
+                    defer.resolve(requestedOffer);
                 } else {
                     console.error("Failed to get offer by id " + offerId + ". Unexpected  server response.");
                     defer.reject(jqXHR);
@@ -187,13 +257,14 @@ define(["jquery", 'knockout'], function($, ko) {
             return defer.promise();
         };
 
+        // Update Offer
         self.updatedOffer = function(offer) {
             var defer = $.Deferred();
 
             var localOffer = ko.unwrap(offer);
 
-            $.getJSON({
-                url: endpointUrls.offers + "/" + localOffer.id,
+            $.ajax({
+                url: endpointUrls.offers + "/" + ko.unwrap(localOffer.id),
                 method: "PUT",
                 contentType: "application/json",
                 dataType: "text",
@@ -207,7 +278,57 @@ define(["jquery", 'knockout'], function($, ko) {
             });
 
             return defer.promise();
-        }
+        };
+
+        // Create Offer
+        self.createOffer = function() {
+            var defer = $.Deferred();
+
+            $.ajax({
+                url: endpointUrls.offers,
+                method: "POST",
+                dataType: "json",
+            }).done(function(newOffer) {
+                if (newOffer) {
+                    defer.resolve(newOffer);
+                } else {
+                    console.error("Failed to create offer. Unexpected  server response.");
+                    defer.reject(jqXHR);
+                }
+            }).fail(function(jqXHR, textStatus) {
+                console.error("Failed to create offer");
+                defer.reject(jqXHR);
+            });
+
+            return defer.promise();
+        };
+
+        // Delete offer
+        self.deleteOffer = function(offerId, synchron) {
+            var defer = $.Deferred();
+
+            var localOfferId = ko.unwrap(offerId)
+
+            if (!isNaN(localOfferId)) {
+                $.ajax({
+                    url: endpointUrls.offers + "/" + localOfferId,
+                    method: "DELETE",
+                    async: synchron !== true
+                }).done(function(deletedOffer) {
+                    console.log("Delete Offer with id: " + localOfferId)
+                    defer.resolve();
+                }).fail(function(jqXHR, textStatus) {
+                    console.error("Failed to delete offer with id:" + localOfferId);
+                    defer.reject(jqXHR);
+                });
+            } else {
+                defer.resolve();
+            }
+
+            return defer.promise();
+        };
+
+        window.deleteOffer = self.deleteOffer;
     }
 
     return OffersEndpoint;

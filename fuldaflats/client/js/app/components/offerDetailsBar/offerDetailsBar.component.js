@@ -5,10 +5,13 @@
  * Description:     JS Component Handler offer Details Bar
  ************************************************************/
 
-define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.component.css', 'knockout', 'jquery', 'lightbox'],
-    function (componentTemplate, componentCss, ko, $, lightbox) {
+define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.component.css', 'knockout', 'jquery', 'lightbox', 'moment'],
+    function (componentTemplate, componentCss, ko, $, lightbox, moment) {
 
         function OfferDetailsModel(params) {
+
+            moment.locale('de');
+
             var self = this;
 
             // your model functions and variables
@@ -25,6 +28,8 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
             self.offerId = ko.observable();
             self.offer = ko.observable({});
             self.landlord = ko.observable({});
+
+            self.reviews = ko.observableArray([]);
 
             //Check Login
             self.checkLogin = function () {
@@ -43,12 +48,29 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
                 });
             }
 
+            self.getReviews = function(){
+                $.getJSON({
+                    url: '/api/offers/' + self.offerId() + '/review',
+                    success: function(reviewsData, status, req){
+                        self.reviews.removeAll();
+                        for(var i in reviewsData){
+                            reviewsData[i].creationDate = moment(reviewsData[i].creationDate).format('L');
+                            self.reviews.push(reviewsData[i]);
+                        }
+                        console.log(self.reviews());
+                    },
+                    error: function(req, status, error){
+                        self.reviews.removeAll();
+                    }
+                });
+            }
+
             loginCallbacks.push(self.checkLogin);
             self.checkLogin();
 
-            //Get Offer Data
-            self.offerId(getURLParameter("offerId") || "");
-            if (self.offerId()) {
+
+            self.getOfferDetails = function(){
+                 //Get offer Details
                 $.getJSON({
                     url: '/api/offers/' + self.offerId(),
                     success: function (offerData, status, req) {
@@ -58,6 +80,9 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
                                 offerData.mediaObjects[i].carouselActive = false;
                             }
                             offerData.mediaObjects[0].carouselActive = true;
+                            for (var j in offerData.reviews) {
+                                offerData.reviews[j].creationDate = moment(offerData.reviews[j].creationDate).format('L');
+                            }
                             console.log(offerData);
                             self.offer(offerData);
                             if (offerData.landlord) {
@@ -66,6 +91,24 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
                         }
                     }
                 });
+                //Get Offer Reviews as seperate model for better handling
+                self.getReviews();
+            }
+
+            //Get Offer Data
+            self.offerId(getURLParameter("offerId") || "");
+            if (self.offerId()) {
+               self.getOfferDetails();
+            }
+
+            loginCallbacks.push(self.getReviews);
+
+            self.sendReview = function(){
+                var _review = {};
+                _review.rating = parseInt($('#newReviewRating').val());
+                _review.title = $('#newReviewTitle').val();
+                _review.comment = $('#newReviewComment').val();
+                console.log(_review);
             }
         }
 

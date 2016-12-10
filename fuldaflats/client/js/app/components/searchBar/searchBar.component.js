@@ -1,7 +1,7 @@
 /************************************************************
  * File:            searchBar.component.js
  * Author:          Jonas Kleinkauf, Patrick Hasenauer
- * LastMod:         02.12.2016
+ * LastMod:         09.12.2016
  * Description:     JS Component Handler for search bar.
  ************************************************************/
 define(['text!./searchBar.component.html', 'css!./searchBar.component.css', 
@@ -44,7 +44,7 @@ define(['text!./searchBar.component.html', 'css!./searchBar.component.css',
 
             self.availableTags = ko.observableArray();
             api.offers.getTags().then(function(tags) {
-                self.availableTags(ko.unwrap(tags));
+                self.availableTags(tags);
                 $('#tags1').multiselect({
                     numberDisplayed: 0,
                     nonSelectedText: 'Choose Tags',
