@@ -1,7 +1,7 @@
 /************************************************************
  * File:            editProfileDataBar.component.js
  * Author:          Michelle Rothenbuecher, Patrick Hasenauer
- * LastMod:         02.12.2016
+ * LastMod:         10.12.2016
  * Description:     JS Component Handler for edit profile data bar.
  ************************************************************/
 define(['text!./editProfileDataBar.component.html', 'css!./editProfileDataBar.component.css', 'knockout', 'jquery', 'moment'],
@@ -42,6 +42,11 @@ define(['text!./editProfileDataBar.component.html', 'css!./editProfileDataBar.co
                 self.userChanges().birthday(birthDayValue);
 
                 var _userChanges = ko.toJSON(self.userChanges);
+
+                $("input").each(function(){
+                    $(this).removeClass("errorField");
+                })
+
                 $.ajax({
                     method: "PUT",
                     url: "/api/users/me",
@@ -56,7 +61,12 @@ define(['text!./editProfileDataBar.component.html', 'css!./editProfileDataBar.co
                             window.location = "/pages/myProfile";
                             return;
                         }
-                        errorCallback(error);
+                        var errorBody = JSON.parse(req.responseText);
+
+                        for (var singleError in errorBody) {
+                            $("#" + singleError).addClass("errorField");
+                        }
+                        errorCallback(errorBody);
                     }
                 });
             }
