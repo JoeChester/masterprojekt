@@ -27,7 +27,7 @@
                 <strong>Internal Error:</strong> Please try it again later.
             </div>
             <!-- /ko -->
-            <!-- ko if: !(offerLoadingError() || offerTypesLoadingError() || offerTagsLoadingError() || currentUserIsNotALandlord() || offerLandlordIsNotCurrentUser() || offerCreationError())-->
+            <!-- ko if: !(offerLoadingError() || offerTypesLoadingError() || offerTagsLoadingError() || currentUserIsNotALandlord() || offerLandlordIsNotCurrentUser() || offerCreationError()) -->
             <div class="tabs">
                 <ul class="nav nav-pills nav-justified">
                     <li class="active"><a href="#tab1" data-toggle="tab">Step 1</a></li>
@@ -540,7 +540,7 @@
                                 </div>
                             </legend>
                             <div id="uploaded-files" data-bind="foreach: { data: offer().mediaObjects(), as: 'media' }" class="row">
-                                <div class="col-sm-3">
+                                <div data-bind="css: {'hidden': media.thumbnailUrl && media.thumbnailUrl.indexOf('dummy.png') === (media.thumbnailUrl.length - 9) }" class="col-sm-3">
                                     <a class="image" data-bind="attr: { href: media.thumbnailUrl }" data-lightbox="mediaObjectsLightbox">
                                             <img data-bind="attr: { src: media.thumbnailUrl, alt: 'Uploaded Image ' + (parseInt($index()) + 1) }, css: { 'img-row-2': parseInt($index()) > 3 }"
                                                 class="mediaObject-img img-responsive">
@@ -578,4 +578,4 @@
         <div class="col-sm-2"></div>
     </div>
 </section>
-<div data-bind='component: { name: "file-uploader"}'></div>
+<div data-bind='component: { name: "file-uploader", params: { offerId: $data.offer().id } }'></div>

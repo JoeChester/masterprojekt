@@ -188,7 +188,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                     var dialogId = event.currentTarget.getAttribute("data-target");
                     var dialogContainer = $(dialogId);
                     if (dialogContainer.length > 0) {
-                        dialogContainer.on('hide.bs.modal', reloadOffer);
+                        dialogContainer.on('hidden.bs.modal', reloadOffer);
                     } else {
                         console.error("Failed to bind file upload dialog events.");
                     }

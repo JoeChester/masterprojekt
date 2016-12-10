@@ -5,8 +5,8 @@
  * Description:     Logic for the fileUploader component
 ************************************************************/
 define(['text!./fileUploaderModal.component.html',
-'css!./fileUploaderModal.component.css',
-'fuldaflatsApiClient', 'knockout', 'jquery'],
+    'css!./fileUploaderModal.component.css',
+    'fuldaflatsApiClient', 'knockout', 'jquery'],
     function(componentTemplate, componentCss, api, ko, $) {
         function FileUploaderModalModel($, ko) {
 
@@ -19,35 +19,37 @@ define(['text!./fileUploaderModal.component.html',
             self.offerMediaObjectsOnline = ko.observableArray([]);
             // MediaObjects which are selected and are uploadable
             self.offerMediaObjectsOffline = ko.observableArray([]);
-            self.offerID = getURLParameter("offerId");
-            
-            self.removeOfflineMediaObject = function(file){
+            self.offerId = ko.observable(getURLParameter("offerId") || undefined);
+
+            self.removeOfflineMediaObject = function(file) {
                 self.offerMediaObjectsOffline.remove(file);
 
-                if(self.offerMediaObjectsOffline().length == 1)
+                if (self.offerMediaObjectsOffline().length == 1)
                     $(".uploadAllBtn").hide();
             }
 
             // TODO -> remove mediaObject Endpoint
-            self.deleteOnlineMediaObject = function(file){
+            self.deleteOnlineMediaObject = function(file) {
                 console.log("DELETE ONLINE MEDIA");
                 self.offerMediaObjectsOnline.remove(file);
             }
 
-            self.uploadMediaObject = function(file){
+            self.uploadMediaObject = function(file) {
                 var fileIndex = self.offerMediaObjectsOffline.indexOf(file);
                 var form = new FormData();
                 form.append("file", file);
 
-                if(self.offerMediaObjectsOnline().length > UPLOAD_LIMIT)
+                var offerId = ko.unwrap(self.offerId);
+
+                if (self.offerMediaObjectsOnline().length > UPLOAD_LIMIT)
                     newError(fileIndex, "You reached the upload limit of 7 images!");
-                else if(file.size > UPLOAD_FILESIZE_LIMIT)
+                else if (file.size > UPLOAD_FILESIZE_LIMIT)
                     newError(fileIndex, "This image exceeds the size limit of 5 MB!");
-                else if(file.type.split("/")[0] != "image")
+                else if (file.type.split("/")[0] != "image")
                     newError(fileIndex, "This is not an image!");
-                else {
+                else if (!isNaN(offerId)) {
                     $.ajax({
-                        url:"/api/files/offers/" + self.offerID,
+                        url: "/api/files/offers/" + offerId,
                         method: "POST",
                         async: true,
                         processData: false,
@@ -55,60 +57,69 @@ define(['text!./fileUploaderModal.component.html',
                         mimeType: "multipart/form-data",
                         data: form,
                         xhr: newXHRObject.bind(null, file),
-                    }).done( function(data){
+                    }).done(function(data) {
                         self.offerMediaObjectsOffline.remove(file);
                         updateMediaObjectsOnline();
 
-                    }).fail( function(err){
-                        $("#"+fileIndex+".removeFileBtn").show();
-                        $("#"+fileIndex+".uploadFileBtn").show(); 
-                        $("#"+fileIndex+".progressMediaObjectUpLoad").hide();
-                        $("#"+fileIndex+".progressMediaObjectUpLoad").css("width", "0");                       
-                        
+                    }).fail(function(err) {
+                        $("#" + fileIndex + ".removeFileBtn").show();
+                        $("#" + fileIndex + ".uploadFileBtn").show();
+                        $("#" + fileIndex + ".progressMediaObjectUpLoad").hide();
+                        $("#" + fileIndex + ".progressMediaObjectUpLoad").css("width", "0");
+
                         newError(fileIndex, JSON.parse(err.responseText).error);
                     })
 
-                    $("#"+fileIndex+".removeFileBtn").hide();
-                    $("#"+fileIndex+".uploadFileBtn").hide(); 
-                    $("#"+fileIndex+".progressMediaObjectUpLoad").show(); 
+                    $("#" + fileIndex + ".removeFileBtn").hide();
+                    $("#" + fileIndex + ".uploadFileBtn").hide();
+                    $("#" + fileIndex + ".progressMediaObjectUpLoad").show();
                 }
             }
 
             self.uploadAll = () => {
-                self.offerMediaObjectsOffline().forEach( (file) => {
+                self.offerMediaObjectsOffline().forEach((file) => {
                     self.uploadMediaObject(file);
                 })
             }
 
-            self.initialize = function() {
+            self.initialize = function(params) {
+                if (params && ko.isObservable(params.offerId)) {
+                    self.offerId = params.offerId;
+                    self.offerId.subscribe(function() {
+                        updateMediaObjectsOnline();
+                    });
+                }
+
                 updateMediaObjectsOnline();
 
                 $("#mediaObjectFile").on("change", function(event) {
-                    for(var i=0; i<event.target.files.length; i++){
+                    for (var i = 0; i < event.target.files.length; i++) {
                         self.offerMediaObjectsOffline.push(event.target.files[i]);
                     }
 
-                     if(self.offerMediaObjectsOffline().length > 1)
-                            $(".uploadAllBtn").show();
-                })
+                    if (self.offerMediaObjectsOffline().length > 1)
+                        $(".uploadAllBtn").show();
+                });
 
                 // "data-bind = click" doesnt work...
-                $(".uploadAllBtn").click( (btn) => {
+                $(".uploadAllBtn").click((btn) => {
                     self.uploadAll();
-                })
-            }
-            
-            function newError(fileIndex, errMsg){
-                $("#"+fileIndex+".alertFileUpload").show();
-                $("#"+fileIndex+".alertFileUpload").text(errMsg);  
+                });
+            };
+
+            function newError(fileIndex, errMsg) {
+                $("#" + fileIndex + ".alertFileUpload").show();
+                $("#" + fileIndex + ".alertFileUpload").text(errMsg);
             }
 
-            function updateMediaObjectsOnline(){
-                var mediaObjectsPromise = api.mediaObjects.findMediaObjectsByOfferID(self.offerID);
-                
-                mediaObjectsPromise.then( (data) => {
-                    self.offerMediaObjectsOnline(data);
-                })
+            function updateMediaObjectsOnline() {
+                var offerId = ko.unwrap(self.offerId);
+                if (!isNaN(offerId)) {
+                    var mediaObjectsPromise = api.mediaObjects.findMediaObjectsByOfferID(offerId);
+                    mediaObjectsPromise.then((data) => {
+                        self.offerMediaObjectsOnline(data);
+                    })
+                }
             }
 
             function newXHRObject(file) {
@@ -117,16 +128,16 @@ define(['text!./fileUploaderModal.component.html',
                 return xhr;
             }
             function progressUpLoad(file, evt) {
-                if (evt.lengthComputable){
+                if (evt.lengthComputable) {
                     var fileIndex = self.offerMediaObjectsOffline.indexOf(file);
                     var percent = Math.round(evt.loaded / evt.total * 100, 2);
 
-                    if(percent >= 53)
-                        $("#"+fileIndex+".progressMediaObjectUpLoad > span").css("color", "white");
+                    if (percent >= 53)
+                        $("#" + fileIndex + ".progressMediaObjectUpLoad > span").css("color", "white");
 
-                    $("#"+fileIndex+".progressMediaObjectUpLoad > div").attr("aria-valuenow", percent+"");
-                    $("#"+fileIndex+".progressMediaObjectUpLoad > div").width(percent + "%");
-                    $("#"+fileIndex+".progressMediaObjectUpLoad > span").text(percent + " %");
+                    $("#" + fileIndex + ".progressMediaObjectUpLoad > div").attr("aria-valuenow", percent + "");
+                    $("#" + fileIndex + ".progressMediaObjectUpLoad > div").width(percent + "%");
+                    $("#" + fileIndex + ".progressMediaObjectUpLoad > span").text(percent + " %");
 
                 }
             }
@@ -140,7 +151,7 @@ define(['text!./fileUploaderModal.component.html',
             viewModel: {
                 createViewModel: function(params, componentInfo) {
                     var fileUploader = new FileUploaderModalModel($, ko);
-                    fileUploader.initialize();
+                    fileUploader.initialize(params);
                     return fileUploader;
                 }
             },
