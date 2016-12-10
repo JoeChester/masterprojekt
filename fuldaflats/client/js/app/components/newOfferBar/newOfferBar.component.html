@@ -326,8 +326,8 @@
                                             <div class="form-group">
                                                 <label for="offerTelevision" class="control-label col-sm-4">Television:</label>
                                                 <div class="col-sm-8">
-                                                    <input data-bind="bootstrapSwitch: offer().television, bootstrapSwitchOptions: defaultSwitchOptions" type="checkbox" id="offerTelevision"
-                                                        placeholder="Television">
+                                                    <select data-bind="options: televisionDescriptions, value: offer().television, optionsCaption: 'Choose Description', optionsAfterRender: optionsAfterRender"
+                                                        class="form-control" id="offerTelevision"></select>
                                                 </div>
                                             </div>
                                         </div>

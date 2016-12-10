@@ -12,11 +12,12 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
             // your model functions and variables
             self.tabsContainer = ko.observable();
             self.defaultSwitchOptions = { onText: 'Yes', onColor: 'primary', offColor: 'danger', offText: 'No', animate: true, size: 'small' };
-            self.offerPriceTypes = ko.observableArray(["DAY", "MONTH", "QUARTER", "HALF YEAR", "SEMESTER", "YEAR"]);
-            self.offerRentTypes = ko.observableArray(["COLD", "WARM"]);
+            self.offerPriceTypes = ko.observableArray(["Day", "Month", "Quarter", "Half Year", "Semester", "Year"]);
+            self.offerRentTypes = ko.observableArray(["Cold", "Warm"]);
             self.kitchenDescriptions = ko.observableArray(["Fridge & Oven", "Fridge & Stove", "Fridge & Stove & Oven"]);
             self.bathroomDescriptions = ko.observableArray(["Shower & WC", "Shower & Tub & WC", "Tub & WC"]);
             self.offerHeatingDescriptions = ko.observableArray(["Gas", "Oil", "Electricity"]);
+            self.televisionDescriptions = ko.observableArray(["No", "Cable", "DSL", "SAT"])
             self.offerTypes = ko.observable();
             self.offerTags = ko.observableArray()
             self.offer = api.offers.getOfferModel();
