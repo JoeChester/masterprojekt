@@ -1,7 +1,7 @@
 /************************************************************
  * File:            myProfileBar.component.js
  * Author:          Michelle Rothenbuecher, Patrick Hasenauer
- * LastMod:         02.12.2016
+ * LastMod:         10.12.2016
  * Description:     JS Component Handler for my profile bar.
  ************************************************************/
 define(['text!./myProfileBar.component.html', 'css!./myProfileBar.component.css', 'knockout', 'jquery', 'moment'],
@@ -30,8 +30,10 @@ define(['text!./myProfileBar.component.html', 'css!./myProfileBar.component.css'
             }
 
             self.getUserdata = function () {
-                $.getJSON({
-                    url: '/api/users/me',
+                $.ajax({
+                method: "GET",
+                url: "/api/users/me",
+                contentType: "application/json",
                     success: function (data, status, req) {
                         if (data.birthday) {
                             data.birthday = moment(data.birthday).format('L');
@@ -57,7 +59,10 @@ define(['text!./myProfileBar.component.html', 'css!./myProfileBar.component.css'
 
                         console.log(data);
                         self.currentUser(data);
-                    }
+                },
+                error: function (req, status, err) {
+                    window.location = "/";
+                }
                 });
             }
 

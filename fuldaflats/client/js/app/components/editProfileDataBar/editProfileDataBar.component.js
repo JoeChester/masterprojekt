@@ -14,14 +14,19 @@ define(['text!./editProfileDataBar.component.html', 'css!./editProfileDataBar.co
                 birthday: ko.observable(new Date())
             });
 
-            $.getJSON({
-                url: '/api/users/me',
+            $.ajax({
+                method: "GET",
+                url: "/api/users/me",
+                contentType: "application/json",
                 success: function (data, status, req) {
                     if (data.birthday) {
                         data.birthday = moment(data.birthday).format('L');
                     }
                     self.currentUser(data);
                     self.userChanges().birthday(new Date(data.birthday));
+                },
+                error: function(req, status, err){
+                    window.location = "/";
                 }
             });
 
