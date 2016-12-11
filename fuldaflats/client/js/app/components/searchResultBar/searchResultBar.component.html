@@ -4,10 +4,10 @@
  * LastMod:         02.12.2016
  * Description:     Knockout Template for Search Results
  ************************************************************ -->
-<section class="nomargin">
+<section class="no-margin search-result-container">
     <!-- ______________ Sort Select ______________ -->
     <div class="row sort-row">
-        <div class="col-md-2">
+        <div class="col-lg-2 col-md-4 col-sm-4" >
             <div class="input-group">
                 <select class="form-control" data-bind="options: sortCriteria,
                         optionsText: 'name',
@@ -19,7 +19,7 @@
     </div>
     <div class="row">
         <!-- ______________ RESULTS ______________ -->
-        <div class="col-md-6 resultColumn scroll-y" data-bind="foreach: { data: offers, as: 'offer' }">
+        <div class="col-md-6 search-result-colums scroll-y" data-bind="foreach: { data: offers, as: 'offer' }">
             <div class="panel panel-offer-result">
                 <div class="panel-body">
                     <!-- Hoverable Image -->
