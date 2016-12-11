@@ -13,6 +13,11 @@
 			</div>
 			<div class="modal-body">
 				<form>
+					<!-- ko if: accountIsLocked -->
+					<div class="alert alert-danger">
+						<strong>Access Denied:</strong> Your account is locked. Please contact the administrator to reactivate your account.
+					</div>
+					<!-- /ko -->
 					<!-- ko if: internalError-->
 					<div class="alert alert-danger">
 						<strong>Internal Error:</strong> Please try it again later.
@@ -37,7 +42,7 @@
 						<input data-bind="bootstrapSwitch: rememberMe, bootstrapSwitchOptions: { onText: 'Remember Me', onColor: 'primary', offColor: 'danger', offText: 'Remember Me', animate: true, size: 'small', labelWidth: '80' }"
 							type="checkbox" class="form-control" id="rememberMe">
 					</div>
-					<button type="submit" data-bind="click: signIn, enable: (isValidEmail() && isValidPassword()) && !(invalidCredentials() || internalError())"
+					<button type="submit" data-bind="click: signIn, enable: (isValidEmail() && isValidPassword()) && !(invalidCredentials() || internalError() || accountIsLocked())"
 						class="btn btn-template-primary btn-block">Sign In</button>
 				</form>
 			</div>

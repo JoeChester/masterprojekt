@@ -93,38 +93,36 @@
 								</div>
 							</div>
 						</fieldset>
-						<fieldset class="form-group">
+						<fieldset class="form-group" data-bind="if: $data.type==2">
 							<legend>Contact Information</legend>
-							<div data-bind="if: $data.type==2">
-								<div class="row profile-detail-row-xs">
-									<label class="control-label col-sm-2">Phone Number:</label>
-									<div class="col-sm-10">
-										<p id="phoneNumber" class="form-control-static" data-bind="text: phoneNumber"></p>
-									</div>
+							<div class="row profile-detail-row-xs">
+								<label class="control-label col-sm-2">Phone Number:</label>
+								<div class="col-sm-10">
+									<p id="phoneNumber" class="form-control-static" data-bind="text: phoneNumber"></p>
 								</div>
-								<div class="row profile-detail-row">
-									<label class="control-label col-sm-2">ZIP Code:</label>
-									<div class="col-sm-10">
-										<p id="zipCode" class="form-control-static" data-bind="text: zipCode"></p>
-									</div>
+							</div>
+							<div class="row profile-detail-row">
+								<label class="control-label col-sm-2">ZIP Code:</label>
+								<div class="col-sm-10">
+									<p id="zipCode" class="form-control-static" data-bind="text: zipCode"></p>
 								</div>
-								<div class="row profile-detail-row-xs">
-									<label class="control-label col-sm-2">City:</label>
-									<div class="col-sm-10">
-										<p id="city" class="form-control-static" data-bind="text: city"></p>
-									</div>
+							</div>
+							<div class="row profile-detail-row-xs">
+								<label class="control-label col-sm-2">City:</label>
+								<div class="col-sm-10">
+									<p id="city" class="form-control-static" data-bind="text: city"></p>
 								</div>
-								<div class="row profile-detail-row-xs">
-									<label class="control-label col-sm-2">Street:</label>
-									<div class="col-sm-10">
-										<p id="street" class="form-control-static" data-bind="text: street"></p>
-									</div>
+							</div>
+							<div class="row profile-detail-row-xs">
+								<label class="control-label col-sm-2">Street:</label>
+								<div class="col-sm-10">
+									<p id="street" class="form-control-static" data-bind="text: street"></p>
 								</div>
-								<div class="row profile-detail-row-xs">
-									<label class="control-label col-sm-2">House Number:</label>
-									<div class="col-sm-10">
-										<p id="housenumber" class="form-control-static" data-bind="text: houseNumber"></p>
-									</div>
+							</div>
+							<div class="row profile-detail-row-xs">
+								<label class="control-label col-sm-2">House Number:</label>
+								<div class="col-sm-10">
+									<p id="housenumber" class="form-control-static" data-bind="text: houseNumber"></p>
 								</div>
 							</div>
 						</fieldset>
