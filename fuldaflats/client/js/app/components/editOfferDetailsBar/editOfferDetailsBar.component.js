@@ -1,7 +1,7 @@
 /************************************************************
  * File:            editOfferDetailsBar.component.js
  * Author:          Martin Herbener, Patrick Hasenauer
- * LastMod:         09.12.2016
+ * LastMod:         11.12.2016
  * Description:     JS Component Handler for edit offer details bar.
  ************************************************************/
 define(['text!./editOfferDetailsBar.component.html',
@@ -14,6 +14,7 @@ define(['text!./editOfferDetailsBar.component.html',
             // your model functions and variables
             var self = this;
 
+            //  Main Observables
             self.offer = ko.observable({});
             self.offerId = ko.observable();
             self.offerChanges = ko.observable({});
@@ -25,6 +26,7 @@ define(['text!./editOfferDetailsBar.component.html',
                     userData: undefined
                 }
             );
+
             // Checkbox Observables
             self.status = ko.observable(0);
             self.cellar = ko.observable(0);
@@ -38,6 +40,7 @@ define(['text!./editOfferDetailsBar.component.html',
             self.wlan = ko.observable(0);
             self.lan = ko.observable(0);
             self.accessability = ko.observable(0);
+
             // Select Observables
             self.television = ko.observable();
             self.heatingDescription = ko.observable();
@@ -74,6 +77,45 @@ define(['text!./editOfferDetailsBar.component.html',
             //Get Offer Data
             self.offerId(getURLParameter("offerId") || "");
             if (self.offerId()) {
+                loadPage();
+                /*$.getJSON({
+                    url: '/api/offers/' + self.offerId(),
+                    success: function (offerData, status, req) {
+                        if (offerData) {
+                            for (var i in offerData.mediaObjects) {
+                                offerData.mediaObjects[i].carouselIndex = i;
+                                offerData.mediaObjects[i].carouselActive = false;
+                            }
+                            offerData.mediaObjects[0].carouselActive = true;
+                            console.log("Offer-Data:");
+                            console.log(offerData);
+                            self.offer(offerData);
+                            self.status(offerData.status);
+                            self.cellar(offerData.cellar);
+                            self.parking(offerData.parking);
+                            self.elevator(offerData.elevator);
+                            self.dryer(offerData.dryer);
+                            self.washingMachine(offerData.washingMachine);
+                            self.telephone(offerData.telephone);
+                            self.furnished(offerData.furnished);
+                            self.pets(offerData.pets);
+                            self.wlan(offerData.wlan);
+                            self.lan(offerData.lan);
+                            self.accessability(offerData.accessability);
+                            self.television(offerData.television);
+                            self.heatingDescription(offerData.heatingDescription);
+                            self.bathroomDescription(offerData.bathroomDescription);
+                            self.kitchenDescription(offerData.kitchenDescription);
+                            if (offerData.landlord) {
+                                self.landlord(offerData.landlord);
+                            }
+                        }
+                    }
+                });*/
+            }
+
+            // Reload Data after Media upload
+            function loadPage() {
                 $.getJSON({
                     url: '/api/offers/' + self.offerId(),
                     success: function (offerData, status, req) {
@@ -107,9 +149,21 @@ define(['text!./editOfferDetailsBar.component.html',
                             }
                         }
                     }
-                });
+                })
+            };
 
-            }
+            // File Upload Modal
+            self.bindFileUploadModalEvents = function (model, event) {
+                if (event && event.currentTarget) {
+                    var dialogId = event.currentTarget.getAttribute("data-target");
+                    var dialogContainer = $(dialogId);
+                    if (dialogContainer.length > 0) {
+                        dialogContainer.on('hide.bs.modal', loadPage);
+                    } else {
+                        console.error("Failed to bind file upload dialog events.");
+                    }
+                }
+            };
 
             // Cancel Button
             self.cancelEditOffer = function () {
@@ -155,7 +209,6 @@ define(['text!./editOfferDetailsBar.component.html',
                         errorCallback(error);
                     }
                 });
-
                 console.log("Update gedrückt");
             }
         }
