@@ -78,40 +78,6 @@ define(['text!./editOfferDetailsBar.component.html',
             self.offerId(getURLParameter("offerId") || "");
             if (self.offerId()) {
                 loadPage();
-                /*$.getJSON({
-                    url: '/api/offers/' + self.offerId(),
-                    success: function (offerData, status, req) {
-                        if (offerData) {
-                            for (var i in offerData.mediaObjects) {
-                                offerData.mediaObjects[i].carouselIndex = i;
-                                offerData.mediaObjects[i].carouselActive = false;
-                            }
-                            offerData.mediaObjects[0].carouselActive = true;
-                            console.log("Offer-Data:");
-                            console.log(offerData);
-                            self.offer(offerData);
-                            self.status(offerData.status);
-                            self.cellar(offerData.cellar);
-                            self.parking(offerData.parking);
-                            self.elevator(offerData.elevator);
-                            self.dryer(offerData.dryer);
-                            self.washingMachine(offerData.washingMachine);
-                            self.telephone(offerData.telephone);
-                            self.furnished(offerData.furnished);
-                            self.pets(offerData.pets);
-                            self.wlan(offerData.wlan);
-                            self.lan(offerData.lan);
-                            self.accessability(offerData.accessability);
-                            self.television(offerData.television);
-                            self.heatingDescription(offerData.heatingDescription);
-                            self.bathroomDescription(offerData.bathroomDescription);
-                            self.kitchenDescription(offerData.kitchenDescription);
-                            if (offerData.landlord) {
-                                self.landlord(offerData.landlord);
-                            }
-                        }
-                    }
-                });*/
             }
 
             // Reload Data after Media upload
