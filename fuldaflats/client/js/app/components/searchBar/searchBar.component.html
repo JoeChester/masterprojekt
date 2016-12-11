@@ -35,7 +35,7 @@
                     <select data-bind="options: availableTags, selectedOptions: $data.queryParameter().tags, multiselect: { includeSelectAllOption: true, disableIfEmpty: true, buttonWidth: '100%', nonSelectedText: 'Choose Tags' }"
                         class="form-control" id="tags1" multiple="multiple"></select>
                 </div>
-                <div class="col-md-2 text-center">
+                <div class="col-md-2 search-buttons-container">
                     <div class="pull-right">
                         <button data-bind="click: search" class="btn btn btn-size-search btn-template-primary">Search</button>
                         <button id="btn-extended-search-open" data-bind="click: openExtendedSearch, visible: showExtendedSearchButton" class="btn btn-sm btn-size-search btn-template-primary">
@@ -46,7 +46,7 @@
             </div>
         </div>
         <!-- __________ Extended Search Panel __________ -->
-        <div id="extended-search-panel" class="search-panel col-md-12 background-white" data-bind="visible: showExtendedSearch">
+        <div id="extended-search-panel" class="search-panel col-md-12 background-white" data-bind="fadeVisible: showExtendedSearch">
             <div>
                 <div class="col-md-7">
                     <form class="form-horizontal">

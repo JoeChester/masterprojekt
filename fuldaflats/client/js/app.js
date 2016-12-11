@@ -46,6 +46,7 @@ requirejs.config({
         'knockoutDate': { 'deps': ['knockout', 'moment'] },
         'knockoutBootstrapSwitch': { 'deps': ['bootstrap', 'knockout'] },
         'knockoutTruncate': { 'deps': ['knockout', 'jquery'] },
+        'knockoutFadeIn': { 'deps': ['knockout', 'jquery'] },
     },
     paths: {
         css: '../bower_components/require-css/css.min',
@@ -71,7 +72,8 @@ requirejs.config({
         moment: './lib/moment.min',
         knockoutDate: './lib/knockout-date',
         customEventPolyfill: './lib/ie-custom-event-polyfill',
-        knockoutTruncate: './lib/knockout-truncate'
+        knockoutTruncate: './lib/knockout-truncate',
+        knockoutFadeIn: './lib/knockout-fadeIn'
     }
 });
 
@@ -84,7 +86,7 @@ window.onerror = function(messageOrEvent, source, lineno, colno, error) {
 requirejs(['app/appModel',
     'jquery', 'bootstrap', 'knockout', 'jqueryCookie', 'waypoints', 'jqueryConterup', 'leaflet',
     'jqueryParallax', /* 'front', */ 'bootstrapSwitch', 'owlCarousel', 'knockoutOwlCarousel', 'jqcloud', 'fuldaflatsApiClient',
-    'moment', 'knockoutDate', 'customEventPolyfill', 'knockoutBootstrapSwitch', 'bootstrapMultiselect', 'knockoutTruncate'
+    'moment', 'knockoutDate', 'customEventPolyfill', 'knockoutBootstrapSwitch', 'bootstrapMultiselect', 'knockoutTruncate', 'knockoutFadeIn'
 ], function(app, $) {
     var event = new CustomEvent('scripts-loaded');
     document.dispatchEvent(event);

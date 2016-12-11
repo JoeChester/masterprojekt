@@ -17,6 +17,10 @@
   text-align: left !important;
 }
 
+#search-panel .search-buttons-container{
+  display: block;
+}
+
 @media (min-width: 992px) {
   #search-panel-section{
     padding: 70px;
