@@ -202,3 +202,35 @@ padding-right: 17px;
   -o-text-overflow: ellipsis;
   max-height: 10rem;
 }
+
+
+/* Multi Select */
+
+.multiselect-container,
+.multiselect-native-select {
+    min-width: 100%;
+}
+
+.multiselect-selected-text{
+    font-weight: normal;
+    text-transform: none;
+}
+
+.multiselect-native-select .dropdown-toggle {
+    text-align: left;
+    font-size: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+}
+
+.multiselect-native-select .dropdown-toggle span {
+      padding: 0px 2px 1px 2px;
+}
+
+.multiselect-native-select .dropdown-toggle .caret {
+  position: absolute;
+  right: 6px;
+  bottom: 15px;
+}
+
+/* End Multi Select */

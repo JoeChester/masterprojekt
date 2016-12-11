@@ -1,7 +1,7 @@
 <!--************************************************************
  * File:            searchBar.component.html
  * Author:          Patrick Hasenauer, Jonas Kleinkauf
- * LastMod:         02.12.2016
+ * LastMod:         11.12.2016
  * Description:     Knockout Template for Search Input Mask
  ************************************************************ -->
 
@@ -11,9 +11,6 @@
         <div id="search-panel" class="search-panel col-md-12 background-white" data-bind="visible: showSimpleSearch">
             <div class="row">
                 <div class="col-md-2">
-                    <!-- <select data-bind="options: offerTypes,
-                       value: queryParameter.offerType, optionsCaption: 'Choose Type', optionsAfterRender: optionsAfterRender"
-                        class="form-control"></select> -->
                     <select data-bind="options: offerTypes, value: $data.queryParameter().offerType, optionsCaption: 'Choose Type'" class="form-control"></select>
                 </div>
                 <div class="col-md-2">
@@ -35,16 +32,13 @@
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <select data-bind="options: availableTags, selectedOptions: $data.queryParameter().tags"
-                        class="form-control" id="tags1" multiple="true"></select>
+                    <select data-bind="options: availableTags, selectedOptions: $data.queryParameter().tags, multiselect: { includeSelectAllOption: true, disableIfEmpty: true, buttonWidth: '100%', nonSelectedText: 'Choose Tags' }"
+                        class="form-control" id="tags1" multiple="multiple"></select>
                 </div>
-                <!--                <div class="search-panel-search-button-container col-md-2 text-center">
-                    <button data-bind="enable: queryParameter.offerType, click: search" class="btn btn-lg btn-template-primary">Search</button>
-                </div>-->
-                <div class="search-panel-search-button-container col-md-2 text-center">
+                <div class="col-md-2 text-center">
                     <div class="pull-right">
-                        <button data-bind="click: search" class="btn btn-lg btn-template-primary">Search</button>
-                        <button data-bind="click: openExtendedSearch, visible: showExtendedSearchButton" class="btn btn-lg btn-template-primary">
+                        <button data-bind="click: search" class="btn btn-lg btn-size-search btn-template-primary">Search</button>
+                        <button data-bind="click: openExtendedSearch, visible: showExtendedSearchButton" class="btn btn-lg btn-size-search btn-template-primary">
                                 <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
                             </button>
                     </div>
@@ -134,12 +128,13 @@
                     <div class="form-group">
                         <label for="types" class="col-md-2 col-form-label">Tags:</label>
                         <div class="col-md-10">
-                            <select data-bind="options: availableTags, selectedOptions: $data.queryParameter().tags"
-                                    class="form-control" id="tags2" multiple="true"></select>
+                            <select data-bind="options: availableTags, selectedOptions: $data.queryParameter().tags, multiselect: { includeSelectAllOption: true, disableIfEmpty: true, buttonWidth: '100%', nonSelectedText: 'Choose Tags' }"
+                                class="form-control" id="tags2" multiple="multiple"></select>
                         </div>
                     </div>
                 </div>
-            </div> <!-- End Column 1 -->
+            </div>
+            <!-- End Column 1 -->
 
             <div class="col-md-6">
                 <div class="row">
@@ -238,13 +233,14 @@
 
                 <div class="row">
                     <div class="pull-right">
-                        <button data-bind="click: search" class="btn btn-lg btn-template-primary">Search</button>
-                        <button data-bind="click: hideExtendedSearch" class="btn btn-lg btn-template-primary">
-                    <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
-                </button>
-            </div>
+                        <button data-bind="click: search" class="btn btn-lg btn-size-search btn-template-primary">Search</button>
+                        <button data-bind="click: hideExtendedSearch" class="btn btn-lg btn-size-search btn-template-primary">
+                                <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+                            </button>
+                    </div>
                 </div>
-            </div> <!-- End Column 2 -->
+            </div>
+            <!-- End Column 2 -->
 
         </div>
         <!-- __________ END Extended Search Panel __________ -->

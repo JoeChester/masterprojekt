@@ -15,29 +15,3 @@
 #new-offer-wizard #uploaded-files {
     min-height: 150px;
 }
-
-#new-offer-wizard .multiselect-container {
-    width: 100%;
-}
-
-#new-offer-wizard .multiselect-selected-text{
-    font-weight: normal;
-    text-transform: none;
-}
-
-#new-offer-wizard .multiselect-native-select .dropdown-toggle {
-    text-align: left;
-    font-size: inherit;
-    letter-spacing: inherit;
-    color: inherit;
-}
-
-#new-offer-wizard .multiselect-native-select .dropdown-toggle span {
-      padding: 0px 2px 1px 2px;
-}
-
-#new-offer-wizard .multiselect-native-select .dropdown-toggle .caret {
-  position: absolute;
-  right: 6px;
-  bottom: 15px;
-}

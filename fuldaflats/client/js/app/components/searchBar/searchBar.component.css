@@ -1,13 +1,32 @@
 /************************************************************
  * File:            searchBar.component.css
  * Author:          Jonas Kleinkauf, Patrick Hasenauer
- * LastMod:         02.12.2016
+ * LastMod:         11.12.2016
  * Description:     Custom CSS for search bar.
  ************************************************************/
+.btn-size-search{
+  height: 40px;
+}
+
+
+#search-panel-section .dark-mask{
+  background-color: #467fbf;
+  opacity: 0.5;
+ }
+ 
+.search-panel .row{
+  margin-bottom: 5px;
+}
+
+.col-form-label{
+  margin-top: 7px;
+}
+
 @media (min-width: 992px) {
   #search-panel-section{
     padding: 70px;
   }
+
   .search-panel {
     padding: 20px;
   }
@@ -22,10 +41,6 @@
     display: flex;
     align-items: center;
   }
-
-  .search-panel > .row > .search-panel-search-button-container  {
-    display: inline-block;
-  }
 }
 
 @media (max-width: 992px) {
@@ -38,20 +53,3 @@
     margin: 10px 0px;
   }
 }
-
-.margintop{
-  margin-top: 5px;
-}
-
-.search-panel .row{
-  margin-bottom: 5px;
-}
-
-.col-form-label{
-  margin-top: 7px;
-}
-
-#search-panel-section .dark-mask{
-  background-color: #467fbf;
-  opacity: 0.5;
- }
