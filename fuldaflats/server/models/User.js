@@ -5,10 +5,6 @@
  * Description:     Database module for users
 ************************************************************/
 
-//my
-const MAX_LOGIN_ATTEPS = 10;
-const LOCK_TIME = 1* 60* 1000;
-
 //Define Model and Relationships
 module.exports = function(schema){
     var User = schema.define('User', {
@@ -28,11 +24,11 @@ module.exports = function(schema){
         gender:         {type: schema.String, limit: 6},
         officeAddress:  {type: schema.String, limit: 4000},
         averageRating:  {type: schema.Float, default: 0.0},
-        //my
         loginAttempts:  {type: schema.Number, limit: 10},
-        //
+        isLocked:       {type: schema.Boolean},
         profilePicture: {type: schema.String, limit: 255, default: '/uploads/cupcake.png'}
     },{});
+
 
     //Validators
     User.validatesPresenceOf('email', 'password');
@@ -61,21 +57,6 @@ module.exports = function(schema){
         this.upgradeDate = new Date(this.upgradeDate);
         this.creationDate = new Date(this.creationDate);
         next();
-    };
-
-    //my disable
-    User.incLoginAttemps = function (cb) {
-        if (this.lockUntil && lockUntil < Date.now()){
-            return this.update({
-                $set: {loginAttempts: 1},
-                $unset: {lockUntil: 1}
-            }, cb);
-        }
-        var updates = { $inc: { loginAttempts: 1}};
-        if (this.loginAttempts + 1 >= MAX_LOGIN_ATTEPS && !this.isLocked){
-            updates.$set = { lockUntil: Date.now() + LOCK_TIME};
-        }
-        return this.update(updates, cb);
     };
 
 
