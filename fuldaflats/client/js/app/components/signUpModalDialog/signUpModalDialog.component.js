@@ -245,7 +245,6 @@ define(['text!./signUpModalDialog.component.html', 'css!./signUpModalDialog.comp
                         var signUpDialog = templateRoot.find("#signUpModalDialog");
                         if (signUpDialog.length > 0) {
                             viewModel = new SignUpModel($, ko, api);
-                            window.signUpDialog = viewModel;
                             viewModel.initialize(params, signUpDialog);
                         }
                     }

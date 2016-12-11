@@ -293,9 +293,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                             viewModel.initialize(params, tabsContainer);
                         }
                     }
-
-                    window.model = viewModel;
-
+                    
                     return viewModel;
                 }
             },

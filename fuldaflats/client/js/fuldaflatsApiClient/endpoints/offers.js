@@ -327,8 +327,6 @@ define(["jquery", 'knockout'], function($, ko) {
 
             return defer.promise();
         };
-
-        window.deleteOffer = self.deleteOffer;
     }
 
     return OffersEndpoint;
