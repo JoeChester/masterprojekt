@@ -13,6 +13,23 @@ var router = express.Router({
     mergeParams: true
 });
 var async = require('async');
+var geo = require('node-geo-distance');
+
+var geo = require('node-geo-distance');
+
+/*--> {latitude:x, longitude:x}, {latitude:x, longitude:x}, callback(dist)
+geo.vincenty(coord1, coord2, callback)
+
+--> {latitude:x, longitude:x}, {latitude:x, longitude:x}
+geo.vincentySync(coord1, coord2)
+
+
+
+--> {latitude:x, longitude:x}, {latitude:x, longitude:x}, callback(dist)
+geo.haversine(coord1, coord2, callback)
+
+--> {latitude:x, longitude:x}, {latitude:x, longitude:x}
+geo.haversineSync(coord1, coord2)*/
 
 //Functions
 
@@ -567,5 +584,7 @@ router.delete('/:offerId/favorite', function (req, res) {
 
     });
 });
+
+
 
 module.exports = router;
