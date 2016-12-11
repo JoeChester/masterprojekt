@@ -34,6 +34,11 @@ input[type=number] {-moz-appearance: textfield;}
 prevent ugly whitespace on really large screens.
 make all sections and the id="all" div white background 
 to remain current style */
+
+label {
+  font-weight: 700
+}
+
 .dark-bg{
   background-color: #333333;
 }
@@ -58,11 +63,11 @@ section{
   background: #fff;
 }
 
-.btn-marginleft {
+.btn-margin-left {
   margin-left: 0.5rem;
 }
 
-.marginbottom {
+.btn-margin-bottom {
   margin-bottom: 2rem;
 }
 
@@ -174,4 +179,26 @@ padding-right: 17px;
 
 .hidden{
   display: none;
+}
+
+.bs-glyphicons-list .half {
+    position:relative;
+}
+
+.bs-glyphicons-list .half:after {
+    content:'';
+    position:absolute;
+    z-index:1;
+    background:white;
+    width: 50%;
+    height: 100%;
+    left: 47%;
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  max-height: 10rem;
 }
