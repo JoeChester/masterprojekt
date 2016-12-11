@@ -1,10 +1,9 @@
 <!--************************************************************
  * File:            searchResultBar.component.html
- * Author:          Jonas Kleinkauf
+ * Author:          Jonas Kleinkauf, Patrick Hasenauer
  * LastMod:         02.12.2016
  * Description:     Knockout Template for Search Results
  ************************************************************ -->
-
 <section class="nomargin">
     <!-- ______________ Sort Select ______________ -->
     <div class="row sort-row">
@@ -21,7 +20,7 @@
     <div class="row">
         <!-- ______________ RESULTS ______________ -->
         <div class="col-md-6 resultColumn scroll-y" data-bind="foreach: { data: offers, as: 'offer' }">
-            <div class="panel panel-search-result">
+            <div class="panel panel-offer-result">
                 <div class="panel-body">
                     <!-- Hoverable Image -->
                     <div class="offer-brief-detail-1 box-image-text col-md-5">
@@ -37,58 +36,59 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Details -->
                     <div class="col-md-7">
-                        <!-- Tags -->
+                        <!-- Title -->
                         <div class="row">
-                            <h4 data-bind="foreach: { data: offer.tags, as: 'tag' }">
-                                <span class="label label-default tag-line" data-bind="text: tag.title"></span>
-                            </h4>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-11">
+                            <div class="col-xs-10 offer-brief-title">
                                 <a data-bind="attr: { href: offer.detailsUrl }">
-                                    <h2 data-bind="text: offer.title"></h2>
+                                    <h4 data-bind="text: offer.title"></h4>
                                 </a>
                             </div>
-                            <div class="col-md-1">
+                            <!-- Favorite Button -->
+                            <div class="col-xs-2 offer-brief-favorite-icon text-right">
                                 <span data-bind="ifnot: offer.isFavorite">
-                                    <span class="glyphicon glyphicon glyphicon-heart-empty favorite-icon" aria-hidden="true" 
-                                        title="Set Favorite" data-bind="click: $parent.setFavorite"></span>
+                                    <span class="glyphicon glyphicon glyphicon-heart-empty favorite-icon purpleblue-text" aria-hidden="true" 
+                                    title="Set as Favorite" data-bind="click: $parent.setFavorite"></span>
                                 </span>
                                 <span data-bind="if: offer.isFavorite">
                                     <span class="glyphicon glyphicon glyphicon-heart favorite-icon purpleblue-text" aria-hidden="true" 
-                                        title="Remove from Favorites" data-bind="click: $parent.unsetFavorite"></span>
+                                    title="Remove from Favorites" data-bind="click: $parent.unsetFavorite"></span>
                                 </span>
                             </div>
                         </div>
-                        <div class="ellipsis">
-                            <p data-bind="text: offer.description"></p>
+                        <!-- Tags -->
+                        <div data-bind="css: { 'hidden': !(offer.tags && offer.tags.length > 0) }" class="row">
+                            <h4 data-bind="foreach: { data: offer.tags, as: 'tag' }">
+                                <span class="label label-default" data-bind="text: tag.title"></span>
+                            </h4>
                         </div>
-                        <div class="ellipsis-dots">...</div>
-                        <!-- Price -->
+                        <!-- Description -->
                         <div class="row">
-                            <div class="col-md-4 offer-result-keyfigures">
+                            <p data-bind="truncate: offer.description, maxLength: 160"></p>
+                        </div>
+                        <!-- Price -->
+                        <div class="row bottom text-center row-eq-height-md">
+                            <div class="col-sm-4 offer-result-keyfigures">
                                 <div class="offer-brief-detail-1-details-value"><strong data-bind="text: offer.uniDistance"></strong><strong> km</strong></div>
                                 <div class="offer-brief-detail-1-details-key"><small>to University Fulda</small></div>
                             </div>
-                            <div class="col-md-4 offer-result-keyfigures">
+                            <div class="col-sm-4 offer-result-keyfigures">
                                 <div class="offer-brief-detail-1-details-value"><strong data-bind="text: offer.size"></strong><strong> m²</strong></div>
                                 <div class="offer-brief-detail-1-details-key"><small>Size</small></div>
                             </div>
-                            <div class="col-md-4 offer-result-keyfigures">
+                            <div class="col-sm-4 offer-result-keyfigures">
                                 <div class="offer-brief-detail-1-details-value price-wrapper">
-                                    <div class="price"><strong data-bind="text: offer.rent"></strong><strong> €</strong></div>
-                                    <div class="rate"><strong>/ </strong><strong data-bind="text: offer.rentType"></strong></div>
+                                    <span class="price"><strong data-bind="text: offer.rent"></strong><strong> €</strong></span>
+                                    <span class="rate"><strong>/ </strong><strong data-bind="text: offer.rentType"></strong></span>
                                 </div>
                                 <div class="offer-brief-detail-1-details-key"><small data-bind="text: offer.offerType"></small></div>
                             </div>
                         </div>
-
                         <!-- Created on -->
                         <div class="row">
-                            <span class="col-md-12 created-on">Created on <span data-bind="text: offer.creationDateFormat"></span></span>
+                            <span class="col-xs-12 created-on">Created on <span data-bind="text: offer.creationDateFormat"></span></span>
                         </div>
-
                     </div>
                 </div>
             </div>
