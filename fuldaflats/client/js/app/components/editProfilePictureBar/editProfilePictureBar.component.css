@@ -1,4 +1,20 @@
+ /************************************************************
+ * File:            editProfilePictureBar.component.js
+ * Author:          Patrick Hasenauer
+ * LastMod:         04.12.2016
+ * Description:     Custom CSS for edit profile picture bar.
+ ************************************************************/
 /* Special component css here and general css in main.css */
-.spacer{
-    margin-top: 2rem;
+.profile-image-container{
+    margin-bottom: 2rem;
+}
+
+.default-image-container img{
+    margin: auto;
+}
+
+@media only screen and (max-width : 768px) {
+  .default-image-container img {
+    margin-bottom: 1.5rem
+  }
 }
