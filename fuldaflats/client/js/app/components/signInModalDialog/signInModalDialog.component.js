@@ -116,7 +116,7 @@ define(['text!./signInModalDialog.component.html', 'css!./signInModalDialog.comp
                             signIn.initialize(params, signInDialog);
                         }
                     }
-
+                    
                     return signIn;
                 }
             },
