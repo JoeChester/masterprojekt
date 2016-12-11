@@ -47,6 +47,12 @@ define(['text!./editOfferDetailsBar.component.html',
             self.bathroomDescription = ko.observable();
             self.kitchenDescription = ko.observable();
 
+            self.offerPriceTypes = ko.observableArray(["Day", "Month", "Quarter", "Half Year", "Semester", "Year"]);
+            self.offerRentTypes = ko.observableArray(["Cold", "Warm"]);
+            self.kitchenDescriptions = ko.observableArray(["Fridge & Oven", "Fridge & Stove", "Fridge & Stove & Oven"]);
+            self.bathroomDescriptions = ko.observableArray(["Shower & WC", "Shower & Tub & WC", "Tub & WC"]);
+            self.offerHeatingDescriptions = ko.observableArray(["Gas", "Oil", "Electricity"]);
+            self.televisionDescriptions = ko.observableArray(["No", "Cable", "DSL", "SAT"]);
 
             // Get URL Data
             function getURLParameter(name) {

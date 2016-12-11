@@ -78,7 +78,7 @@
                         <div class="col-sm-4">
                             <label for="fullprice" class="control-label col-sm-4"><h5>FullPrice:</h5></label>
                             <div class="col-sm-8">
-                                <input type="text" class="col-sm-8" id="fullprice" data-bind="attr:{placeholder:offer().fullPrice + ' €'}, value: offerChanges().fullPrice">
+                                <input type="text" class="col-sm-8" id="fullprice" data-bind="attr:{placeholder:offer().fullPrice + ' €'},  value: offerChanges().fullPrice">
                             </div>
                         </div>
                     </div>
@@ -177,10 +177,7 @@
                         <div class="col-sm-4">
                             <label for="bathroom" class="control-label col-sm-4"><h5>Bath:</h5></label>
                             <div class="col-sm-8">
-                                <select class="form-control" id="bathroom" data-bind="value: bathroomDescription">
-                                    <option>Shower/WC</option>
-                                    <option>Shower/Tub/WC</option>
-                                    <option>Tub/WC</option>
+                                <select class="form-control" id="bathroom" data-bind="options: bathroomDescriptions, value: bathroomDescription">
                                 </select>
                             </div>
                         </div>
@@ -188,11 +185,7 @@
                         <div class="col-sm-4">
                             <label for="heating" class="control-label col-sm-4"><h5>Heating:</h5></label>
                             <div class="col-sm-8">
-                                <select class="form-control" id="heating" data-bind="value: heatingDescription">
-                                    <option>Gas</option>
-                                    <option>Oil</option>
-                                    <option>Electricity</option>
-                                </select>
+                                <select class="form-control" id="heating" data-bind="options: offerHeatingDescriptions, value: heatingDescription"></select>
                             </div>
                         </div><br>
                     </div><br>
@@ -202,11 +195,7 @@
                         <div class="col-sm-4">
                             <label for="kitchen" class="control-label col-sm-4"><h5>Kitchen:</h5></label>
                             <div class="col-sm-8">
-                                <select class="form-control" id="kitchen" data-bind="value: kitchenDescription">
-                                    <option>Fridge/Oven</option>
-                                    <option>Fridge/Stove</option>
-                                    <option>Fridge/Stove/Oven</option>
-                                </select>
+                                <select class="form-control" id="kitchen" data-bind="options: kitchenDescriptions, value: kitchenDescription"></select>
                             </div>
                         </div>
                         <div class="col-sm-4"></div>
@@ -263,11 +252,7 @@
                         <div class="col-sm-4">
                             <label for="television" class="control-label col-sm-4"><h5>TV:</h5></label>
                             <div class="col-sm-8">
-                                <select class="form-control" id="television" data-bind="value: television">
-                                    <option>No</option>
-                                    <option>Cable</option>
-                                    <option>DSL</option>
-                                    <option>SAT</option>
+                                <select class="form-control" id="television" data-bind="options: televisionDescriptions, value: television">
                                 </select>
                             </div>
                         </div>

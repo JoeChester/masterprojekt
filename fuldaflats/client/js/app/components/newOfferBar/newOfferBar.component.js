@@ -17,7 +17,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
             self.kitchenDescriptions = ko.observableArray(["Fridge & Oven", "Fridge & Stove", "Fridge & Stove & Oven"]);
             self.bathroomDescriptions = ko.observableArray(["Shower & WC", "Shower & Tub & WC", "Tub & WC"]);
             self.offerHeatingDescriptions = ko.observableArray(["Gas", "Oil", "Electricity"]);
-            self.televisionDescriptions = ko.observableArray(["No", "Cable", "DSL", "SAT"])
+            self.televisionDescriptions = ko.observableArray(["No", "Cable", "DSL", "SAT"]);
             self.offerTypes = ko.observable();
             self.offerTags = ko.observableArray()
             self.offer = api.offers.getOfferModel();
@@ -112,7 +112,8 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                                 self.offerLoadingError(true);
                             }
                         },
-                        function(xhr) {
+                        function(xhr, statusText, error) {
+                            errorCallback(error);
                             self.offerLoadingError(true);
                         }
                     );
@@ -124,7 +125,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                 if (!isCurrentUserALandlord()) {
                     setTimeout(function() {
                         self.currentUserIsNotALandlord(true);
-                    }, 300 );
+                    }, 300);
                 } else {
                     api.offers.createOffer().then(
                         function(newOffer) {
@@ -293,7 +294,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                             viewModel.initialize(params, tabsContainer);
                         }
                     }
-                    
+
                     return viewModel;
                 }
             },
