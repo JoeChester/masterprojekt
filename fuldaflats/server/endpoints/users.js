@@ -1,7 +1,7 @@
 /************************************************************
  * File:            users.js
  * Author:          Jonas Kleinkauf, Patrick Hasenauer, 
- *                  Michelle Rothenbücher
+ *                  Michelle Rothenbücher, Plisam Ekpai-Laodema
  * LastMod:         10.12.2016
  * Description:     REST endpoints for users and
  *                  authentication
@@ -29,6 +29,8 @@ const regEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@
 function finalize(req, res, user, _user) {
     res.json(_user);
 }
+//Max attemp
+const MAX_LOGIN_ATTEMPS = 10;
 
 //Authentication of a request session
 function authenticate(req, res, successStatus) {
@@ -43,8 +45,10 @@ function authenticate(req, res, successStatus) {
         if (err || user == null) {
             res.status(400);
             return res.json(err);
-        } else {
-            if (passwordHash == user.password) {
+        }
+        else {
+
+            if (passwordHash == user.password && !user.isLocked) {
                 req.session.auth = true;
                 req.session.user = user;
 
@@ -57,7 +61,35 @@ function authenticate(req, res, successStatus) {
                 //Begin Relationship Pipe
                 return getRelationships(req, res, user);
             } else {
-                return res.sendStatus(403);
+                //Disable user after 10 connection failed
+                if (user.loginAttempts + 1 < MAX_LOGIN_ATTEMPS && !user.isLocked) {
+                    user.loginAttempts += 1;
+                    console.log(user);
+                    user.save((err, user) => {
+                        if (err) {
+                            console.log(err);
+                            res.status(500);
+                            res.json(err);
+                        } else {
+                            res.sendStatus(403);
+                        }
+                        return res;
+                    });
+                }
+                else {
+                    user.loginAttempts += 1;
+                    user.isLocked = true;
+                    user.save((err, user) => {
+                        if (err) {
+                            res.status(500);
+                            res.json(err);
+                        } else {
+                            res.sendStatus(423);
+                        }
+                        return res;
+                    });
+
+                }
             }
         }
     });
