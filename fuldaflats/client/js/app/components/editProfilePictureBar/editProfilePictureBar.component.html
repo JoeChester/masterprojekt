@@ -4,7 +4,7 @@
  * LastMod:         02.12.2016
  * Description:     Knockout Template for edit profile picture bar.
  ************************************************************-->
-<section style="min-height:400px; margin-top: 2rem">
+<section>
     <div class="container" data-bind="with: currentUser">
         <div class="col-sm-12">
             <div class="row">
@@ -40,8 +40,8 @@
                             </div>
                             <input type="file" id="hiddenFileInput" name="file" class="hidden" accept="image/*" data-bind="event: {change: $parent.uploadPicture}">
                             <div class="clearfix">
-                                <a data-bind="click: $parent.openFileDialog" class="btn btn-template-main pull-left">Choose Picture from Computer</a>
-                                <a href="/pages/myProfile" class="btn btn-template-main btn-margin-left pull-right">Cancel</a>
+                                <a data-bind="click: $parent.openFileDialog" type="button" class="btn btn-template-main pull-left">Choose Picture from Computer</a>
+                                <a href="/pages/myProfile" type="button" class="btn btn-template-main btn-margin-left pull-right">Cancel</a>
                             </div>
                         </fieldset>
                     </form>

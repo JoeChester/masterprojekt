@@ -92,6 +92,9 @@
 									<p id="email" class="form-control-static" data-bind="text: email"></p>
 								</div>
 							</div>
+						</fieldset>
+						<fieldset class="form-group">
+							<legend>Contact Information</legend>
 							<div data-bind="if: $data.type==2">
 								<div class="row profile-detail-row-xs">
 									<label class="control-label col-sm-2">Phone Number:</label>
@@ -286,11 +289,11 @@
 								<div data-bind="ifnot: $data.offers">
 									<div data-bind="if: type==1">
 										<div class="alert alert-info" role="alert">To be able to create offers:</div>
-										<a href="/pages/becomeLandlord" type="submit" class="btn btn-template-main">Become Landlord</a>
+										<a href="/pages/becomeLandlord" type="button" class="btn btn-template-main">Become Landlord</a>
 									</div>
 									<div data-bind="if: type==2">
 										<div class="alert alert-info" role="alert">You have no offers yet.</div>
-										<a href="/pages/newOffer" type="submit" class="btn btn-template-main">Create Offer</a>
+										<a href="/pages/newOffer" type="button" class="btn btn-template-main">Create Offer</a>
 									</div>
 								</div>
 							</div>
