@@ -28,3 +28,7 @@
 #signUpModalDialog .inValid{
     border: 1px solid red;
 }
+
+#signUpModalDialog #termsOfUseAgreementGroup{
+    padding-top: 5px;
+}

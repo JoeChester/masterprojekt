@@ -49,10 +49,10 @@
                     <select data-bind="options: genders,
                        textInput: selectedGender, optionsCaption: 'Choose Gender', optionsAfterRender: optionsAfterRender , css: { valid: selectedGender() && !invalidGender(), inValid: invalidGender() && signUpDataErrorMessage() }"
                         class="form-control"></select>
-                    <div class="checkbox">
-                        <label for="termsOfUseAgreement"><input id="termsOfUseAgreement" data-bind="checked: termsOfUseAgreement" type="checkbox"> I agree to <span data-bind="text: domain"></span> <a target="_blank" data-bind="attr: { href: termsOfUsePageInfo().url }">Terms of Service</a></label>
+                    <div class="form-group" id="termsOfUseAgreementGroup">
+                        <label for="termsOfUseAgreement"><input id="termsOfUseAgreement" data-bind="bootstrapSwitch: termsOfUseAgreement, bootstrapSwitchOptions: { onText: 'Yes', onColor: 'primary', offColor: 'danger', offText: 'No', animate: true, size: 'mini' }" type="checkbox"> I agree to <span data-bind="text: domain"></span> <a target="_blank" data-bind="attr: { href: termsOfUsePageInfo().url }">Terms of Service</a></label>
                     </div>
-                    <button data-bind="click: signUp, enable: formIsValid" class="btn btn-template-primary btn-block">Sign Up</button>
+                    <button data-bind="click: signUp, enable: formIsValid() && !(internalError() || isSignUpDataError())" class="btn btn-template-primary btn-block">Sign Up</button>
                 </form>
             </div>
             <div class="modal-footer">
