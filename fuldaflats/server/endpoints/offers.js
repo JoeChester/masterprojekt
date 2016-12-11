@@ -15,8 +15,6 @@ var router = express.Router({
 var async = require('async');
 var geo = require('node-geo-distance');
 
-var geo = require('node-geo-distance');
-
 /*--> {latitude:x, longitude:x}, {latitude:x, longitude:x}, callback(dist)
 geo.vincenty(coord1, coord2, callback)
 
