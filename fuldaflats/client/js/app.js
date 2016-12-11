@@ -17,7 +17,7 @@ function executeLoginCallbacks() {
 
 //Standard errorCallback, 
 //to be overwritten by error module;
-var errorCallback = function (errors) {
+var errorCallback = function(errors) {
     for (var i in errors) {
         console.error(errors[i]);
     }
@@ -44,7 +44,8 @@ requirejs.config({
         'jqcloud': { 'deps': ['jquery'] },
         'bootstrapSwitch': { 'deps': ['jquery'] },
         'knockoutDate': { 'deps': ['knockout', 'moment'] },
-        'knockoutBootstrapSwitch': { 'deps': ['bootstrap', 'knockout'] }
+        'knockoutBootstrapSwitch': { 'deps': ['bootstrap', 'knockout'] },
+        'knockoutTruncate': { 'deps': ['knockout', 'jquery'] },
     },
     paths: {
         css: '../bower_components/require-css/css.min',
@@ -69,7 +70,8 @@ requirejs.config({
         leaflet: './lib/leaflet',
         moment: './lib/moment.min',
         knockoutDate: './lib/knockout-date',
-        customEventPolyfill: './lib/ie-custom-event-polyfill'
+        customEventPolyfill: './lib/ie-custom-event-polyfill',
+        knockoutTruncate: './lib/knockout-truncate'
     }
 });
 
@@ -82,8 +84,8 @@ window.onerror = function(messageOrEvent, source, lineno, colno, error) {
 requirejs(['app/appModel',
     'jquery', 'bootstrap', 'knockout', 'jqueryCookie', 'waypoints', 'jqueryConterup', 'leaflet',
     'jqueryParallax', /* 'front', */ 'bootstrapSwitch', 'owlCarousel', 'knockoutOwlCarousel', 'jqcloud', 'fuldaflatsApiClient',
-    'moment', 'knockoutDate', 'customEventPolyfill', 'knockoutBootstrapSwitch', 'bootstrapMultiselect'
-], function (app, $) {
+    'moment', 'knockoutDate', 'customEventPolyfill', 'knockoutBootstrapSwitch', 'bootstrapMultiselect', 'knockoutTruncate'
+], function(app, $) {
     var event = new CustomEvent('scripts-loaded');
     document.dispatchEvent(event);
     console.log("Loaded default libraries, plugins and initilized app.");

@@ -182,7 +182,7 @@
 													</div>
 													<!-- Description -->
 													<div class="row">
-														<p class="ellipsis" data-bind="text: favorite.description"></p>
+														<p data-bind="truncate: favorite.description, maxLength: 160"></p>
 													</div>
 													<!-- Price -->
 													<div class="row bottom text-center row-eq-height-md">
@@ -257,7 +257,7 @@
 													</div>
 													<!-- Description -->
 													<div class="row">
-														<p class="ellipsis" data-bind="text: offer.description"></p>
+														<p data-bind="truncate: offer.description, maxLength: 160"></p>
 													</div>
 													<!-- Price -->
 													<div class="row bottom text-center">
