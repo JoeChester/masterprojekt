@@ -54,7 +54,7 @@ define(['text!./searchResultBar.component.html', 'css!./searchResultBar.componen
                 {
                     name: "Sort by creation date",
                     fn: function(left, right){
-                        return left.creationDate == right.creationDate ? 0 : (left.creationDate < right.creationDate ? -1 : 1)
+                        return left.creationDate == right.creationDate ? 0 : (left.creationDate > right.creationDate ? -1 : 1)
                     }
                 },
                 {
@@ -156,7 +156,7 @@ define(['text!./searchResultBar.component.html', 'css!./searchResultBar.componen
 
             function placeMarkers(offers) {
                 for (var i in offers) {
-                    var latlng = [offers[i].longitude, offers[i].latitude];
+                    var latlng = [offers[i].latitude, offers[i].longitude];
                     var iconPopup = iconBlue;
                     var picture = '<div class="box-image-text">' +
                         '<div class="top">' +
