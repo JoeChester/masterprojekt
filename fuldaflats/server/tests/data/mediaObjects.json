@@ -1,52 +1,108 @@
 [
     {
         "type": 1,
-        "mainUrl": "/uploads/sampleA.jpg",
-        "thumbnailUrl": "/uploads/sampleA.jpg",
+        "mainUrl": "/uploads/apart1.jpg",
+        "thumbnailUrl": "/uploads/apart1.jpg",
         "creationDate": "26.11.2016",
         "offerId": 1,
         "createdByUserId": 1
     }, {
         "type": 1,
-        "mainUrl": "/uploads/sampleB.jpg",
-        "thumbnailUrl": "/uploads/sampleB.jpg",
-        "creationDate": "26.11.2016",
-        "offerId": 1,
-        "createdByUserId": 1
-    }, {
-        "type": 1,
-        "mainUrl": "/uploads/sampleA.jpg",
-        "thumbnailUrl": "/uploads/sampleA.jpg",
+        "mainUrl": "/uploads/apart2.jpg",
+        "thumbnailUrl": "/uploads/apart2.jpg",
         "creationDate": "26.11.2016",
         "offerId": 2,
         "createdByUserId": 1
     }, {
         "type": 1,
-        "mainUrl": "/uploads/sampleC.jpg",
-        "thumbnailUrl": "/uploads/sampleC.jpg",
+        "mainUrl": "/uploads/apart3.jpg",
+        "thumbnailUrl": "/uploads/apart3.jpg",
         "creationDate": "26.11.2016",
-        "offerId": 2,
-        "createdByUserId": 1
+        "offerId": 3,
+        "createdByUserId": 3
     }, {
         "type": 1,
-        "mainUrl": "/uploads/sampleA.jpg",
-        "thumbnailUrl": "/uploads/sampleA.jpg",
+        "mainUrl": "/uploads/apart3-1.jpg",
+        "thumbnailUrl": "/uploads/apart3-1.jpg",
+        "creationDate": "26.11.2016",
+        "offerId": 3,
+        "createdByUserId": 3
+    }, {
+        "type": 1,
+        "mainUrl": "/uploads/apart3-2.jpg",
+        "thumbnailUrl": "/uploads/apart3-2.jpg",
+        "creationDate": "26.11.2016",
+        "offerId": 3,
+        "createdByUserId": 3
+    }, {
+        "type": 1,
+        "mainUrl": "/uploads/apart4.jpg",
+        "thumbnailUrl": "/uploads/apart4.jpg",
+        "creationDate": "26.11.2016",
+        "offerId": 4,
+        "createdByUserId": 3
+    }, {
+        "type": 1,
+        "mainUrl": "/uploads/apart4-1.jpg",
+        "thumbnailUrl": "/uploads/apart4-1.jpg",
+        "creationDate": "26.11.2016",
+        "offerId": 4,
+        "createdByUserId": 3
+    }, {
+        "type": 1,
+        "mainUrl": "/uploads/apart4-2.jpg",
+        "thumbnailUrl": "/uploads/apart4-2.jpg",
+        "creationDate": "26.11.2016",
+        "offerId": 4,
+        "createdByUserId": 3
+    }, {
+        "type": 1,
+        "mainUrl": "/uploads/apart5.jpg",
+        "thumbnailUrl": "/uploads/apart5.jpg",
         "creationDate": "26.11.2016",
         "offerId": 5,
         "createdByUserId": 1
     }, {
         "type": 1,
+        "mainUrl": "/uploads/apart6.jpg",
+        "thumbnailUrl": "/uploads/apart6.jpg",
+        "creationDate": "26.11.2016",
+        "offerId": 6,
+        "createdByUserId": 3
+    }, {
+        "type": 1,
+        "mainUrl": "/uploads/house1.jpg",
+        "thumbnailUrl": "/uploads/house1.jpg",
+        "creationDate": "26.11.2016",
+        "offerId": 7,
+        "createdByUserId": 8
+    }, {
+        "type": 1,
+        "mainUrl": "/uploads/house2.jpg",
+        "thumbnailUrl": "/uploads/house2.jpg",
+        "creationDate": "26.11.2016",
+        "offerId": 8,
+        "createdByUserId": 8
+    }, {
+        "type": 1,
         "mainUrl": "/uploads/sampleA.jpg",
         "thumbnailUrl": "/uploads/sampleA.jpg",
         "creationDate": "26.11.2016",
-        "offerId": 6,
-        "createdByUserId": 1
+        "offerId": 9,
+        "createdByUserId": 8
     }, {
         "type": 1,
-        "mainUrl": "/uploads/sampleC.jpg",
-        "thumbnailUrl": "/uploads/sampleC.jpg",
+        "mainUrl": "/uploads/sampleB.jpg",
+        "thumbnailUrl": "/uploads/sampleB.jpg",
         "creationDate": "26.11.2016",
-        "offerId": 7,
-        "createdByUserId": 1
+        "offerId": 10,
+        "createdByUserId": 9
+    }, {
+        "type": 1,
+        "mainUrl": "/uploads/apart11.jpg",
+        "thumbnailUrl": "/uploads/apart11.jpg",
+        "creationDate": "26.11.2016",
+        "offerId": 11,
+        "createdByUserId": 9
     }
 ]
