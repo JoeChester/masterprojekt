@@ -38,6 +38,8 @@
                                 <div id="uploadProgressBar" class="progress-bar progress-bar-info" role="progressbar" style="width: 0%">
                                 </div>
                             </div>
+                            <div class="alert alert-danger" id="alertProfilePictureUpload" role="alert">
+							</div>
                             <input type="file" id="hiddenFileInput" name="file" class="hidden" accept="image/*" data-bind="event: {change: $parent.uploadPicture}">
                             <div class="clearfix">
                                 <a data-bind="click: $parent.openFileDialog" type="button" class="btn btn-template-main pull-left">Choose Picture from Computer</a>
