@@ -211,12 +211,13 @@
                     <span data-bind="text: offer().houseNumber"></span>,&nbsp;
                     <span data-bind="text: offer().zipCode"></span>&nbsp;
                     <span data-bind="text: offer().city"></span>&nbsp; (Floor&nbsp;
-                    <span data-bind="text: offer().floor"></span>)&nbsp;
+                    <span data-bind="text: offer().floor"></span>)&nbsp;, Distance to Fulda University:
+                    <span data-bind="text: offer().uniDistance"></span>&nbsp;km
                 </div>
             </div>
             <div class="row top-spacing">
                 <div class="col-md-12">
-                    <div class="detailsMap-container">
+                    <div id="detailsMap" class="detailsMap-container">
                     </div>
                 </div>
             </div>
@@ -342,7 +343,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <label class="control-label col-sm-6">Washer:</label>
+                            <label class="control-label col-sm-6">Television:</label>
                             <div class="col-sm-6">
                                 <p class="form-control-static bold-text" data-bind="text: offer().television"></p>
                             </div>

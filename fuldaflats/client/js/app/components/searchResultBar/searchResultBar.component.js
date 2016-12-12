@@ -152,7 +152,6 @@ define(['text!./searchResultBar.component.html', 'css!./searchResultBar.componen
                 var hs_latlng = ['50.5648258', '9.6842798'];
                 var popup = '<div class="marker-popup"><img src="/img/logo_hs.png" alt="" class="img-responsive"></div>'
                 L.marker(hs_latlng, {icon: iconHS}).addTo(resultMap).bindPopup(popup);
-
             }
 
             function placeMarkers(offers) {

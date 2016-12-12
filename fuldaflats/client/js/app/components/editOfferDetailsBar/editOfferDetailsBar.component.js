@@ -5,10 +5,10 @@
  * Description:     JS Component Handler for edit offer details bar.
  ************************************************************/
 define(['text!./editOfferDetailsBar.component.html',
-    'css!./editOfferDetailsBar.component.css',
+    'css!./editOfferDetailsBar.component.css', 'css!../offerDetailsBar/offerDetailsBar.component.css',
     'app/components/fileUploaderModal/fileUploaderModal.component',
     'knockout', 'jquery', 'fuldaflatsApiClient'],
-    function (componentTemplate, componentCss, fileUploaderModalComponent, ko, $, api) {
+    function (componentTemplate, componentCss, detailsCss, fileUploaderModalComponent, ko, $, api) {
         function EditOfferDetailsModel(params) {
 
             // your model functions and variables

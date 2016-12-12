@@ -2,7 +2,7 @@
  * File:            offers.js
  * Author:          Jonas Kleinkauf, Plisam Ekpai-Laodema,
  *                  Franz Weidmann
- * LastMod:         02.12.2016
+ * LastMod:         12.12.2016
  * Description:     REST endpoints for offers
  ************************************************************/
 
@@ -14,20 +14,13 @@ var router = express.Router({
 });
 var async = require('async');
 var geo = require('node-geo-distance');
+let request = require('request');
+let utf8 = require('utf8');
 
-/*--> {latitude:x, longitude:x}, {latitude:x, longitude:x}, callback(dist)
-geo.vincenty(coord1, coord2, callback)
-
---> {latitude:x, longitude:x}, {latitude:x, longitude:x}
-geo.vincentySync(coord1, coord2)
-
-
-
---> {latitude:x, longitude:x}, {latitude:x, longitude:x}, callback(dist)
-geo.haversine(coord1, coord2, callback)
-
---> {latitude:x, longitude:x}, {latitude:x, longitude:x}
-geo.haversineSync(coord1, coord2)*/
+const HSFuldaCoords = {
+    latitude: 50.5648258,
+    longitude: 9.6842798
+};
 
 //Functions
 
@@ -70,30 +63,129 @@ router.post('/', function (req, res) {
     }
 });
 
+function getGeoCoordinates(offer, cb) {
+    if (!offer.street || !offer.houseNumber || !offer.zipCode || !offer.city) {
+        return cb(offer);
+    }
+    let osmQuery = "http://nominatim.openstreetmap.org/search?street=" +
+        offer.street + " " + offer.houseNumber + "&postalcode=" +
+        offer.zipCode + "&city=" + offer.city + "&format=json";
+    osmQuery = utf8.encode(osmQuery);
+    request(osmQuery, function (error, response, body) {
+        if (error && !body) {
+            return cb(offer);
+        }
+        let result = JSON.parse(body)[0];
+        if (!result) {
+            return cb(offer);
+        }
+        if (!result.lat || !result.lon) {
+            return cb(offer);
+        }
+        offer.latitude = parseFloat(result.lat);
+        offer.longitude = parseFloat(result.lon);
+        return cb(offer);
+    });
+}
+
+function createTags(offerId, tags, tagsCb) {
+
+    //Check if tags need to be modified at all
+    if (tags == null) {
+        //Nothing to do here, return
+        return tagsCb(true);
+    }
+    //first: remove all current tags to not have any dangles
+    schema.models.Tag.remove({
+        where: {
+            offerId: offerId
+        }
+    }, (err) => {
+        if (err) {
+            return tagsCb(false);
+        }
+        if (tags.length == 0) {
+            return tagsCb(true);
+        }
+        let tag_queue = [];
+        tags.forEach(tag => {
+            tag_queue.push(cb => {
+                schema.models.Tag.create({
+                    title: tag,
+                    offerId: offerId
+                }, (err, _tag) => {
+                    if (err) {
+                        return cb(err);
+                    }
+                    return cb(null, _tag);
+                })
+            })
+        });
+        //Create all tags in parallel
+        async.parallel(tag_queue, (err, _tags) => {
+            if (err) {
+                return tagsCb(false);
+            }
+            return tagsCb(true);
+        });
+    })
+}
+
 //modify offer
 router.put('/:offerId', function (req, res) {
     if (!req.session.auth) {
         return res.sendStatus(403);
     } else {
-        var _offer = req.body;
-        schema.models.Offer.update({
-                where: {
-                    id: req.params.offerId,
-                    landlord: req.session.user.id
+        let _offer = req.body;
+        let _tags = null;
+
+        if (_offer.tags) {
+            _tags = _offer.tags;
+            delete _offer.tags;
+        }
+
+        getGeoCoordinates(_offer, (_offer) => {
+            if (_offer.latitude && _offer.longitude) {
+                //Use accurate algorithm to calculate uni distance
+                _offer.uniDistance = geo.vincentySync({
+                    latitude: HSFuldaCoords.latitude,
+                    longitude: HSFuldaCoords.longitude
+                }, {
+                    latitude: _offer.latitude,
+                    longitude: _offer.longitude
+                });
+                //m -> km (Rounded to 2 decimal places)
+                _offer.uniDistance = Math.round((_offer.uniDistance / 1000) * 100) / 100;
+            }
+
+            //create tags
+            createTags(req.params.offerId, _tags, (success) => {
+                if (success == false) {
+                    res.status(500);
+                    return res.json({
+                        tags: ['A server error occurred during the creation of the offer tags']
+                    })
                 }
-            },
-            _offer,
-            (err, offer) => {
-                if (err || !offer) {
-                    res.status(400);
-                    return res.json(err);
-                } else {
-                    if (offer.toString() != 1) {
-                        return res.sendStatus(401);
+
+                //Save Offer
+                schema.models.Offer.update({
+                    where: {
+                        id: req.params.offerId,
+                        landlord: req.session.user.id
                     }
-                    return res.sendStatus(200);
-                }
-            });
+                }, _offer, (err, _offer) => {
+                    if (err || !_offer) {
+                        res.status(404);
+                        return res.json(err);
+                    } else {
+                        if (_offer.toString() != 1) {
+                            return res.sendStatus(401);
+                        }
+                        return res.sendStatus(200);
+                    }
+                })
+            })
+        });
     }
 });
 
@@ -101,7 +193,27 @@ router.put('/:offerId', function (req, res) {
 router.delete('/:offerId', function (req, res) {
     // This implementation was really really sloppy, 
     // deleted it for now to recreate it better later
-    return res.sendStatus(501);
+    if (!req.session.auth) {
+        return res.sendStatus(403);
+    } 
+    schema.models.Offer.findById(req.params.offerId, (err, offer)=>{
+        if (err || !offer) {
+            res.status(404);
+            return res.json({offer: ['The offer was not found.']});
+        }
+        if(offer.landlord != req.session.user.id){
+            res.status(401)
+            return res.json({auth: ['You can only delete your own offers.']});
+        }
+        offer.destroy((err) =>{
+            if(err){
+                res.status(500);
+                return res.json(err);
+            }
+            //Destroy ok!
+            return res.sendStatus(204);
+        });
+    });
 });
 
 
@@ -438,14 +550,14 @@ router.post('/:offerId/review', function (req, res) {
         if (err || !offer || offer.status == 0) {
             return res.sendStatus(404);
         }
-        
+
         if (offer.type == "FLAT" || offer.type == "SHARE") {
             res.status(401);
             return res.json({
                 offerType: ["You can not post reviews for offer with type FLAT or SHARE"]
             });
         }
-        
+
         if (offer.landlord == req.session.user.id) {
             res.status(401);
             return res.json({
@@ -496,7 +608,8 @@ router.post('/:offerId/review', function (req, res) {
                     }
                     schema.models.Review.find({
                         where: {
-                            offerId: { in: _offerIds }
+                            offerId: { in: _offerIds
+                            }
                         }
                     }, (err5, allReviews) => {
                         let _newAverageRating = 0;
@@ -512,7 +625,7 @@ router.post('/:offerId/review', function (req, res) {
                         }, {
                             averageRating: _newAverageRating
                         }, (err6, updatedLandlord) => {
-                            if(err6){
+                            if (err6) {
                                 return res.sendStatus(500)
                             }
                             //Finally finished!
