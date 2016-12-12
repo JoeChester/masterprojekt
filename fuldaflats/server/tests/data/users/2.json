@@ -15,5 +15,6 @@
     "gender": "male",
     "officeAddress" : "Berliner Str. 19",
     "averageRating": 4.0,
+    "profilePicture": "uploads/user2.jpg",
     "favorites": null
 }
