@@ -239,3 +239,12 @@ padding-right: 17px;
 .modal-content{
   border-radius: 0px;
 }
+.modal{
+  background-color: rgba(26,49,76,0.1);
+}
+
+/* restrict tag dropdown size*/
+.open>.dropdown-menu {
+    max-height: 200px;
+    overflow-x: auto;
+}

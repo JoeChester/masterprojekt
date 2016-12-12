@@ -96,7 +96,7 @@ function authenticate(req, res, successStatus) {
 }
 
 function getUserOffers(req, res, user, _user) {
-    schema.models.Offer.find({ where: { landlord: user.id } }, (err, offers) => {
+    schema.models.Offer.find({ where: { landlord: user.id, status: {in: [1,2]} } }, (err, offers) => {
         if (!err && offers && offers.length > 0) {
             let offer_joins = [];
             offers.forEach(offer => {
@@ -151,7 +151,7 @@ function getFavorites(req, res, user, _user) {
             for (let i in favorites) {
                 offerIds.push(favorites[i].offerId);
             }
-            schema.models.Offer.find({ where: { id: { in: offerIds } } }, (err, offers) => {
+            schema.models.Offer.find({ where: { id: { in: offerIds }, status: 1 } }, (err, offers) => {
                 if (err) {
                     res.status(404);
                     return res.json(err);

@@ -59,11 +59,11 @@ define(['text!./contactModalDialog.component.html', 'css!./contactModalDialog.co
                     leafletMapElement(contactMapElement);
 
                     $(dialogContainer).on('hidden.bs.modal', function () {
-                        removeMap();
+                        //removeMap();
                     });
 
                     $(dialogContainer).on('shown.bs.modal', function () {
-                        initializeMap(self.leafletMapOptions());
+                        //initializeMap(self.leafletMapOptions());
                     });
                 }
 

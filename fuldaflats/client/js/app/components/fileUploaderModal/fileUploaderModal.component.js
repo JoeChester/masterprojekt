@@ -24,8 +24,8 @@ define(['text!./fileUploaderModal.component.html',
             self.removeOfflineMediaObject = function(file) {
                 self.offerMediaObjectsOffline.remove(file);
 
-                if (self.offerMediaObjectsOffline().length == 1)
-                    $(".uploadAllBtn").hide();
+                 if (self.offerMediaObjectsOffline().length == 0)
+                    $(".uploadAllBtn").hide(); 
             }
 
             self.deleteOnlineMediaObject = function(file) {                                
@@ -96,7 +96,7 @@ define(['text!./fileUploaderModal.component.html',
                         self.offerMediaObjectsOffline.push(event.target.files[i]);
                     }
 
-                    if (self.offerMediaObjectsOffline().length > 1)
+                    if (self.offerMediaObjectsOffline().length > 0)
                         $(".uploadAllBtn").show();
                 });
 

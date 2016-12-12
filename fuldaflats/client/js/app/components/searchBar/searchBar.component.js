@@ -48,12 +48,12 @@ define(['text!./searchBar.component.html', 'css!./searchBar.component.css',
                 $('#tags1').multiselect({
                     numberDisplayed: 0,
                     nonSelectedText: 'Choose Tags',
-                    maxHeight: 200
+                    maxHeight: 10
                 });
                 $('#tags2').multiselect({
                     numberDisplayed: 0,
                     nonSelectedText: 'Choose Tags',
-                    maxHeight: 200
+                    maxHeight: 10
                 });
             });
 
