@@ -97,3 +97,7 @@ hr {
     height: 200px;
     background-color: #999999;
 }
+
+#detailsMap .marker-popup {
+  width: 250px;
+}

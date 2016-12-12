@@ -23,7 +23,7 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
                 isAuthenticated: false,
                 userData: undefined
             });
-            
+
             self.isAuthenticated = ko.observable(false);
             self.offerId = ko.observable();
             self.offer = ko.observable({});
@@ -52,18 +52,18 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
                 });
             }
 
-            self.getReviews = function(){
+            self.getReviews = function () {
                 $.getJSON({
                     url: '/api/offers/' + self.offerId() + '/review',
-                    success: function(reviewsData, status, req){
+                    success: function (reviewsData, status, req) {
                         self.reviews.removeAll();
-                        for(var i in reviewsData){
+                        for (var i in reviewsData) {
                             reviewsData[i].creationDate = moment(reviewsData[i].creationDate).format('L');
                             self.reviews.push(reviewsData[i]);
                         }
                         console.log(self.reviews());
                     },
-                    error: function(req, status, error){
+                    error: function (req, status, error) {
                         self.reviews.removeAll();
                     }
                 });
@@ -72,9 +72,44 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
             loginCallbacks.push(self.checkLogin);
             self.checkLogin();
 
+            self.initDetailsMap = function () {
+                var detailsMap = L.map('detailsMap');
+                var iconBlue = L.icon({
+                    iconUrl: '/img/marker-icon-purple.png',
+                    iconSize: [25, 41],
+                    iconAnchor: [12.5, 41],
+                    popupAnchor: [0, -43],
+                });
 
-            self.getOfferDetails = function(){
-                 //Get offer Details
+                var iconHS = L.icon({
+                    iconUrl: '/img/hs_marker.png',
+                    iconSize: [40, 40],
+                    iconAnchor: [20, 40],
+                    popupAnchor: [0, -43],
+                });
+
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 16,
+                    minZoom: 5,
+                    attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+                }).addTo(detailsMap);
+
+                var hs_latlng = ['50.5648258', '9.6842798'];
+                var popup = '<div class="marker-popup"><img src="/img/logo_hs.png" alt="" class="img-responsive"></div>'
+                L.marker(hs_latlng, {
+                    icon: iconHS
+                }).addTo(detailsMap).bindPopup(popup);
+
+                var latlng = [self.offer().latitude, self.offer().longitude];
+                console.log(latlng);
+                L.marker(latlng, {
+                    icon: iconBlue
+                }).addTo(detailsMap);
+                detailsMap.setView(latlng, 14);
+            }
+
+            self.getOfferDetails = function () {
+                //Get offer Details
                 $.getJSON({
                     url: '/api/offers/' + self.offerId(),
                     success: function (offerData, status, req) {
@@ -87,23 +122,26 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
                             for (var j in offerData.reviews) {
                                 offerData.reviews[j].creationDate = moment(offerData.reviews[j].creationDate).format('L');
                             }
-                            if(offerData.offerType == "FLAT" || offerData.offerType == "SHARE"){
+                            if (offerData.offerType == "FLAT" || offerData.offerType == "SHARE") {
                                 self.showReviews(false);
                             }
-                            if(offerData.favorite){
-                                if(offerData.favorite.length > 0){
-                                    self.isFavorite(true); 
+                            if (offerData.favorite) {
+                                if (offerData.favorite.length > 0) {
+                                    self.isFavorite(true);
                                 }
                             }
-                            if(offerData.tags){
-                                if(offerData.tags.length > 0){
-                                    self.showTags(true); 
+                            if (offerData.tags) {
+                                if (offerData.tags.length > 0) {
+                                    self.showTags(true);
                                 }
                             }
                             console.log(offerData);
                             self.offer(offerData);
                             if (offerData.landlord) {
                                 self.landlord(offerData.landlord);
+                            }
+                            if (self.offer().latitude && self.offer().longitude) {
+                                self.initDetailsMap();
                             }
                         }
                     }
@@ -115,45 +153,45 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
             //Get Offer Data
             self.offerId(getURLParameter("offerId") || "");
             if (self.offerId()) {
-               self.getOfferDetails();
+                self.getOfferDetails();
             }
 
             loginCallbacks.push(self.getReviews);
 
 
             //Favorite Functions
-            self.setFavorite = function(){
+            self.setFavorite = function () {
                 self.isFavorite(true);
                 $.ajax({
                     url: "/api/offers/" + self.offerId() + "/favorite",
                     method: "PUT",
-                    success: function(data, status, req){
+                    success: function (data, status, req) {
                         console.log("Favorite Added!");
                     },
-                    error: function(req, status, err){
+                    error: function (req, status, err) {
                         errorCallback(JSON.parse(req.responseText));
                         self.isFavorite(false);
-                    } 
+                    }
                 });
             }
 
-            self.unsetFavorite = function(){
+            self.unsetFavorite = function () {
                 self.isFavorite(false);
                 $.ajax({
                     url: "/api/offers/" + self.offerId() + "/favorite",
                     method: "DELETE",
-                    success: function(data, status, req){
+                    success: function (data, status, req) {
                         console.log("Favorite Removed!");
                     },
-                    error: function(req, status, err){
+                    error: function (req, status, err) {
                         console.error(req);
                         errorCallback(err);
                         self.isFavorite(true);
-                    } 
+                    }
                 });
             }
 
-            self.sendReview = function(){
+            self.sendReview = function () {
                 var _review = {};
                 _review.rating = parseInt($('#newReviewRating').val());
                 _review.title = $('#newReviewTitle').val();
@@ -164,17 +202,17 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
                     dataType: "application/json",
                     contentType: "application/json",
                     data: JSON.stringify(_review),
-                    success: function(data, status, req){
+                    success: function (data, status, req) {
                         self.getOfferDetails();
                     },
-                    error: function(req, status, err){
+                    error: function (req, status, err) {
                         console.error(req);
-                        if(req.status == 201){
+                        if (req.status == 201) {
                             return self.getOfferDetails();
                         }
                         try {
                             errorCallback(JSON.parse(req.responseText));
-                        } catch(e) {
+                        } catch (e) {
                             errorCallback(req.statusText);
                         }
                     }

@@ -2,7 +2,7 @@
  * File:            offers.js
  * Author:          Jonas Kleinkauf, Plisam Ekpai-Laodema,
  *                  Franz Weidmann
- * LastMod:         02.12.2016
+ * LastMod:         12.12.2016
  * Description:     REST endpoints for offers
  ************************************************************/
 
@@ -21,20 +21,6 @@ const HSFuldaCoords = {
     latitude: 50.5648258,
     longitude: 9.6842798
 };
-
-/*--> {latitude:x, longitude:x}, {latitude:x, longitude:x}, callback(dist)
-geo.vincenty(coord1, coord2, callback)
-
---> {latitude:x, longitude:x}, {latitude:x, longitude:x}
-geo.vincentySync(coord1, coord2)
-
-
-
---> {latitude:x, longitude:x}, {latitude:x, longitude:x}, callback(dist)
-geo.haversine(coord1, coord2, callback)
-
---> {latitude:x, longitude:x}, {latitude:x, longitude:x}
-geo.haversineSync(coord1, coord2)*/
 
 //Functions
 
@@ -168,8 +154,8 @@ router.put('/:offerId', function (req, res) {
                     latitude: _offer.latitude,
                     longitude: _offer.longitude
                 });
-                //m -> km
-                _offer.uniDistance = (_offer.uniDistance / 1000);
+                //m -> km (Rounded to 2 decimal places)
+                _offer.uniDistance = Math.round((_offer.uniDistance / 1000) * 100) / 100;
             }
 
             //create tags
@@ -207,7 +193,27 @@ router.put('/:offerId', function (req, res) {
 router.delete('/:offerId', function (req, res) {
     // This implementation was really really sloppy, 
     // deleted it for now to recreate it better later
-    return res.sendStatus(501);
+    if (!req.session.auth) {
+        return res.sendStatus(403);
+    } 
+    schema.models.Offer.findById(req.params.offerId, (err, offer)=>{
+        if (err || !offer) {
+            res.status(404);
+            return res.json({offer: ['The offer was not found.']});
+        }
+        if(offer.landlord != req.session.user.id){
+            res.status(401)
+            return res.json({auth: ['You can only delete your own offers.']});
+        }
+        offer.destroy((err) =>{
+            if(err){
+                res.status(500);
+                return res.json(err);
+            }
+            //Destroy ok!
+            return res.sendStatus(204);
+        });
+    });
 });
 
 
