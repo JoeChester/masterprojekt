@@ -7,270 +7,253 @@
 <section style="min-height:700px; margin-top: 2rem">
 	<div class="container">
 		<div class="row">
-			<div class="col-sm-1"></div>
-			<div class="col-sm-10">
+			<div class="col-md-12 centric">
 				<h3 class="title" data-bind="text: offer().title"></h3>
-				<legend class="spacing-double">Media</legend>
-				<div class="row">
-					<div class="col-sm-12">
-						<div class="row"><br>
-							<label class="control-label col-sm-11"><h5>Add Pictures:</h5></label>
-							<div class="col-sm-1">
-								<button type="button" data-bind="click: bindFileUploadModalEvents" data-toggle="modal" data-target="#fileUploaderModal" class="btn btn-default"
-									aria-label="Right Align">
-                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                </button>
-							</div>
-						</div><br>
-						<div class="row">
-							<div class="col-sm-12" data-bind="foreach: { data: offer().mediaObjects, as: 'mediaObject'}">
-								<div class="image col-sm-4">
-									<img data-bind="attr: {src: mediaObject.mainUrl}" alt="" class="img-responsive">
-								</div>
-							</div>
-						</div><br>
-					</div>
-				</div><br>
-				<legend class="spacing-top">General Information</legend>
-				<div class="row">
-					<div class="col-xs-6">
-						<form class="form-horizontal">
-							<div class="form-group">
-								<label for="status" class="control-label col-sm-6">Active:</label>
-								<div class="col-sm-6">
-									<div class="checkbox">
-										<input type="checkbox" name="status" data-bind="checked: status">
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="offerType" class="control-label col-sm-6">Offer Type:</label>
-								<div class="col-sm-6">
-									<p id="offerType" class="form-control-static bold-text" data-bind="text: offer().offerType"></p>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="size" class="control-label col-sm-6">Size:</label>
-								<div class="col-sm-6">
-									<p id="size" class="form-control-static bold-text" data-bind="text: offer().size + ' m²'"></p>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="rooms" class="control-label col-sm-6">Rooms:</label>
-								<div class="col-sm-6">
-									<p id="rooms" class="form-control-static bold-text" data-bind="text: offer().rooms"></p>
-								</div>
-							</div>
-						</form>
-					</div>
-					<div class="col-xs-6">
-						<form class="form-horizontal">
-							<div class="form-group">
-								<label for="rental" class="control-label col-sm-6">Rent:</label>
-								<div class="col-sm-6">
-									<input type="text" class="col-sm-8" id="rental" data-bind="attr:{placeholder:offer().rent + ' €'}, value: offerChanges().rent">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="addittion" class="control-label col-sm-6">Side Costs:</label>
-								<div class="col-sm-6">
-									<input type="text" class="col-sm-8" id="addittion" data-bind="attr:{placeholder:offer().sideCosts + ' €'}, value: offerChanges().sideCosts">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="fullprice" class="control-label col-sm-6">Full Price:</label>
-								<div class="col-sm-6">
-									<input type="text" class="col-sm-8" id="fullprice" data-bind="attr:{placeholder:offer().fullPrice + ' €'},  value: offerChanges().fullPrice">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="deposit" class="control-label col-sm-6">Deposit:</label>
-								<div class="col-sm-6">
-									<input type="text" class="col-sm-8" id="deposit" data-bind="attr:{placeholder:offer().deposit + ' €'}, value: offerChanges().deposit">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="commission" class="control-label col-sm-6">Commission:</label>
-								<div class="col-sm-6">
-									<input type="text" class="col-sm-8" id="commission" data-bind="attr:{placeholder:offer().commission + ' €'}, value: offerChanges().commission">
-								</div>
-							</div>
-						</form>
-					</div>
-				</div><br>
-				<legend>Location</legend>
-				<div class="row">
-					<div class="col-sm-6">
-						<form class="form-horizontal">
-							<div class="form-group">
-								<label for="street" class="control-label col-sm-6">Street:</label>
-								<input type="text" class="col-sm-6" id="street" data-bind="attr:{placeholder:offer().street}, value: offerChanges().street">
-							</div>
-							<div class="form-group">
-								<label for="number" class="control-label col-sm-6">Nr.:</label>
-								<input type="text" class="col-sm-6" id="number" data-bind="attr:{placeholder:offer().houseNumber}, value: offerChanges().houseNumber">
-							</div>
-							<div class="form-group">
-								<label for="floor" class="control-label col-sm-6">Floor:</label>
-								<input type="text" class="col-sm-6" id="floor" data-bind="attr:{placeholder:offer().floor}, value: offerChanges().floor">
-							</div>
-							<div class="form-group">
-								<label for="postcode" class="control-label col-sm-6">Zip Code:</label>
-								<input type="text" class="col-sm-6" id="postcode" data-bind="attr:{placeholder:offer().zipCode}, value: offerChanges().zipCode">
-							</div>
-							<div class="form-group">
-								<label for="city" class="control-label col-sm-6">City:</label>
-								<input type="text" class="col-sm-6" id="city" data-bind="attr:{placeholder:offer().city}, value: offerChanges().city">
-							</div><br>
-						</form>
-					</div>
-				</div><br>
-				<legend class="spacing-top">Description</legend>
-				<div class="row">
-					<div class="col-sm-12">
-						<br><textarea class="form-control" rows="8" id="description" data-bind="attr:{placeholder:offer().description}, value: offerChanges().description"></textarea>
-					</div><br>
-				</div><br>
-
-				<legend class="spacing-top">Detail Information</legend>
-				<div class="row">
-					<div class="col-xs-6">
-						<form class="form-horizontal">
-							<div class="form-group">
-								<label for="bathroom" class="control-label col-sm-6">Bathroom:</label>
-								<div class="col-sm-6">
-									<select class="form-control" id="bathroom" data-bind="options: bathroomDescriptions, value: bathroomDescription">
-                                </select>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="kitchen" class="control-label col-sm-6">Kitchen:</label>
-								<div class="col-sm-6">
-									<select class="form-control" id="kitchen" data-bind="options: kitchenDescriptions, value: kitchenDescription"></select>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="cellar" class="control-label col-sm-6">Cellar:</label>
-								<div class="col-sm-6">
-									<div class="checkbox">
-										<input type="checkbox" name="cellar" data-bind="checked: cellar">
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="parking" class="control-label col-sm-6">Parking:</label>
-								<div class="col-sm-6">
-									<div class="checkbox">
-										<input type="checkbox" name="parking" data-bind="checked: parking">
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="elevator" class="control-label col-sm-6">Elevator:</label>
-								<div class="col-sm-6">
-									<div class="checkbox">
-										<input type="checkbox" name="elevator" data-bind="checked: elevator">
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="pets" class="control-label col-sm-6">Pets:</label>
-								<div class="col-sm-6">
-									<div class="checkbox">
-										<input type="checkbox" name="pets" data-bind="checked: pets">
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="furnished" class="control-label col-sm-6">Furnished:</label>
-								<div class="col-sm-6">
-									<div class="checkbox">
-										<input type="checkbox" name="furnished" data-bind="checked: furnished">
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="accessability" class="control-label col-sm-6">Accessability:</label>
-								<div class="col-sm-6">
-									<div class="checkbox">
-										<input type="checkbox" name="accessability" data-bind="checked: accessability">
-									</div>
-								</div>
-							</div>
-						</form>
-					</div>
-					<div class="col-xs-6">
-						<form class="form-horizontal">
-							<div class="form-group">
-								<label for="heating" class="control-label col-sm-6">Heating:</label>
-								<div class="col-sm-6">
-									<select class="form-control" id="heating" data-bind="options: offerHeatingDescriptions, value: heatingDescription"></select>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="washing" class="control-label col-sm-6">Washer:</label>
-								<div class="col-sm-6">
-									<div class="checkbox">
-										<input type="checkbox" name="washing" data-bind="checked: washingMachine">
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="dryer" class="control-label col-sm-6">Dryer:</label>
-								<div class="col-sm-6">
-									<div class="checkbox">
-										<input type="checkbox" name="dryer" data-bind="checked: dryer">
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="television" class="control-label col-sm-6">Television:</label>
-								<div class="col-sm-6">
-									<select class="form-control" id="television" data-bind="options: televisionDescriptions, value: television">
-                                </select>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="phone" class="control-label col-sm-6">Telephone:</label>
-								<div class="col-sm-6">
-									<div class="checkbox">
-										<input type="checkbox" name="phone" data-bind="checked: telephone">
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="wlan" class="control-label col-sm-6">WLAN:</label>
-								<div class="col-sm-6">
-									<div class="checkbox">
-										<input type="checkbox" name="wlan" data-bind="checked: wlan">
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="lan" class="control-label col-sm-6">LAN:</label>
-								<div class="col-sm-6">
-									<div class="checkbox">
-										<input type="checkbox" name="lan" data-bind="checked: lan">
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="internet" class="control-label col-sm-6">Internet Speed (MBit/s):</label>
-								<div class="col-sm-6">
-									<input type="text" id="internet" data-bind="attr:{placeholder:offer().internetSpeed}, value: offerChanges().internetSpeed">
-								</div>
-							</div>
-						</form>
-					</div>
-				</div><br>
-				<div class="row">
-					<div class="col-sm-12">
-						<a href="" type="submit" data-bind="click: updateOffer" class="col-sm-offset-5 btn btn-template-main ">Accept</a>
-						<a href="" type="submit" data-bind="click: cancelEditOffer" class="btn btn-template-main ">Cancel</a>
-					</div>
+			</div>
+		</div>
+		<legend>Media</legend>
+		<div class="row">
+			<div class="col-sm-4">
+				<button type="button" data-bind="click: bindFileUploadModalEvents" data-toggle="modal" data-target="#fileUploaderModal" class="btn btn-default"
+								aria-label="Right Align">
+					<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit Media
+				</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12" data-bind="foreach: { data: offer().mediaObjects, as: 'mediaObject'}">
+				<div class="image col-sm-4">
+					<img data-bind="attr: {src: mediaObject.mainUrl}" alt="" class="img-responsive">
 				</div>
 			</div>
-			<div class="col-sm-1"></div>
+		</div>
+		<legend class="spacing-top">General Information</legend>
+		<div class="row">
+			<div class="col-xs-6">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="status" class="control-label col-sm-6">Active:</label>
+						<div class="col-sm-6">
+							<input type="checkbox" class="form-control-static" name="status" data-bind="checked: status">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="offerType" class="control-label col-sm-6">Offer Type:</label>
+						<div class="col-sm-6">
+							<p id="offerType" class="form-control-static bold-text" data-bind="text: offer().offerType"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="size" class="control-label col-sm-6">Size:</label>
+						<div class="col-sm-6">
+							<p id="size" class="form-control-static bold-text" data-bind="text: offer().size + ' m²'"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="rooms" class="control-label col-sm-6">Rooms:</label>
+						<div class="col-sm-6">
+							<p id="rooms" class="form-control-static bold-text" data-bind="text: offer().rooms"></p>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="col-xs-6">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="rental" class="control-label col-sm-6">Rent:</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="rental" data-bind="attr:{placeholder:offer().rent + ' €'}, value: offerChanges().rent">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="addittion" class="control-label col-sm-6">Side Costs:</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="addittion" data-bind="attr:{placeholder:offer().sideCosts + ' €'}, value: offerChanges().sideCosts">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="fullprice" class="control-label col-sm-6">Full Price:</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="fullprice" data-bind="attr:{placeholder:offer().fullPrice + ' €'},  value: offerChanges().fullPrice">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="deposit" class="control-label col-sm-6">Deposit:</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="deposit" data-bind="attr:{placeholder:offer().deposit + ' €'}, value: offerChanges().deposit">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="commission" class="control-label col-sm-6">Commission:</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="commission" data-bind="attr:{placeholder:offer().commission + ' €'}, value: offerChanges().commission">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div><br>
+		<legend>Location</legend>
+		<div class="row">
+			<div class="col-sm-6">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="street" class="control-label col-sm-6">Street:</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="street" data-bind="attr:{placeholder:offer().street}, value: offerChanges().street">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="number" class="control-label col-sm-6">Nr.:</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="number" data-bind="attr:{placeholder:offer().houseNumber}, value: offerChanges().houseNumber">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="floor" class="control-label col-sm-6">Floor:</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="floor" data-bind="attr:{placeholder:offer().floor}, value: offerChanges().floor">
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="col-sm-6">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="postcode" class="control-label col-sm-6">Zip Code:</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="postcode" data-bind="attr:{placeholder:offer().zipCode}, value: offerChanges().zipCode">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="city" class="control-label col-sm-6">City:</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="city" data-bind="attr:{placeholder:offer().city}, value: offerChanges().city">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div><br>
+		<legend class="spacing-top">Description</legend>
+		<div class="row">
+			<div class="col-sm-12">
+				<br><textarea class="form-control" rows="4" id="description" data-bind="attr:{placeholder:offer().description}, value: offerChanges().description"></textarea>
+			</div><br>
+		</div><br>
+		<legend class="spacing-top">Detail Information</legend>
+		<div class="row">
+			<div class="col-xs-6">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="bathroom" class="control-label col-sm-6">Bathroom:</label>
+						<div class="col-sm-6">
+							<select class="form-control" id="bathroom" data-bind="options: bathroomDescriptions, value: bathroomDescription">
+                            </select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="kitchen" class="control-label col-sm-6">Kitchen:</label>
+						<div class="col-sm-6">
+							<select class="form-control" id="kitchen" data-bind="options: kitchenDescriptions, value: kitchenDescription">
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="cellar" class="control-label col-sm-6">Cellar:</label>
+						<div class="col-sm-6">
+							<input type="checkbox" class="form-control-static" name="cellar" data-bind="checked: cellar">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="parking" class="control-label col-sm-6">Parking:</label>
+						<div class="col-sm-6">
+							<input type="checkbox" class="form-control-static" name="parking" data-bind="checked: parking">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="elevator" class="control-label col-sm-6">Elevator:</label>
+						<div class="col-sm-6">
+							<input type="checkbox" class="form-control-static" name="elevator" data-bind="checked: elevator">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="pets" class="control-label col-sm-6">Pets:</label>
+						<div class="col-sm-6">
+							<input type="checkbox" class="form-control-static" name="pets" data-bind="checked: pets">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="furnished" class="control-label col-sm-6">Furnished:</label>
+						<div class="col-sm-6">
+							<input type="checkbox" class="form-control-static" name="furnish " data-bind="checked: furnished">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="accessability" class="control-label col-sm-6">Accessability:</label>
+						<div class="col-sm-6">
+							<input type="checkbox" class="form-control-static" name="accessability" data-bind="checked: accessability">
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="col-xs-6">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="heating" class="control-label col-sm-6">Heating:</label>
+						<div class="col-sm-6">
+							<select class="form-control" id="heating" data-bind="options: offerHeatingDescriptions, value: heatingDescription"></select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="washing" class="control-label col-sm-6">Washer:</label>
+						<div class="col-sm-6">
+							<input type="checkbox" class="form-control-static" name="washing" data-bind="checked: washingMachine">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="dryer" class="control-label col-sm-6">Dryer:</label>
+						<div class="col-sm-6">
+							<input type="checkbox" class="form-control-static" name="dryer" data-bind="checked: dryer">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="television" class="control-label col-sm-6">Television:</label>
+						<div class="col-sm-6">
+							<select class="form-control" id="television" data-bind="options: televisionDescriptions, value: television">
+                                </select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="phone" class="control-label col-sm-6">Telephone:</label>
+						<div class="col-sm-6">
+							<input type="checkbox" class="form-control-static" name="phone" data-bind="checked: telephone">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="wlan" class="control-label col-sm-6">WLAN:</label>
+						<div class="col-sm-6">
+							<input type="checkbox" class="form-control-static" name="wlan" data-bind="checked: wlan">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="lan" class="control-label col-sm-6">LAN:</label>
+						<div class="col-sm-6">
+							<input type="checkbox" class="form-control-static" name="lan" data-bind="checked: lan">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="internet" class="control-label col-sm-6">Internet Speed (MBit/s):</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="internet" data-bind="attr:{placeholder:offer().internetSpeed}, value: offerChanges().internetSpeed">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div><br>
+		<div class="row">
+			<div class="col-sm-12 centric">
+				<a href="" type="submit" data-bind="click: updateOffer" class="btn btn-template-main ">Accept</a>
+				<a href="" type="submit" data-bind="click: cancelEditOffer" class="btn btn-template-main ">Cancel</a>
+			</div>
 		</div>
 	</div>
 	<!-- /container -->

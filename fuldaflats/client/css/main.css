@@ -234,3 +234,8 @@ padding-right: 17px;
 }
 
 /* End Multi Select */
+
+/* Remove round edges of modals to match style */
+.modal-content{
+  border-radius: 0px;
+}

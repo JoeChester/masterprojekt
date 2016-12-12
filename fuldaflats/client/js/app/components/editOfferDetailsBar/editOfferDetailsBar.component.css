@@ -11,3 +11,7 @@
 .title {
     text-align: center;
 }
+
+input[type=checkbox], input[type=radio]{
+    margin: 0;
+}
