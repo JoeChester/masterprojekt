@@ -126,7 +126,10 @@ router.post('/profilePicture', function (req, res) {
     upload(req, res, function (err) {
         if(err){
             res.status(400);
-            return res.json(err);
+            if(err.code !== undefined && err.code == "LIMIT_FILE_SIZE")
+                return res.json({error:"This image exceeds the size limit of 5 MB!"});
+            else
+                return res.json(err);
         }
         if(!req.file){
             res.status(400);

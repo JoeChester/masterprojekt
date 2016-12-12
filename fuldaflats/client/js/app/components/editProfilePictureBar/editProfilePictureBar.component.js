@@ -62,6 +62,8 @@ define(['text!./editProfilePictureBar.component.html', 'css!./editProfilePicture
                     },
                     error: function (req, status, error) {
                         console.error(req);
+                        $("#alertProfilePictureUpload").text(JSON.parse(req.responseText).error);
+                        $("#alertProfilePictureUpload").show();
                     }
                 });
             }

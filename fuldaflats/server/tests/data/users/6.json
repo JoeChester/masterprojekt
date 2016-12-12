@@ -15,5 +15,6 @@
     "gender": "male",
     "officeAddress" : null,
     "averageRating": null,
+    "profilePicture": "uploads/user6.jpg",
     "favorites": null
 }

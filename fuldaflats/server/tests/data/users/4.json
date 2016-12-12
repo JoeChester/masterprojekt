@@ -15,5 +15,6 @@
     "gender": "female",
     "officeAddress" : null,
     "averageRating": 4.8,
+    "profilePicture": "uploads/user4.jpg",
     "favorites": null
 }
