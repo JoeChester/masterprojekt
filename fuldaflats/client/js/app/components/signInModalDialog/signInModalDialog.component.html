@@ -38,9 +38,8 @@
 							maxlength="255" type="password" class="form-control" placeholder="Password">
 						<div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
 					</div>
-					<div class="form-group">
-						<input data-bind="bootstrapSwitch: rememberMe, bootstrapSwitchOptions: { onText: 'Remember Me', onColor: 'primary', offColor: 'danger', offText: 'Remember Me', animate: true, size: 'small', labelWidth: '80' }"
-							type="checkbox" class="form-control" id="rememberMe">
+					<div class="form-group checkbox">
+						<label for="rememberMe"><input data-bind="checked: rememberMe" type="checkbox" id="rememberMe">Remember Me</label>
 					</div>
 					<button type="submit" data-bind="click: signIn, enable: (isValidEmail() && isValidPassword()) && !(invalidCredentials() || internalError() || accountIsLocked())"
 						class="btn btn-template-primary btn-block">Sign In</button>
