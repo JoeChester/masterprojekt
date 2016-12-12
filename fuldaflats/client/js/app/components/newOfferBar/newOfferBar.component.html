@@ -20,7 +20,8 @@
                 <strong>Internal Error:</strong> Please try it again later.
             </div>
 
-            <div data-bind="css: { 'hidden': (offerLoadingError() || offerTypesLoadingError() || offerTagsLoadingError() || currentUserIsNotALandlord() || offerLandlordIsNotCurrentUser() || offerCreationError()) }" class="hidden tabs">
+            <div data-bind="css: { 'hidden': (offerLoadingError() || offerTypesLoadingError() || offerTagsLoadingError() || currentUserIsNotALandlord() || offerLandlordIsNotCurrentUser() || offerCreationError()) }"
+                class="hidden tabs">
                 <ul class="nav nav-pills nav-justified">
                     <li class="active"><a href="#tab1" data-toggle="tab">Step 1</a></li>
                     <li class="disabled"><a href="#tab2">Step 2</a></li>
@@ -39,12 +40,21 @@
                                     </div>
                                 </legend>
                                 <div class="row">
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label for="offerType" class="control-label col-sm-2">Offer Type:</label>
-                                            <div class="col-sm-10">
+                                            <label for="offerType" class="control-label col-sm-4">Offer Type:</label>
+                                            <div class="col-sm-8">
                                                 <select data-bind="options: offerTypes, value: offer().offerType, optionsCaption: 'Choose Offer Type', optionsAfterRender: optionsAfterRender"
                                                     class="form-control" id="offerType"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="offerActive" class="control-label col-sm-4">Status:</label>
+                                            <div class="col-sm-8">
+                                                <input data-bind="bootstrapSwitch: offer().status, bootstrapSwitchOptions: { onText: 'Active', onColor: 'primary', offColor: 'danger', offText: 'Inactive', animate: true, size: 'small' }" type="checkbox" id="offerActive"
+                                                    placeholder="Active">
                                             </div>
                                         </div>
                                     </div>
