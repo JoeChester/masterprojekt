@@ -21,6 +21,7 @@ define(['text!./signInModalDialog.component.html', 'css!./signInModalDialog.comp
 
             self.internalError = ko.observable(false);
             self.invalidCredentials = ko.observable(false);
+            self.accountIsLocked = ko.observable(false);
 
             function focusInput() {
                 self.modalDialogContainer().find("[autofocus]:first").focus();
@@ -29,6 +30,7 @@ define(['text!./signInModalDialog.component.html', 'css!./signInModalDialog.comp
             function resetErrors() {
                 self.internalError(false);
                 self.invalidCredentials(false);
+                self.accountIsLocked(false);
             };
 
             self.isValidPassword = ko.computed(function () {
@@ -72,7 +74,11 @@ define(['text!./signInModalDialog.component.html', 'css!./signInModalDialog.comp
                         function (xhr) {
                             if (xhr.status === 403 || xhr.status === 400) {
                                 self.invalidCredentials(true);
+                            } if (xhr.status === 423) {
+                                resetErrors();
+                                self.accountIsLocked(true);
                             } else {
+                                resetErrors()
                                 self.internalError(true);
                             }
                         });
@@ -116,7 +122,7 @@ define(['text!./signInModalDialog.component.html', 'css!./signInModalDialog.comp
                             signIn.initialize(params, signInDialog);
                         }
                     }
-                    
+
                     return signIn;
                 }
             },

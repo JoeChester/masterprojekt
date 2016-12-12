@@ -10,6 +10,7 @@
 .offer-brief-favorite-icon,
 .offer-brief-edit-button {
   padding-left: 0px;
+  padding-right: 0px;
 }
 
 @media only screen and (max-width : 768px) {
@@ -65,7 +66,7 @@
   line-height: 2.5rem !important;
 }
 
-@media only screen and (min-width : 992px) {
+@media only screen and (min-width : 768px) {
   .row-eq-height-md {
     display: -webkit-box;
     display: -webkit-flex;

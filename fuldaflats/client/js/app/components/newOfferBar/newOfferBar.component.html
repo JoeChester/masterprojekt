@@ -4,7 +4,7 @@
  * LastMod:         08.12.2016
  * Description:     Knockout Template for new offer bar.
  ************************************************************-->
-<section id="new-offer-wizard" style="min-height:700px; margin-top: 2rem">
+<section id="new-offer-wizard">
     <div class="container">
         <div class="col-sm-12">
             <div data-bind="css: { 'hidden': !offerCreationError() }" class="hidden alert alert-danger">
@@ -294,7 +294,7 @@
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label for="offerWlan" class="control-label col-sm-4">Wlan:</label>
+                                                <label for="offerWlan" class="control-label col-sm-4">WLAN:</label>
                                                 <div class="col-sm-8">
                                                     <input data-bind="bootstrapSwitch: offer().wlan, bootstrapSwitchOptions: defaultSwitchOptions" type="checkbox" id="offerWlan"
                                                         placeholder="Wlan">
@@ -303,7 +303,7 @@
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label for="offerLan" class="control-label col-sm-4">Lan:</label>
+                                                <label for="offerLan" class="control-label col-sm-4">LAN:</label>
                                                 <div class="col-sm-8">
                                                     <input data-bind="bootstrapSwitch: offer().lan, bootstrapSwitchOptions: defaultSwitchOptions" type="checkbox" id="offerLan"
                                                         placeholder="Lan">
@@ -365,7 +365,7 @@
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label for="offerWashingMachine" class="control-label col-sm-4">Washing Machine:</label>
+                                                <label for="offerWashingMachine" class="control-label col-sm-4">Washer:</label>
                                                 <div class="col-sm-8">
                                                     <input data-bind="bootstrapSwitch: offer().washingMachine, bootstrapSwitchOptions: defaultSwitchOptions" type="checkbox"
                                                         id="offerWashingMachine" placeholder="WashingMachine">

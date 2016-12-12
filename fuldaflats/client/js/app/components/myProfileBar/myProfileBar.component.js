@@ -79,7 +79,8 @@ define(['text!./myProfileBar.component.html', 'css!./myProfileBar.component.css'
         return {
             viewModel: {
                 createViewModel: function (params, componentInfo) {
-                    return new MyProfileModel(params);
+                    window.m = new MyProfileModel(params);
+                    return m;
                 }
             },
             template: componentTemplate

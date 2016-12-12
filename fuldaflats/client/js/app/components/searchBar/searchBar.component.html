@@ -35,10 +35,10 @@
                     <select data-bind="options: availableTags, selectedOptions: $data.queryParameter().tags, multiselect: { includeSelectAllOption: true, disableIfEmpty: true, buttonWidth: '100%', nonSelectedText: 'Choose Tags' }"
                         class="form-control" id="tags1" multiple="multiple"></select>
                 </div>
-                <div class="col-md-2 text-center">
+                <div class="col-md-2 search-buttons-container">
                     <div class="pull-right">
-                        <button data-bind="click: search" class="btn btn-lg btn-size-search btn-template-primary">Search</button>
-                        <button data-bind="click: openExtendedSearch, visible: showExtendedSearchButton" class="btn btn-lg btn-size-search btn-template-primary">
+                        <button data-bind="click: search" class="btn btn btn-size-search btn-template-primary">Search</button>
+                        <button id="btn-extended-search-open" data-bind="click: openExtendedSearch, visible: showExtendedSearchButton" class="btn btn-sm btn-size-search btn-template-primary">
                                 <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
                             </button>
                     </div>
@@ -46,204 +46,239 @@
             </div>
         </div>
         <!-- __________ Extended Search Panel __________ -->
-        <div id="extended-search-panel" class="search-panel col-md-12 background-white" data-bind="visible: showExtendedSearch">
-            <div class="col-md-6">
-
-                <div class="row">
-                    <div class="form-group">
-                        <label for="types" class="col-md-2 col-form-label">Type:</label>
-                        <div class="col-md-10">
-                            <select data-bind="options: offerTypes, value: $data.queryParameter().offerType, optionsCaption: 'Choose Type'" class="form-control"></select>
+        <div id="extended-search-panel" class="search-panel col-md-12 background-white" data-bind="fadeVisible: showExtendedSearch">
+            <div>
+                <div class="col-md-7">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="types" class="col-md-2 control-label text-left">Type:</label>
+                            <div class="col-md-10">
+                                <select data-bind="options: offerTypes, value: $data.queryParameter().offerType, optionsCaption: 'Choose Type'" class="form-control"
+                                    id="types"></select>
+                            </div>
                         </div>
-                    </div>
+                        <div class="form-group">
+                            <label for="uniDistanceFrom" class="col-md-5 control-label text-left">University distance range from:</label>
+                            <div class="col-md-3">
+                                <div class="input-group">
+                                    <input data-bind="textInput: $data.queryParameter().uniDistance.gte" class="form-control" type="number" min="0" id="uniDistanceFrom"></input>
+                                    <div class="input-group-addon">km</div>
+                                </div>
+                            </div>
+                            <label for="uniDistanceTo" class="col-md-1 control-label"> to:</label>
+                            <div class="col-md-3">
+                                <div class="input-group">
+                                    <input data-bind="textInput: $data.queryParameter().uniDistance.lte" class="form-control" type="number" min="0" id="uniDistanceTo"></input>
+                                    <div class="input-group-addon">km</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="PriceFrom" class="col-md-5 control-label text-left">Price range from:</label>
+                            <div class="col-md-3">
+                                <div class="input-group">
+                                    <input data-bind="textInput: $data.queryParameter().rent.gte" class="form-control" type="number" min="0" id="PriceFrom"></input>
+                                    <div class="input-group-addon">€</div>
+                                </div>
+                            </div>
+                            <label for="PriceTo" class="col-md-1 control-label"> to:</label>
+                            <div class="col-md-3">
+                                <div class="input-group">
+                                    <input data-bind="textInput: $data.queryParameter().rent.lte" class="form-control" type="number" min="0" id="PriceTo"></input>
+                                    <div class="input-group-addon">€</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="areaSizeFrom" class="col-md-5 control-label text-left">Area size from:</label>
+                            <div class="col-md-3">
+                                <div class="input-group">
+                                    <input data-bind="textInput: $data.queryParameter().size.gte" class="form-control" type="number" min="0" id="areaSizeFrom"></input>
+                                    <div class="input-group-addon">m²</div>
+                                </div>
+                            </div>
+                            <label for="areaSizeTo" class="col-md-1 control-label"> to:</label>
+                            <div class="col-md-3">
+                                <div class="input-group">
+                                    <input data-bind="textInput: $data.queryParameter().size.lte" class="form-control" type="number" min="0" id="areaSizeTo"></input>
+                                    <div class="input-group-addon">m²</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="roomsCountFrom" class="col-md-5 control-label text-left">Rooms count from:</label>
+                            <div class="col-md-3">
+                                <div class="input-group">
+                                    <input data-bind="textInput: $data.queryParameter().rooms.gte" class="form-control" type="number" min="0" id="roomsCountFrom"></input>
+                                </div>
+                            </div>
+                            <label for="roomsCountTo" class="col-md-1 control-label"> to:</label>
+                            <div class="col-md-3">
+                                <div class="input-group">
+                                    <input data-bind="textInput: $data.queryParameter().rooms.lte" class="form-control" type="number" min="0" id="roomsCountTo"></input>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="internetSpeedFrom" class="col-md-5 control-label text-left">Internet Speed:</label>
+                            <div class="col-md-3">
+                                <div class="input-group">
+                                    <input data-bind="textInput: $data.queryParameter().internetspeed.gte" class="form-control" type="number" min="0" id="internetSpeedFrom"></input>
+                                    <div class="input-group-addon">MBit/s</div>
+                                </div>
+                            </div>
+                            <label for="internetSpeedTo" class="col-md-1 control-label text-left"> to:</label>
+                            <div class="col-md-3">
+                                <div class="input-group">
+                                    <input data-bind="textInput: $data.queryParameter().internetspeed.lte" class="form-control" type="number" min="0" id="internetSpeedTo"></input>
+                                    <div class="input-group-addon">MBit/s</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group visible-sm visible-xs">
+                            <label for="tags2" class="col-md-2 control-label text-left">Tags:</label>
+                            <div class="col-md-10">
+                                <select data-bind="options: availableTags, selectedOptions: $data.queryParameter().tags, multiselect: { includeSelectAllOption: true, disableIfEmpty: true, buttonWidth: '100%', nonSelectedText: 'Choose Tags' }"
+                                    class="form-control" id="tags2" multiple="multiple"></select>
+                            </div>
+                        </div>
+                    </form>
                 </div>
+                <!-- End Column 1 -->
+                <!-- End Column 2 -->
+                <div class="col-md-5">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label for="furnished">Furnished:</label><br />
+                                <input data-bind="bootstrapSwitch: $data.queryParameter().furnished, bootstrapSwitchOptions: { onText: 'Yes', onColor: 'primary', offColor: 'danger', offText: 'No', animate: true, size: 'mini' }"
+                                    type="checkbox" id="furnished" placeholder="Furnished">
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label for="pets">Pets:</label><br />
+                                <input data-bind="bootstrapSwitch: $data.queryParameter().pets, bootstrapSwitchOptions: { onText: 'Yes', onColor: 'primary', offColor: 'danger', offText: 'No', animate: true, size: 'mini' }"
+                                    type="checkbox" id="pets" placeholder="Pets">
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label for="cellar">Cellar:</label><br />
+                                <input data-bind="bootstrapSwitch: $data.queryParameter().cellar, bootstrapSwitchOptions: { onText: 'Yes', onColor: 'primary', offColor: 'danger', offText: 'No', animate: true, size: 'mini' }"
+                                    type="checkbox" id="cellar" placeholder="Cellar">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label for="parking">Parking:</label><br />
+                                <input data-bind="bootstrapSwitch: $data.queryParameter().parking, bootstrapSwitchOptions: { onText: 'Yes', onColor: 'primary', offColor: 'danger', offText: 'No', animate: true, size: 'mini' }"
+                                    type="checkbox" id="parking" placeholder="Parking">
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label for="elevator">Elevator:</label><br />
+                                <input data-bind="bootstrapSwitch: $data.queryParameter().elevator, bootstrapSwitchOptions: { onText: 'Yes', onColor: 'primary', offColor: 'danger', offText: 'No', animate: true, size: 'mini' }"
+                                    type="checkbox" id="elevator" placeholder="Elevator">
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label for="accessibility">Accessibility:</label><br />
+                                <input data-bind="bootstrapSwitch: $data.queryParameter().accessibility, bootstrapSwitchOptions: { onText: 'Yes', onColor: 'primary', offColor: 'danger', offText: 'No', animate: true, size: 'mini' }"
+                                    type="checkbox" id="accessibility" placeholder="Accessibility">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label for="wlan">WLAN:</label><br />
+                                <input data-bind="bootstrapSwitch: $data.queryParameter().wlan, bootstrapSwitchOptions: { onText: 'Yes', onColor: 'primary', offColor: 'danger', offText: 'No', animate: true, size: 'mini' }"
+                                    type="checkbox" id="wlan" placeholder="WLAN">
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label for="lan">LAN:</label><br />
+                                <input data-bind="bootstrapSwitch: $data.queryParameter().lan, bootstrapSwitchOptions: { onText: 'Yes', onColor: 'primary', offColor: 'danger', offText: 'No', animate: true, size: 'mini' }"
+                                    type="checkbox" id="lan" placeholder="LAN">
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label for="telephone">Telephone:</label><br />
+                                <input data-bind="bootstrapSwitch: $data.queryParameter().telephone, bootstrapSwitchOptions: { onText: 'Yes', onColor: 'primary', offColor: 'danger', offText: 'No', animate: true, size: 'mini' }"
+                                    type="checkbox" id="telephone" placeholder="Telephone">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label for="television">Television:</label><br/>
+                                <input data-bind="bootstrapSwitch: $data.queryParameter().television, bootstrapSwitchOptions: { onText: 'Yes', onColor: 'primary', offColor: 'danger', offText: 'No', animate: true, size: 'mini' }"
+                                    type="checkbox" id="television" placeholder="Television">
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label for="dryer">Dryer:</label><br/>
+                                <input data-bind="bootstrapSwitch: $data.queryParameter().dryer, bootstrapSwitchOptions: { onText: 'Yes', onColor: 'primary', offColor: 'danger', offText: 'No', animate: true, size: 'mini' }"
+                                    type="checkbox" id="dryer" placeholder="Dryer">
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label for="washingmachine">Washer:</label><br/>
+                                <input data-bind="bootstrapSwitch: $data.queryParameter().washingmachine, bootstrapSwitchOptions: { onText: 'Yes', onColor: 'primary', offColor: 'danger', offText: 'No', animate: true, size: 'mini' }"
+                                    type="checkbox" id="washingmachine" placeholder="Washing Machine">
 
-                <div class="row">
-                    <label for="types" class="col-md-5 col-form-label">University distance range from:</label>
-                    <div class="col-md-3">
-                        <div class="input-group">
-                            <input data-bind="textInput: $data.queryParameter().uniDistance.gte" class="form-control" type="number" min="0"></input>
-                            <div class="input-group-addon">km</div>
+                            </div>
                         </div>
                     </div>
-                    <label for="types" class="col-md-1 col-form-label"> to:</label>
-                    <div class="col-md-3">
-                        <div class="input-group">
-                            <input data-bind="textInput: $data.queryParameter().uniDistance.lte" class="form-control" type="number" min="0"></input>
-                            <div class="input-group-addon">km</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <label for="types" class="col-md-5 col-form-label">Price range from:</label>
-                    <div class="col-md-3">
-                        <div class="input-group">
-                            <input data-bind="textInput: $data.queryParameter().rent.gte" class="form-control" type="number" min="0"></input>
-                            <div class="input-group-addon">€</div>
-                        </div>
-                    </div>
-                    <label for="types" class="col-md-1 col-form-label"> to:</label>
-                    <div class="col-md-3">
-                        <div class="input-group">
-                            <input data-bind="textInput: $data.queryParameter().rent.lte" class="form-control" type="number" min="0"></input>
-                            <div class="input-group-addon">€</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <label for="types" class="col-md-5 col-form-label">Area size from:</label>
-                    <div class="col-md-3">
-                        <div class="input-group">
-                            <input data-bind="textInput: $data.queryParameter().size.gte" class="form-control" type="number" min="0"></input>
-                            <div class="input-group-addon">m²</div>
-                        </div>
-                    </div>
-                    <label for="types" class="col-md-1 col-form-label"> to:</label>
-                    <div class="col-md-3">
-                        <div class="input-group">
-                            <input data-bind="textInput: $data.queryParameter().size.lte" class="form-control" type="number" min="0"></input>
-                            <div class="input-group-addon">m²</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <label for="types" class="col-md-5 col-form-label">Rooms count from:</label>
-                    <div class="col-md-3">
-                        <div class="input-group">
-                            <input data-bind="textInput: $data.queryParameter().rooms.gte" class="form-control" type="number" min="0"></input>
-                        </div>
-                    </div>
-                    <label for="types" class="col-md-1 col-form-label"> to:</label>
-                    <div class="col-md-3">
-                        <div class="input-group">
-                            <input data-bind="textInput: $data.queryParameter().rooms.lte" class="form-control" type="number" min="0"></input>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="form-group">
-                        <label for="types" class="col-md-2 col-form-label">Tags:</label>
-                        <div class="col-md-10">
-                            <select data-bind="options: availableTags, selectedOptions: $data.queryParameter().tags, multiselect: { includeSelectAllOption: true, disableIfEmpty: true, buttonWidth: '100%', nonSelectedText: 'Choose Tags' }"
-                                class="form-control" id="tags2" multiple="multiple"></select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- End Column 1 -->
-
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <input class="switch" type="checkbox" name="furnished" data-bind="checked: $data.queryParameter().furnished">
-                            <label for="furnished">Furnished:</label>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <input class="switch" type="checkbox" name="pets" data-bind="checked: $data.queryParameter().pets">
-                            <label for="pets">Pets:</label>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <input class="switch" type="checkbox" name="cellar" data-bind="checked: $data.queryParameter().cellar">
-                            <label for="cellar">Cellar:</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <input class="switch" type="checkbox" name="parking" data-bind="checked: $data.queryParameter().parking">
-                            <label for="parking">Parking:</label>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <input class="switch" type="checkbox" name="elevator" data-bind="checked: $data.queryParameter().elevator">
-                            <label for="elevator">Elevator:</label>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <input class="switch" type="checkbox" name="accessibility" data-bind="checked: $data.queryParameter().accessibility">
-                            <label for="accessibility">Accessibility:</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <input class="switch" type="checkbox" name="dryer" data-bind="checked: $data.queryParameter().dryer">
-                            <label for="dryer">Dryer:</label>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <input class="switch" type="checkbox" name="washingmachine" data-bind="checked: $data.queryParameter().washingmachine">
-                            <label for="washingmachine">Washing Machine:</label>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <input class="switch" type="checkbox" name="television" data-bind="checked: $data.queryParameter().television">
-                            <label for="television">Television:</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <input class="switch" type="checkbox" name="wlan" data-bind="checked: $data.queryParameter().wlan">
-                            <label for="wlan">WLAN:</label>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <input class="switch" type="checkbox" name="lan" data-bind="checked: $data.queryParameter().lan">
-                            <label for="lan">LAN:</label>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <input class="switch" type="checkbox" name="telephone" data-bind="checked: $data.queryParameter().telephone">
-                            <label for="telephone">Telephone:</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <label for="types" class="col-md-4 col-form-label">Min. Internet Speed:</label>
-                    <div class="col-md-4">
-                        <div class="input-group">
-                            <input data-bind="checked: $data.queryParameter().internetspeed.gte" class="form-control" type="number" min="0"></input>
-                            <div class="input-group-addon">Mbit/s</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="pull-right">
-                        <button data-bind="click: search" class="btn btn-lg btn-size-search btn-template-primary">Search</button>
-                        <button data-bind="click: hideExtendedSearch" class="btn btn-lg btn-size-search btn-template-primary">
+                    <div class="row visible-sm visible-xs">
+                        <div class="col-xs-12">
+                            <div class="form-group pull-right">
+                                <button data-bind="click: search" class="btn btn btn-size-search btn-template-primary">Search</button>
+                                <button data-bind="click: hideExtendedSearch" class="btn btn-sm btn-size-search btn-template-primary">
                                 <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
                             </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Column 2 -->
+            </div>
+            <div>
+                <div class="col-md-7">
+                    <form class="form-horizontal">
+                        <div class="form-group hidden-sm hidden-xs">
+                            <label for="tags2" class="col-md-2 control-label text-left">Tags:</label>
+                            <div class="col-md-10">
+                                <select data-bind="options: availableTags, selectedOptions: $data.queryParameter().tags, multiselect: { includeSelectAllOption: true, disableIfEmpty: true, buttonWidth: '100%', nonSelectedText: 'Choose Tags' }"
+                                    class="form-control" id="tags2" multiple="multiple"></select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-5">
+                    <div class="row hidden-sm hidden-xs">
+                        <div class="col-xs-12">
+                            <div class="form-group pull-right">
+                                <button data-bind="click: search" class="btn btn btn-size-search btn-template-primary">Search</button>
+                                <button data-bind="click: hideExtendedSearch" class="btn btn-sm btn-size-search btn-template-primary">
+                                <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+                            </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- End Column 2 -->
-
         </div>
         <!-- __________ END Extended Search Panel __________ -->
-    </div>
     </div>
 </section>
