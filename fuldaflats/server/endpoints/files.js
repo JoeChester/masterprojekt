@@ -26,6 +26,17 @@ var storage = multer.diskStorage({
 // UPLOAD CONSTRAINS
 var fileFilter = (req, file, cb)  => {
 
+    //dont use the constrains for
+    //non-offer related uploads (profilePicture)
+    if(!req.params){
+        return cb(null, true);
+    }
+    if(req.params){
+        if(!req.params.offerId){
+            return cb(null, true);
+        }
+    }
+
     if(file.mimetype.split("/")[0] != "image")
         cb({error:"This is not an image!"}, false);
     else {
