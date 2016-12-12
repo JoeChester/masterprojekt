@@ -19,15 +19,14 @@
             <div data-bind="css: { 'hidden': !(offerLoadingError() || offerTypesLoadingError() || offerTagsLoadingError()) }" class="hidden alert alert-danger">
                 <strong>Internal Error:</strong> Please try it again later.
             </div>
-
             <div data-bind="css: { 'hidden': (offerLoadingError() || offerTypesLoadingError() || offerTagsLoadingError() || currentUserIsNotALandlord() || offerLandlordIsNotCurrentUser() || offerCreationError()) }"
                 class="hidden tabs">
                 <ul class="nav nav-pills nav-justified">
                     <li class="active"><a href="#tab1" data-toggle="tab">Step 1</a></li>
-                    <li class="disabled"><a href="#tab2">Step 2</a></li>
-                    <li class="disabled"><a href="#tab3">Step 3</a></li>
-                    <li class="disabled"><a href="#tab4">Step 4</a></li>
-                    <li class="disabled"><a href="#tab5">Step 5</a></li>
+                    <li data-bind="css: { 'disabled': !isTab1Valid() }" class="disabled"><a data-bind="attr: { 'data-toggle': !isTab1Valid() ? '' : 'tab' }" href="#tab2">Step 2</a></li>
+                    <li data-bind="css: { 'disabled': !isTab2Valid() }" class="disabled"><a data-bind="attr: { 'data-toggle': !isTab2Valid() ? '' : 'tab' }" href="#tab3">Step 3</a></li>
+                    <li data-bind="css: { 'disabled': !isTab3Valid() }" class="disabled"><a data-bind="attr: { 'data-toggle': !isTab3Valid() ? '' : 'tab' }" href="#tab4">Step 4</a></li>
+                    <li data-bind="css: { 'disabled': !isTab4Valid() }" class="disabled"><a data-bind="attr: { 'data-toggle': !isTab4Valid() ? '' : 'tab' }" href="#tab5">Step 5</a></li>
                 </ul>
                 <div class="tab-content tab-content-inverse">
                     <!-- tab 1 -->
@@ -53,8 +52,8 @@
                                         <div class="form-group">
                                             <label for="offerActive" class="control-label col-sm-4">Status:</label>
                                             <div class="col-sm-8">
-                                                <input data-bind="bootstrapSwitch: offer().status, bootstrapSwitchOptions: { onText: 'Active', onColor: 'primary', offColor: 'danger', offText: 'Inactive', animate: true, size: 'small' }" type="checkbox" id="offerActive"
-                                                    placeholder="Active">
+                                                <input data-bind="bootstrapSwitch: offer().status, bootstrapSwitchOptions: { onText: 'Active', onColor: 'primary', offColor: 'danger', offText: 'Inactive', animate: true, size: 'small' }"
+                                                    type="checkbox" id="offerActive" placeholder="Active">
                                             </div>
                                         </div>
                                     </div>
@@ -204,9 +203,10 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-2">
-                                    <a data-bind="click: goNextStep" next-tab="#tab2" type="button" data-toggle="tab" class="btn btn-template-main" aria-label="Right Align">
+                                    <button data-bind="click: goNextStep, enable: isTab1Valid" next-tab="#tab2" type="button" data-toggle="tab" class="btn btn-template-main"
+                                        aria-label="Right Align">
                                         <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
                         </form>
@@ -401,9 +401,9 @@
                             <br /><br />
                             <div class="row">
                                 <div class="col-xs-2">
-                                    <a data-bind="click: goNextStep" next-tab="#tab1" type="button" data-toggle="tab" class="btn btn-template-main" aria-label="Right Align">
+                                    <button data-bind="click: goNextStep" next-tab="#tab1" type="button" data-toggle="tab" class="btn btn-template-main" aria-label="Right Align">
                                         <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
-                                    </a>
+                                    </button>
                                 </div>
                                 <div class="col-xs-8">
                                     <div class="progress">
@@ -413,9 +413,10 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-2">
-                                    <a data-bind="click: goNextStep" next-tab="#tab3" type="button" data-toggle="tab" class="btn btn-template-main" aria-label="Right Align">
+                                    <button data-bind="click: goNextStep, enable: isTab2Valid" next-tab="#tab3" type="button" data-toggle="tab" class="btn btn-template-main"
+                                        aria-label="Right Align">
                                         <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
                         </form>
@@ -469,9 +470,9 @@
                             <br><br>
                             <div class="row">
                                 <div class="col-xs-2">
-                                    <a data-bind="click: goNextStep" next-tab="#tab2" type="button" data-toggle="tab" class="btn btn-template-main" aria-label="Right Align">
+                                    <button data-bind="click: goNextStep" next-tab="#tab2" type="button" data-toggle="tab" class="btn btn-template-main" aria-label="Right Align">
                                         <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
-                                    </a>
+                                    </button>
                                 </div>
                                 <div class="col-xs-8">
                                     <div class="progress">
@@ -481,9 +482,10 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-2">
-                                    <a data-bind="click: goNextStep" next-tab="#tab4" type="button" data-toggle="tab" class="btn btn-template-main" aria-label="Right Align">
+                                    <button data-bind="click: goNextStep, enable: isTab3Valid" next-tab="#tab4" type="button" data-toggle="tab" class="btn btn-template-main"
+                                        aria-label="Right Align">
                                         <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
                         </form>
@@ -507,9 +509,9 @@
                             <br />
                             <div class="row">
                                 <div class="col-xs-2">
-                                    <a data-bind="click: goNextStep" next-tab="#tab3" type="button" data-toggle="tab" class="btn btn-template-main" aria-label="Right Align">
+                                    <button data-bind="click: goNextStep" next-tab="#tab3" type="button" data-toggle="tab" class="btn btn-template-main" aria-label="Right Align">
                                         <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
-                                    </a>
+                                    </button>
                                 </div>
                                 <div class="col-xs-8">
                                     <div class="progress">
@@ -519,9 +521,10 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-2">
-                                    <a data-bind="click: goNextStep" next-tab="#tab5" type="button" data-toggle="tab" class="btn btn-template-main" aria-label="Right Align">
+                                    <button data-bind="click: goNextStep, enable: isTab4Valid" next-tab="#tab5" type="button" data-toggle="tab" class="btn btn-template-main"
+                                        aria-label="Right Align">
                                         <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
                         </form>

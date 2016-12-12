@@ -6,7 +6,7 @@
  ************************************************************/
 define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 'app/components/fileUploaderModal/fileUploaderModal.component',
     'knockout', 'jquery', 'fuldaflatsApiClient', 'lightbox'],
-    function(componentTemplate, componentCss, fileUploaderModalComponent, ko, $, api, lightbox) {
+    function (componentTemplate, componentCss, fileUploaderModalComponent, ko, $, api, lightbox) {
         function NewOfferModel(ko, $, api) {
             var self = this;
             // your model functions and variables
@@ -39,6 +39,94 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
             self.offerTagsLoadingError = ko.observable(false);
 
             self.finishedCreation = ko.observable(false);
+
+            // Tab 1 possible invalid fields
+            self.invalidOfferType = ko.observable();
+            self.invalidTags = ko.observable();
+            self.invalidTitle = ko.observable();
+            self.invalidSize = ko.observable();
+            self.invalidRooms = ko.observable();
+            self.invalidRent = ko.observable();
+            self.invalidRentType = ko.observable();
+            self.invalidSideCosts = ko.observable();
+            self.invalidPriceType = ko.observable();
+            self.invalidDeposit = ko.observable();
+            self.invalidCommission = ko.observable();
+
+            // Tab 2 possible invalid fields
+            self.invalidKitchenDescription = ko.observable();
+            self.invalidBathroomNumbers = ko.observable();
+            self.invalidBathroomDescription = ko.observable();
+            self.invalidInternetSpeed = ko.observable();
+            self.invalidHeatingDescription = ko.observable();
+            self.invalidTelevision = ko.observable();
+
+            // Tab 3 possible invalid fields
+            self.invalidStreet = ko.observable();
+            self.invalidHouseNumber = ko.observable();
+            self.invalidFloor = ko.observable();
+            self.invalidZipCode = ko.observable();
+            self.invalidCity = ko.observable();
+
+            // Tab 4 possible invalid fields
+            self.invalidDescription = ko.observable();
+
+            self.isTab1Valid = ko.computed(function () {
+                var isValid = false
+
+                if (self.offer().offerType() && self.offer().offerType().toString().trim().length > 0
+                    && self.offer().tags() && self.offer().tags().length > 0
+                    && self.offer().title() && self.offer().title().toString().trim().length > 0
+                    && self.offer().size() && self.offer().size().toString().trim().length > 0 && !isNaN(self.offer().size())
+                    && self.offer().rooms() && self.offer().rooms().toString().trim().length > 0 && !isNaN(self.offer().rooms())
+                    && self.offer().rent() && self.offer().rent().toString().trim().length > 0 && !isNaN(self.offer().rent())
+                    && self.offer().rentType() && self.offer().rentType().toString().trim().length > 0
+                    && self.offer().sideCosts() && self.offer().sideCosts().toString().trim().length > 0 && !isNaN(self.offer().sideCosts())
+                    && self.offer().priceType() && self.offer().priceType().toString().trim().length > 0
+                    && self.offer().deposit() && self.offer().deposit().toString().trim().length > 0 && !isNaN(self.offer().deposit())
+                    && self.offer().commission() && self.offer().commission().toString().trim().length > 0 && !isNaN(self.offer().commission())) {
+
+                    isValid = true;
+                }
+                return isValid;
+            });
+
+            self.isTab2Valid = ko.computed(function () {
+                var isValid = false
+
+                if (self.offer().kitchenDescription() && self.offer().kitchenDescription().toString().trim().length > 0
+                    && self.offer().bathroomNumber() && self.offer().bathroomNumber().toString().trim().length > 0 && !isNaN(self.offer().bathroomNumber())
+                    && self.offer().bathroomDescription() && self.offer().bathroomDescription().toString().trim().length > 0
+                    && self.offer().internetSpeed() && self.offer().internetSpeed().toString().trim().length > 0 && !isNaN(self.offer().internetSpeed())
+                    && self.offer().heatingDescription() && self.offer().heatingDescription().toString().trim().length > 0
+                    && self.offer().television() && self.offer().television().toString().trim().length > 0) {
+                    isValid = true;
+                }
+                return isValid;
+            });
+
+            self.isTab3Valid = ko.computed(function () {
+                var isValid = false
+
+                if (self.offer().street() && self.offer().street().toString().trim().length > 0
+                    && self.offer().houseNumber() && self.offer().houseNumber().toString().trim().length > 0
+                    && self.offer().floor() && self.offer().floor().toString().trim().length > 0
+                    && self.offer().zipCode() && self.offer().zipCode().toString().trim().length > 0
+                    && self.offer().city() && self.offer().city().toString().trim().length > 0) {
+                    isValid = true;
+                }
+                return isValid;
+            });
+
+            self.isTab4Valid = ko.computed(function () {
+                var isValid = false
+
+                if (self.offer().description() && self.offer().description().toString().trim().length > 0) {
+                    isValid = true;
+                }
+
+                return isValid;
+            });
 
             function resetErrors() {
                 self.offerCreationError(false);
@@ -96,7 +184,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                     self.currentUserIsNotALandlord(true);
                 } else if (self.offer() && !isNaN(self.offer().id())) {
                     api.offers.getOfferById(self.offer().id()).then(
-                        function(requestedOffer) {
+                        function (requestedOffer) {
                             if (requestedOffer) {
                                 if (!isCurrentUserALandlord()) {
                                     self.currentUserIsNotALandlord(true);
@@ -112,7 +200,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                                 self.offerLoadingError(true);
                             }
                         },
-                        function(xhr, statusText, error) {
+                        function (xhr, statusText, error) {
                             errorCallback(error);
                             self.offerLoadingError(true);
                         }
@@ -123,12 +211,12 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
             function createOffer() {
                 resetErrors();
                 if (!isCurrentUserALandlord()) {
-                    setTimeout(function() {
+                    setTimeout(function () {
                         self.currentUserIsNotALandlord(true);
                     }, 300);
                 } else {
                     api.offers.createOffer().then(
-                        function(newOffer) {
+                        function (newOffer) {
                             if (!isCurrentUserEqualsLandlord(newOffer.landlord)) {
                                 self.offerLandlordIsNotCurrentUser(true);
                             } else {
@@ -137,7 +225,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                                 self.createdOffer(true);
                             }
                         },
-                        function(xhr) {
+                        function (xhr) {
                             self.offerCreationError(true);
                         }
                     );
@@ -146,10 +234,10 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
 
             function loadOfferTypes() {
                 api.offers.getOfferTypes().then(
-                    function(offerTypes) {
+                    function (offerTypes) {
                         self.offerTypes(offerTypes);
                     },
-                    function(xhr) {
+                    function (xhr) {
                         self.offerTypesLoadingError(true);
                     }
                 );
@@ -157,10 +245,10 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
 
             function loadOfferTags() {
                 api.offers.getTags().then(
-                    function(offerTags) {
+                    function (offerTags) {
                         self.offerTags(offerTags)
                     },
-                    function(xhr) {
+                    function (xhr) {
                         self.offerTagsLoadingError(true);
                     }
                 );
@@ -174,7 +262,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                 }
             };
 
-            self.offerFullPrice = ko.computed(function() {
+            self.offerFullPrice = ko.computed(function () {
                 var fullPrice = 0;
 
                 if (self.offer().rent() && !isNaN(self.offer().rent())) {
@@ -189,7 +277,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                 return fullPrice;
             });
 
-            self.bindFileUploadModalEvents = function(model, event) {
+            self.bindFileUploadModalEvents = function (model, event) {
                 if (event && event.currentTarget) {
                     var dialogId = event.currentTarget.getAttribute("data-target");
                     var dialogContainer = $(dialogId);
@@ -201,9 +289,9 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                 }
             };
 
-            self.goNextStep = function(model, event) {
+            self.goNextStep = function (model, event) {
                 api.offers.updatedOffer(self.offer).then(
-                    function() {
+                    function () {
                         if (self.tabsContainer() && event.currentTarget) {
                             var nextTabId = event.currentTarget.getAttribute("next-tab");
                             var nextTabNav = self.tabsContainer().find('.nav a[href="' + nextTabId + '"]');
@@ -213,15 +301,15 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                             }
                         }
                     },
-                    function(xhr) {
+                    function (xhr) {
                         // redponse validation logik
                     }
                 );
             };
 
-            self.finishOfferCreation = function() {
+            self.finishOfferCreation = function () {
                 api.offers.updatedOffer(self.offer).then(
-                    function() {
+                    function () {
                         if (self.offerDetailsPageInfo() && self.offerDetailsPageInfo().url) {
                             self.finishedCreation(true);
                             window.location.href = self.offerDetailsPageInfo().url + "?offerId=" + self.offer().id();
@@ -229,30 +317,30 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                             window.location.href = "/";
                         }
                     },
-                    function(xhr) {
+                    function (xhr) {
                         // redponse validation logik
                     }
                 );
             };
 
-            self.cancelOfferCreation = function() {
+            self.cancelOfferCreation = function () {
                 if (self.offer() && !isNaN(self.offer().id())) {
-                    api.offers.deleteOffer(self.offer().id()).then(function() {
+                    api.offers.deleteOffer(self.offer().id()).then(function () {
                         self.offer().id(undefined)
                         window.history.back();
-                    }, function() {
+                    }, function () {
                         window.history.back();
                     });;
                 }
             };
 
-            self.optionsAfterRender = function(option, item) {
+            self.optionsAfterRender = function (option, item) {
                 ko.applyBindingsToNode(option, {
                     disable: !item
                 }, item);
             };
 
-            self.initialize = function(params, tabsContainer) {
+            self.initialize = function (params, tabsContainer) {
                 self.tabsContainer(tabsContainer || "");
 
                 if (params) {
@@ -263,7 +351,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                     }
                 }
 
-                self.currentUser.subscribe(function(currentUser) {
+                self.currentUser.subscribe(function (currentUser) {
                     reloadOffer();
 
                     if (isCurrentUserALandlord() && isNaN(self.offer().id())) {
@@ -281,7 +369,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
 
         return {
             viewModel: {
-                createViewModel: function(params, componentInfo) {
+                createViewModel: function (params, componentInfo) {
                     // componentInfo contains for example the root element from the component template
                     ko.components.register("file-uploader", fileUploaderModalComponent);
 
@@ -292,6 +380,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                         if (tabsContainer.length > 0) {
                             var viewModel = new NewOfferModel(ko, $, api);
                             viewModel.initialize(params, tabsContainer);
+                            window.m = viewModel;
                         }
                     }
 
