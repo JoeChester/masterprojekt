@@ -154,8 +154,8 @@ router.put('/:offerId', function (req, res) {
                     latitude: _offer.latitude,
                     longitude: _offer.longitude
                 });
-                //m -> km
-                _offer.uniDistance = (_offer.uniDistance / 1000);
+                //m -> km (Rounded to 2 decimal places)
+                _offer.uniDistance = Math.round((_offer.uniDistance / 1000) * 100) / 100;
             }
 
             //create tags
