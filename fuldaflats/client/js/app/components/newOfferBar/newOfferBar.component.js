@@ -1,7 +1,7 @@
 /************************************************************
  * File:            newOfferBar.component.js
  * Author:          Patrick Hasenauer
- * LastMod:         09.12.2016
+ * LastMod:         13.12.2016
  * Description:     JS Component Handler for new offer bar.
  ************************************************************/
 define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 'app/components/fileUploaderModal/fileUploaderModal.component',
@@ -129,7 +129,8 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
             }).extend({ notify: 'always' });
 
             self.validRooms = ko.computed(function() {
-                return self.offer().rooms() && self.offer().rooms().toString().trim().length > 0 && !isNaN(self.offer().rooms());
+                return (self.offer().offerType() && (self.offer().offerType().toLowerCase() === 'COUCH'.toLowerCase() || self.offer().offerType().toLowerCase() === 'PARTY'.toLowerCase())) ||
+                    (self.offer().rooms() && self.offer().rooms().toString().trim().length > 0 && !isNaN(self.offer().rooms()));
             }).extend({ notify: 'always' });
 
             self.validRent = ko.computed(function() {
@@ -137,15 +138,18 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
             }).extend({ notify: 'always' });
 
             self.validRentType = ko.computed(function() {
-                return self.offer().rentType() && self.offer().rentType().toString().trim().length > 0;
+                return (self.offer().offerType() && (self.offer().offerType().toLowerCase() === 'COUCH'.toLowerCase() || self.offer().offerType().toLowerCase() === 'PARTY'.toLowerCase())) ||
+                    (self.offer().rentType() && self.offer().rentType().toString().trim().length > 0);
             }).extend({ notify: 'always' });
 
             self.validSideCosts = ko.computed(function() {
-                return self.offer().sideCosts() && self.offer().sideCosts().toString().trim().length > 0 && !isNaN(self.offer().sideCosts());
+                return (self.offer().offerType() && (self.offer().offerType().toLowerCase() === 'COUCH'.toLowerCase() || self.offer().offerType().toLowerCase() === 'PARTY'.toLowerCase())) ||
+                    (self.offer().sideCosts() && self.offer().sideCosts().toString().trim().length > 0 && !isNaN(self.offer().sideCosts()));
             }).extend({ notify: 'always' });
 
             self.validPriceType = ko.computed(function() {
-                return self.offer().priceType() && self.offer().priceType().toString().trim().length > 0;
+                return (self.offer().offerType() && (self.offer().offerType().toLowerCase() === 'COUCH'.toLowerCase() || self.offer().offerType().toLowerCase() === 'PARTY'.toLowerCase())) ||
+                    (self.offer().priceType() && self.offer().priceType().toString().trim().length > 0);
             }).extend({ notify: 'always' });
 
             self.validDeposit = ko.computed(function() {
@@ -153,7 +157,8 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
             }).extend({ notify: 'always' });
 
             self.validCommission = ko.computed(function() {
-                return self.offer().commission() && self.offer().commission().toString().trim().length > 0 && !isNaN(self.offer().commission());
+                return (self.offer().offerType() && (self.offer().offerType().toLowerCase() === 'COUCH'.toLowerCase() || self.offer().offerType().toLowerCase() === 'PARTY'.toLowerCase())) ||
+                    (self.offer().commission() && self.offer().commission().toString().trim().length > 0 && !isNaN(self.offer().commission()));
             }).extend({ notify: 'always' });
 
             self.isTab1Invalid = ko.computed(function() {
@@ -319,6 +324,16 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                 return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
             };
 
+            function clearNotAllowedFieldsForCouchOrParty() {
+                if ((self.offer().offerType() && (self.offer().offerType().toLowerCase() === 'COUCH'.toLowerCase() || self.offer().offerType().toLowerCase() === 'PARTY'.toLowerCase()))) {
+                    self.offer().rooms(undefined);
+                    self.offer().rentType(undefined);
+                    self.offer().priceType(undefined);
+                    self.offer().sideCosts(undefined);
+                    self.offer().commission(undefined);
+                }
+            };
+
             function activateTabNav(navElement) {
                 if (navElement && typeof navElement.attr === "function") {
                     var parentListElement = navElement.parent("li");
@@ -397,6 +412,12 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                             } else {
                                 var mappedResult = api.offers.mapOfferResultToModel(newOffer);
                                 self.offer(mappedResult);
+
+                                self.offer().offerType.extend({ notify: 'always' });
+                                self.offer().offerType.subscribe(function(newValue) {
+                                    clearNotAllowedFieldsForCouchOrParty();
+                                });
+
                                 self.createdOffer(true);
                             }
                         },

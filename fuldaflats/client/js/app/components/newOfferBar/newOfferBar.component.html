@@ -1,7 +1,7 @@
 <!--************************************************************
  * File:            newOfferBar.component.html
  * Author:          Patrick Hasenauer
- * LastMod:         08.12.2016
+ * LastMod:         13.12.2016
  * Description:     Knockout Template for new offer bar.
  ************************************************************-->
 <section id="new-offer-wizard">
@@ -30,9 +30,14 @@
                 <ul class="nav nav-pills nav-justified">
                     <li data-bind="click: goNextStep" class="active"><a href="#tab1" data-toggle="tab">Step 1</a></li>
                     <li data-bind="click: goNextStep, css: { 'disabled': !isTab1Valid() || isTab1Invalid() }" class="disabled"><a data-bind="attr: { 'data-toggle': !isTab1Valid() || isTab1Invalid() ? '' : 'tab' }" href="#tab2">Step 2</a></li>
-                    <li data-bind="click: goNextStep, css: { 'disabled': !isTab2Valid() || isTab1Invalid() || isTab2Invalid() }" class="disabled"><a data-bind="attr: { 'data-toggle': !isTab2Valid() || isTab1Invalid() || isTab2Invalid() ? '' : 'tab' }" href="#tab3">Step 3</a></li>
-                    <li data-bind="click: goNextStep, css: { 'disabled': !isTab3Valid() || isTab1Invalid() || isTab2Invalid() || isTab3Invalid() }" class="disabled"><a data-bind="attr: { 'data-toggle': !isTab3Valid() || isTab1Invalid() || isTab2Invalid() || isTab3Invalid() ? '' : 'tab' }" href="#tab4">Step 4</a></li>
-                    <li data-bind="click: goNextStep, css: { 'disabled': !isTab4Valid() || isTab1Invalid() || isTab2Invalid() || isTab3Invalid() || isTab4Invalid() }" class="disabled"><a data-bind="attr: { 'data-toggle': !isTab4Valid() || isTab1Invalid() || isTab2Invalid() || isTab3Invalid()  || isTab4Invalid() ? '' : 'tab' }" href="#tab5">Step 5</a></li>
+                    <li data-bind="click: goNextStep, css: { 'disabled': !isTab2Valid() || isTab1Invalid() || isTab2Invalid() }" class="disabled"><a data-bind="attr: { 'data-toggle': !isTab2Valid() || isTab1Invalid() || isTab2Invalid() ? '' : 'tab' }"
+                            href="#tab3">Step 3</a></li>
+                    <li data-bind="click: goNextStep, css: { 'disabled': !isTab3Valid() || isTab1Invalid() || isTab2Invalid() || isTab3Invalid() }"
+                        class="disabled"><a data-bind="attr: { 'data-toggle': !isTab3Valid() || isTab1Invalid() || isTab2Invalid() || isTab3Invalid() ? '' : 'tab' }"
+                            href="#tab4">Step 4</a></li>
+                    <li data-bind="click: goNextStep, css: { 'disabled': !isTab4Valid() || isTab1Invalid() || isTab2Invalid() || isTab3Invalid() || isTab4Invalid() }"
+                        class="disabled"><a data-bind="attr: { 'data-toggle': !isTab4Valid() || isTab1Invalid() || isTab2Invalid() || isTab3Invalid()  || isTab4Invalid() ? '' : 'tab' }"
+                            href="#tab5">Step 5</a></li>
                 </ul>
                 <div class="tab-content tab-content-inverse">
                     <!-- tab 1 -->
@@ -90,115 +95,162 @@
                                     </div>
                                 </div>
                                 <br />
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label for="offerSize" class="control-label col-sm-4">Size:</label>
-                                            <div class="col-sm-8">
-                                                <div class="input-group">
-                                                    <input data-bind="textInput: offer().size, css: { valid: validSize() && !invalidSize(), inValid: invalidSize() && offerUpdatingErrorMessage() }"
-                                                        type="number" class="form-control" id="offerSize" placeholder="Size">
-                                                    <div class="input-group-addon">m²</div>
+                                <!-- Offer Type != Party || Couch -->
+                                <div data-bind="fadeVisible: offer().offerType() && (offer().offerType().toLowerCase() !== 'COUCH'.toLowerCase() && offer().offerType().toLowerCase() !== 'PARTY'.toLowerCase())">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="offerSize" class="control-label col-sm-4">Size:</label>
+                                                <div class="col-sm-8">
+                                                    <div class="input-group">
+                                                        <input data-bind="textInput: offer().size, css: { valid: validSize() && !invalidSize(), inValid: invalidSize() && offerUpdatingErrorMessage() }"
+                                                            type="number" class="form-control" id="offerSize" placeholder="Size">
+                                                        <div class="input-group-addon">m²</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="offerRooms" class="control-label col-sm-4">Rooms:</label>
+                                                <div class="col-sm-8">
+                                                    <input data-bind="textInput: offer().rooms, css: { valid: validRooms() && !invalidRooms(), inValid: invalidRooms() && offerUpdatingErrorMessage() }"
+                                                        type="number" class="form-control" id="offerRooms" placeholder="Rooms">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label for="offerRooms" class="control-label col-sm-4">Rooms:</label>
-                                            <div class="col-sm-8">
-                                                <input data-bind="textInput: offer().rooms, css: { valid: validRooms() && !invalidRooms(), inValid: invalidRooms() && offerUpdatingErrorMessage() }"
-                                                    type="number" class="form-control" id="offerRooms" placeholder="Rooms">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br />
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label for="offerRent" class="control-label col-sm-4">Rent:</label>
-                                            <div class="col-sm-8">
-                                                <div class="input-group">
-                                                    <input data-bind="textInput: offer().rent, css: { valid: validRent() && !invalidRent(), inValid: invalidRent() && offerUpdatingErrorMessage() }"
-                                                        type="number" class="form-control" id="offerRent" placeholder="Rent">
-                                                    <div class="input-group-addon">€</div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="offerRent" class="control-label col-sm-4">Rent:</label>
+                                                <div class="col-sm-8">
+                                                    <div class="input-group">
+                                                        <input data-bind="textInput: offer().rent, css: { valid: validRent() && !invalidRent(), inValid: invalidRent() && offerUpdatingErrorMessage() }"
+                                                            type="number" class="form-control" id="offerRent" placeholder="Rent">
+                                                        <div class="input-group-addon">€</div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label for="offerRentType" class="control-label col-sm-4">Rent Type:</label>
-                                            <div class="col-sm-8">
-                                                <select data-bind="options: offerRentTypes, textInput: offer().rentType, optionsCaption: 'Choose Rent Type', optionsAfterRender: optionsAfterRender, 
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="offerRentType" class="control-label col-sm-4">Rent Type:</label>
+                                                <div class="col-sm-8">
+                                                    <select data-bind="options: offerRentTypes, textInput: offer().rentType, optionsCaption: 'Choose Rent Type', optionsAfterRender: optionsAfterRender, 
                                                 css: { valid: validRentType() && !invalidRentType(), inValid: invalidRentType() && offerUpdatingErrorMessage() }"
-                                                    class="form-control" id="offerRentType"></select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label for="offerSideCosts" class="control-label col-sm-4">Side Costs:</label>
-                                            <div class="col-sm-8">
-                                                <div class="input-group">
-                                                    <input data-bind="textInput: offer().sideCosts, css: { valid: validSideCosts() && !invalidSideCosts(), inValid: invalidSideCosts() && offerUpdatingErrorMessage() }"
-                                                        type="number" class="form-control" id="offerSideCosts" placeholder="Side Costs">
-                                                    <div class="input-group-addon">€</div>
+                                                        class="form-control" id="offerRentType"></select>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label for="offerPriceType" class="control-label col-sm-4">Price Type:</label>
-                                            <div class="col-sm-8">
-                                                <select data-bind="options: offerPriceTypes, textInput: offer().priceType, optionsCaption: 'Choose Price Type', optionsAfterRender: optionsAfterRender,
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="offerSideCosts" class="control-label col-sm-4">Side Costs:</label>
+                                                <div class="col-sm-8">
+                                                    <div class="input-group">
+                                                        <input data-bind="textInput: offer().sideCosts, css: { valid: validSideCosts() && !invalidSideCosts(), inValid: invalidSideCosts() && offerUpdatingErrorMessage() }"
+                                                            type="number" class="form-control" id="offerSideCosts" placeholder="Side Costs">
+                                                        <div class="input-group-addon">€</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="offerPriceType" class="control-label col-sm-4">Price Type:</label>
+                                                <div class="col-sm-8">
+                                                    <select data-bind="options: offerPriceTypes, textInput: offer().priceType, optionsCaption: 'Choose Price Type', optionsAfterRender: optionsAfterRender,
                                                 css: { valid: validPriceType() && !invalidPriceType(), inValid: invalidPriceType() && offerUpdatingErrorMessage() }"
-                                                    class="form-control" id="offerPriceType"></select>
+                                                        class="form-control" id="offerPriceType"></select>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="offerFullPrice" class="control-label col-sm-4">Full Price:</label>
+                                                <div class="col-sm-8">
+                                                    <div class="input-group">
+                                                        <input disabled data-bind="textInput: offerFullPrice" type="number" class="form-control" id="offerFullPrice" placeholder="0">
+                                                        <div class="input-group-addon">€</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label for="offerFullPrice" class="control-label col-sm-4">Full Price:</label>
-                                            <div class="col-sm-8">
-                                                <div class="input-group">
-                                                    <input disabled data-bind="textInput: offerFullPrice" type="number" class="form-control" id="offerFullPrice" placeholder="0">
-                                                    <div class="input-group-addon">€</div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="offerDeposit" class="control-label col-sm-4">Deposit:</label>
+                                                <div class="col-sm-8">
+                                                    <div class="input-group">
+                                                        <input data-bind="textInput: offer().deposit, css: { valid: validDeposit() && !invalidDeposit(), inValid: invalidDeposit() && offerUpdatingErrorMessage() }"
+                                                            type="number" class="form-control" id="offerDeposit" placeholder="Deposit">
+                                                        <div class="input-group-addon">€</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="offerCommission" class="control-label col-sm-4">Commission:</label>
+                                                <div class="col-sm-8">
+                                                    <div class="input-group">
+                                                        <input data-bind="textInput: offer().commission, css: { valid: validCommission() && !invalidCommission(), inValid: invalidCommission() && offerUpdatingErrorMessage() }"
+                                                            type="number" class="form-control" id="offerCommission" placeholder="Commission">
+                                                        <div class="input-group-addon">€</div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <br />
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label for="offerDeposit" class="control-label col-sm-4">Deposit:</label>
-                                            <div class="col-sm-8">
-                                                <div class="input-group">
-                                                    <input data-bind="textInput: offer().deposit, css: { valid: validDeposit() && !invalidDeposit(), inValid: invalidDeposit() && offerUpdatingErrorMessage() }"
-                                                        type="number" class="form-control" id="offerDeposit" placeholder="Deposit">
-                                                    <div class="input-group-addon">€</div>
+                                <!-- Offer Type == Party || Couch -->
+                                <div data-bind="fadeVisible: offer().offerType() && (offer().offerType().toLowerCase() === 'COUCH'.toLowerCase() || offer().offerType().toLowerCase() === 'PARTY'.toLowerCase())">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="offerSize" class="control-label col-sm-4">Size:</label>
+                                                <div class="col-sm-8">
+                                                    <div class="input-group">
+                                                        <input data-bind="textInput: offer().size, css: { valid: validSize() && !invalidSize(), inValid: invalidSize() && offerUpdatingErrorMessage() }"
+                                                            type="number" class="form-control" id="offerSize" placeholder="Size">
+                                                        <div class="input-group-addon">m²</div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label for="offerCommission" class="control-label col-sm-4">Commission:</label>
-                                            <div class="col-sm-8">
-                                                <div class="input-group">
-                                                    <input data-bind="textInput: offer().commission, css: { valid: validCommission() && !invalidCommission(), inValid: invalidCommission() && offerUpdatingErrorMessage() }"
-                                                        type="number" class="form-control" id="offerCommission" placeholder="Commission">
-                                                    <div class="input-group-addon">€</div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="offerRent" class="control-label col-sm-4">Rent:</label>
+                                                <div class="col-sm-8">
+                                                    <div class="input-group">
+                                                        <input data-bind="textInput: offer().rent, css: { valid: validRent() && !invalidRent(), inValid: invalidRent() && offerUpdatingErrorMessage() }"
+                                                            type="number" class="form-control" id="offerRent" placeholder="Rent">
+                                                        <div class="input-group-addon">€</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="offerDeposit" class="control-label col-sm-4">Deposit:</label>
+                                                <div class="col-sm-8">
+                                                    <div class="input-group">
+                                                        <input data-bind="textInput: offer().deposit, css: { valid: validDeposit() && !invalidDeposit(), inValid: invalidDeposit() && offerUpdatingErrorMessage() }"
+                                                            type="number" class="form-control" id="offerDeposit" placeholder="Deposit">
+                                                        <div class="input-group-addon">€</div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -220,8 +272,8 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-2">
-                                    <button data-bind="click: goNextStep, enable: isTab1Valid() && !isTab1Invalid()" next-tab="#tab2" type="button" data-toggle="tab" class="btn btn-template-main"
-                                        aria-label="Right Align">
+                                    <button data-bind="click: goNextStep, enable: isTab1Valid() && !isTab1Invalid()" next-tab="#tab2" type="button" data-toggle="tab"
+                                        class="btn btn-template-main" aria-label="Right Align">
                                         <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
                                     </button>
                                 </div>
@@ -436,8 +488,8 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-2">
-                                    <button data-bind="click: goNextStep, enable: isTab2Valid() && !isTab2Invalid()" next-tab="#tab3" type="button" data-toggle="tab" class="btn btn-template-main"
-                                        aria-label="Right Align">
+                                    <button data-bind="click: goNextStep, enable: isTab2Valid() && !isTab2Invalid()" next-tab="#tab3" type="button" data-toggle="tab"
+                                        class="btn btn-template-main" aria-label="Right Align">
                                         <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
                                     </button>
                                 </div>
@@ -510,8 +562,8 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-2">
-                                    <button data-bind="click: goNextStep, enable: isTab3Valid() && !isTab3Invalid()" next-tab="#tab4" type="button" data-toggle="tab" class="btn btn-template-main"
-                                        aria-label="Right Align">
+                                    <button data-bind="click: goNextStep, enable: isTab3Valid() && !isTab3Invalid()" next-tab="#tab4" type="button" data-toggle="tab"
+                                        class="btn btn-template-main" aria-label="Right Align">
                                         <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
                                     </button>
                                 </div>
@@ -550,8 +602,8 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-2">
-                                    <button data-bind="click: goNextStep, enable: isTab4Valid() && !isTab4Invalid()" next-tab="#tab5" type="button" data-toggle="tab" class="btn btn-template-main"
-                                        aria-label="Right Align">
+                                    <button data-bind="click: goNextStep, enable: isTab4Valid() && !isTab4Invalid()" next-tab="#tab5" type="button" data-toggle="tab"
+                                        class="btn btn-template-main" aria-label="Right Align">
                                         <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
                                     </button>
                                 </div>
