@@ -6,7 +6,7 @@
  ************************************************************/
 define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 'app/components/fileUploaderModal/fileUploaderModal.component',
     'knockout', 'jquery', 'fuldaflatsApiClient', 'lightbox'],
-    function (componentTemplate, componentCss, fileUploaderModalComponent, ko, $, api, lightbox) {
+    function(componentTemplate, componentCss, fileUploaderModalComponent, ko, $, api, lightbox) {
         function NewOfferModel(ko, $, api) {
             var self = this;
             // your model functions and variables
@@ -73,7 +73,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
             // Tab 4 possible invalid fields
             self.invalidDescription = ko.observable();
 
-            self.resetInvalidFields = function () {
+            self.resetInvalidFields = function() {
                 // Tab 1 possible invalid fields
                 self.invalidOfferType(false);
                 self.invalidTags(false);
@@ -106,56 +106,70 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                 self.invalidDescription(false);
             };
 
-            self.validOfferType = ko.computed(function () {
+            self.validOfferType = ko.computed(function() {
                 var isValid = false;
                 if (self.offer().offerType() && self.offer().offerType().toString().trim().length > 0) {
                     isValid = true;
                 }
 
                 return isValid
-            });
+            }).extend({ notify: 'always' });
 
-            self.validTags = ko.computed(function () {
+            self.validTags = ko.computed(function() {
                 return self.offer().tags() && self.offer().tags().length > 0;
-            });
+            }).extend({ notify: 'always' });
 
-            self.validTitle = ko.computed(function () {
+            self.validTitle = ko.computed(function() {
                 return self.offer().title() && self.offer().title().toString().trim().length > 0;
-            });
+            }).extend({ notify: 'always' });
 
-            self.validSize = ko.computed(function () {
+            self.validSize = ko.computed(function() {
                 return self.offer().size() && self.offer().size().toString().trim().length > 0 && !isNaN(self.offer().size());
-            });
+            }).extend({ notify: 'always' });
 
-            self.validRooms = ko.computed(function () {
+            self.validRooms = ko.computed(function() {
                 return self.offer().rooms() && self.offer().rooms().toString().trim().length > 0 && !isNaN(self.offer().rooms());
-            });
+            }).extend({ notify: 'always' });
 
-            self.validRent = ko.computed(function () {
+            self.validRent = ko.computed(function() {
                 return self.offer().rent() && self.offer().rent().toString().trim().length > 0 && !isNaN(self.offer().rent());
-            });
+            }).extend({ notify: 'always' });
 
-            self.validRentType = ko.computed(function () {
+            self.validRentType = ko.computed(function() {
                 return self.offer().rentType() && self.offer().rentType().toString().trim().length > 0;
-            });
+            }).extend({ notify: 'always' });
 
-            self.validSideCosts = ko.computed(function () {
+            self.validSideCosts = ko.computed(function() {
                 return self.offer().sideCosts() && self.offer().sideCosts().toString().trim().length > 0 && !isNaN(self.offer().sideCosts());
-            });
+            }).extend({ notify: 'always' });
 
-            self.validPriceType = ko.computed(function () {
+            self.validPriceType = ko.computed(function() {
                 return self.offer().priceType() && self.offer().priceType().toString().trim().length > 0;
-            });
+            }).extend({ notify: 'always' });
 
-            self.validDeposit = ko.computed(function () {
+            self.validDeposit = ko.computed(function() {
                 return self.offer().deposit() && self.offer().deposit().toString().trim().length > 0 && !isNaN(self.offer().deposit());
-            });
+            }).extend({ notify: 'always' });
 
-            self.validCommission = ko.computed(function () {
+            self.validCommission = ko.computed(function() {
                 return self.offer().commission() && self.offer().commission().toString().trim().length > 0 && !isNaN(self.offer().commission());
-            });
+            }).extend({ notify: 'always' });
 
-            self.isTab1Valid = ko.computed(function () {
+            self.isTab1Invalid = ko.computed(function() {
+                return self.invalidOfferType()
+                    || self.invalidTags()
+                    || self.invalidTitle()
+                    || self.invalidSize()
+                    || self.invalidRooms()
+                    || self.invalidRent()
+                    || self.invalidRentType()
+                    || self.invalidSideCosts()
+                    || self.invalidPriceType()
+                    || self.invalidDeposit()
+                    || self.invalidCommission();
+            }).extend({ notify: 'always' });
+
+            self.isTab1Valid = ko.computed(function() {
                 var isValid = false
 
                 if (self.validOfferType()
@@ -174,34 +188,43 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                     resetErrors();
                 }
                 return isValid;
-            });
+            }).extend({ notify: 'always' });
 
             // Tab 2 valid functionn
-            self.validKitchenDescription = ko.computed(function () {
+            self.validKitchenDescription = ko.computed(function() {
                 return self.offer().kitchenDescription() && self.offer().kitchenDescription().toString().trim().length > 0;
-            });
+            }).extend({ notify: 'always' });
 
-            self.validBathroomNumber = ko.computed(function () {
+            self.validBathroomNumber = ko.computed(function() {
                 return self.offer().bathroomNumber() && self.offer().bathroomNumber().toString().trim().length > 0 && !isNaN(self.offer().bathroomNumber());
-            });
+            }).extend({ notify: 'always' });
 
-            self.validBathroomDescription = ko.computed(function () {
+            self.validBathroomDescription = ko.computed(function() {
                 return self.offer().bathroomDescription() && self.offer().bathroomDescription().toString().trim().length > 0;
-            });
+            }).extend({ notify: 'always' });
 
-            self.validInternetSpeed = ko.computed(function () {
+            self.validInternetSpeed = ko.computed(function() {
                 return self.offer().internetSpeed() && self.offer().internetSpeed().toString().trim().length > 0 && !isNaN(self.offer().internetSpeed());
-            });
+            }).extend({ notify: 'always' });
 
-            self.validHeatingDescription = ko.computed(function () {
+            self.validHeatingDescription = ko.computed(function() {
                 return self.offer().heatingDescription() && self.offer().heatingDescription().toString().trim().length > 0;
-            });
+            }).extend({ notify: 'always' });
 
-            self.validTelevision = ko.computed(function () {
+            self.validTelevision = ko.computed(function() {
                 return self.offer().television() && self.offer().television().toString().trim().length > 0;
-            });
+            }).extend({ notify: 'always' });
 
-            self.isTab2Valid = ko.computed(function () {
+            self.isTab2Invalid = ko.computed(function() {
+                return self.invalidKitchenDescription()
+                    || self.invalidBathroomNumbers()
+                    || self.invalidBathroomDescription()
+                    || self.invalidInternetSpeed()
+                    || self.invalidHeatingDescription()
+                    || self.invalidTelevision();
+            }).extend({ notify: 'always' });
+
+            self.isTab2Valid = ko.computed(function() {
                 var isValid = false
 
                 if (self.validKitchenDescription()
@@ -214,30 +237,38 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                     resetErrors();
                 }
                 return isValid;
-            });
+            }).extend({ notify: 'always' });
 
             //Tab 3
-            self.validStreet = ko.computed(function () {
+            self.validStreet = ko.computed(function() {
                 return self.offer().street() && self.offer().street().toString().trim().length > 0;
-            });
+            }).extend({ notify: 'always' });
 
-            self.validHouseNumber = ko.computed(function () {
+            self.validHouseNumber = ko.computed(function() {
                 return self.offer().houseNumber() && self.offer().houseNumber().toString().trim().length > 0;
-            });
+            }).extend({ notify: 'always' });
 
-            self.validFloor = ko.computed(function () {
+            self.validFloor = ko.computed(function() {
                 return self.offer().floor() && self.offer().floor().toString().trim().length > 0;
-            });
+            }).extend({ notify: 'always' });
 
-            self.validZipCode = ko.computed(function () {
+            self.validZipCode = ko.computed(function() {
                 return self.offer().zipCode() && self.offer().zipCode().toString().trim().length > 0;
-            });
+            }).extend({ notify: 'always' });
 
-            self.validCity = ko.computed(function () {
+            self.validCity = ko.computed(function() {
                 return self.offer().city() && self.offer().city().toString().trim().length > 0;
-            });
+            }).extend({ notify: 'always' });
 
-            self.isTab3Valid = ko.computed(function () {
+            self.isTab3Invalid = ko.computed(function() {
+                return self.invalidStreet()
+                    || self.invalidHouseNumber()
+                    || self.invalidFloor()
+                    || self.invalidZipCode()
+                    || self.invalidCity();
+            }).extend({ notify: 'always' });
+
+            self.isTab3Valid = ko.computed(function() {
                 var isValid = false
 
                 if (self.validStreet()
@@ -249,14 +280,18 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                     resetErrors();
                 }
                 return isValid;
-            });
+            }).extend({ notify: 'always' });
 
             //Tab 4
-            self.validDescription = ko.computed(function () {
+            self.validDescription = ko.computed(function() {
                 return self.offer().description() && self.offer().description().toString().trim().length > 0;
-            });
+            }).extend({ notify: 'always' });
 
-            self.isTab4Valid = ko.computed(function () {
+            self.isTab4Invalid = ko.computed(function() {
+                return self.invalidDescription();
+            }).extend({ notify: 'always' });
+
+            self.isTab4Valid = ko.computed(function() {
                 var isValid = false
 
                 if (self.validDescription()) {
@@ -265,7 +300,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                 }
 
                 return isValid;
-            });
+            }).extend({ notify: 'always' });
 
             function resetErrors() {
                 self.offerCreationError(false);
@@ -326,7 +361,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                     self.currentUserIsNotALandlord(true);
                 } else if (self.offer() && !isNaN(self.offer().id())) {
                     api.offers.getOfferById(self.offer().id()).then(
-                        function (requestedOffer) {
+                        function(requestedOffer) {
                             if (requestedOffer) {
                                 if (!isCurrentUserALandlord()) {
                                     self.currentUserIsNotALandlord(true);
@@ -342,7 +377,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                                 self.offerLoadingError(true);
                             }
                         },
-                        function (xhr, statusText, error) {
+                        function(xhr, statusText, error) {
                             self.offerLoadingError(true);
                         }
                     );
@@ -352,12 +387,12 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
             function createOffer() {
                 resetErrors();
                 if (!isCurrentUserALandlord()) {
-                    setTimeout(function () {
+                    setTimeout(function() {
                         self.currentUserIsNotALandlord(true);
                     }, 300);
                 } else {
                     api.offers.createOffer().then(
-                        function (newOffer) {
+                        function(newOffer) {
                             if (!isCurrentUserEqualsLandlord(newOffer.landlord)) {
                                 self.offerLandlordIsNotCurrentUser(true);
                             } else {
@@ -366,7 +401,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                                 self.createdOffer(true);
                             }
                         },
-                        function (xhr) {
+                        function(xhr) {
                             self.offerCreationError(true);
                         }
                     );
@@ -375,10 +410,10 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
 
             function loadOfferTypes() {
                 api.offers.getOfferTypes().then(
-                    function (offerTypes) {
+                    function(offerTypes) {
                         self.offerTypes(offerTypes);
                     },
-                    function (xhr) {
+                    function(xhr) {
                         self.offerTypesLoadingError(true);
                     }
                 );
@@ -386,10 +421,10 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
 
             function loadOfferTags() {
                 api.offers.getTags().then(
-                    function (offerTags) {
+                    function(offerTags) {
                         self.offerTags(offerTags)
                     },
-                    function (xhr) {
+                    function(xhr) {
                         self.offerTagsLoadingError(true);
                     }
                 );
@@ -403,11 +438,95 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                 }
             };
 
-            self.processInvalidUpdateResponse = function (xhr) {
+            self.processInvalidUpdateResponse = function(xhr) {
                 if (xhr.responseJSON) {
+                    var errorKey = Object.keys(xhr.responseJSON)[0];
+                    var errorMessage = xhr.responseJSON[errorKey][0];
+                    if (errorMessage) {
+                        if (errorMessage.lastIndexOf(".") !== errorMessage.length - 1) {
+                            errorMessage = errorMessage + ".";
+
+                            switch (errorKey) {
+                                case "offerType":
+                                    self.invalidOfferType(true);
+                                    break;
+                                case "tags":
+                                    self.invalidTags(true);
+                                    break;
+                                case "title":
+                                    self.invalidTitle(true);
+                                    break;
+                                case "size":
+                                    self.invalidSize(true);
+                                    break;
+                                case "rooms":
+                                    self.invalidRooms(true);
+                                    break;
+                                case "rent":
+                                    self.invalidRent(true);
+                                    break;
+                                case "rentType":
+                                    self.invalidRentType(true);
+                                    break;
+                                case "sideCosts":
+                                    self.invalidSideCosts(true);
+                                    break;
+                                case "priceType":
+                                    self.invalidPriceType(true);
+                                    break;
+                                case "deposit":
+                                    self.invalidDeposit(true);
+                                    break;
+                                case "commission":
+                                    self.invalidCommission(true);
+                                    break;
+                                case "kitchenDescription":
+                                    self.invalidKitchenDescription(true);
+                                    break;
+                                case "bathroomNumber":
+                                    self.invalidBathroomNumbers(true);
+                                    break;
+                                case "bathroomDescription":
+                                    self.invalidBathroomDescription(true);
+                                    break;
+                                case "internetSpeed":
+                                    self.invalidInternetSpeed(true);
+                                    break;
+                                case "heatingDescription":
+                                    self.invalidHeatingDescription(true);
+                                    break;
+                                case "television":
+                                    self.invalidTelevision(true);
+                                    break;
+                                case "street":
+                                    self.invalidStreet(true);
+                                    break;
+                                case "houseNumber":
+                                    self.invalidHouseNumber(true);
+                                    break;
+                                case "floor":
+                                    self.invalidFloor(true);
+                                    break;
+                                case "zipCode":
+                                    self.invalidZipCode(true);
+                                    break;
+                                case "city":
+                                    self.invalidCity(true);
+                                    break;
+                                case "description":
+                                    self.invalidDescription(true);
+                                    break;
+                            }
+
+                            self.offerUpdatingErrorMessage(errorMessage);
+                            self.offerUpdatingError(true);
+                        }
+                    }
+
+                    /*
                     var errors = Object.keys(xhr.responseJSON);
                     if (errors && errors.length > 0) {
-                        $.each(errors, function (index, errorKey) {
+                        $.each(errors, function(index, errorKey) {
                             var errorMessage = xhr.responseJSON[errorKey][0];
                             if (errorMessage) {
                                 if (errorMessage.lastIndexOf(".") !== errorMessage.length - 1) {
@@ -495,13 +614,13 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                         }
                     } else {
                         self.offerUpdatingError(true);
-                    }
+                    }*/
                 } else {
                     self.offerUpdatingError(true);
                 }
             };
 
-            self.offerFullPrice = ko.computed(function () {
+            self.offerFullPrice = ko.computed(function() {
                 var fullPrice = 0;
 
                 if (self.offer().rent() && !isNaN(self.offer().rent())) {
@@ -516,7 +635,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                 return fullPrice;
             });
 
-            self.bindFileUploadModalEvents = function (model, event) {
+            self.bindFileUploadModalEvents = function(model, event) {
                 if (event && event.currentTarget) {
                     var dialogId = event.currentTarget.getAttribute("data-target");
                     var dialogContainer = $(dialogId);
@@ -528,9 +647,9 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                 }
             };
 
-            self.goNextStep = function (model, event) {
+            self.goNextStep = function(model, event) {
                 api.offers.updatedOffer(self.offer).then(
-                    function () {
+                    function() {
                         if (self.tabsContainer() && event.currentTarget) {
                             var nextTabId = event.currentTarget.getAttribute("next-tab");
                             var nextTabNav = self.tabsContainer().find('.nav a[href="' + nextTabId + '"]');
@@ -540,15 +659,15 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                             }
                         }
                     },
-                    function (xhr) {
+                    function(xhr) {
                         processInvalidUpdateResponse(xhr);
                     }
                 );
             };
 
-            self.finishOfferCreation = function () {
+            self.finishOfferCreation = function() {
                 api.offers.updatedOffer(self.offer).then(
-                    function () {
+                    function() {
                         if (self.offerDetailsPageInfo() && self.offerDetailsPageInfo().url) {
                             self.finishedCreation(true);
                             window.location.href = self.offerDetailsPageInfo().url + "?offerId=" + self.offer().id();
@@ -556,30 +675,30 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                             window.location.href = "/";
                         }
                     },
-                    function (xhr) {
+                    function(xhr) {
                         processInvalidUpdateResponse(xhr);
                     }
                 );
             };
 
-            self.cancelOfferCreation = function () {
+            self.cancelOfferCreation = function() {
                 if (self.offer() && !isNaN(self.offer().id())) {
-                    api.offers.deleteOffer(self.offer().id()).then(function () {
+                    api.offers.deleteOffer(self.offer().id()).then(function() {
                         self.offer().id(undefined)
                         window.history.back();
-                    }, function () {
+                    }, function() {
                         window.history.back();
                     });;
                 }
             };
 
-            self.optionsAfterRender = function (option, item) {
+            self.optionsAfterRender = function(option, item) {
                 ko.applyBindingsToNode(option, {
                     disable: !item
                 }, item);
             };
 
-            self.initialize = function (params, tabsContainer) {
+            self.initialize = function(params, tabsContainer) {
                 self.tabsContainer(tabsContainer || "");
 
                 if (params) {
@@ -590,7 +709,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                     }
                 }
 
-                self.currentUser.subscribe(function (currentUser) {
+                self.currentUser.subscribe(function(currentUser) {
                     reloadOffer();
 
                     if (isCurrentUserALandlord() && isNaN(self.offer().id())) {
@@ -608,7 +727,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
 
         return {
             viewModel: {
-                createViewModel: function (params, componentInfo) {
+                createViewModel: function(params, componentInfo) {
                     // componentInfo contains for example the root element from the component template
                     ko.components.register("file-uploader", fileUploaderModalComponent);
 
