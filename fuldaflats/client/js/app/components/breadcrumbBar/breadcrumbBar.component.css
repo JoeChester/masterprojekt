@@ -4,16 +4,14 @@
  * LastMod:         13.12.2016
  * Description:     Custom CSS for for breadcrumb bar.
  ************************************************************/
-#heading-breadcrumbs {
-    padding: 0px;
+#heading-breadcrumbs-container{
+    background: url('/img/texture-bw.png') center center repeat;
 }
 
-#heading-breadcrumbs .dark-mask {
-    background-color: #467fbf;
+#heading-breadcrumbs-container .dark-mask {
+    background: #467fbf;
     opacity: 0.5;
-    padding: 40px;
-    width: 100%;
-    margin: 0px;
+    padding: 5px;
 }
 
 #heading-breadcrumbs .breadcrumb > li + li:before{
