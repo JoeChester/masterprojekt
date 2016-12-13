@@ -37,92 +37,231 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
             self.offerLoadingError = ko.observable(false);
             self.offerTypesLoadingError = ko.observable(false);
             self.offerTagsLoadingError = ko.observable(false);
+            self.offerUpdatingError = ko.observable(false);
+            self.offerUpdatingErrorMessage = ko.observable("");
 
             self.finishedCreation = ko.observable(false);
 
             // Tab 1 possible invalid fields
-            self.invalidOfferType = ko.observable();
-            self.invalidTags = ko.observable();
-            self.invalidTitle = ko.observable();
-            self.invalidSize = ko.observable();
-            self.invalidRooms = ko.observable();
-            self.invalidRent = ko.observable();
-            self.invalidRentType = ko.observable();
-            self.invalidSideCosts = ko.observable();
-            self.invalidPriceType = ko.observable();
-            self.invalidDeposit = ko.observable();
-            self.invalidCommission = ko.observable();
+            self.invalidOfferType = ko.observable(false);
+            self.invalidTags = ko.observable(false);
+            self.invalidTitle = ko.observable(false);
+            self.invalidSize = ko.observable(false);
+            self.invalidRooms = ko.observable(false);
+            self.invalidRent = ko.observable(false);
+            self.invalidRentType = ko.observable(false);
+            self.invalidSideCosts = ko.observable(false);
+            self.invalidPriceType = ko.observable(false);
+            self.invalidDeposit = ko.observable(false);
+            self.invalidCommission = ko.observable(false);
 
             // Tab 2 possible invalid fields
-            self.invalidKitchenDescription = ko.observable();
-            self.invalidBathroomNumbers = ko.observable();
-            self.invalidBathroomDescription = ko.observable();
-            self.invalidInternetSpeed = ko.observable();
-            self.invalidHeatingDescription = ko.observable();
-            self.invalidTelevision = ko.observable();
+            self.invalidKitchenDescription = ko.observable(false);
+            self.invalidBathroomNumbers = ko.observable(false);
+            self.invalidBathroomDescription = ko.observable(false);
+            self.invalidInternetSpeed = ko.observable(false);
+            self.invalidHeatingDescription = ko.observable(false);
+            self.invalidTelevision = ko.observable(false);
 
             // Tab 3 possible invalid fields
-            self.invalidStreet = ko.observable();
-            self.invalidHouseNumber = ko.observable();
-            self.invalidFloor = ko.observable();
-            self.invalidZipCode = ko.observable();
-            self.invalidCity = ko.observable();
+            self.invalidStreet = ko.observable(false);
+            self.invalidHouseNumber = ko.observable(false);
+            self.invalidFloor = ko.observable(false);
+            self.invalidZipCode = ko.observable(false);
+            self.invalidCity = ko.observable(false);
 
             // Tab 4 possible invalid fields
             self.invalidDescription = ko.observable();
 
+            self.resetInvalidFields = function () {
+                // Tab 1 possible invalid fields
+                self.invalidOfferType(false);
+                self.invalidTags(false);
+                self.invalidTitle(false);
+                self.invalidSize(false);
+                self.invalidRooms(false);
+                self.invalidRent(false);
+                self.invalidRentType(false);
+                self.invalidSideCosts(false);
+                self.invalidPriceType(false);
+                self.invalidDeposit(false);
+                self.invalidCommission(false);
+
+                // Tab 2 possible invalid fields
+                self.invalidKitchenDescription(false);
+                self.invalidBathroomNumbers(false);
+                self.invalidBathroomDescription(false);
+                self.invalidInternetSpeed(false);
+                self.invalidHeatingDescription(false);
+                self.invalidTelevision(false);
+
+                // Tab 3 possible invalid fields
+                self.invalidStreet(false);
+                self.invalidHouseNumber(false);
+                self.invalidFloor(false);
+                self.invalidZipCode(false);
+                self.invalidCity(false);
+
+                // Tab 4 possible invalid fields
+                self.invalidDescription(false);
+            };
+
+            self.validOfferType = ko.computed(function () {
+                var isValid = false;
+                if (self.offer().offerType() && self.offer().offerType().toString().trim().length > 0) {
+                    isValid = true;
+                }
+
+                return isValid
+            });
+
+            self.validTags = ko.computed(function () {
+                return self.offer().tags() && self.offer().tags().length > 0;
+            });
+
+            self.validTitle = ko.computed(function () {
+                return self.offer().title() && self.offer().title().toString().trim().length > 0;
+            });
+
+            self.validSize = ko.computed(function () {
+                return self.offer().size() && self.offer().size().toString().trim().length > 0 && !isNaN(self.offer().size());
+            });
+
+            self.validRooms = ko.computed(function () {
+                return self.offer().rooms() && self.offer().rooms().toString().trim().length > 0 && !isNaN(self.offer().rooms());
+            });
+
+            self.validRent = ko.computed(function () {
+                return self.offer().rent() && self.offer().rent().toString().trim().length > 0 && !isNaN(self.offer().rent());
+            });
+
+            self.validRentType = ko.computed(function () {
+                return self.offer().rentType() && self.offer().rentType().toString().trim().length > 0;
+            });
+
+            self.validSideCosts = ko.computed(function () {
+                return self.offer().sideCosts() && self.offer().sideCosts().toString().trim().length > 0 && !isNaN(self.offer().sideCosts());
+            });
+
+            self.validPriceType = ko.computed(function () {
+                return self.offer().priceType() && self.offer().priceType().toString().trim().length > 0;
+            });
+
+            self.validDeposit = ko.computed(function () {
+                return self.offer().deposit() && self.offer().deposit().toString().trim().length > 0 && !isNaN(self.offer().deposit());
+            });
+
+            self.validCommission = ko.computed(function () {
+                return self.offer().commission() && self.offer().commission().toString().trim().length > 0 && !isNaN(self.offer().commission());
+            });
+
             self.isTab1Valid = ko.computed(function () {
                 var isValid = false
 
-                if (self.offer().offerType() && self.offer().offerType().toString().trim().length > 0
-                    && self.offer().tags() && self.offer().tags().length > 0
-                    && self.offer().title() && self.offer().title().toString().trim().length > 0
-                    && self.offer().size() && self.offer().size().toString().trim().length > 0 && !isNaN(self.offer().size())
-                    && self.offer().rooms() && self.offer().rooms().toString().trim().length > 0 && !isNaN(self.offer().rooms())
-                    && self.offer().rent() && self.offer().rent().toString().trim().length > 0 && !isNaN(self.offer().rent())
-                    && self.offer().rentType() && self.offer().rentType().toString().trim().length > 0
-                    && self.offer().sideCosts() && self.offer().sideCosts().toString().trim().length > 0 && !isNaN(self.offer().sideCosts())
-                    && self.offer().priceType() && self.offer().priceType().toString().trim().length > 0
-                    && self.offer().deposit() && self.offer().deposit().toString().trim().length > 0 && !isNaN(self.offer().deposit())
-                    && self.offer().commission() && self.offer().commission().toString().trim().length > 0 && !isNaN(self.offer().commission())) {
+                if (self.validOfferType()
+                    && self.validTags()
+                    && self.validTitle()
+                    && self.validSize()
+                    && self.validRooms()
+                    && self.validRent()
+                    && self.validRentType()
+                    && self.validSideCosts()
+                    && self.validPriceType()
+                    && self.validDeposit()
+                    && self.validCommission()) {
 
                     isValid = true;
+                    resetErrors();
                 }
                 return isValid;
+            });
+
+            // Tab 2 valid functionn
+            self.validKitchenDescription = ko.computed(function () {
+                return self.offer().kitchenDescription() && self.offer().kitchenDescription().toString().trim().length > 0;
+            });
+
+            self.validBathroomNumber = ko.computed(function () {
+                return self.offer().bathroomNumber() && self.offer().bathroomNumber().toString().trim().length > 0 && !isNaN(self.offer().bathroomNumber());
+            });
+
+            self.validBathroomDescription = ko.computed(function () {
+                return self.offer().bathroomDescription() && self.offer().bathroomDescription().toString().trim().length > 0;
+            });
+
+            self.validInternetSpeed = ko.computed(function () {
+                return self.offer().internetSpeed() && self.offer().internetSpeed().toString().trim().length > 0 && !isNaN(self.offer().internetSpeed());
+            });
+
+            self.validHeatingDescription = ko.computed(function () {
+                return self.offer().heatingDescription() && self.offer().heatingDescription().toString().trim().length > 0;
+            });
+
+            self.validTelevision = ko.computed(function () {
+                return self.offer().television() && self.offer().television().toString().trim().length > 0;
             });
 
             self.isTab2Valid = ko.computed(function () {
                 var isValid = false
 
-                if (self.offer().kitchenDescription() && self.offer().kitchenDescription().toString().trim().length > 0
-                    && self.offer().bathroomNumber() && self.offer().bathroomNumber().toString().trim().length > 0 && !isNaN(self.offer().bathroomNumber())
-                    && self.offer().bathroomDescription() && self.offer().bathroomDescription().toString().trim().length > 0
-                    && self.offer().internetSpeed() && self.offer().internetSpeed().toString().trim().length > 0 && !isNaN(self.offer().internetSpeed())
-                    && self.offer().heatingDescription() && self.offer().heatingDescription().toString().trim().length > 0
-                    && self.offer().television() && self.offer().television().toString().trim().length > 0) {
+                if (self.validKitchenDescription()
+                    && self.validBathroomNumber()
+                    && self.validBathroomDescription()
+                    && self.validInternetSpeed()
+                    && self.validHeatingDescription()
+                    && self.validTelevision()) {
                     isValid = true;
+                    resetErrors();
                 }
                 return isValid;
+            });
+
+            //Tab 3
+            self.validStreet = ko.computed(function () {
+                return self.offer().street() && self.offer().street().toString().trim().length > 0;
+            });
+
+            self.validHouseNumber = ko.computed(function () {
+                return self.offer().houseNumber() && self.offer().houseNumber().toString().trim().length > 0;
+            });
+
+            self.validFloor = ko.computed(function () {
+                return self.offer().floor() && self.offer().floor().toString().trim().length > 0;
+            });
+
+            self.validZipCode = ko.computed(function () {
+                return self.offer().zipCode() && self.offer().zipCode().toString().trim().length > 0;
+            });
+
+            self.validCity = ko.computed(function () {
+                return self.offer().city() && self.offer().city().toString().trim().length > 0;
             });
 
             self.isTab3Valid = ko.computed(function () {
                 var isValid = false
 
-                if (self.offer().street() && self.offer().street().toString().trim().length > 0
-                    && self.offer().houseNumber() && self.offer().houseNumber().toString().trim().length > 0
-                    && self.offer().floor() && self.offer().floor().toString().trim().length > 0
-                    && self.offer().zipCode() && self.offer().zipCode().toString().trim().length > 0
-                    && self.offer().city() && self.offer().city().toString().trim().length > 0) {
+                if (self.validStreet()
+                    && self.validHouseNumber()
+                    && self.validFloor()
+                    && self.validZipCode()
+                    && self.validCity()) {
                     isValid = true;
+                    resetErrors();
                 }
                 return isValid;
+            });
+
+            //Tab 4
+            self.validDescription = ko.computed(function () {
+                return self.offer().description() && self.offer().description().toString().trim().length > 0;
             });
 
             self.isTab4Valid = ko.computed(function () {
                 var isValid = false
 
-                if (self.offer().description() && self.offer().description().toString().trim().length > 0) {
+                if (self.validDescription()) {
                     isValid = true;
+                    resetErrors();
                 }
 
                 return isValid;
@@ -135,6 +274,9 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                 self.offerLoadingError(false);
                 self.offerTypesLoadingError(false);
                 self.offerTagsLoadingError(false);
+                self.offerUpdatingError(false);
+                self.offerUpdatingErrorMessage("");
+                self.resetInvalidFields();
             };
 
             function getURLParameter(name) {
@@ -201,7 +343,6 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                             }
                         },
                         function (xhr, statusText, error) {
-                            errorCallback(error);
                             self.offerLoadingError(true);
                         }
                     );
@@ -262,6 +403,104 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                 }
             };
 
+            self.processInvalidUpdateResponse = function (xhr) {
+                if (xhr.responseJSON) {
+                    var errors = Object.keys(xhr.responseJSON);
+                    if (errors && errors.length > 0) {
+                        $.each(errors, function (index, errorKey) {
+                            var errorMessage = xhr.responseJSON[errorKey][0];
+                            if (errorMessage) {
+                                if (errorMessage.lastIndexOf(".") !== errorMessage.length - 1) {
+                                    errorMessage = errorMessage + ".";
+
+                                    switch (errorKey) {
+                                        case "offerType":
+                                            self.invalidOfferType(true);
+                                            break;
+                                        case "tags":
+                                            self.invalidTags(true);
+                                            break;
+                                        case "title":
+                                            self.invalidTitle(true);
+                                            break;
+                                        case "size":
+                                            self.invalidSize(true);
+                                            break;
+                                        case "rooms":
+                                            self.invalidRooms(true);
+                                            break;
+                                        case "rent":
+                                            self.invalidRent(true);
+                                            break;
+                                        case "rentType":
+                                            self.invalidRentType(true);
+                                            break;
+                                        case "sideCosts":
+                                            self.invalidSideCosts(true);
+                                            break;
+                                        case "priceType":
+                                            self.invalidPriceType(true);
+                                            break;
+                                        case "deposit":
+                                            self.invalidDeposit(true);
+                                            break;
+                                        case "commission":
+                                            self.invalidCommission(true);
+                                            break;
+                                        case "kitchenDescription":
+                                            self.invalidKitchenDescription(true);
+                                            break;
+                                        case "bathroomNumber":
+                                            self.invalidBathroomNumbers(true);
+                                            break;
+                                        case "bathroomDescription":
+                                            self.invalidBathroomDescription(true);
+                                            break;
+                                        case "internetSpeed":
+                                            self.invalidInternetSpeed(true);
+                                            break;
+                                        case "heatingDescription":
+                                            self.invalidHeatingDescription(true);
+                                            break;
+                                        case "television":
+                                            self.invalidTelevision(true);
+                                            break;
+                                        case "street":
+                                            self.invalidStreet(true);
+                                            break;
+                                        case "houseNumber":
+                                            self.invalidHouseNumber(true);
+                                            break;
+                                        case "floor":
+                                            self.invalidFloor(true);
+                                            break;
+                                        case "zipCode":
+                                            self.invalidZipCode(true);
+                                            break;
+                                        case "city":
+                                            self.invalidCity(true);
+                                            break;
+                                        case "description":
+                                            self.invalidDescription(true);
+                                            break;
+                                    }
+
+                                    self.offerUpdatingErrorMessage(errorMessage); // todo: Array
+                                }
+                            }
+                        });
+
+                        if (self.offerUpdatingErrorMessage() && self.offerUpdatingErrorMessage().length > 0) {
+                            self.offerUpdatingError(true);
+                        }
+                    } else {
+                        self.offerUpdatingError(true);
+                    }
+                } else {
+                    self.offerUpdatingError(true);
+                }
+            };
+
             self.offerFullPrice = ko.computed(function () {
                 var fullPrice = 0;
 
@@ -302,7 +541,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                         }
                     },
                     function (xhr) {
-                        // redponse validation logik
+                        processInvalidUpdateResponse(xhr);
                     }
                 );
             };
@@ -318,7 +557,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                         }
                     },
                     function (xhr) {
-                        // redponse validation logik
+                        processInvalidUpdateResponse(xhr);
                     }
                 );
             };

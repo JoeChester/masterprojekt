@@ -15,3 +15,13 @@
 #new-offer-wizard #uploaded-files {
     min-height: 150px;
 }
+
+#new-offer-wizard .valid,
+#new-offer-wizard .valid + .btn-group {
+    border: 1px solid green;
+}
+
+#new-offer-wizard .inValid,
+#new-offer-wizard .inValid + .btn-group{
+    border: 1px solid red;
+}
