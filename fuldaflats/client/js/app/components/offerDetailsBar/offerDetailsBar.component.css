@@ -5,6 +5,11 @@
  * Description:     Custom CSS for offer details bar.
  ************************************************************/
 /* Special component css here and general css in main.css */
+
+.offer-details-bar .glyphicon-ok {
+    color: green
+}
+
 .mediaObject-carousel{
     height: 500px;
     background-color: #eeeeee;
