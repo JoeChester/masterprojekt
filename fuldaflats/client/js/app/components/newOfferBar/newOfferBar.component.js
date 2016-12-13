@@ -747,7 +747,6 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                         if (tabsContainer.length > 0) {
                             var viewModel = new NewOfferModel(ko, $, api);
                             viewModel.initialize(params, tabsContainer);
-                            window.m = viewModel;
                         }
                     }
 
