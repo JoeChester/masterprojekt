@@ -26,6 +26,8 @@ define(['text!./editOfferDetailsBar.component.html',
                     userData: undefined
                 }
             );
+            self.showTags = ko.observable(false);
+            self.allTags = ko.observable({});
 
             // Checkbox Observables
             self.status = ko.observable(0);
@@ -46,9 +48,13 @@ define(['text!./editOfferDetailsBar.component.html',
             self.heatingDescription = ko.observable();
             self.bathroomDescription = ko.observable();
             self.kitchenDescription = ko.observable();
+            self.priceType = ko.observable();
+            self.rentType = ko.observable();
 
-            self.offerPriceTypes = ko.observableArray(["Day", "Month", "Quarter", "Half Year", "Semester", "Year"]);
-            self.offerRentTypes = ko.observableArray(["Cold", "Warm"]);
+            self.selectedTags = ko.observableArray();
+
+            self.offerPriceTypes = ko.observableArray(["DAY", "MONTH", "QUARTER", "HALF YEAR", "SEMESTER", "YEAR"]);
+            self.offerRentTypes = ko.observableArray(["COLD", "WARM"]);
             self.kitchenDescriptions = ko.observableArray(["Fridge & Oven", "Fridge & Stove", "Fridge & Stove & Oven"]);
             self.bathroomDescriptions = ko.observableArray(["Shower & WC", "Shower & Tub & WC", "Tub & WC"]);
             self.offerHeatingDescriptions = ko.observableArray(["Gas", "Oil", "Electricity"]);
@@ -116,13 +122,40 @@ define(['text!./editOfferDetailsBar.component.html',
                             self.heatingDescription(offerData.heatingDescription);
                             self.bathroomDescription(offerData.bathroomDescription);
                             self.kitchenDescription(offerData.kitchenDescription);
+                            self.priceType(offerData.priceType);
+                            self.rentType(offerData.rentType);
                             if (offerData.landlord) {
                                 self.landlord(offerData.landlord);
+                            }
+                        }
+                        if (offerData.tags) {
+                            if (offerData.tags.length > 0) {
+                                self.showTags(true);
+                                for (var j in offerData.tags) {
+                                    self.selectedTags.push(offerData.tags[j].title);
+                                }
+                                console.log("Selected Tags: " + self.selectedTags());
                             }
                         }
                     }
                 })
             };
+
+            // Get Tags
+            self.loadTags = function () {
+                $.ajax({
+                    method: "GET",
+                    url: "/api/tags",
+                    contentType: "application/json",
+                    success: function (tagsData, status, req) {
+                        self.allTags(tagsData);
+                    },
+                    error: function (req, status, error) {
+
+                    }
+                });
+            }
+            self.loadTags();
 
             // File Upload Modal
             self.bindFileUploadModalEvents = function (model, event) {
@@ -161,6 +194,8 @@ define(['text!./editOfferDetailsBar.component.html',
                 self.offerChanges().heatingDescription = self.heatingDescription();
                 self.offerChanges().bathroomDescription = self.bathroomDescription();
                 self.offerChanges().kitchenDescription = self.kitchenDescription();
+                self.offerChanges().priceType = self.priceType();
+                self.offerChanges().rentType = self.rentType();
 
                 var _offerChanges = ko.toJSON(self.offerChanges);
 

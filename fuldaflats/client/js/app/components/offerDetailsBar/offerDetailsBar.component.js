@@ -156,7 +156,7 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
                 self.getOfferDetails();
             }
 
-            loginCallbacks.push(self.getReviews);
+            loginCallbacks.push(self.getOfferDetails);
 
 
             //Favorite Functions

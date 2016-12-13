@@ -68,40 +68,62 @@
                             <p class="form-control-static bold-text" data-bind="text: offer().rooms"></p>
                         </div>
                     </div>
+                    <div class="row">
+                        <label class="control-label col-sm-6">Rent Type:</label>
+                        <div class="col-sm-6">
+                            <p class="form-control-static bold-text" data-bind="text: offer().rentType"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="control-label col-sm-6">Price Type:</label>
+                        <div class="col-sm-6">
+                            <p class="form-control-static bold-text" data-bind="text: offer().priceType"></p>
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="col-xs-6">
                 <form class="form-horizontal">
+                    <!-- ko ifnot: offer().rent == 0 -->
                     <div class="row">
                         <label class="control-label col-sm-6">Rent:</label>
                         <div class="col-sm-6">
                             <p class="form-control-static bold-text" data-bind="text: offer().rent + ' €'"></p>
                         </div>
                     </div>
+                    <!-- /ko -->
+                    <!-- ko ifnot: offer().sideCosts == 0 -->
                     <div class="row">
                         <label class="control-label col-sm-6">Side Costs:</label>
                         <div class="col-sm-6">
                             <p class="form-control-static bold-text" data-bind="text: offer().sideCosts + ' €'"></p>
                         </div>
                     </div>
+                    <!-- /ko -->
+                    <!-- ko ifnot: offer().fullPrice == 0 -->
                     <div class="row">
                         <label class="control-label col-sm-6">Full Price:</label>
                         <div class="col-sm-6">
                             <p class="form-control-static bold-text" data-bind="text: offer().fullPrice + ' €'"></p>
                         </div>
                     </div>
+                    <!-- /ko -->
+                    <!-- ko ifnot: offer().deposit == 0 -->
                     <div class="row">
                         <label class="control-label col-sm-6">Deposit:</label>
                         <div class="col-sm-6">
                             <p class="form-control-static bold-text" data-bind="text: offer().deposit + ' €'"></p>
                         </div>
                     </div>
+                    <!-- /ko -->
+                    <!-- ko ifnot: offer().commission == 0 -->
                     <div class="row">
                         <label class="control-label col-sm-6">Commission:</label>
                         <div class="col-sm-6">
                             <p class="form-control-static bold-text" data-bind="text: offer().commission + ' €'"></p>
                         </div>
                     </div>
+                    <!-- /ko -->
                 </form>
             </div>
         </div>
@@ -236,6 +258,12 @@
                             <label class="control-label col-sm-6">Bathroom:</label>
                             <div class="col-sm-6">
                                 <p class="form-control-static bold-text" data-bind="text: offer().bathroomDescription"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="control-label col-sm-6">Nr. of Bathrooms:</label>
+                            <div class="col-sm-6">
+                                <p class="form-control-static bold-text" data-bind="text: offer().bathroomNumber"></p>
                             </div>
                         </div>
                         <div class="row">
