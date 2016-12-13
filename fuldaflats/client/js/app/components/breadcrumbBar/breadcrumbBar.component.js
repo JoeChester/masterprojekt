@@ -1,10 +1,10 @@
 /************************************************************
  * File:            breadcrumbBar.component.js
  * Author:          Patrick Hasenauer
- * LastMod:         02.12.2016
+ * LastMod:         13.12.2016
  * Description:     JS Component Handler for breadcrumb bar.
  ************************************************************/
-define(['text!./breadcrumbBar.component.html', 'knockout'], function (componentTemplate, ko) {
+define(['text!./breadcrumbBar.component.html', 'css!./breadcrumbBar.component.css', 'knockout'], function (componentTemplate,componentCss, ko) {
     function BreadcrumbModel(params) {
         var self = this;
 
