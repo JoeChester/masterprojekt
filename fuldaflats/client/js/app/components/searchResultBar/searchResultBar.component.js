@@ -1,7 +1,7 @@
 /************************************************************
  * File:            searchResultBar.component.js
  * Author:          Jonas Kleinkauf, Patrick Hasenauer
- * LastMod:         02.12.2016
+ * LastMod:         13.12.2016
  * Description:     JS Component Handler for seach results
  ************************************************************/
 
@@ -33,6 +33,7 @@ define(['text!./searchResultBar.component.html', 'css!./searchResultBar.componen
             var self = this;
 
             self.offers = ko.observableArray([]);
+            self.loadedResults = ko.observable()
 
             var forceNullObservable = function () {
                 var obs = ko.observable();
@@ -97,11 +98,13 @@ define(['text!./searchResultBar.component.html', 'css!./searchResultBar.componen
                         }
                         self.sortOffers();
                         placeMarkers(data);
+                        self.loadedResults(true);
                     },
                     error: function (req, status, err) {
                         console.log(status);
                         console.log(err);
                         console.log(req);
+                        self.loadedResults(true);
                     }
                 });
             }

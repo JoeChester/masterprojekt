@@ -1,7 +1,7 @@
 /************************************************************
  * File:            searchResultBar.component.css
  * Author:          Jonas Kleinkauf, Patrick Hasenauer
- * LastMod:         02.12.2016
+ * LastMod:         13.12.2016
  * Description:     Custom CSS for search result bar.
  ************************************************************/
 
@@ -16,6 +16,11 @@
 
 .search-result-colums {
   height: 300px;
+}
+
+.search-result-container .result-count {
+  margin: 5px 0px 0px 0px;
+  color: #31708f;
 }
 
 /* Extra Small Devices, Phones */

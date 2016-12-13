@@ -1,13 +1,13 @@
 <!--************************************************************
  * File:            searchResultBar.component.html
  * Author:          Jonas Kleinkauf, Patrick Hasenauer
- * LastMod:         02.12.2016
+ * LastMod:         13.12.2016
  * Description:     Knockout Template for Search Results
  ************************************************************ -->
 <section class="no-margin search-result-container">
     <!-- ______________ Sort Select ______________ -->
     <div class="row sort-row">
-        <div class="col-lg-2 col-md-4 col-sm-4" >
+        <div class="col-lg-2 col-md-4 col-sm-4">
             <div class="input-group">
                 <select class="form-control" data-bind="options: sortCriteria,
                         optionsText: 'name',
@@ -16,8 +16,22 @@
                 <div class="input-group-addon"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span></div>
             </div>
         </div>
+         <div class="col-lg-2 col-md-4 col-sm-4 text-top">
+             <h3 class="result-count" data-bind="visible: loadedResults()"><span data-bind="text: offers().length"></span> Results</h3>
+         </div>
     </div>
     <div class="row">
+        <div class="col-md-6 search-result-colums scroll-y" data-bind="visible: offers().length == 0 && loadedResults()">
+            <div class="panel panel-offer-result">
+                <div class="panel-body">
+                    <div class="alert alert-info">
+                        <h4>
+                            There are no available flats matching the criteria which you have specified.<br \>
+                            <small>In order to return more great flats in your searches, try adjusting your search criteria.</small></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- ______________ RESULTS ______________ -->
         <div class="col-md-6 search-result-colums scroll-y" data-bind="foreach: { data: offers, as: 'offer' }">
             <div class="panel panel-offer-result">
