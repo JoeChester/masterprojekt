@@ -180,6 +180,24 @@ define(['text!./editOfferDetailsBar.component.html',
                 window.history.back();
             };
 
+             // Delete Offer
+            self.deleteOffer = function () {
+                $.ajax({
+                    method: "DELETE",
+                    url: '/api/offers/' + self.offerId(),
+                    success: function (data, status, req) {
+                        window.location = "/pages/myProfile";
+                    },
+                    error: function (req, status, error) {
+                        if (req.status == 200) {
+                            window.location = "/pages/myProfile";
+                            return;
+                        }
+                        errorCallback(error);
+                    }
+                });
+            };
+
             // Accept Button
             self.updateOffer = function () {
                 if (self.status() === true) {
