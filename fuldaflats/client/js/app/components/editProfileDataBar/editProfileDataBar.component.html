@@ -1,7 +1,7 @@
 <!--************************************************************
  * File:            editProfileDataBar.component.html
  * Author:          Michelle Rothenbuecher, Patrick Hasenauer
- * LastMod:         11.12.2016
+ * LastMod:         13.12.2016
  * Description:     Knockout Template for edit profile data bar.
  ************************************************************-->
 <section>
@@ -98,8 +98,8 @@
 						</fieldset>
 						<div class="row">
 							<div class="text-center col-sm-7">
-								<button data-bind="click: $parent.accept" class="btn btn-template-main">Accept</button>
-								<a href="/pages/myProfile" type="botton" class="btn btn-template-main btn-margin-left">Cancel</a>
+								<a href="" type="submit" data-bind="click: $parent.accept" class="btn btn-success "><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Accept</a>
+								<a href="/pages/myProfile" type="submit" data-bind="click: cancelEditOffer" class="btn btn-danger btn-margin-left"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancel</a>
 							</div>
 						</div>
 					</form>

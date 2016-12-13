@@ -1,7 +1,7 @@
 <!--************************************************************
  * File:            editOfferDetailsBar.component.html
- * Author:          Martin Herbener
- * LastMod:         11.12.2016
+ * Author:          Martin Herbener, Michelle Rothenbücher
+ * LastMod:         13.12.2016
  * Description:     Knockout Template for edit offer details bar.
  ************************************************************-->
 <section style="min-height:700px; margin-top: 2rem">
@@ -13,7 +13,7 @@
 		</div>
 		<div class="row">
 			<div class="pull-right">
-				<a href="" type="submit" data-bind="click: deleteOffer" class="btn btn-danger "><span class="glyphicon glyphicon-remove"></span> Delete Offer</a>
+				<a href="" type="submit" data-bind="click: deleteOffer" class="btn btn-danger "><span class="glyphicon glyphicon-remove"  aria-hidden="true"></span> Delete Offer</a>
 			</div>
 		</div>
 		<legend>Media</legend>
@@ -182,7 +182,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="bathroomnr" class="control-label col-sm-6">Nr. of Bathrooms:</label>
+						<label for="bathroomnr" class="control-label col-sm-6">Bathroom Numbers:</label>
 						<div class="col-sm-6">
 							<input type="text" class="form-control" id="bathroomnr" data-bind="attr:{placeholder:offer().bathroomNumber}, value: offerChanges().bathroomNumber">
 						</div>
