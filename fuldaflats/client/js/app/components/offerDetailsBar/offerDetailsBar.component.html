@@ -148,43 +148,16 @@
                         <div class="row">
                             <label class="control-label col-sm-6">Rating:</label>
                             <div class="col-sm-6 star-spacing">
-                                <p>
-                                    <!-- ko if: landlord().averageRating >= 4.5 -->
-                                    <span class="glyphicon glyphicon-star gold-text"></span>
-                                    <span class="glyphicon glyphicon-star gold-text"></span>
-                                    <span class="glyphicon glyphicon-star gold-text"></span>
-                                    <span class="glyphicon glyphicon-star gold-text"></span>
-                                    <span class="glyphicon glyphicon-star gold-text"></span>
-                                    <!-- /ko -->
-                                    <!-- ko if: landlord().averageRating >= 3.5 && landlord().averageRating < 4.5 -->
-                                    <span class="glyphicon glyphicon-star gold-text"></span>
-                                    <span class="glyphicon glyphicon-star gold-text"></span>
-                                    <span class="glyphicon glyphicon-star gold-text"></span>
-                                    <span class="glyphicon glyphicon-star gold-text"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <!-- /ko -->
-                                    <!-- ko if: landlord().averageRating >= 2.5 && landlord().averageRating < 3.5 -->
-                                    <span class="glyphicon glyphicon-star gold-text"></span>
-                                    <span class="glyphicon glyphicon-star gold-text"></span>
-                                    <span class="glyphicon glyphicon-star gold-text"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <!-- /ko -->
-                                    <!-- ko if: landlord().averageRating >= 1.5 && landlord().averageRating < 2.5 -->
-                                    <span class="glyphicon glyphicon-star gold-text"></span>
-                                    <span class="glyphicon glyphicon-star gold-text"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <!-- /ko -->
-                                    <!-- ko if: landlord().averageRating < 1.5 -->
-                                    <span class="glyphicon glyphicon-star gold-text"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <!-- /ko -->
-                                </p>
+                                <div class="bs-glyphicons form-control-static">
+                                    <span class="bs-glyphicons-list">
+										<span data-bind="css: { 'hidden' : landlord().averageRating < 1}" class="glyphicon glyphicon-star gold-text"></span>
+                                    <span data-bind="css: { 'hidden' : landlord().averageRating < 2}" class="glyphicon glyphicon-star gold-text"></span>
+                                    <span data-bind="css: { 'hidden' : landlord().averageRating < 3}" class="glyphicon glyphicon-star gold-text"></span>
+                                    <span data-bind="css: { 'hidden' : landlord().averageRating < 4}" class="glyphicon glyphicon-star gold-text"></span>
+                                    <span data-bind="css: { 'hidden' : landlord().averageRating < 5}" class="glyphicon glyphicon-star gold-text"></span>
+                                    <span data-bind="css: { 'hidden' : landlord().averageRating % 1 == 0 || landlord().averageRating == 0 }" class="glyphicon glyphicon-star half gold-text"></span>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
@@ -427,41 +400,16 @@
                 </div>
                 <div class="col-md-12" data-bind="foreach: { data: reviews, as: 'review'}">
                     <div class="row" data-bind="value: review.rating">
-                        <!-- ko if: review.rating == 5 -->
-                        <span class="glyphicon glyphicon-star gold-text"></span>
-                        <span class="glyphicon glyphicon-star gold-text"></span>
-                        <span class="glyphicon glyphicon-star gold-text"></span>
-                        <span class="glyphicon glyphicon-star gold-text"></span>
-                        <span class="glyphicon glyphicon-star gold-text"></span>
-                        <!-- /ko -->
-                        <!-- ko if: review.rating == 4 -->
-                        <span class="glyphicon glyphicon-star gold-text"></span>
-                        <span class="glyphicon glyphicon-star gold-text"></span>
-                        <span class="glyphicon glyphicon-star gold-text"></span>
-                        <span class="glyphicon glyphicon-star gold-text"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <!-- /ko -->
-                        <!-- ko if: review.rating == 3 -->
-                        <span class="glyphicon glyphicon-star gold-text"></span>
-                        <span class="glyphicon glyphicon-star gold-text"></span>
-                        <span class="glyphicon glyphicon-star gold-text"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <!-- /ko -->
-                        <!-- ko if: review.rating == 2 -->
-                        <span class="glyphicon glyphicon-star gold-text"></span>
-                        <span class="glyphicon glyphicon-star gold-text"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <!-- /ko -->
-                        <!-- ko if: review.rating == 1 -->
-                        <span class="glyphicon glyphicon-star gold-text"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <!-- /ko -->
+                        <div class="bs-glyphicons form-control-static">
+                            <span class="bs-glyphicons-list">
+							<span data-bind="css: { 'hidden' : review.rating < 1}" class="glyphicon glyphicon-star gold-text"></span>
+                            <span data-bind="css: { 'hidden' : review.rating < 2}" class="glyphicon glyphicon-star gold-text"></span>
+                            <span data-bind="css: { 'hidden' : review.rating < 3}" class="glyphicon glyphicon-star gold-text"></span>
+                            <span data-bind="css: { 'hidden' : review.rating < 4}" class="glyphicon glyphicon-star gold-text"></span>
+                            <span data-bind="css: { 'hidden' : review.rating < 5}" class="glyphicon glyphicon-star gold-text"></span>
+                            <span data-bind="css: { 'hidden' : review.rating % 1 == 0 || review.rating == 0 }" class="glyphicon glyphicon-star half gold-text"></span>
+                            </span>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
