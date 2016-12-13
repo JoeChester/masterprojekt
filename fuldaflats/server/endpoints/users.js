@@ -408,8 +408,8 @@ router.put('/changePassword', function (req, res) {
         return res.sendStatus(403);
     } else {
         let textError = {};
-        if (!req.body.passwordNew || req.body.passwordNew.length < 6) {
-            textError.password = ['Invalid Password (please use at least 6 characters).']
+        if (!req.body.passwordNew || req.body.passwordNew.length < 5) {
+            textError.password = ['Invalid Password (please use at least 5 characters).']
             res.status(400);
             return res.json(textError);
         }
