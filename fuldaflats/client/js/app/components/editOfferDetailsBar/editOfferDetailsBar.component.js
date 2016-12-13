@@ -106,7 +106,11 @@ define(['text!./editOfferDetailsBar.component.html',
                             console.log("Offer-Data:");
                             console.log(offerData);
                             self.offer(offerData);
-                            self.status(offerData.status);
+                            if (offerData.status == 2) {
+                                self.status(true);
+                            } else {
+                                self.status(false);
+                            }
                             self.cellar(offerData.cellar);
                             self.parking(offerData.parking);
                             self.elevator(offerData.elevator);
@@ -196,7 +200,11 @@ define(['text!./editOfferDetailsBar.component.html',
 
             // Accept Button
             self.updateOffer = function () {
-                self.offerChanges().status = self.status();
+                if (self.status() === true) {
+                    self.offerChanges().status = 2
+                } else {
+                    self.offerChanges().status = 1
+                }
                 self.offerChanges().cellar = self.cellar();
                 self.offerChanges().parking = self.parking();
                 self.offerChanges().elevator = self.elevator();
@@ -220,7 +228,7 @@ define(['text!./editOfferDetailsBar.component.html',
                 $.ajax({
                     method: "PUT",
                     url: '/api/offers/' + self.offerId(),
-                    dataType: "application/json",
+                    dataType: "text",
                     contentType: "application/json",
                     data: _offerChanges,
                     success: function (data, status, req) {

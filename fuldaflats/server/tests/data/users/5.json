@@ -15,6 +15,6 @@
     "gender": "male",
     "officeAddress" : "Leipziger Str.",
     "averageRating": 5.0,
-    "profilePicture": "uploads/user5.jpg",
+    "profilePicture": "/uploads/user5.jpg",
     "favorites": null
 }

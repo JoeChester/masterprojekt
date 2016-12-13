@@ -80,7 +80,7 @@ module.exports = function (schema) {
         //telephone access available => false: no, true: yes
         telephone: schema.Boolean,
         //0:hidden, 1:public, 2:closed
-        status: schema.Boolean,
+        status: schema.Number,
         creationDate: {
             type: schema.Date,
             default: Date.now
