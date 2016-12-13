@@ -54,7 +54,7 @@
 										<span data-bind="css: { 'hidden' : averageRating < 3}" class="glyphicon glyphicon-star gold-text"></span>
 										<span data-bind="css: { 'hidden' : averageRating < 4}" class="glyphicon glyphicon-star gold-text"></span>
 										<span data-bind="css: { 'hidden' : averageRating < 5}" class="glyphicon glyphicon-star gold-text"></span>
-										<span data-bind="css: { 'hidden' : averageRating % 0.5 != 0 || averageRating == 0 }" class="glyphicon glyphicon-star half gold-text"></span>
+										<span data-bind="css: { 'hidden' : averageRating % 1 == 0 || averageRating == 0 }" class="glyphicon glyphicon-star half gold-text"></span>
 										</span>
 									</div>
 								</div>
