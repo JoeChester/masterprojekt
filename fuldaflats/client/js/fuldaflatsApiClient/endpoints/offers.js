@@ -69,7 +69,7 @@ define(["jquery", 'knockout'], function($, ko) {
                 dryer: ko.observable(),
                 washingMachine: ko.observable(),
                 telephone: ko.observable(),
-                status: ko.observable(),
+                status: ko.observable(0),
                 creationDate: ko.observable(),
                 lastModified: ko.observable(),
                 longitude: ko.observable(),

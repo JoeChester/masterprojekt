@@ -20,6 +20,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
             self.televisionDescriptions = ko.observableArray(["No", "Cable", "DSL", "SAT"]);
             self.offerTypes = ko.observable();
             self.offerTags = ko.observableArray()
+            self.tempOfferStatus = ko.observable(false); 
             self.offer = api.offers.getOfferModel();
             self.offerDetailsPageInfo = ko.observable();
             self.currentUser = ko.observable(
@@ -438,7 +439,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                 }
             };
 
-            self.processInvalidUpdateResponse = function(xhr) {
+            function processInvalidUpdateResponse(xhr) {
                 if (xhr.responseJSON) {
                     var errorKey = Object.keys(xhr.responseJSON)[0];
                     var errorMessage = xhr.responseJSON[errorKey][0];
@@ -648,6 +649,8 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
             };
 
             self.goNextStep = function(model, event) {
+                 self.offer().status(0);
+
                 api.offers.updatedOffer(self.offer).then(
                     function() {
                         if (self.tabsContainer() && event.currentTarget) {
@@ -666,6 +669,12 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
             };
 
             self.finishOfferCreation = function() {
+                if (self.tempOfferStatus() === true) {
+                    self.offer().status(2);
+                } else {
+                    self.offer().status(1);
+                }
+
                 api.offers.updatedOffer(self.offer).then(
                     function() {
                         if (self.offerDetailsPageInfo() && self.offerDetailsPageInfo().url) {

@@ -59,7 +59,7 @@
                                         <div class="form-group">
                                             <label for="offerActive" class="control-label col-sm-4">Status:</label>
                                             <div class="col-sm-8">
-                                                <input data-bind="bootstrapSwitch: offer().status, bootstrapSwitchOptions: { onText: 'Active', onColor: 'primary', offColor: 'danger', offText: 'Inactive', animate: true, size: 'small' }"
+                                                <input data-bind="bootstrapSwitch: tempOfferStatus, bootstrapSwitchOptions: { onText: 'Active', onColor: 'primary', offColor: 'danger', offText: 'Inactive', animate: true, size: 'small' }"
                                                     type="checkbox" id="offerActive" placeholder="Active">
                                             </div>
                                         </div>
@@ -436,7 +436,7 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-2">
-                                    <button data-bind="click: goNextStep, enable: isTab2Valid  && !isTab2Invalid()" next-tab="#tab3" type="button" data-toggle="tab" class="btn btn-template-main"
+                                    <button data-bind="click: goNextStep, enable: isTab2Valid() && !isTab2Invalid()" next-tab="#tab3" type="button" data-toggle="tab" class="btn btn-template-main"
                                         aria-label="Right Align">
                                         <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
                                     </button>
@@ -510,7 +510,7 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-2">
-                                    <button data-bind="click: goNextStep, enable: isTab3Valid && !isTab3Invalid()" next-tab="#tab4" type="button" data-toggle="tab" class="btn btn-template-main"
+                                    <button data-bind="click: goNextStep, enable: isTab3Valid() && !isTab3Invalid()" next-tab="#tab4" type="button" data-toggle="tab" class="btn btn-template-main"
                                         aria-label="Right Align">
                                         <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
                                     </button>
@@ -550,7 +550,7 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-2">
-                                    <button data-bind="click: goNextStep, enable: isTab4Valid  && !isTab4Invalid()" next-tab="#tab5" type="button" data-toggle="tab" class="btn btn-template-main"
+                                    <button data-bind="click: goNextStep, enable: isTab4Valid() && !isTab4Invalid()" next-tab="#tab5" type="button" data-toggle="tab" class="btn btn-template-main"
                                         aria-label="Right Align">
                                         <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
                                     </button>
