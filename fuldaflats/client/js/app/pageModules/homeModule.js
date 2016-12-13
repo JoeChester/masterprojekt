@@ -10,7 +10,7 @@ define([
     'app/components/offerBarSlider/offerBarSlider.component',
     'app/components/tagCloudBar/tagCloudBar.component',
     'fuldaflatsApiClient'
-], function(ko, $, searchBarComponent, offerBarSliderComponent, tagCloudBarComponent, api) {
+], function (ko, $, searchBarComponent, offerBarSliderComponent, tagCloudBarComponent, api) {
     function HomePageModul(ko, $, searchBarComponent, offerBarSliderComponent, tagCloudBarComponent, api) {
         var self = this;
 
@@ -27,21 +27,21 @@ define([
             var currentUserObject = ko.unwrap(currentUser);
             if (currentUserObject && currentUserObject.isAuthenticated && currentUserObject.userData
                 && currentUserObject.userData.favorites && currentUserObject.userData.favorites.length > 0) {
-                $.each(currentUserObject.userData.favorites, function(index, favorite) {
+                $.each(currentUserObject.userData.favorites, function (index, favorite) {
                     favoritesOffers.push(favorite);
                 });
             }
         };
 
-        self.searchByTags = function(tags) {
+        self.searchByTags = function (tags) {
             var defer = $.Deferred();
 
             if (tags instanceof Array) {
                 var queryParameter = api.offers.getSearchQueryParamters();
                 if (queryParameter && queryParameter.tags && typeof queryParameter.tags === "function") {
                     queryParameter.tags(tags);
-                    api.offers.searchOffer(queryParameter).then(function() {
-                        api.offers.getOfferSearchResult().then(function(offerSearchResult) {
+                    api.offers.searchOffer(queryParameter).then(function () {
+                        api.offers.getOfferSearchResult().then(function (offerSearchResult) {
                             if (offerSearchResult) {
                                 defer.resolve(offerSearchResult);
                             } else {
@@ -59,21 +59,33 @@ define([
             return defer.promise();
         };
 
-        self.initialize = function(appModel) {
+        self.initialize = function (appModel) {
             if (appModel) {
-                api.offers.getRecentOffers().then(function(recentOffersResult) {
+                api.offers.getRecentOffers().then(function (recentOffersResult) {
                     recentOffers(recentOffersResult || [])
                 });
 
                 // Living International Offers 
-                self.searchByTags(["english"]).then(function(offerSearchResult) {
-                    internationalOffers(offerSearchResult || []);
-                });
+                self.searchByTags(["english",
+                    "german",
+                    "french",
+                    "spanish",
+                    "italian",
+                    "portuguese",
+                    "turkish",
+                    "russian",
+                    "ukrainian",
+                    "persian",
+                    "arabic",
+                    "japanese",
+                    "chinese",]).then(function (offerSearchResult) {
+                        internationalOffers(offerSearchResult || []);
+                    });
 
                 appModel.currentPage = appModel.pages.home;
 
                 if (appModel.currentUser && ko.isObservable(appModel.currentUser)) {
-                    appModel.currentUser.subscribe(function(currentUser) {
+                    appModel.currentUser.subscribe(function (currentUser) {
                         tryToSetFavoritesOffers(currentUser);
                     });
                     tryToSetFavoritesOffers(appModel.currentUser);

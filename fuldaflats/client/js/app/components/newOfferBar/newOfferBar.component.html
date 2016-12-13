@@ -28,11 +28,11 @@
             <div data-bind="css: { 'hidden': (offerLoadingError() || offerTypesLoadingError() || offerTagsLoadingError() || currentUserIsNotALandlord() || offerLandlordIsNotCurrentUser() || offerCreationError()) }"
                 class="hidden tabs">
                 <ul class="nav nav-pills nav-justified">
-                    <li class="active"><a href="#tab1" data-toggle="tab">Step 1</a></li>
-                    <li data-bind="css: { 'disabled': !isTab1Valid() || isTab1Invalid() }" class="disabled"><a data-bind="attr: { 'data-toggle': !isTab1Valid() || isTab1Invalid() ? '' : 'tab' }" href="#tab2">Step 2</a></li>
-                    <li data-bind="css: { 'disabled': !isTab2Valid() || isTab1Invalid() || isTab2Invalid() }" class="disabled"><a data-bind="attr: { 'data-toggle': !isTab2Valid() || isTab1Invalid() || isTab2Invalid() ? '' : 'tab' }" href="#tab3">Step 3</a></li>
-                    <li data-bind="css: { 'disabled': !isTab3Valid() || isTab1Invalid() || isTab2Invalid() || isTab3Invalid() }" class="disabled"><a data-bind="attr: { 'data-toggle': !isTab3Valid() || isTab1Invalid() || isTab2Invalid() || isTab3Invalid() ? '' : 'tab' }" href="#tab4">Step 4</a></li>
-                    <li data-bind="css: { 'disabled': !isTab4Valid() || isTab1Invalid() || isTab2Invalid() || isTab3Invalid() || isTab4Invalid() }" class="disabled"><a data-bind="attr: { 'data-toggle': !isTab4Valid() || isTab1Invalid() || isTab2Invalid() || isTab3Invalid()  || isTab4Invalid() ? '' : 'tab' }" href="#tab5">Step 5</a></li>
+                    <li data-bind="click: goNextStep" class="active"><a href="#tab1" data-toggle="tab">Step 1</a></li>
+                    <li data-bind="click: goNextStep, css: { 'disabled': !isTab1Valid() || isTab1Invalid() }" class="disabled"><a data-bind="attr: { 'data-toggle': !isTab1Valid() || isTab1Invalid() ? '' : 'tab' }" href="#tab2">Step 2</a></li>
+                    <li data-bind="click: goNextStep, css: { 'disabled': !isTab2Valid() || isTab1Invalid() || isTab2Invalid() }" class="disabled"><a data-bind="attr: { 'data-toggle': !isTab2Valid() || isTab1Invalid() || isTab2Invalid() ? '' : 'tab' }" href="#tab3">Step 3</a></li>
+                    <li data-bind="click: goNextStep, css: { 'disabled': !isTab3Valid() || isTab1Invalid() || isTab2Invalid() || isTab3Invalid() }" class="disabled"><a data-bind="attr: { 'data-toggle': !isTab3Valid() || isTab1Invalid() || isTab2Invalid() || isTab3Invalid() ? '' : 'tab' }" href="#tab4">Step 4</a></li>
+                    <li data-bind="click: goNextStep, css: { 'disabled': !isTab4Valid() || isTab1Invalid() || isTab2Invalid() || isTab3Invalid() || isTab4Invalid() }" class="disabled"><a data-bind="attr: { 'data-toggle': !isTab4Valid() || isTab1Invalid() || isTab2Invalid() || isTab3Invalid()  || isTab4Invalid() ? '' : 'tab' }" href="#tab5">Step 5</a></li>
                 </ul>
                 <div class="tab-content tab-content-inverse">
                     <!-- tab 1 -->

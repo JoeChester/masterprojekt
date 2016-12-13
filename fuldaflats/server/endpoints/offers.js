@@ -151,9 +151,9 @@ router.put('/:offerId', function (req, res) {
                     latitude: HSFuldaCoords.latitude,
                     longitude: HSFuldaCoords.longitude
                 }, {
-                    latitude: _offer.latitude,
-                    longitude: _offer.longitude
-                });
+                        latitude: _offer.latitude,
+                        longitude: _offer.longitude
+                    });
                 //m -> km (Rounded to 2 decimal places)
                 _offer.uniDistance = Math.round((_offer.uniDistance / 1000) * 100) / 100;
             }
@@ -195,18 +195,18 @@ router.delete('/:offerId', function (req, res) {
     // deleted it for now to recreate it better later
     if (!req.session.auth) {
         return res.sendStatus(403);
-    } 
-    schema.models.Offer.findById(req.params.offerId, (err, offer)=>{
+    }
+    schema.models.Offer.findById(req.params.offerId, (err, offer) => {
         if (err || !offer) {
             res.status(404);
-            return res.json({offer: ['The offer was not found.']});
+            return res.json({ offer: ['The offer was not found.'] });
         }
-        if(offer.landlord != req.session.user.id){
+        if (offer.landlord != req.session.user.id) {
             res.status(401)
-            return res.json({auth: ['You can only delete your own offers.']});
+            return res.json({ auth: ['You can only delete your own offers.'] });
         }
-        offer.destroy((err) =>{
-            if(err){
+        offer.destroy((err) => {
+            if (err) {
                 res.status(500);
                 return res.json(err);
             }
@@ -230,7 +230,8 @@ router.post('/search', function (req, res) {
     if (req.session.search.tags) {
         schema.models.Tag.find({
             where: {
-                title: { in: req.session.search.tags
+                title: {
+                    in: req.session.search.tags
                 }
             }
         }, (err, tags) => {
@@ -239,7 +240,6 @@ router.post('/search', function (req, res) {
             for (i in tags) {
                 req.session.search.id.in.push(tags[i].offerId);
             }
-            req.session.search.tags = undefined;
             return res.sendStatus(204);
         });
     } else {
@@ -257,6 +257,7 @@ router.get('/search', function (req, res) {
 
     let searchQuery = {};
     searchQuery.where = req.session.search;
+    delete searchQuery.where.tags;
     searchQuery.where = ffRemoveNulls(searchQuery.where);
     searchQuery.where.status = 1;
 
@@ -336,6 +337,13 @@ router.get('/search/last', function (req, res) {
     } else {
         if (req.session.search.id) {
             delete req.session.search.id;
+        }
+        if (req.session.search.tags) {
+            var fixedTags = [];
+            for (var i = 0; i < req.session.search.tags.length; i++) {
+                fixedTags[i] = req.session.search.tags[i].replace(/'/g,"");
+            }
+            req.session.search.tags = fixedTags;
         }
         res.json(req.session.search);
     }
@@ -608,7 +616,8 @@ router.post('/:offerId/review', function (req, res) {
                     }
                     schema.models.Review.find({
                         where: {
-                            offerId: { in: _offerIds
+                            offerId: {
+                                in: _offerIds
                             }
                         }
                     }, (err5, allReviews) => {
@@ -623,14 +632,14 @@ router.post('/:offerId/review', function (req, res) {
                                 id: _ratingLandlord
                             }
                         }, {
-                            averageRating: _newAverageRating
-                        }, (err6, updatedLandlord) => {
-                            if (err6) {
-                                return res.sendStatus(500)
-                            }
-                            //Finally finished!
-                            return res.sendStatus(201);
-                        });
+                                averageRating: _newAverageRating
+                            }, (err6, updatedLandlord) => {
+                                if (err6) {
+                                    return res.sendStatus(500)
+                                }
+                                //Finally finished!
+                                return res.sendStatus(201);
+                            });
                     });
                 });
             });

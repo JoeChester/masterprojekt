@@ -20,7 +20,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
             self.televisionDescriptions = ko.observableArray(["No", "Cable", "DSL", "SAT"]);
             self.offerTypes = ko.observable();
             self.offerTags = ko.observableArray()
-            self.tempOfferStatus = ko.observable(false); 
+            self.tempOfferStatus = ko.observable(false);
             self.offer = api.offers.getOfferModel();
             self.offerDetailsPageInfo = ko.observable();
             self.currentUser = ko.observable(
@@ -388,9 +388,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
             function createOffer() {
                 resetErrors();
                 if (!isCurrentUserALandlord()) {
-                    setTimeout(function() {
-                        self.currentUserIsNotALandlord(true);
-                    }, 300);
+                    self.currentUserIsNotALandlord(true);
                 } else {
                     api.offers.createOffer().then(
                         function(newOffer) {
@@ -649,7 +647,7 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
             };
 
             self.goNextStep = function(model, event) {
-                 self.offer().status(0);
+                self.offer().status(0);
 
                 api.offers.updatedOffer(self.offer).then(
                     function() {
@@ -747,7 +745,6 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
                         if (tabsContainer.length > 0) {
                             var viewModel = new NewOfferModel(ko, $, api);
                             viewModel.initialize(params, tabsContainer);
-                            window.m = viewModel;
                         }
                     }
 
