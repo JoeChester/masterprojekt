@@ -110,7 +110,7 @@ define(['text!./editOfferDetailsBar.component.html',
                             console.log("Offer-Data:");
                             console.log(offerData);
                             self.offer(offerData);
-                            if (offerData.status == 2) {
+                            if (offerData.status == 1) {
                                 self.status(true);
                             } else {
                                 self.status(false);
@@ -217,9 +217,9 @@ define(['text!./editOfferDetailsBar.component.html',
             // Accept Button
             self.updateOffer = function () {
                 if (self.status() === true) {
-                    self.offerChanges().status = 2
-                } else {
                     self.offerChanges().status = 1
+                } else {
+                    self.offerChanges().status = 2
                 }
                 self.offerChanges().cellar = self.cellar();
                 self.offerChanges().parking = self.parking();

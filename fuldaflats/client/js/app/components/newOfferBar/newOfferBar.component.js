@@ -689,9 +689,9 @@ define(['text!./newOfferBar.component.html', 'css!./newOfferBar.component.css', 
 
             self.finishOfferCreation = function() {
                 if (self.tempOfferStatus() === true) {
-                    self.offer().status(2);
-                } else {
                     self.offer().status(1);
+                } else {
+                    self.offer().status(2);
                 }
 
                 api.offers.updatedOffer(self.offer).then(
