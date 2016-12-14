@@ -192,6 +192,11 @@ define(['text!./editOfferDetailsBar.component.html',
             };
 
              // Delete Offer
+
+             self.openDeleteOfferModal = function(){
+                 $('#confirmDeleteModal').modal(); 
+             }
+
             self.deleteOffer = function () {
                 $.ajax({
                     method: "DELETE",

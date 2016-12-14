@@ -13,7 +13,7 @@
 		</div>
 		<div class="row">
 			<div class="pull-right">
-				<a href="" type="submit" data-bind="click: deleteOffer" class="btn btn-danger "><span class="glyphicon glyphicon-remove"  aria-hidden="true"></span> Delete Offer</a>
+				<a href="" type="submit" data-bind="click: openDeleteOfferModal" class="btn btn-danger "><span class="glyphicon glyphicon-remove"  aria-hidden="true"></span> Delete Offer</a>
 			</div>
 		</div>
 		<legend>Media</legend>
@@ -304,3 +304,25 @@
 	<!-- /container -->
 </section>
 <div data-bind='component: { name: "file-uploader"}'></div>
+
+<div class="modal fade modal-md" id="confirmDeleteModal" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title error-title" role="alert">Delete offer</h4>
+			</div>
+			<div class="modal-body">
+                <p>
+					Please confirm that you want to delete the offer <span data-bind="text: offer().title">
+				</p>
+			</div>
+			<div class="modal-footer">
+				<div class="text-center">
+					<button type="button" class="btn btn-lg btn-danger" data-bind="click: deleteOffer">Yes, delete offer!</button>
+					<button type="button" class="btn btn-lg btn-template-main" data-dismiss="modal">No, cancel!</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
