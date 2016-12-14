@@ -54,12 +54,15 @@
 							<p id="size" class="form-control-static bold-text" data-bind="text: offer().size + ' m²'"></p>
 						</div>
 					</div>
+					<!-- ko if: showField -->
 					<div class="form-group">
 						<label for="rooms" class="control-label col-sm-6">Rooms:</label>
 						<div class="col-sm-6">
 							<p id="rooms" class="form-control-static bold-text" data-bind="text: offer().rooms"></p>
 						</div>
 					</div>
+					<!-- /ko -->
+					<!-- ko if: showField -->
 					<div class="form-group">
 						<label for="renttype" class="control-label col-sm-6">Rent Type:</label>
 						<div class="col-sm-6">
@@ -67,6 +70,8 @@
                             </select>
 						</div>
 					</div>
+					<!-- /ko -->
+					<!-- ko if: showField -->
 					<div class="form-group">
 						<label for="pricetype" class="control-label col-sm-6">Price Type:</label>
 						<div class="col-sm-6">
@@ -74,6 +79,7 @@
                             </select>
 						</div>
 					</div>
+					<!-- /ko -->
 				</form>
 			</div>
 			<div class="col-xs-6">
@@ -84,45 +90,47 @@
 							<input type="text" class="form-control" id="rental" data-bind="attr:{placeholder:offer().rent + ' €'}, value: offerChanges().rent">
 						</div>
 					</div>
+					<!-- ko if: showField -->
 					<div class="form-group">
 						<label for="addittion" class="control-label col-sm-6">Side Costs:</label>
 						<div class="col-sm-6">
 							<input type="text" class="form-control" id="addittion" data-bind="attr:{placeholder:offer().sideCosts + ' €'}, value: offerChanges().sideCosts">
 						</div>
 					</div>
+					<!-- /ko -->
+					<!-- ko if: showField -->
 					<div class="form-group">
 						<label for="fullprice" class="control-label col-sm-6">Full Price:</label>
 						<div class="col-sm-6">
 							<input type="text" class="form-control" id="fullprice" data-bind="attr:{placeholder:offer().fullPrice + ' €'},  value: offerChanges().fullPrice">
 						</div>
 					</div>
+					<!-- /ko -->
+					<!-- ko if: showField -->
 					<div class="form-group">
 						<label for="deposit" class="control-label col-sm-6">Deposit:</label>
 						<div class="col-sm-6">
 							<input type="text" class="form-control" id="deposit" data-bind="attr:{placeholder:offer().deposit + ' €'}, value: offerChanges().deposit">
 						</div>
 					</div>
+					<!-- /ko -->
+					<!-- ko if: showField -->
 					<div class="form-group">
 						<label for="commission" class="control-label col-sm-6">Commission:</label>
 						<div class="col-sm-6">
 							<input type="text" class="form-control" id="commission" data-bind="attr:{placeholder:offer().commission + ' €'}, value: offerChanges().commission">
 						</div>
 					</div>
+					<!-- /ko -->
 				</form>
 			</div>
 		</div><br>
-
-		<!-- ko if: showTags -->
 		<legend class="spacing-top">Tags</legend>
 		<div class="row">
 			<div class="col-md-12">
-				<select data-bind="options: allTags(), selectedOptions: selectedTags" class="form-control" multiple="multiple">
-				</select>
+				<select data-bind="options: allTags, selectedOptions: selectedTags, multiselect: { includeSelectAllOption: true, disableIfEmpty: true, buttonWidth: '100%', numberDisplayed: 20, nonSelectedText: 'Choose Offer Tags' }" class="form-control" multiple="multiple"></select>
 			</div>
 		</div><br>
-		<!-- /ko -->
-
-
 		<legend class="spacing-top">Location</legend>
 		<div class="row">
 			<div class="col-sm-6">

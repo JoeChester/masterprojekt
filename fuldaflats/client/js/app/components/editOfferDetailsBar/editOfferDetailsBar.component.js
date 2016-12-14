@@ -18,6 +18,8 @@ define(['text!./editOfferDetailsBar.component.html',
             self.offer = ko.observable({});
             self.offerId = ko.observable();
             self.offerChanges = ko.observable({});
+
+            // User Observables
             self.isAuthenticated = ko.observable(false);
             self.landlord = ko.observable({});
             self.currentUser = ko.observable(
@@ -26,8 +28,6 @@ define(['text!./editOfferDetailsBar.component.html',
                     userData: undefined
                 }
             );
-            self.showTags = ko.observable(false);
-            self.allTags = ko.observable({});
 
             // Checkbox Observables
             self.status = ko.observable(0);
@@ -50,15 +50,19 @@ define(['text!./editOfferDetailsBar.component.html',
             self.kitchenDescription = ko.observable();
             self.priceType = ko.observable();
             self.rentType = ko.observable();
-
-            self.selectedTags = ko.observableArray();
-
             self.offerPriceTypes = ko.observableArray(["DAY", "MONTH", "QUARTER", "HALF YEAR", "SEMESTER", "YEAR"]);
             self.offerRentTypes = ko.observableArray(["COLD", "WARM"]);
             self.kitchenDescriptions = ko.observableArray(["Fridge & Oven", "Fridge & Stove", "Fridge & Stove & Oven"]);
             self.bathroomDescriptions = ko.observableArray(["Shower & WC", "Shower & Tub & WC", "Tub & WC"]);
             self.offerHeatingDescriptions = ko.observableArray(["Gas", "Oil", "Electricity"]);
             self.televisionDescriptions = ko.observableArray(["No", "Cable", "DSL", "SAT"]);
+
+            // Tags Observables
+            self.allTags = ko.observable({});
+            self.selectedTags = ko.observableArray();
+
+            self.offerType = ko.observable();
+            self.showField = ko.observable(true);
 
             // Get URL Data
             function getURLParameter(name) {
@@ -128,17 +132,24 @@ define(['text!./editOfferDetailsBar.component.html',
                             self.kitchenDescription(offerData.kitchenDescription);
                             self.priceType(offerData.priceType);
                             self.rentType(offerData.rentType);
+                            self.offerType(offerData.offerType);
+                            if (offerData.offerType) {
+                                if (offerData.offerType == "COUCH" || offerData.offerType == "PARTY") {
+                                    self.showField(false);
+                                }
+                                else {
+                                    self.showField(true);
+                                }
+                            }
                             if (offerData.landlord) {
                                 self.landlord(offerData.landlord);
                             }
                         }
                         if (offerData.tags) {
                             if (offerData.tags.length > 0) {
-                                self.showTags(true);
                                 for (var j in offerData.tags) {
                                     self.selectedTags.push(offerData.tags[j].title);
                                 }
-                                console.log("Selected Tags: " + self.selectedTags());
                             }
                         }
                     }
@@ -222,9 +233,8 @@ define(['text!./editOfferDetailsBar.component.html',
                 self.offerChanges().kitchenDescription = self.kitchenDescription();
                 self.offerChanges().priceType = self.priceType();
                 self.offerChanges().rentType = self.rentType();
-
+                self.offerChanges().tags = self.selectedTags();
                 var _offerChanges = ko.toJSON(self.offerChanges);
-
                 $.ajax({
                     method: "PUT",
                     url: '/api/offers/' + self.offerId(),
@@ -232,11 +242,11 @@ define(['text!./editOfferDetailsBar.component.html',
                     contentType: "application/json",
                     data: _offerChanges,
                     success: function (data, status, req) {
-                        window.location = "/pages/myProfile";
+                        window.location = "/pages/offerDetails?offerId=" + self.offerId();
                     },
                     error: function (req, status, error) {
                         if (req.status == 200) {
-                            window.location = "/pages/myProfile";
+                            window.location = "/pages/offerDetails?offerId=" + self.offerId();
                             return;
                         }
                         errorCallback(error);
