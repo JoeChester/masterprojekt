@@ -5,16 +5,8 @@
     "firstName": "Rainer",
     "lastName": "Todtenhoefer",
     "birthday": "25.12.1965",
-    "upgradeDate": "25.11.2016",
     "creationDate": "17.11.2016",
-    "phoneNumber": "(+49) 661 9640 340",
-    "zipCode": "36037",
-    "city": "Fulda",
-    "street": "Leipziger Str.",
-    "houseNumber": "123",
     "gender": "male",
-    "officeAddress" : "Leipziger Str.",
-    "averageRating": 5.0,
     "profilePicture": "/uploads/user5.jpg",
     "favorites": null
 }

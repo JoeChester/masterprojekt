@@ -7,13 +7,13 @@
     "birthday": "21.08.1980",
     "upgradeDate": "17.11.2016",
     "creationDate": "17.11.2016",
-    "phoneNumber": "05550/451239",
+    "phoneNumber": "05550451239",
     "zipCode": "36043",
     "city": "Fulda",
-    "street": "Frankfurter Str.",
+    "street": "Frankfurter Straße",
     "houseNumber": 15,
     "gender": "female",
-    "officeAddress" : "Frankfurter Str. 15",
-    "averageRating": 4.6,
+    "officeAddress" : "Frankfurter Straße 15",
+    "averageRating": 1.0,
     "favorites": null
 }

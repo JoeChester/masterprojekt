@@ -5,16 +5,8 @@
     "firstName": "Max",
     "lastName": "Mustermann",
     "birthday": "01.02.1983",
-    "upgradeDate": null,
     "creationDate": "17.11.2016",
-    "phoneNumber": "05550/123456",
-    "zipCode": "36088",
-    "city": "Huenfeld",
-    "street": "Kaiserstr.",
-    "houseNumber": 5,
     "gender": "male",
-    "officeAddress" : null,
-    "averageRating": null,
     "profilePicture": "/uploads/user6.jpg",
     "favorites": null
 }
