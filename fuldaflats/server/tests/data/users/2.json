@@ -13,7 +13,6 @@
     "street": "Leipziger Straße",
     "houseNumber": "10",
     "gender": "male",
-    "officeAddress" : "",
     "averageRating": 1.0,
     "profilePicture": "/uploads/user2.jpg",
     "favorites": null

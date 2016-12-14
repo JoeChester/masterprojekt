@@ -13,7 +13,6 @@
     "street": "Berliner Straße",
     "houseNumber": "30",
     "gender": "male",
-    "officeAddress" : "",
     "averageRating": 1.0,
     "profilePicture": "/uploads/user1.jpg",
     "favorites": null

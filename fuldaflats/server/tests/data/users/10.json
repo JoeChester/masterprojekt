@@ -1,19 +1,11 @@
 {
     "id": 10,
-    "email": "MichaelJFox@1.21gigawatts.com",
+    "email": "MichaelJFox@gigawatts.com",
     "type": 1,
     "firstName": "Michael",
     "lastName": "Fox",
     "birthday": "09.06.1961",
-    "upgradeDate": null,
     "creationDate": "17.11.2016",
-    "phoneNumber": "05550/4577239",
-    "zipCode": "36100",
-    "city": "Petersberg",
-    "street": "Petersberger Str.",
-    "houseNumber": 105,
     "gender": "male",
-    "officeAddress" : null,
-    "averageRating": null,
     "favorites": null
 }
