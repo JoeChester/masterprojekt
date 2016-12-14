@@ -74,7 +74,7 @@ define(['text!./signInModalDialog.component.html', 'css!./signInModalDialog.comp
                         function (xhr) {
                             if (xhr.status === 403 || xhr.status === 400) {
                                 self.invalidCredentials(true);
-                            } if (xhr.status === 423) {
+                            } else if (xhr.status === 423) {
                                 resetErrors();
                                 self.accountIsLocked(true);
                             } else {
