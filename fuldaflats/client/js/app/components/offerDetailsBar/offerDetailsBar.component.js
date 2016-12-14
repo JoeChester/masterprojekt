@@ -1,7 +1,7 @@
 /************************************************************
  * File:            offerDetailsBar.component.js
  * Author:          Martin Herbener, Jonas Kleinkauf, Patrick Hasenauer
- * LastMod:         02.12.2016
+ * LastMod:         12.12.2016
  * Description:     JS Component Handler offer Details Bar
  ************************************************************/
 
@@ -34,6 +34,7 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
             self.isFavorite = ko.observable(false);
 
             self.showTags = ko.observable(false);
+            self.showField = ko.observable(true);
 
             //Check Login
             self.checkLogin = function () {
@@ -133,6 +134,14 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
                             if (offerData.tags) {
                                 if (offerData.tags.length > 0) {
                                     self.showTags(true);
+                                }
+                            }
+                            if (offerData.offerType) {
+                                if (offerData.offerType == "COUCH" || offerData.offerType == "PARTY") {
+                                    self.showField(false);
+                                }
+                                else {
+                                    self.showField(true);
                                 }
                             }
                             console.log(offerData);
