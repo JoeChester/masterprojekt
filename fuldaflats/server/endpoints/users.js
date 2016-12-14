@@ -378,6 +378,7 @@ router.put('/upgrade', function (req, res) {
                 }
                 _upgrade.type = 2;
                 _upgrade.upgradeDate = Date.now();
+                _upgrade.averageRating = 1;
 
                 schema.models.User.update({ where: { id: _userId } },
                     _upgrade,
