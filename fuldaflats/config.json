@@ -21,10 +21,10 @@
             "driver": "mysql",
             "host": "localhost",
             "port": "3306",
-            "username": "jonas",
-            "user": "jonas",
-            "password": "fuldaflats.DE#2016",
-            "database": "jonas"
+            "username": "root",
+            "user": "root",
+            "password": "Master#Projekt#2016#",
+            "database": "productiv"
         },
         "express": {
             "port": 3002,
