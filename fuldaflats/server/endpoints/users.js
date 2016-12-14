@@ -407,6 +407,7 @@ router.put('/upgrade', function (req, res) {
                 }
                 _upgrade.type = 2;
                 _upgrade.upgradeDate = Date.now();
+                _upgrade.averageRating = 1;
 
                 _upgrade.officeAddress = mergeOfficeAddress(_upgrade);
 
