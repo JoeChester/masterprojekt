@@ -1,3 +1,10 @@
+/************************************************************
+ * File:            newOfferBar.component.css
+ * Author:          Patrick Hasenauer
+ * LastMod:         11.12.2016
+ * Description:     Custom CSS for new offer wizard
+ ************************************************************/
+
 /* Special component css here and general css in main.css */
 #new-offer-wizard .progress {
     margin-bottom: 0px;

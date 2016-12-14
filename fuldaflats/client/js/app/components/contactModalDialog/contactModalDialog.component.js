@@ -1,7 +1,7 @@
 /************************************************************
  * File:            contactModalDialog.component.js
  * Author:          Patrick Hasenauer
- * LastMod:         02.12.2016
+ * LastMod:         10.12.2016
  * Description:     JS Component Handler for contact modal dialog.
  ************************************************************/
 define(['text!./contactModalDialog.component.html', 'css!./contactModalDialog.component.css', 'knockout', 'jquery', 'leaflet'],

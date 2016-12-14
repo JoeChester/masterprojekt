@@ -1,6 +1,6 @@
 /************************************************************
  * File:            Review.js
- * Author:          Jonas Kleinkauf
+ * Author:          Jonas Kleinkauf, Franz Weidmann
  * LastMod:         26.11.2016
  * Description:     Database module for reviews
 ************************************************************/

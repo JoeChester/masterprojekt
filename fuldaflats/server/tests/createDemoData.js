@@ -1,3 +1,12 @@
+/************************************************************
+ * File:            createDemoData.js
+ * Author:          Jonas Kleinkauf
+ * LastMod:         12.12.2016
+ * Description:     Script for pushing Demodata declared in
+ *                  data folder to the db
+ * Usage:           node createDemoData.js
+************************************************************/
+
 var schema = require('../models');
 
 // Create Demo Users

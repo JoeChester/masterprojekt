@@ -1,6 +1,6 @@
 /************************************************************
  * File:            User.js
- * Author:          Plisam Ekpai-Laodema, Jonas Kleinkauf
+ * Author:          Jonas Kleinkauf, Plisam Ekpai-Laodema
  * LastMod:         17.11.2016
  * Description:     Database module for users
 ************************************************************/

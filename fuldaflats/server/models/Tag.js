@@ -1,7 +1,7 @@
 /************************************************************
  * File:            Tag.js
- * Author:          Jonas Kleinkauf
- * LastMod:         18.11.2016
+ * Author:          Jonas Kleinkauf, Martin Herbener
+ * LastMod:         10.12.2016
  * Description:     Database module for tags
 ************************************************************/
 

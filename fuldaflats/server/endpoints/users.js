@@ -1,7 +1,7 @@
 /************************************************************
  * File:            users.js
  * Author:          Jonas Kleinkauf, Patrick Hasenauer, 
- *                  Michelle Rothenbücher, Plisam Ekpai-Laodema
+ *                  Michelle Rothenbücher
  * LastMod:         10.12.2016
  * Description:     REST endpoints for users and
  *                  authentication

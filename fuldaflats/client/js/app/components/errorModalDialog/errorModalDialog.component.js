@@ -1,7 +1,7 @@
 /************************************************************
  * File:            errorModalDialog.component.js
  * Author:          Jonas Kleinkauf
- * LastMod:         02.12.2016
+ * LastMod:         10.12.2016
  * Description:     JS Component Handler for error modal dialog.
  ************************************************************/
 define(['text!./errorModalDialog.component.html', 'css!./errorModalDialog.component.css', 'knockout', 'jquery'],
