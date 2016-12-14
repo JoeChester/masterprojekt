@@ -96,7 +96,7 @@ function authenticate(req, res, successStatus) {
 }
 
 function getUserOffers(req, res, user, _user) {
-    schema.models.Offer.find({ where: { landlord: user.id, status: {in: [1,2]} } }, (err, offers) => {
+    schema.models.Offer.find({ where: { landlord: user.id, status: { in: [1, 2] } } }, (err, offers) => {
         if (!err && offers && offers.length > 0) {
             let offer_joins = [];
             offers.forEach(offer => {
@@ -271,6 +271,33 @@ router.get('/me', function (req, res) {
 });
 
 //modify own userdata
+function mergeOfficeAddress(user) {
+    let officeAddresse = "";
+
+    if (user.zipCode) {
+        officeAddresse += user.zipCode;
+    }
+    if (user.city) {
+        if (user.zipCode) {
+            officeAddresse += " ";
+        }
+        officeAddresse += user.city;
+    }
+    if (user.street) {
+        if (officeAddresse) {
+            officeAddresse += ", ";
+        }
+        officeAddresse += user.street;
+
+        if (user.houseNumber) {
+            officeAddresse += " ";
+            officeAddresse += user.houseNumber;
+        }
+    }
+
+    return officeAddresse;
+};
+
 router.put('/me', function (req, res) {
     if (!req.session.auth || !req.session.user.id) {
         res.sendStatus(403);
@@ -299,6 +326,8 @@ router.put('/me', function (req, res) {
             res.status(400);
             return res.json(editError);
         }
+
+        _user.officeAddress = mergeOfficeAddress(_user);
 
         //Fetch user from db to make sure latest data is available
         schema.models.User.update({ where: { id: _userId } },
@@ -378,6 +407,8 @@ router.put('/upgrade', function (req, res) {
                 }
                 _upgrade.type = 2;
                 _upgrade.upgradeDate = Date.now();
+
+                _upgrade.officeAddress = mergeOfficeAddress(_upgrade);
 
                 schema.models.User.update({ where: { id: _userId } },
                     _upgrade,
