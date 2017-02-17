@@ -5,3 +5,36 @@
  * Description:     Custom CSS for roboflatspection bar.
  ************************************************************/
 /* Special component css here and general css in main.css */
+
+.robostream {
+    width: 100%;
+    height: 200px;
+    background-color: #222222;
+}
+
+@media (min-width: 992px) {
+  .robostream {
+      height: 600px;
+  }
+}
+
+.left-ctr{
+    text-align: center;
+}
+
+.right-ctr{
+    text-align: center;
+}
+
+.btn-robo-ctr{
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.cam-ctr-margin{
+    margin-top: 4.2rem;
+}
+
+.robo-ctrs{
+    margin-top: 0.5rem;
+}
