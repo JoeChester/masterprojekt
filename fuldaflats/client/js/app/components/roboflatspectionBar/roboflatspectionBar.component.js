@@ -1,8 +1,8 @@
 /************************************************************
- * File:            offerDetailsBar.component.js
- * Author:          Martin Herbener, Jonas Kleinkauf, Patrick Hasenauer
- * LastMod:         12.12.2016
- * Description:     JS Component Handler offer Details Bar
+ * File:            roboflatspectionBar.component.js
+ * Author:          Michelle Rothenbücher, Jonas Kleinkauf
+ * LastMod:         17.02.2017
+ * Description:     JS Component Handler roboflatspection Bar
  ************************************************************/
 
 define(['text!./roboflatspectionBar.component.html', 'css!./roboflatspectionBar.component.css', 'knockout', 'jquery', 'lightbox', 'moment'],
@@ -26,7 +26,7 @@ define(['text!./roboflatspectionBar.component.html', 'css!./roboflatspectionBar.
 
             self.isAuthenticated = ko.observable(false);
             self.offerId = ko.observable();
-            
+
             //Check Login
             self.checkLogin = function () {
                 $.ajax({

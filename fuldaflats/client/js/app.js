@@ -1,7 +1,7 @@
 /************************************************************
  * File:            app.js
  * Author:          Patrick Hasenauer, Jonas Kleinkauf
- * LastMod:         02.12.2016
+ * LastMod:         17.02.2017
  * Description:     requirejs libraries registration and app loading.
  ************************************************************/
 

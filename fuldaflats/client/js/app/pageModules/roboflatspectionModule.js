@@ -1,8 +1,8 @@
 /************************************************************
- * File:            offerDetailsModule.js
- * Author:          Patrick Hasenauer, Martin Heberner
- * LastMod:         02.12.2016
- * Description:     Offer details page module.
+ * File:            roboflatspectionModule.js
+ * Author:          Jonas Kleinkauf
+ * LastMod:         17.02.2017
+ * Description:     roboflatspection page module.
  ************************************************************/
 define([
     'knockout',

@@ -1,7 +1,7 @@
 /************************************************************
  * File:            appModel.js
  * Author:          Patrick Hasenauer, Jonas Kleinkauf
- * LastMod:         07.12.2016
+ * LastMod:         17.02.2017
  * Description:     App Model, page module loading and binding, primary app data.
  ************************************************************/
 define([
