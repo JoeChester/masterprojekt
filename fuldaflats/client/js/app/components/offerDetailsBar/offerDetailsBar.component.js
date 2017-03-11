@@ -150,7 +150,11 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
                                 self.landlord(offerData.landlord);
                             }
                             if (self.offer().latitude && self.offer().longitude) {
+                                try{
                                 self.initDetailsMap();
+                                } catch(e){
+                                    console.error(e);
+                                }
                             }
                         }
                     }
