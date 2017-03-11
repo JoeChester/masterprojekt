@@ -5,12 +5,15 @@
  * Description:     JS Component Handler roboflatspection Bar
  ************************************************************/
 
-define(['text!./roboflatspectionBar.component.html', 'css!./roboflatspectionBar.component.css', 'knockout', 'jquery', 'lightbox', 'moment'],
-    function (componentTemplate, componentCss, ko, $, lightbox, moment) {
+define(['text!./roboflatspectionBar.component.html', 'css!./roboflatspectionBar.component.css', 'knockout', 'jquery', 'lightbox', 'moment', 'jsmpeg'],
+    function (componentTemplate, componentCss, ko, $, lightbox, moment, jsmpeg) {
 
         function RoboFlatspectionModel(params) {
 
             moment.locale('de');
+
+            console.log('jsmpeg');
+            console.log(JSMpeg);
 
             var self = this;
 
@@ -57,37 +60,41 @@ define(['text!./roboflatspectionBar.component.html', 'css!./roboflatspectionBar.
 
             //Robot Control functions
             self.isConnected = ko.observable(false);
-            self.socket = null;
+
+            self.streamplayer = null;
             self.connectRobo = function () {
-                    self.socket = new WebSocket("ws://fuldaflats.de:4747");
-                    self.socket.binaryType = "arraybuffer";
-                    self.socket.onopen = function () {
-                        console.log("Connected!");
-                        self.isConnected(true);
-                        self.socket.send(JSON.stringify({
-                            type: "WEB",
-                            body: 1
-                        })); //todo: read query and repace offerId
-                    }
+                var canvas = document.getElementById('robostream-canvas');
+                var url = 'ws://fuldaflats.de:4748/'; //TODO: bind in config
 
-                    self.socket.onmessage = function (e) {
-                        if (typeof e.data == "string") {
-                            console.log("Text message received: " + e.data);
-                        }
-                    }
+                JSMpeg.Source.WebSocket.prototype.onOpen = function () {
+                    this.progress = 1;
+                    this.established = true;
+                    self.isConnected(true);
+                    console.log("Injected Some Code here!");
+                    this.socket.send(JSON.stringify({
+                        type: "WEB",
+                        body: 1//todo: read query and repace offerId
+                    }));
+                }
 
-                    self.socket.onclose = function (e) {
-                        console.log("Connection closed.");
-                        self.socket = null;
-                        self.isConnected(false);
+                JSMpeg.Source.WebSocket.prototype.onClose = function () {
+                    self.isConnected(false);
+                    if (this.shouldAttemptReconnect) {
+                        clearTimeout(this.reconnectTimeoutId);
+                        this.reconnectTimeoutId = setTimeout(function () {
+                            this.start();
+                        }.bind(this), this.reconnectInterval * 1000);
                     }
                 }
-                //Actually connect
+
+                self.streamplayer = new JSMpeg.Player(url, { canvas: canvas });
+            }
+            //Actually connect
             self.connectRobo();
 
             self.sendCommand = function (cmd) {
                 if (self.isConnected()) {
-                    self.socket.send(JSON.stringify({
+                    self.streamplayer.source.socket.send(JSON.stringify({
                         type: "CMD",
                         body: cmd
                     }));
