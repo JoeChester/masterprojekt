@@ -36,3 +36,15 @@
 .nopadding{
     padding: 0px;
 }
+
+.margin-bottom{
+    margin-bottom: 1rem;
+}
+
+.ctr-label{
+    font-family: "Roboto", Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    background-color: none;
+    letter-spacing: 0.08em;
+    font-size: 1rem;
+}

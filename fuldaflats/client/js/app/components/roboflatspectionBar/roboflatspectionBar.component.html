@@ -7,55 +7,77 @@
 <section class="offer-details-bar">
     <div class="container">
         <div class="row">
+			<div class="col-md-12 margin-bottom">
+				<a data-bind="attr: { href: '/pages/offerDetails?offerId=' + offerId() }" type="submit" class="btn btn-template-main">
+				&lt; Back
+				</a>
+			</div>
+		</div>
+
+        <div class="row hidden">
+			<div class="col-md-12 margin-bottom">
+                <div class="alert alert-danger">
+                        <h4>You are disconnected from the service!</h4>
+                    </div>
+			</div>
+		</div>
+
+        <div class="row">
             <div class="col-md-12 nopadding">
                 <div class="robostream">
-                    <canvas id="robostream-canvas"></canvas>
+                    <canvas id="robostream-canvas" width="640px" height="480px"></canvas>
                 </div>
             </div>
         </div>
         <div class="row robo-ctrs">
             <div class="col-xs-6 left-ctr">
+                <div class="row ctr-label">
+                    CONTROL
+                </div>
                 <div class="row">
-                    <button class="btn btn-template-main btn-robo-ctr" data-bind="event: { mousedown: forward, mouseup: stop }">
+                    <button class="btn btn-template-main btn-robo-ctr" data-bind="event: { mousedown: forward, touchstart: forward, touchend: stop, touchcancel: stop, mouseup: stop }">
                             <div class="glyphicon glyphicon-arrow-up">
                         </button>
                 </div>
                 <div class="row">
-                    <button class="btn btn-template-main btn-robo-ctr" data-bind="event: { mousedown: turnLeft, mouseup: stop }">
+                    <button class="btn btn-template-main btn-robo-ctr" data-bind="event: { mousedown: turnLeft, touchstart: turnLeft, touchend: stop, touchcancel: stop, mouseup: stop }">
                             <div class="glyphicon glyphicon-triangle-left">
                         </button>
-                    <button class="btn btn-template-main btn-robo-ctr" data-bind="event: { mousedown: turnHome, mouseup: stop }">
+                    <button class="btn btn-template-main btn-robo-ctr" data-bind="event: { mousedown: turnHome, touchstart: turnHome, touchend: stop, touchcancel: stop, mouseup: stop }">
                             <div class="glyphicon glyphicon-triangle-top">
                         </button>
-                    <button class="btn btn-template-main btn-robo-ctr" data-bind="event: { mousedown: turnRight, mouseup: stop }">
+                    <button class="btn btn-template-main btn-robo-ctr" data-bind="event: { mousedown: turnRight, touchstart: turnRight, touchend: stop, touchcancel: stop, mouseup: stop }">
                             <div class="glyphicon glyphicon-triangle-right">
                         </button>
                 </div>
                 <div class="row">
-                    <button class="btn btn-template-main btn-robo-ctr"  data-bind="event: { mousedown: backward, mouseup: stop }">
+                    <button class="btn btn-template-main btn-robo-ctr"  data-bind="event: { mousedown: backward, touchstart: backward, touchend: stop, touchcancel: stop, mouseup: stop }">
                             <div class="glyphicon glyphicon-arrow-down">
                         </button>
                 </div>
             </div>
             <div class="col-xs-6 right-ctr">
+                <div class="row ctr-label">
+                    CAMERA
+                </div>
                 <div class="row">
-                    <button class="btn btn-template-main btn-robo-ctr" data-bind="event: { mousedown: camUp}">
+                    <button class="btn btn-template-main btn-robo-ctr" data-bind="event: { mousedown: camUp, touchstart: camUp}">
                             <div class="glyphicon glyphicon-triangle-top">
                         </button>
                 </div>
                 <div class="row">
-                    <button class="btn btn-template-main btn-robo-ctr" data-bind="event: { mousedown: camLeft}">
+                    <button class="btn btn-template-main btn-robo-ctr" data-bind="event: { mousedown: camLeft, touchstart: camLeft}">
                             <div class="glyphicon glyphicon-triangle-left">
                         </button>
-                    <button class="btn btn-template-main btn-robo-ctr" data-bind="event: { mousedown: camHome}">
+                    <button class="btn btn-template-main btn-robo-ctr" data-bind="event: { mousedown: camHome, touchstart: camHome}">
                             <div class="glyphicon glyphicon-home">
                         </button>
-                    <button class="btn btn-template-main btn-robo-ctr" data-bind="event: { mousedown: camRight}"> 
+                    <button class="btn btn-template-main btn-robo-ctr" data-bind="event: { mousedown: camRight, touchstart: camRight}"> 
                             <div class="glyphicon glyphicon-triangle-right">
-                        </button>
+                    </button>
                 </div>
                 <div class="row">
-                    <button class="btn btn-template-main btn-robo-ctr" data-bind="event: { mousedown: camDown}">
+                    <button class="btn btn-template-main btn-robo-ctr" data-bind="event: { mousedown: camDown, touchstart: camDown}">
                             <div class="glyphicon glyphicon-triangle-bottom">
                         </button>
                 </div>

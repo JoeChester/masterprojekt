@@ -1,7 +1,7 @@
 /************************************************************
  * File:            roboflatspectionBar.component.js
  * Author:          Michelle Rothenbücher, Jonas Kleinkauf
- * LastMod:         17.02.2017
+ * LastMod:         11.03.2017
  * Description:     JS Component Handler roboflatspection Bar
  ************************************************************/
 
@@ -47,30 +47,22 @@ define(['text!./roboflatspectionBar.component.html', 'css!./roboflatspectionBar.
             loginCallbacks.push(self.checkLogin);
             self.checkLogin();
 
-            //Get Offer Data
-            self.offerId(getURLParameter("offerId") || "");
-            if (self.offerId()) {
-                //self.getOfferDetails();
-            }
-
-            //loginCallbacks.push(self.getOfferDetails);
-
             //Robot Control functions
             self.isConnected = ko.observable(false);
 
             self.streamplayer = null;
             self.connectRobo = function () {
                 var canvas = document.getElementById('robostream-canvas');
-                var url = 'wss://fuldaflats.de:4747'; //TODO: bind in config
+                var url = 'wss://fuldaflats.de:4747';
 
                 JSMpeg.Source.WebSocket.prototype.onOpen = function () {
                     this.progress = 1;
                     this.established = true;
                     self.isConnected(true);
-                    console.log("Injected Some Code here!");
+                    console.log("Connected to RoboFlatspection Service.");
                     this.socket.send(JSON.stringify({
                         type: "WEB",
-                        body: 1//todo: read query and repace offerId
+                        body: self.offerId()
                     }));
                 }
 
@@ -84,10 +76,8 @@ define(['text!./roboflatspectionBar.component.html', 'css!./roboflatspectionBar.
                     }
                 }
 
-                self.streamplayer = new JSMpeg.Player(url, { canvas: canvas });
-            }
-            //Actually connect
-            self.connectRobo();
+                self.streamplayer = new JSMpeg.Player(url, { canvas: canvas, poster:'/img/roboflat_loading_screen.png' });
+            }     
 
             self.sendCommand = function (cmd) {
                 if (self.isConnected()) {
@@ -98,6 +88,12 @@ define(['text!./roboflatspectionBar.component.html', 'css!./roboflatspectionBar.
                 } else {
                     console.log("Connection not opened.");
                 }
+            }
+
+            //Check Id and Connect
+            self.offerId(getURLParameter("offerId") || "");
+            if (self.offerId()) {
+                self.connectRobo();
             }
 
 	        window.addEventListener('load', function () {
@@ -209,6 +205,8 @@ define(['text!./roboflatspectionBar.component.html', 'css!./roboflatspectionBar.
 
             //Stop the robot whenever mouse is released
             document.onmouseup = self.stop
+            document.ontouchend = self.stop
+            document.ontouchcancel = self.stop
 
         }
 
