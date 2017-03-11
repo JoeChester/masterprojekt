@@ -75,7 +75,8 @@ requirejs.config({
         customEventPolyfill: './lib/ie-custom-event-polyfill',
         knockoutTruncate: './lib/knockout-truncate',
         knockoutFadeIn: './lib/knockout-fadeIn',
-        jsmpeg: './lib/jsmpeg.min'
+        jsmpeg: './lib/jsmpeg.min',
+        fastclick: './lib/fastclick'
     }
 });
 
@@ -88,7 +89,8 @@ window.onerror = function(messageOrEvent, source, lineno, colno, error) {
 requirejs(['app/appModel',
     'jquery', 'bootstrap', 'knockout', 'jqueryCookie', 'waypoints', 'jqueryConterup', 'leaflet',
     'jqueryParallax', /* 'front', */ 'bootstrapSwitch', 'owlCarousel', 'knockoutOwlCarousel', 'jqcloud', 'fuldaflatsApiClient',
-    'moment', 'knockoutDate', 'customEventPolyfill', 'knockoutBootstrapSwitch', 'bootstrapMultiselect', 'knockoutTruncate', 'knockoutFadeIn', 'jsmpeg'
+    'moment', 'knockoutDate', 'customEventPolyfill', 'knockoutBootstrapSwitch', 'bootstrapMultiselect', 'knockoutTruncate', 
+    'knockoutFadeIn', 'jsmpeg', 'fastclick'
 ], function(app, $) {
     var event = new CustomEvent('scripts-loaded');
     document.dispatchEvent(event);

@@ -5,15 +5,12 @@
  * Description:     JS Component Handler roboflatspection Bar
  ************************************************************/
 
-define(['text!./roboflatspectionBar.component.html', 'css!./roboflatspectionBar.component.css', 'knockout', 'jquery', 'lightbox', 'moment', 'jsmpeg'],
-    function (componentTemplate, componentCss, ko, $, lightbox, moment, jsmpeg) {
+define(['text!./roboflatspectionBar.component.html', 'css!./roboflatspectionBar.component.css', 'knockout', 'jquery', 'lightbox', 'moment', 'jsmpeg', 'fastclick'],
+    function (componentTemplate, componentCss, ko, $, lightbox, moment, jsmpeg, fastclick) {
 
         function RoboFlatspectionModel(params) {
 
             moment.locale('de');
-
-            console.log('jsmpeg');
-            console.log(JSMpeg);
 
             var self = this;
 
@@ -64,7 +61,7 @@ define(['text!./roboflatspectionBar.component.html', 'css!./roboflatspectionBar.
             self.streamplayer = null;
             self.connectRobo = function () {
                 var canvas = document.getElementById('robostream-canvas');
-                var url = 'ws://fuldaflats.de:4748/'; //TODO: bind in config
+                var url = 'wss://fuldaflats.de:4747'; //TODO: bind in config
 
                 JSMpeg.Source.WebSocket.prototype.onOpen = function () {
                     this.progress = 1;
@@ -102,6 +99,10 @@ define(['text!./roboflatspectionBar.component.html', 'css!./roboflatspectionBar.
                     console.log("Connection not opened.");
                 }
             }
+
+	        window.addEventListener('load', function () {
+		        FastClick.attach(document.body);
+	        }, false);
 
             //Motor + Dir Controls
             self.forward = function () {
