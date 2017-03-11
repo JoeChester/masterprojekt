@@ -35,7 +35,7 @@ app.use('/uploads', express.static('uploads'));
 //Test Data
 app.use('/test_api', express.static('server/test_api'));
 
-app.ws('/echo', function(ws, req) {
+app.ws('/ws', function(ws, req) {
   ws.on('message', function(msg) {
     ws.send("received: " + msg);
   });
