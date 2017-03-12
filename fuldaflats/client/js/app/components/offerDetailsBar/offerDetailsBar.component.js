@@ -1,7 +1,8 @@
 /************************************************************
  * File:            offerDetailsBar.component.js
- * Author:          Martin Herbener, Jonas Kleinkauf, Patrick Hasenauer
- * LastMod:         12.12.2016
+ * Author:          Martin Herbener, Jonas Kleinkauf, Patrick Hasenauer,
+ *                  Michelle Rothenbuecher
+ * LastMod:         12.03.2017
  * Description:     JS Component Handler offer Details Bar
  ************************************************************/
 

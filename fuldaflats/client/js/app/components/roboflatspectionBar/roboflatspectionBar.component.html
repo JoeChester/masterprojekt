@@ -13,11 +13,12 @@
 				</a>
 			</div>
 		</div>
+        <br>
 
-        <div class="row hidden">
-			<div class="col-md-12 margin-bottom">
-                <div class="alert alert-danger">
-                        <h4>You are disconnected from the service!</h4>
+        <div class="row alertRow" data-bind="if: showAlert">
+			<div class="col-md-12 alertCol">
+                <div class="alert alert-danger alertMsg">
+                        <h4>You are too close to an object! Please pull back.</h4>
                     </div>
 			</div>
 		</div>

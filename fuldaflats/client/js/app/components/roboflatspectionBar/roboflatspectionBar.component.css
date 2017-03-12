@@ -49,3 +49,26 @@
     letter-spacing: 0.08em;
     font-size: 1rem;
 }
+
+.alertRow{
+    margin: 0px;
+}
+
+.alertCol{
+    margin: 0px;
+    text-align: center;
+}
+
+.alertMsg{
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+    background-color: #FFFFFF;
+    border: 1px solid #a94442;
+    border-radius: 0px;
+    outline: 0;
+    -webkit-box-shadow: 0 3px 9px rgba(0,0,0,.5);
+    box-shadow: 0 3px 9px rgba(0,0,0,.5);
+    color: #a94442;
+    font-size: 2.5rem !important;
+}

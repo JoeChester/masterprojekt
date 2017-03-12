@@ -26,6 +26,7 @@ define(['text!./roboflatspectionBar.component.html', 'css!./roboflatspectionBar.
 
             self.isAuthenticated = ko.observable(false);
             self.offerId = ko.observable();
+            self.showAlert = ko.observable(false);
 
             //Check Login
             self.checkLogin = function () {
@@ -50,11 +51,27 @@ define(['text!./roboflatspectionBar.component.html', 'css!./roboflatspectionBar.
             //Robot Control functions
             self.isConnected = ko.observable(false);
 
+            self.handleAlert = function(data){
+                try{
+                    alertData = JSON.parse(data);
+                    if(alertData.body == "DIST"){
+                        self.showAlert(true);
+                        setTimeout(function(){
+                            self.showAlert(false);
+                        }, 2000); 
+                    }
+                } catch(e){
+                    console.error("Error while parsing Alert Data.");
+                    return;
+                }
+            }
+
             self.streamplayer = null;
             self.connectRobo = function () {
                 var canvas = document.getElementById('robostream-canvas');
                 var url = 'wss://fuldaflats.de:4747';
 
+                // JSMpeg WebSocket overwrites
                 JSMpeg.Source.WebSocket.prototype.onOpen = function () {
                     this.progress = 1;
                     this.established = true;
@@ -75,6 +92,15 @@ define(['text!./roboflatspectionBar.component.html', 'css!./roboflatspectionBar.
                         }.bind(this), this.reconnectInterval * 1000);
                     }
                 }
+
+                JSMpeg.Source.WebSocket.prototype.onMessage = function(ev) {
+                     if(typeof ev.data === "string" ){
+                        self.handleAlert(ev.data);
+                     }
+                    else if (this.destination) {
+                        this.destination.write(ev.data);
+                    }
+                };
 
                 self.streamplayer = new JSMpeg.Player(url, { canvas: canvas, poster:'/img/roboflat_loading_screen.png' });
             }     
