@@ -50,7 +50,9 @@
         <br>
 		<div class="row" data-bind="if: robotIsActive">
 			<div class="col-md-12 text-center">
-				<a data-bind="attr: { href: '/pages/roboflatspection?offerId' + offer().id }" type="submit" class="btn btn-template-main btn-template-primary">Roboflatspection</a>
+				<a data-bind="attr: { href: '/pages/roboflatspection?offerId=' + offer().id }" type="submit" class="btn btn-template-main btn-template-primary">
+				<img src="/img/roboflat_icon_white.png" class="robobutton"> Roboflatspection
+				</a>
 			</div>
 		</div>
 
