@@ -253,6 +253,7 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
                 });
             }
             self.checkRobot();
+            setInterval(self.checkRobot, 5000);
         }
 
         return {
