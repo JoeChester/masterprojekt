@@ -36,6 +36,8 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
             self.showTags = ko.observable(false);
             self.showField = ko.observable(true);
 
+            self.robotIsActive = ko.observable(false);
+
             //Check Login
             self.checkLogin = function () {
                 $.ajax({
@@ -171,7 +173,6 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
 
             loginCallbacks.push(self.getOfferDetails);
 
-
             //Favorite Functions
             self.setFavorite = function () {
                 self.isFavorite(true);
@@ -231,6 +232,27 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
                     }
                 });
             }
+
+            //Check if robot is active
+            self.checkRobot = function () {
+                $.ajax({
+                    method: "GET",
+                    url: 'https://fuldaflats.de:4747/' + self.offerId(),
+                    success: function (data, status, req) {
+                        if(data == "true"){
+                            self.robotIsActive(true);
+                        }
+                        else{
+                            self.robotIsActive(false);
+                        }
+                    },
+                    error: function (req, status, error) {
+                        console.log("error check robot")
+                        self.robotIsActive(false);
+                    }
+                });
+            }
+            self.checkRobot();
         }
 
         return {

@@ -48,7 +48,7 @@
 		</div>
 
         <br>
-		<div class="row">
+		<div class="row" data-bind="if: robotIsActive">
 			<div class="col-md-12 text-center">
 				<a data-bind="attr: { href: '/pages/roboflatspection?offerId' + offer().id }" type="submit" class="btn btn-template-main btn-template-primary">Roboflatspection</a>
 			</div>
