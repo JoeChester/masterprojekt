@@ -1,0 +1,74 @@
+/************************************************************
+ * File:            roboflatspectionBar.component.css
+ * Author:          Michelle Rothenbücher, Jonas Kleinkauf
+ * LastMod:         17.02.2017
+ * Description:     Custom CSS for roboflatspection bar.
+ ************************************************************/
+/* Special component css here and general css in main.css */
+
+.robostream {
+    width: 100%;
+    height: auto;
+    text-align: center;
+    overflow: hidden;
+}
+
+.left-ctr{
+    text-align: center;
+}
+
+.right-ctr{
+    text-align: center;
+}
+
+.btn-robo-ctr{
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.cam-ctr-margin{
+    margin-top: 4.2rem;
+}
+
+.robo-ctrs{
+    margin-top: 0.5rem;
+}
+
+.nopadding{
+    padding: 0px;
+}
+
+.margin-bottom{
+    margin-bottom: 1rem;
+}
+
+.ctr-label{
+    font-family: "Roboto", Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    background-color: none;
+    letter-spacing: 0.08em;
+    font-size: 1rem;
+}
+
+.alertRow{
+    margin: 0px;
+}
+
+.alertCol{
+    margin: 0px;
+    text-align: center;
+}
+
+.alertMsg{
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+    background-color: #FFFFFF;
+    border: 1px solid #a94442;
+    border-radius: 0px;
+    outline: 0;
+    -webkit-box-shadow: 0 3px 9px rgba(0,0,0,.5);
+    box-shadow: 0 3px 9px rgba(0,0,0,.5);
+    color: #a94442;
+    font-size: 2.5rem !important;
+}

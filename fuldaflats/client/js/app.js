@@ -1,7 +1,7 @@
 /************************************************************
  * File:            app.js
  * Author:          Patrick Hasenauer, Jonas Kleinkauf
- * LastMod:         02.12.2016
+ * LastMod:         17.02.2017
  * Description:     requirejs libraries registration and app loading.
  ************************************************************/
 
@@ -47,6 +47,7 @@ requirejs.config({
         'knockoutBootstrapSwitch': { 'deps': ['bootstrap', 'knockout'] },
         'knockoutTruncate': { 'deps': ['knockout', 'jquery'] },
         'knockoutFadeIn': { 'deps': ['knockout', 'jquery'] },
+        'jsmpeg': { 'deps': ['knockout', 'jquery'] }
     },
     paths: {
         css: '../bower_components/require-css/css.min',
@@ -73,7 +74,9 @@ requirejs.config({
         knockoutDate: './lib/knockout-date',
         customEventPolyfill: './lib/ie-custom-event-polyfill',
         knockoutTruncate: './lib/knockout-truncate',
-        knockoutFadeIn: './lib/knockout-fadeIn'
+        knockoutFadeIn: './lib/knockout-fadeIn',
+        jsmpeg: './lib/jsmpeg.min',
+        fastclick: './lib/fastclick'
     }
 });
 
@@ -86,7 +89,8 @@ window.onerror = function(messageOrEvent, source, lineno, colno, error) {
 requirejs(['app/appModel',
     'jquery', 'bootstrap', 'knockout', 'jqueryCookie', 'waypoints', 'jqueryConterup', 'leaflet',
     'jqueryParallax', /* 'front', */ 'bootstrapSwitch', 'owlCarousel', 'knockoutOwlCarousel', 'jqcloud', 'fuldaflatsApiClient',
-    'moment', 'knockoutDate', 'customEventPolyfill', 'knockoutBootstrapSwitch', 'bootstrapMultiselect', 'knockoutTruncate', 'knockoutFadeIn'
+    'moment', 'knockoutDate', 'customEventPolyfill', 'knockoutBootstrapSwitch', 'bootstrapMultiselect', 'knockoutTruncate', 
+    'knockoutFadeIn', 'jsmpeg', 'fastclick'
 ], function(app, $) {
     var event = new CustomEvent('scripts-loaded');
     document.dispatchEvent(event);

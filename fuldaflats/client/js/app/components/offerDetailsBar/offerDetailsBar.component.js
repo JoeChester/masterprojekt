@@ -1,7 +1,8 @@
 /************************************************************
  * File:            offerDetailsBar.component.js
- * Author:          Martin Herbener, Jonas Kleinkauf, Patrick Hasenauer
- * LastMod:         12.12.2016
+ * Author:          Martin Herbener, Jonas Kleinkauf, Patrick Hasenauer,
+ *                  Michelle Rothenbuecher
+ * LastMod:         12.03.2017
  * Description:     JS Component Handler offer Details Bar
  ************************************************************/
 
@@ -35,6 +36,8 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
 
             self.showTags = ko.observable(false);
             self.showField = ko.observable(true);
+
+            self.robotIsActive = ko.observable(false);
 
             //Check Login
             self.checkLogin = function () {
@@ -150,7 +153,11 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
                                 self.landlord(offerData.landlord);
                             }
                             if (self.offer().latitude && self.offer().longitude) {
+                                try{
                                 self.initDetailsMap();
+                                } catch(e){
+                                    console.error(e);
+                                }
                             }
                         }
                     }
@@ -166,7 +173,6 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
             }
 
             loginCallbacks.push(self.getOfferDetails);
-
 
             //Favorite Functions
             self.setFavorite = function () {
@@ -227,6 +233,28 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
                     }
                 });
             }
+
+            //Check if robot is active
+            self.checkRobot = function () {
+                $.ajax({
+                    method: "GET",
+                    url: 'https://fuldaflats.de:4747/' + self.offerId(),
+                    success: function (data, status, req) {
+                        if(data == "true"){
+                            self.robotIsActive(true);
+                        }
+                        else{
+                            self.robotIsActive(false);
+                        }
+                    },
+                    error: function (req, status, error) {
+                        console.log("error check robot")
+                        self.robotIsActive(false);
+                    }
+                });
+            }
+            self.checkRobot();
+            setInterval(self.checkRobot, 5000);
         }
 
         return {

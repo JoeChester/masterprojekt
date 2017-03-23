@@ -13,6 +13,7 @@ var chalk = require('chalk');
 var config = require('./config.json')[process.env.NODE_ENV || 'development'];
 var express = require('express');
 var app = require('./server/endpoints');
+//var expressWs = require('express-ws')(app);
 var startup_msg = require('./server/startup_msg');
 
 //Express Static Setup
@@ -33,7 +34,6 @@ app.use('/', express.static('client', clientOptions));
 app.use('/uploads', express.static('uploads'));
 //Test Data
 app.use('/test_api', express.static('server/test_api'));
-
 
 //Startup Express Application
 console.log("Starting Express App...");

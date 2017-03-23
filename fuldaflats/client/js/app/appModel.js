@@ -1,7 +1,7 @@
 /************************************************************
  * File:            appModel.js
  * Author:          Patrick Hasenauer, Jonas Kleinkauf
- * LastMod:         07.12.2016
+ * LastMod:         17.02.2017
  * Description:     App Model, page module loading and binding, primary app data.
  ************************************************************/
 define([
@@ -75,6 +75,7 @@ define([
             offerDetails: ko.observable({ url: "/pages/offerDetails", title: "Offer Details" }),
             search: ko.observable({ url: "/pages/search", title: "Search" }),
             termsOfUse: ko.observable({ url: "/pages/termsOfUse", title: "Terms Of Use" }),
+            roboflatspection: ko.observable({ url: "/pages/roboflatspection", title: "RoboFlatspection" }),
         };
 
         self.pagesModules = {
@@ -93,6 +94,7 @@ define([
             '/pages/termsofuse': "app/pageModules/termsOfUseModule",
 
             '/pages/homeWithExtendedSearch': "app/pageModules/homeModule",
+            '/pages/roboflatspection': "app/pageModules/roboflatspectionModule",
         }
 
         self.navigationBar = {
