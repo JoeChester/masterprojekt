@@ -2,7 +2,7 @@ Fuldaflats.de
 =============
 Masterproject HS Fulda Fall2016 Team 1
 
-**Application to be developed:** Online apartment rental site tailored to Fulda Student
+**Application to be developed:** Online apartment rental site tailored to Fulda Students
 
 ## Leaders:
 **Project leader:** Michelle Rothenbücher  
@@ -16,10 +16,10 @@ Masterproject HS Fulda Fall2016 Team 1
 **master**: stable version  
 **dev**: latest current development state
 
-## Weekly Documentation:  
+## Weekly documentation:  
 [TaskSchedule](https://www.dropbox.com/s/ckslouywg9wwy7h/Task%20Shedule.docx?dl=0)
 
-## Milestone Documents
+## Milestone documents
 ### Milestone 1
 - [FuldaFall 2016 Milestone 1 Team 1](https://github.com/JoeChester/masterprojekt/blob/dev/documentation/milestone1/FuldaFall%202016%20Milestone1%20Team1.pdf)
 - [FuldaFall 2016 Milestone1 Team 1 Submission Version 2](https://github.com/JoeChester/masterprojekt/blob/dev/documentation/milestone1/FuldaFall%202016%20Milestone1%20Team1.pdf)
@@ -48,11 +48,11 @@ Masterproject HS Fulda Fall2016 Team 1
     1. Go into folder `fuldaflats`
     2. Execute `node migrate.js`
     
-## Server Execution
+## Server execution
 1. Go into folder `fuldaflats`
 2. Execute `node index.js`
 
-## Execute Server as a background Service
+## Execute server as a background service
 You can use the node package [pm2](https://github.com/Unitech/pm2) to execute the fuldaflats server as a background service.
 
 
@@ -60,7 +60,7 @@ You can use the node package [pm2](https://github.com/Unitech/pm2) to execute th
 #### Start static website
 sudo pm2 start test_website.js --name="test_website"
 
-#### Start GitHub auto deployer
+#### Start github auto deployer
 sudo pm2 start gh_autodeploy.js --name="gh_autodeploy"
 
 #### Restart a specific / all services
