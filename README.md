@@ -22,7 +22,7 @@ Masterproject HS Fulda Fall2016 Team 1
 ## Milestone documents
 ### Milestone 1
 - [FuldaFall 2016 Milestone 1 Team 1](https://github.com/JoeChester/masterprojekt/blob/dev/documentation/milestone1/FuldaFall%202016%20Milestone1%20Team1.pdf)
-- [FuldaFall 2016 Milestone1 Team 1 Submission Version 2](https://github.com/JoeChester/masterprojekt/blob/dev/documentation/milestone1/FuldaFall%202016%20Milestone1%20Team1.pdf)
+- [FuldaFall 2016 Milestone 1 Team 1 Submission Version 2](https://github.com/JoeChester/masterprojekt/blob/dev/documentation/milestone1/FuldaFall%202016%20Milestone1%20Team1.pdf)
 
 ### Milestone 2
 - [FuldaFall 2016 Milestone 2 Team 1 Submission Version 1](https://github.com/JoeChester/masterprojekt/blob/dev/documentation/milestone2/FuldaFall%202016%20Milestone2%20Team1%20Submission%20Version%201.pdf)
@@ -54,7 +54,6 @@ Masterproject HS Fulda Fall2016 Team 1
 
 ## Execute server as a background service
 You can use the node package [pm2](https://github.com/Unitech/pm2) to execute the fuldaflats server as a background service.
-
 
 ## Presentation server commands
 #### Start static website
