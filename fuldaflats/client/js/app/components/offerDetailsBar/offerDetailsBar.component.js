@@ -65,7 +65,6 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
                             reviewsData[i].creationDate = moment(reviewsData[i].creationDate).format('L');
                             self.reviews.push(reviewsData[i]);
                         }
-                        console.log(self.reviews());
                     },
                     error: function (req, status, error) {
                         self.reviews.removeAll();
@@ -105,7 +104,6 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
                 }).addTo(detailsMap).bindPopup(popup);
 
                 var latlng = [self.offer().latitude, self.offer().longitude];
-                console.log(latlng);
                 L.marker(latlng, {
                     icon: iconBlue
                 }).addTo(detailsMap);
@@ -147,7 +145,6 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
                                     self.showField(true);
                                 }
                             }
-                            console.log(offerData);
                             self.offer(offerData);
                             if (offerData.landlord) {
                                 self.landlord(offerData.landlord);
@@ -262,7 +259,6 @@ define(['text!./offerDetailsBar.component.html', 'css!./offerDetailsBar.componen
                 createViewModel: function (params, componentInfo) {
                     // componentInfo contains for example the root element from the component template
                     var offerDetails = new OfferDetailsModel();
-                    window.offerDetails = offerDetails;
                     return offerDetails;
                 }
             },

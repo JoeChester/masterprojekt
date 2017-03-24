@@ -75,8 +75,6 @@ define(['text!./searchResultBar.component.html', 'css!./searchResultBar.componen
             self.selectedSortCriteria = ko.observable();
             self.selectedSortCriteria(self.sortCriteria()[0].fn);
             self.sortOffers = function(){
-                console.log("Sort Offers Called!");
-                console.log(self.selectedSortCriteria());
                 self.offers.sort(self.selectedSortCriteria().fn);
             }
 
@@ -101,9 +99,8 @@ define(['text!./searchResultBar.component.html', 'css!./searchResultBar.componen
                         self.loadedResults(true);
                     },
                     error: function (req, status, err) {
-                        console.log(status);
+                        console.log("Failed to get search results:");
                         console.log(err);
-                        console.log(req);
                         self.loadedResults(true);
                     }
                 });

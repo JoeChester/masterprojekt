@@ -16,9 +16,7 @@ define([
         ko.components.register("search-results", searchResultBarComponent);
 
         self.search = function() {
-            console.log("GO SEARCH GETS HERE");
             var searchQuery = ko.toJSON(model.queryParameter);
-            console.log(searchQuery);
             $.ajax({
                 url: "/api/offers/search",
                 type: "post",
