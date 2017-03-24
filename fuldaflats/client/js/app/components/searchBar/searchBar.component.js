@@ -187,7 +187,6 @@ define(['text!./searchBar.component.html', 'css!./searchBar.component.css',
                 createViewModel: function (params, componentInfo) {
                     // componentInfo contains for example the root element from the component template
                     var viewModel = new SearchPanelModel(params);
-                    window.m = viewModel;
                     return viewModel;
                 }
             },

@@ -56,7 +56,6 @@ define(['text!./editProfilePictureBar.component.html', 'css!./editProfilePicture
                     mimeType: "multipart/form-data",
                     data: form,
                     success: function (data, status, req) {
-                        console.log("SUCCESS!");
                         window.location = "/pages/myProfile";
                         return;
                     },
@@ -72,7 +71,6 @@ define(['text!./editProfilePictureBar.component.html', 'css!./editProfilePicture
 
                 var pictureData = {};
                 pictureData.img = pictureUrl;
-                console.log(pictureData);
                 $.ajax({
                     method: "PUT",
                     url: "/api/users/standardPicture",
@@ -87,7 +85,6 @@ define(['text!./editProfilePictureBar.component.html', 'css!./editProfilePicture
                             window.location = "/pages/myProfile";
                             return;
                         }
-                        //errorCallback(error);
                         console.log(req);
                     }
                 });

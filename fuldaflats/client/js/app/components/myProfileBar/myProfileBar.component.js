@@ -57,7 +57,6 @@ define(['text!./myProfileBar.component.html', 'css!./myProfileBar.component.css'
                             }
                         }
 
-                        console.log(data);
                         self.currentUser(data);
                 },
                 error: function (req, status, err) {
@@ -70,7 +69,6 @@ define(['text!./myProfileBar.component.html', 'css!./myProfileBar.component.css'
 
             self.showTab = function (scope, event) {
                 event.preventDefault()
-                console.log(event);
                 $(event.currentTarget).tab('show')
             }
 
@@ -79,8 +77,7 @@ define(['text!./myProfileBar.component.html', 'css!./myProfileBar.component.css'
         return {
             viewModel: {
                 createViewModel: function (params, componentInfo) {
-                    window.m = new MyProfileModel(params);
-                    return m;
+                    return new MyProfileModel(params);
                 }
             },
             template: componentTemplate

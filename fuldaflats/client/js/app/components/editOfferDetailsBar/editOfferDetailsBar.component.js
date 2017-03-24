@@ -76,8 +76,6 @@ define(['text!./editOfferDetailsBar.component.html',
                     url: "/api/users/me",
                     contentType: "application/json",
                     success: function (data, status, req) {
-                        console.log("User-Data:");
-                        console.log(data);
                         self.currentUser(data);
                         self.isAuthenticated(true);
                     },
@@ -107,8 +105,6 @@ define(['text!./editOfferDetailsBar.component.html',
                                 offerData.mediaObjects[i].carouselActive = false;
                             }
                             offerData.mediaObjects[0].carouselActive = true;
-                            console.log("Offer-Data:");
-                            console.log(offerData);
                             self.offer(offerData);
                             if (offerData.status == 1) {
                                 self.status(true);
