@@ -13,7 +13,7 @@ Masterproject HS Fulda Fall2016 Team 1
 **Presentation preparation:** Thursdays 8:00 - 9:30 or after lunch
 
 ## Branches:  
-**master**: stable version 
+**master**: stable version  
 **dev**: latest current development state
 
 ## Weekly Documentation:  
@@ -29,3 +29,28 @@ Masterproject HS Fulda Fall2016 Team 1
 
 ### Milestone 3
 - [FuldaFall 2016 Milestone 3 Team 1 Submission Version 1.pdf](https://github.com/JoeChester/masterprojekt/blob/dev/documentation/milestone3/FuldaFall%202016%20Milestone%203%20Team1%20Submission%20Version%201.pdf)
+
+## Installation
+1. Install bower package with node package manager (npm)
+    1. Execute `npm install -g bower`    
+2. Install front-end client dependent packages
+    1. Go into folder `fuldaflats/client`
+    2. `bower install`
+3. Install back-end server dependent packages
+    1. Go into folder `fuldaflats`
+    2. Execute `npm install`
+4. Install mysql server
+5. Configure back-end server
+   1. Go into folder `fuldaflats`
+   2. Update `config.json` with your mysql connection informations.
+      1. Optional you can change the http server port and the upload folder
+4. Initialize mysql database
+    1. Go into folder `fuldaflats`
+    2. Execute `node migrate.js`
+    
+## Server Execution
+1. Go into folder `fuldaflats`
+2. Execute `node index.js`
+
+## Execute Server as a background Service
+You can use the node package [pm2](https://github.com/Unitech/pm2) to execute the fuldaflats server as a background service.
