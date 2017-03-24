@@ -54,3 +54,15 @@ Masterproject HS Fulda Fall2016 Team 1
 
 ## Execute Server as a background Service
 You can use the node package [pm2](https://github.com/Unitech/pm2) to execute the fuldaflats server as a background service.
+
+
+## Presentation server commands
+#### Start static website
+sudo pm2 start test_website.js --name="test_website"
+
+#### Start GitHub auto deployer
+sudo pm2 start gh_autodeploy.js --name="gh_autodeploy"
+
+#### Restart a specific / all services
+sudo pm2 reload <service name>
+sudo pm2 reload all
